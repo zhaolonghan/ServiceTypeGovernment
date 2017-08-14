@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="55dp"
+     tools:context=".MainActivity"
+    android:background="@color/btnblue"
+    android:orientation="horizontal">
+
+   <TextView
+       android:id="@+id/tv_back"
+       android:text="@string/back" android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="10dp"
+       android:layout_centerVertical="true"
+       android:textSize="55px"
+       android:textColor="@color/white"
+       android:layout_alignParentLeft="true"
+       />
+    <TextView
+        android:id="@+id/tv_title"
+        android:text="@string/home" android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="70px"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true" />
+</RelativeLayout>
