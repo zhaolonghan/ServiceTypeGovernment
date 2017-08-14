@@ -19,6 +19,9 @@ import com.amap.api.location.AMapLocationListener;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.view.SlideShowView;
 
+/**
+ * test
+ */
 public class CheckOrderActivity extends BaseActivity {
 
 
