@@ -26,6 +26,7 @@ public class CheckOrderActivity extends BaseActivity {
 
 
     private Button btDetail;
+    private Button btStartCheck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,15 @@ public class CheckOrderActivity extends BaseActivity {
                 Toast.makeText(CheckOrderActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(CheckOrderActivity.this, CompanyDetailActivity.class);
+                CheckOrderActivity.this.startActivity(intent);
+            }
+        });
+        btStartCheck=(Button)this.findViewById(R.id.bt_start_check);
+        btStartCheck.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Toast.makeText(CheckOrderActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(CheckOrderActivity.this, CompanyCheckListActivity.class);
                 CheckOrderActivity.this.startActivity(intent);
             }
         });

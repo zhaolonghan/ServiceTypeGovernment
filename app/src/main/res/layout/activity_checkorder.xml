@@ -332,6 +332,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/check_btn_style"
+                android:id="@+id/bt_start_check"
                 android:text="开始检查"
                 android:textColor="@color/white"
                 android:layout_alignParentRight="true"
