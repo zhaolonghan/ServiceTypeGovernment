@@ -28,6 +28,11 @@ public class IndexActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+
+        Intent intent=getIntent();
+        String username=intent.getStringExtra("username");
+        Toast.makeText(IndexActivity.this, username, Toast.LENGTH_SHORT).show();
+
         linFood=(LinearLayout)this.findViewById(R.id.lin_food);
         linFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {

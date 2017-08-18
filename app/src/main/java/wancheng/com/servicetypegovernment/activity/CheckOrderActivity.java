@@ -35,7 +35,6 @@ public class CheckOrderActivity extends BaseActivity {
         btDetail=(Button)this.findViewById(R.id.bt_detail);
         btDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Toast.makeText(CheckOrderActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(CheckOrderActivity.this, CompanyDetailActivity.class);
                 CheckOrderActivity.this.startActivity(intent);
@@ -44,7 +43,6 @@ public class CheckOrderActivity extends BaseActivity {
         btStartCheck=(Button)this.findViewById(R.id.bt_start_check);
         btStartCheck.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Toast.makeText(CheckOrderActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(CheckOrderActivity.this, CompanyCheckListActivity.class);
                 CheckOrderActivity.this.startActivity(intent);

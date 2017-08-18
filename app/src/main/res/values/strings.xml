@@ -5,4 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="back">返回</string>
     <string name="home">首页</string>
+    <string name="next">下一步</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+
+
+
+    <string name="gaozhishixiang">   我们是监督检查人员，现出示执法证件。我们依法对你（单位）进行日常监督检查，请予配合。\n
+    依照法律规定，监督检查人员少于两人或者所出示的执法证件与其身份不符的，你（单位）有权拒绝检查；对于监督检查人员有下列情形之一的，你（单位）有权申请回避：（1）系当事人或当事人的近亲属；（2）与本人或本人近亲属有利害关系；（3）与当事人有其他关系，可能影响公正执法的。
+</string>
 </resources>
