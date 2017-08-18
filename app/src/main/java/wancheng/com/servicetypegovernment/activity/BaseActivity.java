@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 
 /**
- * ½çÃæActivity»ùÀà
+ * ç•Œé¢ActivityåŸºç±»
  *
  * @author hanzl
  *
@@ -24,13 +24,13 @@ import android.widget.Toast;
 @SuppressLint("HandlerLeak")
 public  class BaseActivity extends Activity {
 
-    // µÈ´ıÌáÊ¾¿ò
+    // ç­‰å¾…æç¤ºæ¡†
     protected ProgressDialog pd;
 
-    // ĞÅÏ¢¶Ô»°¿ò
+    // ä¿¡æ¯å¯¹è¯æ¡†
     protected Dialog dialog;
 
-    // ´íÎóĞÅÏ¢
+    // é”™è¯¯ä¿¡æ¯
     protected String errorMsg = "";
     @SuppressLint("ShowToast")
     public Handler handler = new Handler() {
@@ -41,54 +41,54 @@ public  class BaseActivity extends Activity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    // Ë¢ĞÂÁĞ±í
+                    // åˆ·æ–°åˆ—è¡¨
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     updateListView();
                     break;
                 case 2:
-                    // ³É¹¦
+                    // æˆåŠŸ
                     pd.dismiss();
                     showDialog(2);
                     break;
                 case 3:
-                    // Ê§°Ü
+                    // å¤±è´¥
                     pd.dismiss();
                     showDialog(3);
                     break;
                 case 4:
-                    // Òì³£
+                    // å¼‚å¸¸
                     exhand();
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     showDialog(4);
                     break;
                 case 5:
-                    // µ¯³öÍË³ö¶Ô»°¿ò
+                    // å¼¹å‡ºé€€å‡ºå¯¹è¯æ¡†
                     showDialog(5);
                     break;
                 case 6:
-                    // ÍË³ö
+                    // é€€å‡º
                     pd.dismiss();
                     finishActivity();
                     break;
                 case 10:
-                    // sessionÊ§Ğ§ÌáÊ¾
+                    // sessionå¤±æ•ˆæç¤º
                     pd.dismiss();
                     showDialog(10);
                     break;
                 case 11:
-                    // ´¦ÀíÎ´²¶»ñÒì³£
+                    // å¤„ç†æœªæ•è·å¼‚å¸¸
                     exhand();
                     pd.dismiss();
                     break;
                 case 12:
-                    // Ö»¹Ø±Õ½ø¶ÈÌõ
+                    // åªå…³é—­è¿›åº¦æ¡
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     break;
                 case 13:
-                    // ¹Ø±Õ½ø¶ÈÌõ£¬Toastµ¯³ö´«µİÎÄ×Ö
+                    // å…³é—­è¿›åº¦æ¡ï¼ŒToastå¼¹å‡ºä¼ é€’æ–‡å­—
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     if(msg.obj!=null){
@@ -99,7 +99,7 @@ public  class BaseActivity extends Activity {
                     updateView();
                     break;
                 case 14:
-                    // Ë¢ĞÂÒ³Ãæ
+                    // åˆ·æ–°é¡µé¢
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     updateView();
@@ -112,7 +112,7 @@ public  class BaseActivity extends Activity {
                         Toast.makeText(getApplicationContext(), msgtxt_obj,Toast.LENGTH_SHORT).show();
                     break;
                 case 16:
-                    // ¹Ø±Õ½ø¶ÈÌõ£¬Toastµ¯³ö´«µİÎÄ×Ö
+                    // å…³é—­è¿›åº¦æ¡ï¼ŒToastå¼¹å‡ºä¼ é€’æ–‡å­—
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     if(msg.obj!=null){
@@ -123,7 +123,7 @@ public  class BaseActivity extends Activity {
                     finishOwn();
                     break;
                 case 17:
-                    // ¹Ø±Õ½ø¶ÈÌõ£¬Toastµ¯³ö´«µİÎÄ×Ö
+                    // å…³é—­è¿›åº¦æ¡ï¼ŒToastå¼¹å‡ºä¼ é€’æ–‡å­—
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     if(msg.obj!=null){
@@ -134,7 +134,7 @@ public  class BaseActivity extends Activity {
                     finishOwn();
                     break;
                 case 18:
-                    // ¹Ø±Õ½ø¶ÈÌõ£¬Toastµ¯³ö´«µİÎÄ×Ö
+                    // å…³é—­è¿›åº¦æ¡ï¼ŒToastå¼¹å‡ºä¼ é€’æ–‡å­—
                     if (pd != null && pd.isShowing())
                         pd.dismiss();
                     if(msg.obj!=null){
@@ -162,11 +162,11 @@ public  class BaseActivity extends Activity {
     protected Dialog onCreateDialog(int id) {
 
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle("ÏµÍ³ÌáÊ¾");
+        b.setTitle("ç³»ç»Ÿæç¤º");
         switch (id) {
             case 2:
-                b.setMessage("µÇÂ¼³É¹¦£¡");
-                b.setNeutralButton("È· ¶¨", new DialogInterface.OnClickListener() {
+                b.setMessage("ç™»å½•æˆåŠŸï¼");
+                b.setNeutralButton("ç¡® å®š", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -174,15 +174,15 @@ public  class BaseActivity extends Activity {
                 break;
             case 3:
                 b.setMessage(errorMsg);
-                b.setNeutralButton("È· ¶¨", new DialogInterface.OnClickListener() {
+                b.setNeutralButton("ç¡® å®š", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
                 break;
             case 4:
-                b.setMessage("ÄúµÄÍøÂç²»¸øÁ¦£¬Çë¼ì²éÍøÂç¡£");
-                b.setNeutralButton("È· ¶¨", new DialogInterface.OnClickListener() {
+                b.setMessage("æ‚¨çš„ç½‘ç»œä¸ç»™åŠ›ï¼Œè¯·æ£€æŸ¥ç½‘ç»œã€‚");
+                b.setNeutralButton("ç¡® å®š", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -190,13 +190,13 @@ public  class BaseActivity extends Activity {
                 break;
 
             case 5:
-                b.setMessage("ÊÇ·ñÈ·¶¨ÍË³ö£¿");
-                b.setPositiveButton("È· ¶¨", new DialogInterface.OnClickListener() {
+                b.setMessage("æ˜¯å¦ç¡®å®šé€€å‡ºï¼Ÿ");
+                b.setPositiveButton("ç¡® å®š", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         logout();
                     }
                 });
-                b.setNegativeButton("È¡ Ïû", new DialogInterface.OnClickListener() {
+                b.setNegativeButton("å– æ¶ˆ", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -204,7 +204,7 @@ public  class BaseActivity extends Activity {
                 break;
             case 6:
                 b.setMessage("");
-                b.setNeutralButton("È· ¶¨", new DialogInterface.OnClickListener() {
+                b.setNeutralButton("ç¡® å®š", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -212,7 +212,7 @@ public  class BaseActivity extends Activity {
                 break;
             case 7:
                 b.setMessage("");
-                b.setNeutralButton("È· ¶¨", new DialogInterface.OnClickListener() {
+                b.setNeutralButton("ç¡® å®š", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -238,16 +238,16 @@ public  class BaseActivity extends Activity {
     }
 
     /**
-     * Ë¢ĞÂÁĞ±í
+     * åˆ·æ–°åˆ—è¡¨
      */
     public void updateListView() {}
     /**
-     * Ë¢ĞÂÒ³Ãæ
+     * åˆ·æ–°é¡µé¢
      */
     public void updateView() {}
 
     /**
-     * ×ªµ½Ê×Ò³Ãæ
+     * è½¬åˆ°é¦–é¡µé¢
      */
     protected void toStartactivity() {
         // Intent i = new Intent(BaseListActivity.this, LoginActivity.class);
@@ -257,9 +257,9 @@ public  class BaseActivity extends Activity {
     }
 
     /**
-     * ÊÕ²Øµ¥»÷¼àÌı
+     * æ”¶è—å•å‡»ç›‘å¬
      *
-     * @param id
+     * @param
      * @return
      */
     android.content.DialogInterface.OnClickListener getFavoriteListener() {
@@ -267,9 +267,9 @@ public  class BaseActivity extends Activity {
     }
 
     /**
-     * ÊÕ²Øµ¥»÷¼àÌı
+     * æ”¶è—å•å‡»ç›‘å¬
      *
-     * @param id
+     * @param
      * @return
      */
     android.content.DialogInterface.OnClickListener getFavoriteListener1() {
@@ -277,7 +277,7 @@ public  class BaseActivity extends Activity {
     }
 
     /**
-     * Òì³£Ê±´¦Àí·½·¨
+     * å¼‚å¸¸æ—¶å¤„ç†æ–¹æ³•
      */
     protected void exhand() {
 
@@ -288,7 +288,7 @@ public  class BaseActivity extends Activity {
     }
 
     /**
-     * ÍË³ö
+     * é€€å‡º
      *
      */
     protected void logout() {
@@ -308,7 +308,7 @@ public  class BaseActivity extends Activity {
     }
 
     /**
-     * ÅĞ¶ÏsÊÇ·ñÎª¿Õ£¬Îª¿Õ·µ»Ø¿Õ×Ö·û´®
+     * åˆ¤æ–­sæ˜¯å¦ä¸ºç©ºï¼Œä¸ºç©ºè¿”å›ç©ºå­—ç¬¦ä¸²
      *
      * @param s
      * @return
