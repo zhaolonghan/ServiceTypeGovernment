@@ -31,7 +31,6 @@
                 android:layout_height="wrap_content"
                 android:minWidth="600px"
                 android:textSize="55px"
-                android:focusableInTouchMode="false"
                 android:background="@drawable/textview_style"
                 />
         </LinearLayout>
@@ -61,7 +60,6 @@
                 android:minWidth="600px"
                 android:textSize="55px"
                 android:inputType="textPassword"
-                android:focusableInTouchMode="false"
                 android:background="@drawable/textview_style"
                 />
         </LinearLayout>

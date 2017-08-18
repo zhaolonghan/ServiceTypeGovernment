@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string-array name="names">
+        <item>张三</item>
+        <item>李四 </item>
+        <item>王五</item>
+        <item>郑克俊</item>
+        <item>邓冬冬</item>
+    </string-array>
+</resources>
