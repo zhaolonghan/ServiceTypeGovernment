@@ -4,13 +4,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:id="@+id/rela_1"
-        android:layout_below="@+id/lin_question"
         android:layout_height="wrap_content">
     <TextView
         android:id="@+id/newsid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50px"
+        android:textSize="18dp"
         android:visibility="gone"
         />
         <TextView
@@ -20,7 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textSize="50px"
+            android:textSize="18dp"
             android:textColor="@color/black"
             />
 
@@ -31,7 +30,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
-            android:textSize="45px"
+            android:textSize="16dp"
             android:textColor="@color/red"
             />
         <TextView
@@ -39,17 +38,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/newslist1"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:textSize="40px"
+            android:textSize="14dp"
             />
-        <View
-            android:id="@+id/view_1"
-            android:layout_below="@id/tv_content"
-            android:layout_marginTop="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"/>
+
     </RelativeLayout>
 
 

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -59,7 +58,7 @@ public class NewAdspter extends BaseAdapter
         if(convertView==null){
             zujian=new Zujian();
             //获得组件，实例化组件
-            convertView=layoutInflater.inflate(R.layout.view_new, null);
+            convertView=layoutInflater.inflate(R.layout.item_news, null);
             zujian.id=(TextView)convertView.findViewById(R.id.newsid);
             zujian.title=(TextView)convertView.findViewById(R.id.newslist1);
             zujian.time=(TextView)convertView.findViewById(R.id.tv_time);

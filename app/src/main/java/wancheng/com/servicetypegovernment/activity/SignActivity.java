@@ -29,7 +29,7 @@ public class SignActivity extends BaseActivity {
         save1=(Button)findViewById(R.id.save1);
         mPathView=(LinePathView)findViewById(R.id.line_path_view);
         setResult(50);
-        //设置保存监听
+        //璁剧疆淇濆瓨鐩戝惉
         save1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {    if (mPathView.getTouched()) {
@@ -51,7 +51,7 @@ public class SignActivity extends BaseActivity {
                     }
                 } else {
 
-                    Toast.makeText(SignActivity.this, "您没有签名~", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignActivity.this, "鎮ㄦ病鏈夌鍚崀", Toast.LENGTH_SHORT).show();
                 }
             }
         });

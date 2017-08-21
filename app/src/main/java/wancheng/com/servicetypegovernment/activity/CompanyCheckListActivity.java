@@ -22,7 +22,7 @@ public class CompanyCheckListActivity extends BaseActivity {
         bt_check=(Button)findViewById(R.id.bt_check);
         bt_check.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Toast.makeText(CompanyCheckListActivity.this, "跳转告知页面", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CompanyCheckListActivity.this, " 跳转告知页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(CompanyCheckListActivity.this, InformActivity.class);
                 CompanyCheckListActivity.this.startActivity(intent);

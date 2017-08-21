@@ -24,7 +24,7 @@
             android:layout_below="@+id/sv_photo"
             android:layout_marginTop="5dp"
             android:layout_width="fill_parent"
-            android:layout_height="228dp"
+            android:layout_height="210dp"
             android:background="@drawable/boder_view"
             android:layout_gravity="center"
             android:orientation="vertical"
@@ -47,14 +47,14 @@
                     <ImageView
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/food"/>
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="50px"
+                        android:textSize="16dp"
                         android:textColor="@color/btnblue"
                         android:text="食品企业"/>
 
@@ -70,14 +70,14 @@
                     <ImageView
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/medkit"/>
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="50px"
+                        android:textSize="16dp"
                         android:textColor="@color/btnblue"
                         android:text="药品企业"/>
 
@@ -93,14 +93,14 @@
                     <ImageView
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/asterisk"/>
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="50px"
+                        android:textSize="16dp"
                         android:textColor="@color/btnblue"
                         android:text="保健品企业"/>
                 </LinearLayout>
@@ -122,14 +122,14 @@
                     <ImageView
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/briefcase"/>
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="50px"
+                        android:textSize="16dp"
                         android:textColor="@color/btnblue"
                         android:text="化妆品企业"/>
 
@@ -145,14 +145,14 @@
                     <ImageView
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/legal"/>
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="50px"
+                        android:textSize="16dp"
                         android:textColor="@color/btnblue"
                         android:text="医疗器械企业"/>
 
@@ -168,14 +168,14 @@
                     <ImageView
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
-                        android:layout_width="65dp"
-                        android:layout_height="65dp"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
                         android:src="@drawable/wrench"/>
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="50px"
+                        android:textSize="16dp"
                         android:textColor="@color/btnblue"
                         android:text="特种设备\n使用单位"/>
                 </LinearLayout>
@@ -184,7 +184,6 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:layout_below="@+id/lin_check"
@@ -214,7 +213,7 @@
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="55px"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/btnblue"
                         android:text="新闻动态"/>
@@ -227,7 +226,7 @@
                     <View
                         android:layout_width="1dp"
                         android:layout_centerInParent="true"
-                        android:layout_height="100px"
+                        android:layout_height="30dp"
                         android:background="@color/black"
                         android:layout_alignParentRight="true"
                         ></View>
@@ -250,7 +249,7 @@
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="55px"
+                        android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="通知公告"/>
@@ -262,7 +261,7 @@
                         ></View>
                     <View
                         android:layout_width="1dp"
-                        android:layout_height="100px"
+                        android:layout_height="30dp"
                         android:layout_centerInParent="true"
                         android:background="@color/black"
                         android:layout_alignParentRight="true"
@@ -286,7 +285,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="5dp"
                         android:textStyle="bold"
-                        android:textSize="55px"
+                        android:textSize="18dp"
                         android:textColor="@color/black"
                         android:text="法律法规"/>
                     <View
@@ -294,13 +293,6 @@
                         android:layout_height="2dp"
                         android:background="@color/white"
                         android:layout_alignParentBottom="true"
-                        ></View>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="100px"
-                        android:layout_centerInParent="true"
-                        android:background="@color/black"
-                        android:layout_alignParentRight="true"
                         ></View>
                 </RelativeLayout>
             </LinearLayout>

@@ -33,11 +33,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/black"
-            android:textSize="65px"
+            android:textSize="22dp"
             android:layout_marginTop="10dp"
             android:text="告知页"/>
             <View
-                android:layout_width="200px"
+                android:layout_width="65dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="0.01dp"
                 android:background="@color/black"/>
@@ -52,14 +52,14 @@
                 android:text="被检查单位："
                 android:gravity="right"
                 android:textColor="@color/black"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
                 android:text="天津是大河食品有限公司"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
         </LinearLayout>
             <View
                 android:layout_width="fill_parent"
@@ -75,7 +75,7 @@
                 android:textColor="@color/black"
                 android:text="地址："
                 android:gravity="right"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_marginRight="10dp"
                 android:focusableInTouchMode="false"
                 android:text="天津市南开区什么什么什么道路"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
         </LinearLayout>
             <View
                 android:layout_width="fill_parent"
@@ -100,10 +100,11 @@
                 android:text="检查人员1："
                 android:gravity="right"
                 android:textColor="@color/black"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
             <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/life_spinner_style"
                 android:entries="@array/names"/>
         </LinearLayout>
             <View
@@ -121,10 +122,11 @@
             android:text="检查人员2："
             android:gravity="right"
             android:textColor="@color/black"
-            android:textSize="45px"/>
+            android:textSize="16dp"/>
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/life_spinner_style"
             android:entries="@array/names"/>
         </LinearLayout>
             <View
@@ -142,10 +144,11 @@
                     android:text="检查时间："
                     android:gravity="right"
                     android:textColor="@color/black"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <EditText
                     android:layout_width="200dp"
                      android:editable="false"
+                    android:textSize="16dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/ed_date" />
             </LinearLayout>
@@ -164,7 +167,7 @@
                     android:layout_gravity="center_vertical"
                     android:text="告知事项："
                     android:gravity="right"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -172,7 +175,7 @@
                     android:layout_marginRight="10dp"
                     android:id="@+id/tv_gaozhi"
                     android:text="天津市南开区什么什么什么道路"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
             </LinearLayout>
             <View
                 android:layout_width="fill_parent"
@@ -189,14 +192,14 @@
                 android:layout_gravity="center_vertical"
                 android:text="问："
                 android:gravity="right"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_marginRight="10dp"
                 android:text="你（单位）是否申请回避？"
-                android:textSize="45px"/>
+                android:textSize="16dp"/>
         </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -209,12 +212,12 @@
                     android:layout_gravity="center_vertical"
                     android:text="答："
                     android:gravity="right"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <RadioGroup android:id="@+id/radioGroup" android:contentDescription="是否" android:layout_width="wrap_content"
                     android:orientation="horizontal" android:layout_height="wrap_content">
-                   <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_yes"
+                   <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_yes" android:textSize="16dp"
                        android:textColor="@color/black" android:text="是"></RadioButton>
-                     <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_no"
+                     <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_no" android:textSize="16dp"
                          android:textColor="@color/black" android:text="否" android:checked="true"></RadioButton>
                     </RadioGroup>
             </LinearLayout>
@@ -233,10 +236,10 @@
                     android:layout_gravity="center_vertical"
                     android:text="被检查单位签字："
                     android:gravity="right"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:id="@+id/iv_addsign"
                     android:layout_margin="5dp"
                     android:background="@drawable/add_img"/>
@@ -256,11 +259,12 @@
                     android:layout_gravity="center_vertical"
                     android:text="日期："
                     android:gravity="right"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <EditText
                     android:layout_width="200dp"
                     android:editable="false"
                     android:layout_height="wrap_content"
+                    android:textSize="16dp"
                     android:id="@+id/ed_date2" />
             </LinearLayout>
             <View
@@ -278,10 +282,10 @@
                     android:layout_gravity="center_vertical"
                     android:text="检查单位签字："
                     android:gravity="right"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
                     android:layout_margin="5dp"
                     android:id="@+id/iv_addsign2"
                     android:background="@drawable/add_img"/>
@@ -301,10 +305,11 @@
                     android:layout_gravity="center_vertical"
                     android:text="日期："
                     android:gravity="right"
-                    android:textSize="45px"/>
+                    android:textSize="16dp"/>
                 <EditText
                     android:layout_width="200dp"
                     android:editable="false"
+                    android:textSize="16dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/ed_date3" />
             </LinearLayout>
