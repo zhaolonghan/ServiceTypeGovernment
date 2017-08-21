@@ -1,21 +1,34 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.bean.TopBean;
 
-public class CompanyDetailActivity extends BaseActivity {
+public class CheckDetailActivity extends BaseActivity {
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_detail);
+        setContentView(R.layout.activity_check_detail);
+//        bt_check=(Button)findViewById(R.id.bt_check);
+//        bt_check.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View arg0) {
+//                Toast.makeText(CheckDetailActivity.this, " 跳转告知页面", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent();
+//                intent.setClass(CheckDetailActivity.this, InformActivity.class);
+//                CheckDetailActivity.this.startActivity(intent);
+//            }
+//        });
 
-        TopBean topBean=new TopBean("企业详情","返回","",true,false);
-        getTopView(topBean);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

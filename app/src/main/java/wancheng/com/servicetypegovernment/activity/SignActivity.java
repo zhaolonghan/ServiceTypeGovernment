@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.view.LinePathView;
 
 public class SignActivity extends BaseActivity {
@@ -61,7 +62,8 @@ public class SignActivity extends BaseActivity {
                 mPathView.clear();
             }
         });
-
+        TopBean topBean=new TopBean("签字版","返回","",true,false);
+        getTopView(topBean);
 
     }
     @Override

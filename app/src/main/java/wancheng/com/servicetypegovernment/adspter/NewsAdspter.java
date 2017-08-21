@@ -17,13 +17,13 @@ import wancheng.com.servicetypegovernment.R;
 /**
  * Created by john on 2017/8/17.
  */
-public class NewAdspter extends BaseAdapter
+public class NewsAdspter extends BaseAdapter
 {
 
     private List<Map<String, Object>> data;
     private LayoutInflater layoutInflater;
     private Context context;
-    public NewAdspter(Context context,List<Map<String, Object>> data){
+    public NewsAdspter(Context context, List<Map<String, Object>> data){
         this.context=context;
         this.data=data;
         this.layoutInflater=LayoutInflater.from(context);

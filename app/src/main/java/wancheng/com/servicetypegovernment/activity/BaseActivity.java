@@ -6,13 +6,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.TopBean;
 
 
 /**
@@ -32,6 +38,9 @@ public  class BaseActivity extends Activity {
 
     // 错误信息
     protected String errorMsg = "";
+    protected  TextView tv_title;
+    protected TextView tv_left;
+    protected TextView tv_right;
     @SuppressLint("ShowToast")
     public Handler handler = new Handler() {
         @SuppressWarnings("deprecation")
@@ -313,11 +322,62 @@ public  class BaseActivity extends Activity {
      * @param s
      * @return
      */
-    public String testStringNull(String s) {
+    protected String testStringNull(String s) {
         if (s == null) {
             return "";
         }
         return s;
     }
+    public void getTopView(TopBean topBean){
+        tv_title=(TextView)findViewById(R.id.tv_title);
+        tv_left=(TextView)findViewById(R.id.tv_left);
+        tv_right=(TextView)findViewById(R.id.tv_right);
+        tv_title.setText(topBean.getTitle());
+        if(topBean.isLeft()){
+            tv_left.setVisibility(View.VISIBLE);
+            tv_left.setText(topBean.getLeft());
+            tv_left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
 
+        }else{
+            tv_left.setVisibility(View.GONE);
+        }
+        if(topBean.isRight()){
+            tv_right.setVisibility(View.VISIBLE);
+            tv_right.setText(topBean.getRight());
+        }else{
+            tv_right.setVisibility(View.GONE);
+        }
+    }
+    protected void showNormalDialog(String title,String context){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setTitle(title);
+        normalDialog.setMessage(context);
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
 }

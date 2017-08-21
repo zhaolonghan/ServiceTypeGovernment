@@ -17,6 +17,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.view.SlideShowView;
 
 /**
@@ -48,7 +49,9 @@ public class CheckOrderActivity extends BaseActivity {
                 CheckOrderActivity.this.startActivity(intent);
             }
         });
-
+        Intent intent=getIntent();
+        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
+        getTopView(topBean);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

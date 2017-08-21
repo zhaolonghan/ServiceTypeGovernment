@@ -28,8 +28,8 @@ public class MainActivity extends BaseActivity {
         username=ed.getText().toString();
 
         final EditText ed2=(EditText)findViewById(R.id.editText2);
-
-
+        ed.clearFocus();
+        ed2.clearFocus();
         btnLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 

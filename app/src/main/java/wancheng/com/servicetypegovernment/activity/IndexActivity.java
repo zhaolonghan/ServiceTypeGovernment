@@ -23,12 +23,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.adspter.NewAdspter;
+import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
+import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.view.SlideShowView;
 
 public class IndexActivity extends BaseActivity {
@@ -43,7 +43,7 @@ public class IndexActivity extends BaseActivity {
     private TextView tvlNotice;//通知公告
     private TextView tvlLaw;//法律法规
     List<Map<String, Object>>  listnews;
-    private NewAdspter madapter = null;
+    private NewsAdspter madapter = null;
     private View  vHead;
     /*
     * 新闻
@@ -62,15 +62,17 @@ public class IndexActivity extends BaseActivity {
         listnews= newlistcontext(1);
         listView=(ListView)findViewById(R.id.newslist);
         listView.addHeaderView(vHead);
-        madapter = new NewAdspter(this, listnews);
+        madapter = new NewsAdspter(this, listnews);
         listView.setAdapter(madapter);
         Log.e("test!!!!!!!!!!!!!!!!!!","11111111111111111111111111111111111111");
 
         linFood=(LinearLayout)this.findViewById(R.id.lin_food);
         linFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                final TextView tv_food=(TextView)findViewById(R.id.tv_food);
                 Toast.makeText(IndexActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
+                intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(IndexActivity.this, CheckOrderActivity.class);
                 IndexActivity.this.startActivity(intent);
             }
@@ -82,19 +84,6 @@ public class IndexActivity extends BaseActivity {
         relNoticeListName=(RelativeLayout)this.findViewById(R.id.listname_notice);
         relNewsListName=(RelativeLayout)this.findViewById(R.id.listname_news);
         relLawListName=(RelativeLayout)this.findViewById(R.id.listname_law);
-
-
-
-        linFood=(LinearLayout)this.findViewById(R.id.lin_food);
-        linFood.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Toast.makeText(IndexActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(IndexActivity.this, CheckOrderActivity.class);
-                IndexActivity.this.startActivity(intent);
-            }
-        });
-
 
         final   ColorStateList btnblue=tvNew.getTextColors();
         final  ColorStateList btnblack=tvlNotice.getTextColors();
@@ -191,7 +180,8 @@ public class IndexActivity extends BaseActivity {
         });
         locationClient.startLocation();
         //监听文本
-
+        TopBean topBean=new TopBean("首页","","",false,false);
+        getTopView(topBean);
     }
     public  List<Map<String, Object>>  newlistcontext(int i){
         List<Map<String, Object>>  list;
@@ -276,7 +266,7 @@ public class IndexActivity extends BaseActivity {
         viewtime5.setText(time);
         viewcontext5.setText(content);*/
         // listView=(ListView)findViewById(R.id.newslist);
-       /*  listView.setAdapter(new NewAdspter(this,listnews));*/
+       /*  listView.setAdapter(new NewsAdspter(this,listnews));*/
         //  madapter.update(listnews);
         return list;
 

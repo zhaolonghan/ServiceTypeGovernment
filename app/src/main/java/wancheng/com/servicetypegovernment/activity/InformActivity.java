@@ -1,6 +1,8 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +24,7 @@ import java.io.File;
 import java.util.Calendar;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.TopBean;
 
 public class InformActivity extends BaseActivity {
 
@@ -98,7 +101,21 @@ public class InformActivity extends BaseActivity {
         mMonth = ca.get(Calendar.MONTH);
         mDay = ca.get(Calendar.DAY_OF_MONTH);
 
-
+        TopBean topBean=new TopBean("执法检查","返回","下一步",true,true);
+        getTopView(topBean);
+        tv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(InformActivity.this, " okOK", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(InformActivity.this, "测试对话框", Toast.LENGTH_SHORT).show();
+                showNormalDialog("提示","您还没有编辑完，是否确定退出？");
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -178,26 +195,5 @@ public class InformActivity extends BaseActivity {
             display(dateid);
         }
     };
-//    private DatePickerDialog.OnDateSetListener mdateListener2 = new DatePickerDialog.OnDateSetListener() {
-//
-//        @Override
-//        public void onDateSet(DatePicker view, int year, int monthOfYear,
-//                              int dayOfMonth) {
-//            mYear2 = year;
-//            mMonth2 = monthOfYear;
-//            mDay2 = dayOfMonth;
-//            display2();
-//        }
-//    };
-//    private DatePickerDialog.OnDateSetListener mdateListener3 = new DatePickerDialog.OnDateSetListener() {
-//
-//        @Override
-//        public void onDateSet(DatePicker view, int year, int monthOfYear,
-//                              int dayOfMonth) {
-//            mYear3 = year;
-//            mMonth3 = monthOfYear;
-//            mDay3= dayOfMonth;
-//            display3();
-//        }
-//    };
+
 }

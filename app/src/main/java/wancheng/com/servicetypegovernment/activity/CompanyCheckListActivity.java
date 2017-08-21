@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.TopBean;
 
 public class CompanyCheckListActivity extends BaseActivity {
 
@@ -22,13 +23,14 @@ public class CompanyCheckListActivity extends BaseActivity {
         bt_check=(Button)findViewById(R.id.bt_check);
         bt_check.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Toast.makeText(CompanyCheckListActivity.this, " ��ת��֪ҳ��", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CompanyCheckListActivity.this, " 跳转告知页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(CompanyCheckListActivity.this, InformActivity.class);
                 CompanyCheckListActivity.this.startActivity(intent);
             }
         });
-
+        TopBean topBean=new TopBean("执法检查","返回","",true,false);
+        getTopView(topBean);
 
     }
     @Override
