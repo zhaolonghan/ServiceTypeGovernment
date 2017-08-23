@@ -1,48 +1,46 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 
-public class CompanyCheckListActivity extends BaseActivity {
+public class CheckHistoryListActivity extends BaseActivity {
 
+    private RelativeLayout rela_history;
 
-    private Button bt_check;
-    private Button bt_history;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_company_check_list);
-        bt_check=(Button)findViewById(R.id.bt_check);
-        bt_history=(Button)findViewById(R.id.bt_history);
-        bt_check.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_check_history_list);
+        rela_history=(RelativeLayout)findViewById(R.id.rela_history);
+        rela_history.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Toast.makeText(CompanyCheckListActivity.this, " 跳转告知页面", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CheckHistoryListActivity.this, " 跳转检查详情页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                intent.setClass(CompanyCheckListActivity.this, InformActivity.class);
-                CompanyCheckListActivity.this.startActivity(intent);
+                intent.setClass(CheckHistoryListActivity.this, CheckResultDetailActivity.class);
+                CheckHistoryListActivity.this.startActivity(intent);
             }
         });
-        bt_history.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Toast.makeText(CompanyCheckListActivity.this, " 跳转历史检查列表页面", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent();
-                intent.setClass(CompanyCheckListActivity.this, CheckHistoryListActivity.class);
-                CompanyCheckListActivity.this.startActivity(intent);
-            }
-        });
-        TopBean topBean=new TopBean("执法检查","返回","",true,false);
+
+        TopBean topBean=new TopBean("历史检查记录","返回","下一步",true,false);
         getTopView(topBean);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

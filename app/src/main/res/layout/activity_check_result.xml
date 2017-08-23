@@ -35,9 +35,9 @@
             android:textColor="@color/black"
             android:textSize="22dp"
             android:layout_marginTop="10dp"
-            android:text="告知页"/>
+            android:text="检查结果"/>
             <View
-                android:layout_width="65dp"
+                android:layout_width="90dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="0.01dp"
                 android:background="@color/black"/>
@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="130dp"
@@ -62,13 +63,12 @@
                 android:textSize="16dp"/>
         </LinearLayout>
             <View
-                android:layout_marginTop="10dp"
                 android:layout_width="fill_parent"
                 android:layout_height="0.01dp"
                 android:background="@color/black"/>
         <LinearLayout
-            android:layout_width="match_parent"
             android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -78,12 +78,11 @@
                 android:text="地址："
                 android:gravity="right"
                 android:textSize="16dp"/>
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_marginRight="10dp"
-                android:focusableInTouchMode="false"
                 android:text="天津市南开区什么什么什么道路"
                 android:textSize="16dp"/>
         </LinearLayout>
@@ -100,15 +99,17 @@
             <TextView
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:text="检查人员1："
+                android:text="联系人："
                 android:gravity="right"
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
-            <Spinner
-                android:layout_width="wrap_content"
+            <EditText
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/life_spinner_style"
-                android:entries="@array/names"/>
+                android:textColor="@color/black"
+                android:layout_marginRight="10dp"
+                android:text="里江山"
+                android:textSize="16dp"/>
         </LinearLayout>
             <View
                 android:layout_width="fill_parent"
@@ -123,15 +124,17 @@
         <TextView
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="检查人员2："
+            android:text="联系电话："
             android:gravity="right"
             android:textColor="@color/black"
             android:textSize="16dp"/>
-        <Spinner
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/life_spinner_style"
-            android:entries="@array/names"/>
+            android:textColor="@color/black"
+            android:layout_marginRight="10dp"
+            android:text="13512365421"
+            android:textSize="16dp"/>
         </LinearLayout>
             <View
                 android:layout_width="fill_parent"
@@ -146,7 +149,7 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:text="检查时间："
+                    android:text="许可证编号："
                     android:gravity="right"
                     android:textColor="@color/black"
                     android:textSize="16dp"/>
@@ -155,6 +158,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_marginRight="10dp"
+                    android:text="56693655224sqw565"
                     android:id="@+id/ed_date"
                     android:textSize="16dp"/>
             </LinearLayout>
@@ -173,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
-                    android:text="告知事项："
+                    android:text="检查次数："
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <TextView
@@ -182,7 +186,7 @@
                     android:textColor="@color/black"
                     android:layout_marginRight="10dp"
                     android:id="@+id/tv_gaozhi"
-                    android:text="天津市南开区什么什么什么道路"
+                    android:text="本年度第5次检查"
                     android:textSize="16dp"/>
             </LinearLayout>
             <View
@@ -191,28 +195,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/black"/>
             <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_gravity="center_vertical"
-                android:text="问："
-                android:gravity="right"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:layout_marginRight="10dp"
-                android:text="你（单位）是否申请回避？"
-                android:textSize="16dp"/>
-        </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
@@ -220,21 +204,113 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
-                    android:text="答："
+                    android:text="检查内容："
                     android:gravity="right"
                     android:textSize="16dp"/>
-                <RadioGroup android:id="@+id/radioGroup" android:contentDescription="是否" android:layout_width="wrap_content"
-                    android:orientation="horizontal" android:layout_height="wrap_content">
-                   <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_yes" android:textSize="16dp"
-                       android:textColor="@color/black" android:text="是"></RadioButton>
-                     <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radio_no" android:textSize="16dp"
-                         android:textColor="@color/black" android:text="否" android:checked="true"></RadioButton>
-                    </RadioGroup>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="10dp"
+                    android:text="（食品药品监督管理部门全称）  检查人员                       根据《中华人民共和国食品安全法》及其实施条例、《食品生产经营日常监督检查管理办法》的规定，于        年    月    日对你单位进行了监督检查。本次监督检查按照表       开展，共检查了（    ）项内容；其中：
+重点项（  ）项，项目序号分别是（     ），发现问题（  ）项，项目序号分别是（       ）；
+一般项（  ）项，项目序号分别是（     ），发现问题（  ）项，项目序号分别是（       ）。
+"
+                    android:textSize="16dp"/>
             </LinearLayout>
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.01dp"
                 android:layout_marginTop="10dp"
+                android:background="@color/black"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:text="检查结果："
+                    android:gravity="right"
+                    android:textSize="16dp"/>
+                <RadioGroup
+                    android:contentDescription="是否"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                        android:textColor="@color/black" android:text="符合"></RadioButton>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                        android:textColor="@color/black" android:text="基本符合" android:checked="true"></RadioButton>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                        android:textColor="@color/black" android:text="不符合" android:checked="true"></RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0.01dp"
+                android:background="@color/black"/>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:text="结果处理："
+                    android:gravity="right"
+                    android:textSize="16dp"/>
+                <RadioGroup
+                    android:contentDescription="是否"
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp">
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                        android:textColor="@color/black" android:text="通过"></RadioButton>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                        android:textColor="@color/black" android:text="书面限期整改" android:checked="true"></RadioButton>
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                        android:textColor="@color/black" android:text="食品生产经营者立即停止食品生产经营活动" android:checked="true"></RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0.01dp"
+                android:background="@color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="其他说明："
+                    android:gravity="right"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="10dp"
+                    android:text="无"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0.01dp"
                 android:background="@color/black"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -246,13 +322,12 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
-                    android:text="被检查单位签字："
+                    android:text="执法人员签字："
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <ImageView
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:id="@+id/iv_addsign"
                     android:layout_margin="5dp"
                     android:background="@drawable/add_img"/>
             </LinearLayout>
@@ -263,6 +338,7 @@
                 android:background="@color/black"/>
             <LinearLayout
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -279,7 +355,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_marginRight="10dp"
-                    android:id="@+id/ed_date2"
                     android:textSize="16dp"/>
             </LinearLayout>
             <View
@@ -295,9 +370,33 @@
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
+                    android:text="被检查单位意见："
+                    android:gravity="right"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="10dp"
+                    android:text="无意见"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="0.01dp"
+                android:background="@color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical"
-                    android:text="检查单位签字："
+                    android:text="法人负责人签字："
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <ImageView
@@ -334,6 +433,11 @@
                     android:id="@+id/ed_date3"
                     android:textSize="16dp"/>
             </LinearLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.01dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/black"/>
         </LinearLayout>
 </LinearLayout>
 

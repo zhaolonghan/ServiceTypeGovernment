@@ -173,7 +173,7 @@ public class SlideShowView extends FrameLayout {
         }
 
         /**
-         * ¼ì²éµã»÷µÄÂÖ²¥Í¼ÊÇ·ñ¿ÉÒÔÌø×ª
+         *  æ£€æŸ¥ç‚¹å‡»çš„è½®æ’­å›¾æ˜¯å¦å¯ä»¥è·³è½¬
          *
          * @param position
          * @return

@@ -66,27 +66,32 @@
 
         android:name=".activity.IndexActivity"
         android:label="@string/app_name"
+        android:windowSoftInputMode="stateHidden|stateUnchanged"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
 
             android:name=".activity.CheckOrderActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
             android:name=".activity.CompanyDetailActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
         android:name=".activity.CompanyCheckListActivity"
         android:label="@string/app_name"
+        android:windowSoftInputMode="stateHidden|stateUnchanged"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
         android:name=".activity.InformActivity"
         android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
         <activity
@@ -94,6 +99,37 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".activity.CheckDetailActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".activity.CheckResultActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".activity.CheckDirectoryActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".activity.CheckHistoryListActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity
+            android:name=".activity.CheckResultDetailActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|stateUnchanged"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+
     </application>
 
 </manifest>

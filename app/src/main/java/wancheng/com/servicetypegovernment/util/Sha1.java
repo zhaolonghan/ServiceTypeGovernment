@@ -7,10 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
-/**
- * Created by zhangdi on 2016/9/2.
- * 用来获取测试版SHA1的工具类
- */
+
 public class Sha1 {
     public static String sHA1(Context context) {
         try {

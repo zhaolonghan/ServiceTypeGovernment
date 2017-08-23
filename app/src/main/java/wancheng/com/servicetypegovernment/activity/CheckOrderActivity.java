@@ -18,6 +18,7 @@ import com.amap.api.location.AMapLocationListener;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.view.PopWindow;
 import wancheng.com.servicetypegovernment.view.SlideShowView;
 
 /**
@@ -50,8 +51,15 @@ public class CheckOrderActivity extends BaseActivity {
             }
         });
         Intent intent=getIntent();
-        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
+        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","检查指南",true,true);
         getTopView(topBean);
+        tv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopWindow popWindow = new PopWindow(CheckOrderActivity.this);
+                popWindow.showPopupWindow(findViewById(R.id.tv_right));
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
@@ -29,9 +31,9 @@ import wancheng.com.servicetypegovernment.bean.TopBean;
 public class InformActivity extends BaseActivity {
 
 
-    private EditText ed_date;
-    private EditText ed_date2;
-    private EditText ed_date3;
+    private TextView ed_date;
+    private TextView ed_date2;
+    private TextView ed_date3;
     private ImageView iv_addsign;
     private ImageView iv_addsign2;
     private int mYear, mMonth, mDay;
@@ -47,12 +49,16 @@ public class InformActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inform);
-        ed_date=(EditText)findViewById(R.id.ed_date);
-        ed_date2=(EditText)findViewById(R.id.ed_date2);
-        ed_date3=(EditText)findViewById(R.id.ed_date3);
+        ed_date=(TextView)findViewById(R.id.ed_date);
+        ed_date2=(TextView)findViewById(R.id.ed_date2);
+        ed_date3=(TextView)findViewById(R.id.ed_date3);
         tv_gaozhi=(TextView)findViewById(R.id.tv_gaozhi);
         iv_addsign=(ImageView)findViewById(R.id.iv_addsign);
         iv_addsign2=(ImageView)findViewById(R.id.iv_addsign2);
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy年MM月dd日");
+        ed_date.setText(sdf.format(new Date()));
+        ed_date2.setText(sdf.format(new Date()));
+        ed_date3.setText(sdf.format(new Date()));
         tv_gaozhi.setText(html);
                ed_date.setOnClickListener(new View.OnClickListener() {
 
@@ -106,7 +112,9 @@ public class InformActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(InformActivity.this, " okOK", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(InformActivity.this, CheckDetailActivity.class);
+                InformActivity.this.startActivity(intent);
             }
         });
         tv_left.setOnClickListener(new View.OnClickListener() {

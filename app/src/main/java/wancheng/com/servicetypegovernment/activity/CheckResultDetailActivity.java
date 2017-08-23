@@ -6,26 +6,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.CheckResult;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 
-public class CheckDetailActivity extends BaseActivity {
+public class CheckResultDetailActivity extends BaseActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_check_detail);
+        setContentView(R.layout.activity_check_result_detail);
 //        bt_check=(Button)findViewById(R.id.bt_check);
 //        bt_check.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View arg0) {
@@ -36,50 +33,13 @@ public class CheckDetailActivity extends BaseActivity {
 //            }
 //        });
 
-        TopBean topBean=new TopBean("检查要点","返回","下一步",true,true);
+        TopBean topBean=new TopBean("检查详情","返回","下一步",true,true);
         getTopView(topBean);
-        TextView tv = (TextView) findViewById(R.id.tv_zhinan);
-        tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showNormalDialog();
-            }
-        });
-        tv_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
-                CheckDetailActivity.this.startActivityForResult(intent, 0);
-            }
-        });
+
 
     }
 
-    protected void showNormalDialog(){
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.layout_mydialog,
-                (ViewGroup) findViewById(R.id.dialog));
-        /* @setIcon 设置对话框图标
-         * @setTitle 设置对话框标题
-         * @setMessage 设置对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式设置属性
-         */
-        final AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(this);
-        normalDialog.setView(layout);
-        normalDialog.setTitle("检查指南");
-        normalDialog.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-
-        normalDialog.show();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
