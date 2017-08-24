@@ -144,4 +144,7 @@
     <color name="darkviolet">#9400d3</color><!--暗紫罗兰色 -->
     <color name="mediumorchid">#ba55d3</color><!--中粉紫色 -->
     <color name="btnblue">#2a5682</color><!--中粉紫色 -->
+
+    <color name="color_74c600">#74c600</color>
+    <color name="vifrification">#00000000</color>
 </resources>

@@ -380,4 +380,11 @@ public  class BaseActivity extends Activity {
         // 显示
         normalDialog.show();
     }
+
+
+    @Override
+    protected void onStop() {
+        //什么时候调用finish方法？
+        super.onStop();
+    }
 }
