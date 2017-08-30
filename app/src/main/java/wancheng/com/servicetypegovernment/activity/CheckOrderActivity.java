@@ -16,6 +16,9 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.view.PopWindow;
@@ -28,13 +31,35 @@ public class CheckOrderActivity extends BaseActivity {
 
 
     private Button btDetail;
+    private Button btCheckDetail;
     private Button btStartCheck;
+    private Button bt_check;
+    private SimpleDateFormat sdf;
+    private Date date1;
+    private Date date2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
-
+        date1=new Date();
+        Log.e("时间开始是：",new SimpleDateFormat("HH:mm:dd").format(date1));
+        btCheckDetail=(Button)this.findViewById(R.id.bt_check_detail);
         btDetail=(Button)this.findViewById(R.id.bt_detail);
+        bt_check=(Button)this.findViewById(R.id.bt_check);
+        bt_check.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent intent = new Intent();
+                intent.setClass(CheckOrderActivity.this, InformActivity.class);
+                CheckOrderActivity.this.startActivity(intent);
+            }
+        });
+        btCheckDetail.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent intent = new Intent();
+                intent.setClass(CheckOrderActivity.this, CheckResultDetailActivity.class);
+                CheckOrderActivity.this.startActivity(intent);
+            }
+        });
         btDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent intent = new Intent();
@@ -81,5 +106,25 @@ public class CheckOrderActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        date2=new Date();
+        Log.e("onstop：", "onstop");
+        Log.e("时间结束是：", new SimpleDateFormat("HH:mm:dd").format(date2));
+        long l=date2.getTime()-date1.getTime();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        date2=new Date();
+        Log.e("ondestroy：", "ondestroy");
+        Log.e("时间结束是：", new SimpleDateFormat("HH:mm:dd").format(date2));
+        long l=date2.getTime()-date1.getTime();
+        Log.e("用时：",l+"毫秒");
     }
 }

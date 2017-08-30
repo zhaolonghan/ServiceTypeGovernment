@@ -29,25 +29,30 @@ public class ImageChooseAdapter extends CommonAdapter<String>
     /**
      * 用户选择的图片，存储为图片的完整路径
      */
-    public static ArrayList<String> mSelectedImage = new ArrayList<String>();
-    int count=0;
-    Context context;
-    TextView mImageCount;
-    TextView tv_looking;
+    public  ArrayList<String> mSelectedImage = new ArrayList<String>();
+    private int count=0;
+    private Context context;
+    private TextView mImageCount;
+    private TextView tv_looking;
     /**
      * 文件夹路径
      */
     private String mDirPath;
-
     public ImageChooseAdapter(Context context, List<String> mDatas, int itemLayoutId,
-                              String dirPath,TextView mImageCount,TextView tv_looking,int count)
+                              String dirPath,TextView mImageCount,TextView tv_looking,int count, ArrayList<String> mSelectedImage)
     {
         super(context, mDatas, itemLayoutId);
         this.mDirPath = dirPath;
         this.context=context;
         this.mImageCount=mImageCount;
         this.tv_looking=tv_looking;
-        this.count=mSelectedImage.size()+count;
+        this.mSelectedImage=mSelectedImage;
+        if(mSelectedImage!=null&&mSelectedImage.size()>0){
+            this.count=mSelectedImage.size()+count;
+        }else{
+            this.count=count;
+        }
+
 
     }
 

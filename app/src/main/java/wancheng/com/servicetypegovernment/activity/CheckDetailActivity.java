@@ -189,13 +189,14 @@ public class CheckDetailActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 998:// 拍照带回
-                if (data != null) {
+                String path=Environment.getExternalStorageDirectory() + "/sgin/" + photoFileName + ".jpg";
+                if (fileIsExists(path)) {
                     int size = imageUrls.size();
                     if (size == 5) {
                         imageUrls.remove(size - 1);
-                        imageUrls.add(new ImagesBean("localImage", Environment.getExternalStorageDirectory() + "/" + photoFileName + ".jpg"));
+                        imageUrls.add(new ImagesBean("localImage", path));
                     } else {
-                        imageUrls.add(new ImagesBean("localImage", Environment.getExternalStorageDirectory() + "/" + photoFileName + ".jpg"));
+                        imageUrls.add(new ImagesBean("localImage", path));
                         imageUrls.add(new ImagesBean("defaultImage", ""));
                     }
 
@@ -209,10 +210,29 @@ public class CheckDetailActivity extends BaseActivity {
             case 999: // 选择带回
                 if(data!=null){
                     ArrayList<String> list = data.getBundleExtra("bundle").getStringArrayList("listurl");
-                    int index=0;
+                    ArrayList<ImagesBean> list1 = new ArrayList<ImagesBean>();
                     imageUrls.remove(imageUrls.size() - 1);
-                    for(String url:list){
-                        imageUrls.add(new ImagesBean("localImage", list.get(index)));
+//                    for(int i=0;i<list.size();i++){
+//                        boolean isAdd=true;
+//                        String newPath=list.get(i).toString();
+//                        for(int j=0;j<imageUrls.size();j++){
+//                            if(imageUrls.get(j).getPath().toString().equals(newPath)){
+//                                isAdd=false;
+//                            }
+//                        }
+//                        if(isAdd){
+//                            imageUrls.add(new ImagesBean("localImage",newPath));
+//                        }
+//                    }
+                    for(int i=0;i<imageUrls.size();i++){
+                        String type=imageUrls.get(i).getType();
+                        if("localImage".equals(type)){
+                            imageUrls.remove(i);
+                            --i;
+                        }
+                    }
+                    for(String s:list){
+                        imageUrls.add(new ImagesBean("localImage",s));
                     }
                   if(imageUrls.size()<5){
                       imageUrls.add(new ImagesBean("defaultImage", ""));
@@ -231,7 +251,18 @@ public class CheckDetailActivity extends BaseActivity {
 
 
     }
-
+    public boolean fileIsExists(String path){
+        try{
+            File f=new File(path);
+            if(!f.exists()){
+                return false;
+            }
+        }catch (Exception e) {
+            // TODO: handle exception
+            return false;
+        }
+        return true;
+    }
     /**
      * 初始化数据
      */
@@ -347,7 +378,7 @@ public class CheckDetailActivity extends BaseActivity {
                         // 指定调用相机拍照后的照片存储的路径
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
                                 .fromFile(new File(Environment
-                                        .getExternalStorageDirectory(),
+                                        .getExternalStorageDirectory()+"/sgin/",
                                         photoFileName + ".jpg")));
                         startActivityForResult(intent, 998);
                     }

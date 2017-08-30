@@ -7,8 +7,8 @@ import java.io.Serializable;
  */
 public class ImagesBean implements Serializable {
     private int id;
-    private String type;//netImage ÍøÂçÍ¼Æ¬ localImage ±¾µØÍ¼Æ¬  defaultImage Ä¬ÈÏÍ¼Æ¬
-    private String path;//µØÖ·
+    private String type;//netImage  ç½‘ç»œå›¾ç‰‡ localImage æœ¬åœ°å›¾ç‰‡  defaultImage é»˜è®¤å›¾ç‰‡
+    private String path;//åœ°å€
 
     public ImagesBean(String type, String path) {
         this.type = type;

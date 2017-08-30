@@ -107,18 +107,30 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 			chooseUrls =(ArrayList<String>)bundle.getStringArrayList("listurl");
 			count=bundle.getInt("listsize",0);
 		}
-		Toast.makeText(getApplicationContext(), count+"张照片!!!!!!!!!!!!!!",
-				Toast.LENGTH_SHORT).show();
+		if(chooseUrls!=null&&chooseUrls.size()>0) {
+			count=count-chooseUrls.size();
+		}
 		mImgs = Arrays.asList(mImgDir.list());
 		/**
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
 		mAdapter = new ImageChooseAdapter(ImageChooseActivity.this, mImgs,
-				R.layout.grid_item, mImgDir.getAbsolutePath(),mImageCount,tv_looking,count);
+				R.layout.grid_item, mImgDir.getAbsolutePath(),mImageCount,tv_looking,count,chooseUrls);
 		mGirdView.setAdapter(mAdapter);
 		mImageCount.setText(""+count+"张 确定");
 	};
-
+	public boolean fileIsExists(String path){
+		try{
+			File f=new File(path);
+			if(!f.exists()){
+				return false;
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * 初始化展示文件夹的popupWindw
 	 */
@@ -321,7 +333,7 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 		 * 可以看到文件夹的路径和图片的路径分开保存，极大的减少了内存的消耗；
 		 */
 		mAdapter = new ImageChooseAdapter(ImageChooseActivity.this, mImgs,
-				R.layout.grid_item, mImgDir.getAbsolutePath(),mImageCount,tv_looking,count);
+				R.layout.grid_item, mImgDir.getAbsolutePath(),mImageCount,tv_looking,count,chooseUrls);
 		mGirdView.setAdapter(mAdapter);
 		// mAdapter.notifyDataSetChanged();
 //		mImageCount.setText(floder.getCount() + "张");

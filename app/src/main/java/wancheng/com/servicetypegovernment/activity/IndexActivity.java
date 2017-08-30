@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
@@ -42,9 +44,9 @@ public class IndexActivity extends BaseActivity {
     private TextView tvNew;//新闻动态
     private TextView tvlNotice;//通知公告
     private TextView tvlLaw;//法律法规
-    List<Map<String, Object>>  listnews;
+    List<Map<String, Object>> listnews;
     private NewsAdspter madapter = null;
-    private View  vHead;
+    private View vHead;
     /*
     * 新闻
     * */
@@ -53,42 +55,47 @@ public class IndexActivity extends BaseActivity {
     private  RelativeLayout relrela_3;
     private  RelativeLayout relrela_4;
     private  RelativeLayout relrela_5;*/
-    private ListView listView=null;;
+    private String[] imageUrls = {"http://www.sxxynews.com/uploadfile/2015/0316/20150316095141166.jpg",
+            "http://img0.imgtn.bdimg.com/it/u=645947745,2193220436&fm=214&gp=0.jpg",
+            "http://jiangsu.china.com.cn/uploadfile/2016/0316/1458124624807199.png.jpg",
+            "http://ww1.sinaimg.cn/orj480/999a7ed9jw1f2pc4wn1fpj20b4089aap.jpg",
+            "http://www.5888.tv/Upload_Map/uploads/2014/7/2014-07-16-11-15-33.jpg"};
+    private ListView listView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
-        vHead= View.inflate(this, R.layout.view_head, null);
-        listnews= newlistcontext(1);
-        listView=(ListView)findViewById(R.id.newslist);
+        vHead = View.inflate(this, R.layout.view_head, null);
+        listnews = newlistcontext(1);
+        listView = (ListView) findViewById(R.id.newslist);
         listView.addHeaderView(vHead);
         madapter = new NewsAdspter(this, listnews);
         listView.setAdapter(madapter);
-        Log.e("test!!!!!!!!!!!!!!!!!!","11111111111111111111111111111111111111");
-
-        linFood=(LinearLayout)this.findViewById(R.id.lin_food);
+        Log.e("test!!!!!!!!!!!!!!!!!!", "11111111111111111111111111111111111111");
+        linFood = (LinearLayout) this.findViewById(R.id.lin_food);
         linFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                final TextView tv_food=(TextView)findViewById(R.id.tv_food);
+                final TextView tv_food = (TextView) findViewById(R.id.tv_food);
                 Toast.makeText(IndexActivity.this, "跳转检查页面", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
-                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.putExtra("companyType", tv_food.getText().toString());
                 intent.setClass(IndexActivity.this, CheckOrderActivity.class);
                 IndexActivity.this.startActivity(intent);
             }
         });
 
-        tvNew=(TextView)this.findViewById(R.id.tv_news);
-        tvlNotice =(TextView)this.findViewById(R.id.tv_notice);
-        tvlLaw=(TextView)this.findViewById(R.id.tv_loyal);
-        relNoticeListName=(RelativeLayout)this.findViewById(R.id.listname_notice);
-        relNewsListName=(RelativeLayout)this.findViewById(R.id.listname_news);
-        relLawListName=(RelativeLayout)this.findViewById(R.id.listname_law);
+        tvNew = (TextView) this.findViewById(R.id.tv_news);
+        tvlNotice = (TextView) this.findViewById(R.id.tv_notice);
+        tvlLaw = (TextView) this.findViewById(R.id.tv_loyal);
+        relNoticeListName = (RelativeLayout) this.findViewById(R.id.listname_notice);
+        relNewsListName = (RelativeLayout) this.findViewById(R.id.listname_news);
+        relLawListName = (RelativeLayout) this.findViewById(R.id.listname_law);
 
-        final   ColorStateList btnblue=tvNew.getTextColors();
-        final  ColorStateList btnblack=tvlNotice.getTextColors();
-        final  Drawable  linered=relNewsListName.getChildAt(1).getBackground();
-        final   Drawable lineblack=relNoticeListName.getChildAt(1).getBackground();
+        final ColorStateList btnblue = tvNew.getTextColors();
+        final ColorStateList btnblack = tvlNotice.getTextColors();
+        final Drawable linered = relNewsListName.getChildAt(1).getBackground();
+        final Drawable lineblack = relNoticeListName.getChildAt(1).getBackground();
 
 
 //新闻
@@ -105,7 +112,7 @@ public class IndexActivity extends BaseActivity {
                 relLawListName.getChildAt(1).setBackground(lineblack);
                 Toast.makeText(IndexActivity.this, "新闻列表", Toast.LENGTH_SHORT).show();
 
-                listnews=  newlistcontext(1);
+                listnews = newlistcontext(1);
                 madapter.update(listnews);
             }
         });
@@ -123,7 +130,7 @@ public class IndexActivity extends BaseActivity {
                 relLawListName.getChildAt(1).setBackground(lineblack);
                 Toast.makeText(IndexActivity.this, "公告列表", Toast.LENGTH_SHORT).show();
 
-                listnews=newlistcontext(2);
+                listnews = newlistcontext(2);
                 madapter.update(listnews);
 
 
@@ -143,19 +150,14 @@ public class IndexActivity extends BaseActivity {
                 relNoticeListName.getChildAt(1).setBackground(lineblack);
                 relLawListName.getChildAt(1).setBackground(linered);
 
-                listnews= newlistcontext(3);
+                listnews = newlistcontext(3);
                 madapter.update(listnews);
                 Toast.makeText(IndexActivity.this, "法律列表", Toast.LENGTH_SHORT).show();
             }
         });
 
-        String[] imageUrls = {"http://img.taodiantong.cn/v55183/infoimg/2013-07/130720115322ky.jpg",
-                "http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg",
-                "http://pic18.nipic.com/20111215/577405_080531548148_2.jpg",
-                "http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
-                "http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg"};
-        SlideShowView= (wancheng.com.servicetypegovernment.view.SlideShowView) this.findViewById(R.id.sv_photo);
-        SlideShowView.setView(imageUrls);
+
+        SlideShowView = (wancheng.com.servicetypegovernment.view.SlideShowView) this.findViewById(R.id.sv_photo);
         //初始化client
         locationClient = new AMapLocationClient(getApplicationContext());
         //设置定位参数
@@ -170,7 +172,7 @@ public class IndexActivity extends BaseActivity {
 
                         Log.e("ok", loc.getAddress());
                     } else {
-                        Log.e("getErrorCode", loc.getErrorCode()+"");
+                        Log.e("getErrorCode", loc.getErrorCode() + "");
                         Log.e("errorInfo", loc.getErrorInfo());
                     }
                 } else {
@@ -180,46 +182,59 @@ public class IndexActivity extends BaseActivity {
         });
         locationClient.startLocation();
         //监听文本
-        TopBean topBean=new TopBean("首页","","",false,false);
+        TopBean topBean = new TopBean("首页", "", "", false, false);
         getTopView(topBean);
     }
-    public  List<Map<String, Object>>  newlistcontext(int i){
-        List<Map<String, Object>>  list;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SlideShowView.setView(imageUrls);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SlideShowView.destroyDrawingCache();
+    }
+
+    public List<Map<String, Object>> newlistcontext(int i) {
+        List<Map<String, Object>> list;
       /*  relrela_1=(RelativeLayout)this.findViewById(R.id.rela_1);;
         relrela_2=(RelativeLayout)this.findViewById(R.id.rela_2);;;
         relrela_3=(RelativeLayout)this.findViewById(R.id.rela_3);;
         relrela_4=(RelativeLayout)this.findViewById(R.id.rela_4);;
         relrela_5=(RelativeLayout)this.findViewById(R.id.rela_5);;*/
         //标题0  时间1  内容2String id="1";
-        String title="";
-        String time="";
-        String content="";
-        switch (i){
+        String title = "";
+        String time = "";
+        String content = "";
+        switch (i) {
             case 1:
-                title="新闻新闻新闻新闻新闻新闻新闻新闻新闻新";
-                time="2016-12-20";
-                content="新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容";
+                title = "新闻新闻新闻新闻新闻新闻新闻新闻新闻新";
+                time = "2016-12-20";
+                content = "新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容";
                 break;
             case 2:
-                title="公告公告公告公告公告公告公告公告公告公公告";
-                time="2017-05-20";
-                content="公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容";
+                title = "公告公告公告公告公告公告公告公告公告公公告";
+                time = "2017-05-20";
+                content = "公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容";
                 break;
             case 3:
-                title="法律法律法律法律法律法律法律法律法律法律";
-                time="2017-06-20";
-                content="法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规";
+                title = "法律法律法律法律法律法律法律法律法律法律";
+                time = "2017-06-20";
+                content = "法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规";
                 break;
         }
 
 
-        list=new ArrayList<Map<String, Object>>();
-        for(int j=0;j<6;j++){
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("id",j);
-            map.put("title",title);
-            map.put("time",time);
-            map.put("context",content);
+        list = new ArrayList<Map<String, Object>>();
+        for (int j = 0; j < 6; j++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("id", j);
+            map.put("title", title);
+            map.put("time", time);
+            map.put("context", content);
             list.add(map);
         }
 
@@ -271,7 +286,8 @@ public class IndexActivity extends BaseActivity {
         return list;
 
     }
-    private AMapLocationClientOption getDefaultOption(){
+
+    private AMapLocationClientOption getDefaultOption() {
         AMapLocationClientOption mOption = new AMapLocationClientOption();
         mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
         mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
@@ -286,6 +302,7 @@ public class IndexActivity extends BaseActivity {
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
         return mOption;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -309,6 +326,42 @@ public class IndexActivity extends BaseActivity {
     }
 
     public void updateListView() {
+
+    }
+
+    private static boolean mBackKeyPressed = false;//记录是否有首次按键
+
+
+    @Override
+
+    public void onBackPressed() {
+
+       if (!mBackKeyPressed) {
+
+             Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+
+            mBackKeyPressed = true;
+
+            new Timer().schedule(new TimerTask() {//延时两秒，如果超出则擦错第一次按键记录
+
+                @Override
+
+                public void run() {
+
+                    mBackKeyPressed = false;
+
+                    }
+            }, 2000);
+
+            }
+
+        else{//退出程序
+
+            this.finish();
+
+            System.exit(0);
+
+           }
 
     }
 }
