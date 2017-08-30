@@ -21,13 +21,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/listname_notice"
+
                 android:layout_gravity="center_horizontal">
 
                 <TextView
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"
                     android:paddingTop="5dp"
-                    android:id="@+id/tv_list"
+                    android:id="@+id/tv_notice"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -53,13 +55,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:id="@+id/listname_law"
+
             android:layout_gravity="center_horizontal">
 
             <TextView
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="5dp"
                 android:paddingTop="5dp"
-                android:id="@+id/tv_news"
+                android:id="@+id/tv_loyal"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,13 +89,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/listname_news"
+
                 android:layout_gravity="center_horizontal">
 
                 <TextView
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"
                     android:paddingTop="5dp"
-                    android:id="@+id/tv_notice"
+                    android:id="@+id/tv_news"
+
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

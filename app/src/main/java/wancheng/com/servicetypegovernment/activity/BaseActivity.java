@@ -406,8 +406,10 @@ public  class BaseActivity extends Activity {
         /*if(oldindexs!=index){
 
         }*/
-        Log.e("11111111111111:",oldindexsintent+"");
-        footView(index);
+        Log.e("11111111111111:", oldindexsintent + "");
+        if(index<5){
+            footView(index);
+        }
             lin_foot1=(LinearLayout)findViewById(R.id.lin_foot1);
             lin_foot2=(LinearLayout)findViewById(R.id.lin_foot2);
             lin_foot3=(LinearLayout)findViewById(R.id.lin_foot3);

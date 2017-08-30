@@ -63,8 +63,8 @@ public class CheckOrderActivity extends BaseActivity {
             }
         });
         Intent intent=getIntent();
-        int index= intent.getIntExtra("index", 0);
-        oldindexsintent=intent.getIntExtra("oldindexs",0);
+        int index= intent.getIntExtra("index", 5);
+        oldindexsintent=intent.getIntExtra("oldindexs",5);
         getJumpFoot(this, index, oldindexsintent);
         TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","检查指南",true,true);
         getTopView(topBean);
@@ -93,8 +93,6 @@ public class CheckOrderActivity extends BaseActivity {
         view_2layout= (LinearLayout)findViewById(R.id.view_2);
         view_3layout= (LinearLayout)findViewById(R.id.view_3);
 
-
-//公告
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
@@ -114,7 +112,6 @@ public class CheckOrderActivity extends BaseActivity {
             }
         });
 
-        //法律
 
         relLawListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
