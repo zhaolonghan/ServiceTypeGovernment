@@ -33,7 +33,6 @@ public class CheckOrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
-
         btDetail=(Button)this.findViewById(R.id.bt_detail);
         btDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -51,6 +50,8 @@ public class CheckOrderActivity extends BaseActivity {
             }
         });
         Intent intent=getIntent();
+        int index= intent.getIntExtra("index", 0);
+        getJumpFoot(this, index);
         TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","检查指南",true,true);
         getTopView(topBean);
         tv_right.setOnClickListener(new View.OnClickListener() {
@@ -81,5 +82,10 @@ public class CheckOrderActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        this.finish();
     }
 }

@@ -6,11 +6,11 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/lin_foot1"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        android:background="@color/white"
         android:orientation="vertical"
         >
         <ImageView
@@ -18,40 +18,20 @@
             android:layout_gravity="center"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/sy002"/>
+            android:src="@drawable/sy02"/>
         <TextView
+            android:id="@+id/foot_1"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="首页"
-            android:textColor="@color/btnblue"/>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        >
-        <ImageView
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/xw02"/>
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="新闻动态"
             android:textColor="@color/white"/>
 
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lin_foot2"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
@@ -65,6 +45,7 @@
             android:layout_height="35dp"
             android:src="@drawable/tz02"/>
         <TextView
+            android:id="@+id/foot_2"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,6 +53,7 @@
             android:textColor="@color/white"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/lin_foot3"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
@@ -85,6 +67,7 @@
             android:layout_height="35dp"
             android:src="@drawable/fl02"/>
         <TextView
+            android:id="@+id/foot_3"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -92,6 +75,32 @@
             android:textColor="@color/white"/>
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/lin_foot4"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/xw02"/>
+        <TextView
+            android:id="@+id/foot_4"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="新闻动态"
+            android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_foot5"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
         android:layout_gravity="center_horizontal"
@@ -105,6 +114,7 @@
             android:layout_height="35dp"
             android:src="@drawable/gr02"/>
         <TextView
+            android:id="@+id/foot_5"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

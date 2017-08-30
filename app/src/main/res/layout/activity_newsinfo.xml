@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:background="@color/silver"
+    >
+    <include layout="@layout/top_view"
+        android:id="@+id/top_view"/>
+<LinearLayout
+    android:layout_below="@+id/top_view"
+    android:layout_above="@+id/lin_bottom"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+
+    >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="@color/white"
+        >
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newsinfo"
+            >
+            <TextView
+                android:id="@+id/newsid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:visibility="gone"
+                />
+            <TextView
+                android:id="@+id/newslist1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:text="市市场监管委党委召开领导干部警示教育大会"
+                android:gravity="center_horizontal"
+                />
+
+           <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="发布时间：2015-06-27"
+                android:textColor="@color/grey"
+               android:layout_below="@+id/newslist1"
+               android:gravity="center_horizontal"
+
+               />
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="16dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+
+                android:text=" \u3000\u3000日前，市市场监管委委党委组织召开了全系统领导干部警示教育大会，传达学习全市领导干部警示教育大会精神，组织开展警示教育，引导广大党员干部知晓、敬畏和严守党纪国法，做到心有所畏、言有所戒、行有所止，自觉抵制腐败行为，努力在全系统营造山清水秀、风清弊绝的政治生态。
+
+此次警示教育分两个阶段进行，8月11日，委党委召开第33次委党委会议先学一步，就领导班子加强警示教育工作进行集中学习，委党委书记林立军同志组织班子成员进行了“五个方面”的学习讨论，一是深入学习习近平总书记关于全面从严治党的重要论述；二是继续学习李鸿忠书记在全市领导干部警示教育大会上的重要讲话精神；三是学习市委办公厅印发《关于进一步加强党风廉政警示教育工作的实施意见》；四是以市纪委对张泉芬、刘剑刚、边仁权严重违纪案的通报为警、为训、为戒；五是深入落实全面从严治党主体责任和监督责任，切实履行党风廉政警示教育工作职责。
+
+8月17日，委党委采取视频会议形式组织召开全系统领导干部警示教育大会，委党政领导班子成员，驻委纪检组，机关处室、直属单位党政负责人及各区局党政领导班子成员、中层干部700余人参加会议。北辰区局、市标准化院、食检院3个单位进行了警示教育体会交流，林立军同志从科学判断反腐败形势，始终保持清醒的政治头脑;始终坚持利剑高悬，切实履行全面从严治党的责任;时刻不忘警钟长鸣，坚守廉洁自律的底线三个方面对全系统领导干部进行了警示教育，并号召广大党员领导干部一定要牢记组织教诲，做一个理想信念坚定的人，既要忠诚担当，更要干净廉洁;做一个聪明的人，“聪明的人以别人的教训教育自己，愚蠢的人以自己的教训警醒别人”;做一个清醒的人，违法违纪的事坚决不做、诱惑的事拒绝去做、尽责的事认真去做;做一个进步的人，凝心聚力、履职尽责，不辜负党和人民的重托，确保全市市场和质量安全，以优异的成绩迎接党的十九大胜利召开！"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:id="@+id/lin_bottom"
+        android:background="@color/btnblue"
+        android:layout_alignParentBottom="true"
+        >
+
+        <LinearLayout
+            android:paddingTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <include layout="@layout/bottom_view"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

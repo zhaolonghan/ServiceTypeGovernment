@@ -14,8 +14,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
@@ -41,6 +48,12 @@ public  class BaseActivity extends Activity {
     protected  TextView tv_title;
     protected TextView tv_left;
     protected TextView tv_right;
+   // protected LinearLayout lin_foot;/** index 代表位置*/
+   protected LinearLayout lin_foot1;
+    protected LinearLayout lin_foot2;
+    protected LinearLayout lin_foot3;
+    protected LinearLayout lin_foot4;
+    protected LinearLayout lin_foot5;
     @SuppressLint("ShowToast")
     public Handler handler = new Handler() {
         @SuppressWarnings("deprecation")
@@ -379,5 +392,191 @@ public  class BaseActivity extends Activity {
                 });
         // 显示
         normalDialog.show();
+    }
+    /**
+     * index代表位置
+     * */
+    public void getJumpFoot(final Activity activity,int index){
+     //   int[] foot={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
+       footView(index);
+       lin_foot1=(LinearLayout)findViewById(R.id.lin_foot1);
+        lin_foot2=(LinearLayout)findViewById(R.id.lin_foot2);
+        lin_foot3=(LinearLayout)findViewById(R.id.lin_foot3);
+         lin_foot4=(LinearLayout)findViewById(R.id.lin_foot4);
+         lin_foot5=(LinearLayout)findViewById(R.id.lin_foot5);
+
+        lin_foot1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("index", 0);
+                intent.setClass(activity, IndexActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+
+
+        lin_foot2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //公告
+                Intent intent = new Intent();
+                intent.putExtra("index", 1);
+                intent.setClass(activity, NewsListActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+        lin_foot3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //法规
+                Intent intent = new Intent();
+                intent.putExtra("index", 2);
+                intent.setClass(activity, NewsListActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+        lin_foot4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //新闻
+                Intent intent = new Intent();
+                intent.putExtra("index", 3);
+                intent.setClass(activity, NewsListActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+        lin_foot5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("index", 4);
+                intent.setClass(activity, NewsInfoActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     *
+     * 显示第几个下部信息，从1开始到5
+     * */
+   public void footView(int index){
+
+       //未选
+       int untextcolor=R.color.white;
+       int unbackroundcolor=R.color.btnblue;
+       //已选
+       int textcolor=getResources().getColor(R.color.btnblue);
+       int backroundcolor=getResources().getColor(R.color.white);
+
+    int[] lin_id={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
+       LinearLayout foot=(LinearLayout)findViewById(lin_id[index]);
+       foot.setBackgroundColor(backroundcolor);//背景变白
+       TextView whitetext=(TextView)foot.getChildAt(1);
+       whitetext.setTextColor(textcolor);//文字变蓝
+       switch (index){
+           case 0:
+              ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.sy002);//换图
+               break;
+
+           case 1:
+               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.tz01);
+               break;
+           case 2:
+               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.fl01);
+               break;
+           case 3:
+               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.xw01);
+               break;
+           case 4:
+               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.gr01);
+               break;
+
+       }
+   }
+    /**
+     * i=1 公告
+     *
+     * i=1 法律
+     *
+     * i=1 新闻
+     *
+     * num=条数
+     *
+     * */
+    public List<Map<String, Object>> newlistcontext(int i,int num){
+        List<Map<String, Object>>  list;
+        List<Map<String, Object>>  addalllist;
+        //标题0  时间1  内容2String id="1";
+        String title="";
+        String time="";
+        String content="";
+        switch (i){
+            case 1:
+                title="公告公告公告公告公告公告公告公告公告公公告";
+                time="2017-05-20";
+                content="公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容公告内容";
+                break;
+            case 2:
+                title="法律法律法律法律法律法律法律法律法律法律";
+                time="2017-06-20";
+                content="法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规法律法规";
+                break;
+            case 3:
+                title="新闻新闻新闻新闻新闻新闻新闻新闻新闻新";
+                time="2016-12-20";
+                content="新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容";
+                break;
+        }
+
+
+        list=new ArrayList<Map<String, Object>>();
+        for(int j=0;j<num;j++){
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("id",j);
+            map.put("title",title);
+            map.put("time",time);
+            map.put("context",content);
+            list.add(map);
+        }
+
+        return list;
+
+    }
+    public List<Map<String, Object>> newslistcontext(int num){
+        //http://www.tjcac.gov.cn/zlaqzd/
+        List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
+        Map<String, Object> map=new HashMap<String, Object>();
+        map.put("id","1");
+        map.put("title","市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议");
+        map.put("time","2017-08-23");
+        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
+                "\n" +
+                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
+
+
+        list.add(map);
+
+
+        map=new HashMap<String, Object>();
+        map.put("id","2");
+        map.put("title","总队强化全运会建筑施工应急保障组织工作");
+        map.put("time","2017-08-23");
+        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
+                "\n" +
+                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
+
+
+        list.add(map);
+        return list;
+    }
+    public List<Map<String, Object>> lawslistcontext(int num){
+        List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
+        return list;
+    }
+    public List<Map<String, Object>> noticelistcontext(int num){
+        List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
+        return list;
     }
 }
