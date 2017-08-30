@@ -124,7 +124,7 @@
     android:layout_height="match_parent"
     android:layout_below="@+id/lin_banner"
     android:orientation="vertical"
-    android:visibility="gone"
+    android:visibility="visible"
     >
     <LinearLayout
         android:background="@drawable/check_lin_view_style"
@@ -1521,7 +1521,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/lin_banner"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
 
         >
         <RelativeLayout
