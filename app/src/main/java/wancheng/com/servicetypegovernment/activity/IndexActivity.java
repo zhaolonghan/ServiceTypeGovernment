@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
@@ -47,7 +49,11 @@ public class IndexActivity extends BaseActivity {
     private NewsAdspter madapter = null;
     private View  vHead;
     private int listtype=1;//1公告 2法律 3新闻
-
+    private String[] imageUrls = {"http://www.sxxynews.com/uploadfile/2015/0316/20150316095141166.jpg",
+            "http://img0.imgtn.bdimg.com/it/u=645947745,2193220436&fm=214&gp=0.jpg",
+            "http://jiangsu.china.com.cn/uploadfile/2016/0316/1458124624807199.png.jpg",
+            "http://ww1.sinaimg.cn/orj480/999a7ed9jw1f2pc4wn1fpj20b4089aap.jpg",
+            "http://www.5888.tv/Upload_Map/uploads/2014/7/2014-07-16-11-15-33.jpg"};
     /*
     * 新闻
     * */
@@ -150,12 +156,6 @@ public class IndexActivity extends BaseActivity {
                 listtype=3;
             }
         });
-
-        String[] imageUrls = {"http://img.taodiantong.cn/v55183/infoimg/2013-07/130720115322ky.jpg",
-                "http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg",
-                "http://pic18.nipic.com/20111215/577405_080531548148_2.jpg",
-                "http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
-                "http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg"};
         SlideShowView= (wancheng.com.servicetypegovernment.view.SlideShowView) this.findViewById(R.id.sv_photo);
         SlideShowView.setView(imageUrls);
         //初始化client
@@ -246,5 +246,39 @@ public class IndexActivity extends BaseActivity {
     public void updateListView() {
 
     }
+    private static boolean mBackKeyPressed = false;//记录是否有首次按键
 
+
+    @Override
+
+    public void onBackPressed() {
+
+        if (!mBackKeyPressed) {
+
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+
+            mBackKeyPressed = true;
+
+            new Timer().schedule(new TimerTask() {//延时两秒，如果超出则擦错第一次按键记录
+
+                @Override
+
+                public void run() {
+
+                    mBackKeyPressed = false;
+
+                }
+            }, 2000);
+
+        }
+
+        else{//退出程序
+
+            this.finish();
+
+            System.exit(0);
+
+        }
+
+    }
 }
