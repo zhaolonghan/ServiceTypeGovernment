@@ -21,24 +21,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+
+                android:id="@+id/listname_notice"
+
+                >
 
                 <TextView
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"
                     android:paddingTop="5dp"
-                    android:id="@+id/tv_list"
+                    android:id="@+id/tv_notice"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/btnblue"
                     android:text="企业列表"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/white"
+                    android:background="@color/red"
                     android:layout_alignParentBottom="true"
                     ></View>
                 <View
@@ -53,24 +57,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+
+            android:id="@+id/listname_law"
+            >
 
             <TextView
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="5dp"
                 android:paddingTop="5dp"
-                android:id="@+id/tv_news"
+                android:id="@+id/tv_loyal"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:textColor="@color/btnblue"
+                android:textColor="@color/black"
                 android:text="执法检查"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/red"
+                android:background="@color/white"
                 android:layout_alignParentBottom="true"
                 ></View>
             <View
@@ -85,13 +92,15 @@
                     android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/listname_news"
+                >
 
                 <TextView
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="5dp"
                     android:paddingTop="5dp"
-                    android:id="@+id/tv_notice"
+                    android:id="@+id/tv_news"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,6 +119,7 @@
 
         </LinearLayout>
 <LinearLayout
+    android:id="@+id/view_2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_below="@+id/lin_banner"
@@ -1506,6 +1516,7 @@
 
 </LinearLayout>
     <LinearLayout
+        android:id="@+id/view_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/lin_banner"
@@ -1758,6 +1769,7 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/view_3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/lin_banner"

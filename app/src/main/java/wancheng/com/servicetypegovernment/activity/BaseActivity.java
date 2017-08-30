@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -54,6 +55,7 @@ public  class BaseActivity extends Activity {
     protected LinearLayout lin_foot3;
     protected LinearLayout lin_foot4;
     protected LinearLayout lin_foot5;
+    protected int oldindexsintent;
     @SuppressLint("ShowToast")
     public Handler handler = new Handler() {
         @SuppressWarnings("deprecation")
@@ -396,66 +398,88 @@ public  class BaseActivity extends Activity {
     /**
      * index代表位置
      * */
-    public void getJumpFoot(final Activity activity,int index){
+    public void getJumpFoot(final Activity activity,int index,int oldindex){
         //   int[] foot={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
+        //((TextView)foot.getChildAt(0)).getBackground()
+            /* Intent intent =getIntent();
+            int oldindexs=intent.getIntExtra("oldindexss",0);*/
+        /*if(oldindexs!=index){
+
+        }*/
+        Log.e("11111111111111:",oldindexsintent+"");
         footView(index);
-        lin_foot1=(LinearLayout)findViewById(R.id.lin_foot1);
-        lin_foot2=(LinearLayout)findViewById(R.id.lin_foot2);
-        lin_foot3=(LinearLayout)findViewById(R.id.lin_foot3);
-        lin_foot4=(LinearLayout)findViewById(R.id.lin_foot4);
-        lin_foot5=(LinearLayout)findViewById(R.id.lin_foot5);
+            lin_foot1=(LinearLayout)findViewById(R.id.lin_foot1);
+            lin_foot2=(LinearLayout)findViewById(R.id.lin_foot2);
+            lin_foot3=(LinearLayout)findViewById(R.id.lin_foot3);
+            lin_foot4=(LinearLayout)findViewById(R.id.lin_foot4);
+            lin_foot5=(LinearLayout)findViewById(R.id.lin_foot5);
+        if(oldindexsintent!=0){
+            lin_foot1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = getIntent();
+                    intent.putExtra("index", 0);
+                    intent.putExtra("oldindexs", 0);
+                    intent.setClass(activity, IndexActivity.class);
+                    activity.startActivity(intent);
+                }
+            });
+        }
 
-        lin_foot1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("index", 0);
-                intent.setClass(activity, IndexActivity.class);
-                activity.startActivity(intent);
-            }
-        });
+        if(oldindexsintent!=1) {
+            lin_foot2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //公告
+                    Intent intent = new Intent();
+                    intent.putExtra("index", 1);
+                    intent.putExtra("oldindexs", 1);
+                    intent.setClass(activity, NewsListActivity.class);
+                    activity.startActivity(intent);
+                }
+            });
+        }
+        if(oldindexsintent!=2) {
+            lin_foot3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //法规
+                    Intent intent = new Intent();
+                    intent.putExtra("index", 2);
+                    intent.putExtra("oldindexs", 2);
+
+                    intent.setClass(activity, NewsListActivity.class);
+                    activity.startActivity(intent);
+                }
+            });}
+        if(oldindexsintent!=3) {
+            lin_foot4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //新闻
+                    Intent intent = new Intent();
+                    intent.putExtra("index", 3);
+                    intent.putExtra("oldindexs", 3);
+
+                    intent.setClass(activity, NewsListActivity.class);
+                    activity.startActivity(intent);
+                }
+            });}
+        if(oldindexsintent!=4) {
+            lin_foot5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("index", 4);
+                    intent.putExtra("oldindexs", 4);
+
+                    intent.setClass(activity, NewsInfoActivity.class);
+                    activity.startActivity(intent);
+                }
+            });}
+        }
 
 
-        lin_foot2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //公告
-                Intent intent = new Intent();
-                intent.putExtra("index", 1);
-                intent.setClass(activity, NewsListActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-        lin_foot3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //法规
-                Intent intent = new Intent();
-                intent.putExtra("index", 2);
-                intent.setClass(activity, NewsListActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-        lin_foot4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //新闻
-                Intent intent = new Intent();
-                intent.putExtra("index", 3);
-                intent.setClass(activity, NewsListActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-        lin_foot5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("index", 4);
-                intent.setClass(activity, NewsInfoActivity.class);
-                activity.startActivity(intent);
-            }
-        });
-    }
 
     /**
      *

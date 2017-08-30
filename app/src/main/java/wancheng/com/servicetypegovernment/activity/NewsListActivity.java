@@ -3,6 +3,7 @@ package wancheng.com.servicetypegovernment.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,10 +42,12 @@ public class NewsListActivity extends BaseActivity {
         setContentView(R.layout.activity_newslist);
         Intent intent=getIntent();
         int index= intent.getIntExtra("index", 0);
-        getJumpFoot(this, index);
+        oldindexsintent=intent.getIntExtra("oldindexs",0);
+        getJumpFoot(this, index,oldindexsintent);
         String titlename="通知公告";
        if(index==2){
            titlename="法律法规";
+
        }else if(index==3){
            titlename="新闻动态";
        }
@@ -54,7 +57,10 @@ public class NewsListActivity extends BaseActivity {
         tv_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent = new Intent();
+                intent.putExtra("index",0);
+                intent.setClass(NewsListActivity.this, IndexActivity.class);
+                NewsListActivity.this.startActivity(intent);
             }
         });
         listView=(ListView)findViewById(R.id.newslist);
@@ -105,4 +111,10 @@ public class NewsListActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+   /* @Override
+    protected void onStop() {
+        super.finish();
+        super.onStop();
+
+    }*/
 }
