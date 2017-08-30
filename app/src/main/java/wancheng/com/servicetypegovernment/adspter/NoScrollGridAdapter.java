@@ -6,7 +6,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -66,6 +68,16 @@ public class NoScrollGridAdapter extends BaseAdapter {
 		if(image.getType().equals("defaultImage")){
 			imageView.setImageDrawable(ctx.getResources().getDrawable(R.drawable.add_img));
 		}
+		if(image.getType().equals("localImage")){
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inSampleSize = 2;
+			Bitmap bm = BitmapFactory.decodeFile(image.getPath(), options);
+			imageView.setImageBitmap(bm);
+		}
+
+
+
+
 //		final int index=position;
 //		Toast.makeText(ctx, ifShowDelete+"", Toast.LENGTH_SHORT).show();
 //		if(ifShowDelete){

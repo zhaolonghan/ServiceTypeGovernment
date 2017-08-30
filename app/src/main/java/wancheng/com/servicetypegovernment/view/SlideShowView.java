@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.widget.Toast;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.util.BitmapCache;
@@ -34,8 +35,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 public class SlideShowView extends FrameLayout {
-    private final static int IMAGE_COUNT = 5;
-    private final static int TIME_INTERVAL = 5;
     private final static boolean isAutoPlay = true;
     private String[] imageUrls;
     private String[] urls;
@@ -47,7 +46,7 @@ public class SlideShowView extends FrameLayout {
     private ViewPager viewPager;
     private int currentItem = 0;
     private ScheduledExecutorService scheduledExecutorService;
-
+    private RequestQueue mQueue;
     private Context context;
 
     // Handler
@@ -270,8 +269,23 @@ public class SlideShowView extends FrameLayout {
         }
 
     }
+    public RequestQueue getRequestQueue() {
+
+        if (mQueue == null) {
+
+            // getApplicationContext() is key, it keeps you from leaking the
+
+            // Activity or BroadcastReceiver if someone passes one in.
+
+            mQueue = Volley.newRequestQueue(context);
+
+        }
+
+        return mQueue;
+
+    }
     private void loadImageByVolley(ImageView imageView ,String imageUrl){
-        RequestQueue mQueue = Volley.newRequestQueue(context);
+      getRequestQueue();
         final BitmapCache lruCache=new BitmapCache();
         ImageLoader.ImageCache imageCache = new ImageLoader.ImageCache() {
             @Override

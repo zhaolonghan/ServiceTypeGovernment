@@ -8,16 +8,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.KeyEvent;
 import android.widget.TextView;
-
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.view.HackyViewPager;
 
 /**
  * 图片查看器
+ * @author hanzl
  */
-public class ImagePagerActivity extends FragmentActivity {
+public class ImagePager3Activity extends FragmentActivity {
 	private static final String STATE_POSITION = "STATE_POSITION";
 	public static final String EXTRA_IMAGE_INDEX = "image_index"; 
 	public static final String EXTRA_IMAGE_URLS = "image_urls";
@@ -25,14 +25,20 @@ public class ImagePagerActivity extends FragmentActivity {
 	private HackyViewPager mPager;
 	private int pagerPosition;
 	private TextView indicator;
-
+	@Override  
+    public boolean onKeyDown(int keyCode, KeyEvent event) {  
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {  
+        	ImagePager3Activity.this.finish();
+        }
+		return true;
+    }  
 	@Override 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.image_detail_pager);
+		setContentView(R.layout.circle_image_detail_pager);
 
 		pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
-		ArrayList<ImagesBean> urls = (ArrayList<ImagesBean>)getIntent().getSerializableExtra(EXTRA_IMAGE_URLS);
+		ArrayList<String> urls = getIntent().getStringArrayListExtra(EXTRA_IMAGE_URLS);
 
 		mPager = (HackyViewPager) findViewById(R.id.pager);
 		ImagePagerAdapter mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), urls);
@@ -73,9 +79,9 @@ public class ImagePagerActivity extends FragmentActivity {
 
 	private class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
-		public ArrayList<ImagesBean> fileList;
+		public ArrayList<String> fileList;
 
-		public ImagePagerAdapter(FragmentManager fm, ArrayList<ImagesBean> fileList) {
+		public ImagePagerAdapter(FragmentManager fm, ArrayList<String> fileList) {
 			super(fm);
 			this.fileList = fileList;
 		}
@@ -87,9 +93,8 @@ public class ImagePagerActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			String url = fileList.get(position).getPath();
-			String type = fileList.get(position).getType();
-			return ImageDetailFragment.newInstance(url,type);
+			String url = fileList.get(position);
+			return ImageDetail3Fragment.newInstance(url);
 		}
 
 	}

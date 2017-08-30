@@ -48,8 +48,8 @@ public  class BaseActivity extends Activity {
     protected  TextView tv_title;
     protected TextView tv_left;
     protected TextView tv_right;
-   // protected LinearLayout lin_foot;/** index 代表位置*/
-   protected LinearLayout lin_foot1;
+    // protected LinearLayout lin_foot;/** index 代表位置*/
+    protected LinearLayout lin_foot1;
     protected LinearLayout lin_foot2;
     protected LinearLayout lin_foot3;
     protected LinearLayout lin_foot4;
@@ -397,13 +397,13 @@ public  class BaseActivity extends Activity {
      * index代表位置
      * */
     public void getJumpFoot(final Activity activity,int index){
-     //   int[] foot={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
-       footView(index);
-       lin_foot1=(LinearLayout)findViewById(R.id.lin_foot1);
+        //   int[] foot={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
+        footView(index);
+        lin_foot1=(LinearLayout)findViewById(R.id.lin_foot1);
         lin_foot2=(LinearLayout)findViewById(R.id.lin_foot2);
         lin_foot3=(LinearLayout)findViewById(R.id.lin_foot3);
-         lin_foot4=(LinearLayout)findViewById(R.id.lin_foot4);
-         lin_foot5=(LinearLayout)findViewById(R.id.lin_foot5);
+        lin_foot4=(LinearLayout)findViewById(R.id.lin_foot4);
+        lin_foot5=(LinearLayout)findViewById(R.id.lin_foot5);
 
         lin_foot1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -461,40 +461,40 @@ public  class BaseActivity extends Activity {
      *
      * 显示第几个下部信息，从1开始到5
      * */
-   public void footView(int index){
+    public void footView(int index){
 
-       //未选
-       int untextcolor=R.color.white;
-       int unbackroundcolor=R.color.btnblue;
-       //已选
-       int textcolor=getResources().getColor(R.color.btnblue);
-       int backroundcolor=getResources().getColor(R.color.white);
+        //未选
+        int untextcolor=R.color.white;
+        int unbackroundcolor=R.color.btnblue;
+        //已选
+        int textcolor=getResources().getColor(R.color.btnblue);
+        int backroundcolor=getResources().getColor(R.color.white);
 
-    int[] lin_id={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
-       LinearLayout foot=(LinearLayout)findViewById(lin_id[index]);
-       foot.setBackgroundColor(backroundcolor);//背景变白
-       TextView whitetext=(TextView)foot.getChildAt(1);
-       whitetext.setTextColor(textcolor);//文字变蓝
-       switch (index){
-           case 0:
-              ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.sy002);//换图
-               break;
+        int[] lin_id={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
+        LinearLayout foot=(LinearLayout)findViewById(lin_id[index]);
+        foot.setBackgroundColor(backroundcolor);//背景变白
+        TextView whitetext=(TextView)foot.getChildAt(1);
+        whitetext.setTextColor(textcolor);//文字变蓝
+        switch (index){
+            case 0:
+                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.sy002);//换图
+                break;
 
-           case 1:
-               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.tz01);
-               break;
-           case 2:
-               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.fl01);
-               break;
-           case 3:
-               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.xw01);
-               break;
-           case 4:
-               ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.gr01);
-               break;
+            case 1:
+                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.tz01);
+                break;
+            case 2:
+                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.fl01);
+                break;
+            case 3:
+                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.xw01);
+                break;
+            case 4:
+                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.gr01);
+                break;
 
-       }
-   }
+        }
+    }
     /**
      * i=1 公告
      *
@@ -578,5 +578,10 @@ public  class BaseActivity extends Activity {
     public List<Map<String, Object>> noticelistcontext(int num){
         List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
         return list;
+    }
+    @Override
+    protected void onStop() {
+        //什么时候调用finish方法？
+        super.onStop();
     }
 }
