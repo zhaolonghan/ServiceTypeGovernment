@@ -51,7 +51,8 @@ public class CheckOrderActivity extends BaseActivity {
         });
         Intent intent=getIntent();
         int index= intent.getIntExtra("index", 0);
-        getJumpFoot(this, index);
+        oldindexsintent=intent.getIntExtra("oldindexs",0);
+        getJumpFoot(this, index,oldindexsintent);
         TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","检查指南",true,true);
         getTopView(topBean);
         tv_right.setOnClickListener(new View.OnClickListener() {

@@ -33,7 +33,8 @@ public class NewsInfoActivity extends BaseActivity {
         Intent intent=getIntent();
         int index= intent.getIntExtra("index", 0);
         String id=intent.getStringExtra("ids");
-        getJumpFoot(this, index);
+        oldindexsintent=intent.getIntExtra("oldindexs",0);
+        getJumpFoot(this, index,oldindexsintent);
         String titlename="详情";
         if(index==4){
             titlename="个人中心";

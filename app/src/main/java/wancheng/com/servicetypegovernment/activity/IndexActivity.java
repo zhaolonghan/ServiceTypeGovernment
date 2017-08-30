@@ -73,9 +73,10 @@ public class IndexActivity extends BaseActivity {
 
         Intent intent =getIntent();
         int index= intent.getIntExtra("index", 0);
+        oldindexsintent=intent.getIntExtra("oldindexs",0);
 /*        String id= intent.getStringExtra("ids");
         Toast.makeText(this, "id:" + id, Toast.LENGTH_LONG).show();*/
-        getJumpFoot(this, index);
+        getJumpFoot(this, index,oldindexsintent);
         linFood=(LinearLayout)this.findViewById(R.id.lin_food);
         linFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
