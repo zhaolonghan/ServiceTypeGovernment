@@ -45,12 +45,12 @@ public class NewsInfoActivity extends BaseActivity {
         }
         TopBean topBean=new TopBean(titlename,"返回","",true,true);
         getTopView(topBean);
-       tv_left.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               onBackPressed();
-           }
-       });
+        tv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
     @Override

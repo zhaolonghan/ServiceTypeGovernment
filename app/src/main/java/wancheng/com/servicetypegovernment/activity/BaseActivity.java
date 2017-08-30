@@ -579,9 +579,9 @@ public  class BaseActivity extends Activity {
         List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
         return list;
     }
-    @Override
+    /*@Override
     protected void onStop() {
         //什么时候调用finish方法？
         super.onStop();
-    }
+    }*/
 }
