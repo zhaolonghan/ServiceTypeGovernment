@@ -169,7 +169,7 @@ public class IndexActivity extends BaseActivity {
 
                 if (null != loc) {
                     if (loc.getErrorCode() == 0) {
-
+                        Toast.makeText(IndexActivity.this, " 当前定位的地点是："+loc.getAddress(), Toast.LENGTH_SHORT).show();
                         Log.e("ok", loc.getAddress());
                     } else {
                         Log.e("getErrorCode", loc.getErrorCode()+"");
