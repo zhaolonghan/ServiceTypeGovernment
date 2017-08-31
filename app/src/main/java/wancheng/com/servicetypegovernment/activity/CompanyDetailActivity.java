@@ -51,10 +51,13 @@ public class CompanyDetailActivity extends BaseActivity {
         final   Drawable linered =relLawListName.getChildAt(1).getBackground();
 
 
+        tvNew.setTextColor(btnblack);
+        tvlNotice.setTextColor(btnblue);
+        tvlLaw.setTextColor(btnblack);
 
-
-
-//公告
+        relNewsListName.getChildAt(1).setBackground(lineblack);
+        relNoticeListName.getChildAt(1).setBackground(linered);
+        relLawListName.getChildAt(1).setBackground(lineblack);
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
@@ -72,7 +75,6 @@ public class CompanyDetailActivity extends BaseActivity {
             }
         });
 
-        //法律
 
         relLawListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -88,7 +90,6 @@ public class CompanyDetailActivity extends BaseActivity {
 
             }
         });
-        //新闻
         relNewsListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 // footView(2);
