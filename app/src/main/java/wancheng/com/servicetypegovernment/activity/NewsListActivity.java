@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -91,6 +92,43 @@ public class NewsListActivity extends BaseActivity {
                                             }
                                         }
         );
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+
+                            madapter.add(listnews);
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
