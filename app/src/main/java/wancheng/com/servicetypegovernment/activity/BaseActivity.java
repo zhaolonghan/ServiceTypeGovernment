@@ -37,7 +37,7 @@ import wancheng.com.servicetypegovernment.bean.TopBean;
  */
 @SuppressLint("HandlerLeak")
 public  class BaseActivity extends Activity {
-
+    protected boolean iscurrentclose=true;//控制当前页面是否关闭
     // 等待提示框
     protected ProgressDialog pd;
 
