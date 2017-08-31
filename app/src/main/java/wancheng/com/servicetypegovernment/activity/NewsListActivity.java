@@ -47,7 +47,8 @@ public class NewsListActivity extends BaseActivity {
         String titlename="通知公告";
        if(index==2){
            titlename="法律法规";
-
+           RelativeLayout   layout= (RelativeLayout) findViewById(R.id.search);
+           layout.setVisibility(View.VISIBLE);
        }else if(index==3){
            titlename="新闻动态";
        }
