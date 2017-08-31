@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.view.PopWindow;
-import wancheng.com.servicetypegovernment.view.SlideShowView;
-
 /**
  * test
  */
@@ -33,6 +25,8 @@ public class CheckOrderActivity extends BaseActivity {
 
     private Button btDetail;
     private Button btStartCheck;
+    private Button bt_history;
+    private Button bt_check;
     private LinearLayout view_1layout;//企业
     private LinearLayout view_2layout;//检查
     private LinearLayout view_3layout;//问题
@@ -42,10 +36,30 @@ public class CheckOrderActivity extends BaseActivity {
     private TextView tvNew;
     private TextView tvlNotice;
     private TextView tvlLaw;
+    private PopWindow popWindow;
+    private boolean  isPOPOpen=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
+        bt_history=(Button)findViewById(R.id.bt_history);
+        bt_history.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Toast.makeText(CheckOrderActivity.this, " 跳转历史检查列表页面", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(CheckOrderActivity.this, CheckHistoryListActivity.class);
+                CheckOrderActivity.this.startActivity(intent);
+            }
+        });
+        bt_check=(Button)this.findViewById(R.id.bt_check);
+        bt_check.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Toast.makeText(CheckOrderActivity.this, " 跳转告知页面", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(CheckOrderActivity.this, InformActivity.class);
+                CheckOrderActivity.this.startActivity(intent);
+            }
+        });
         btDetail=(Button)this.findViewById(R.id.bt_detail);
         btDetail.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -71,7 +85,8 @@ public class CheckOrderActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopWindow popWindow = new PopWindow(CheckOrderActivity.this);
+                isPOPOpen=true;
+                popWindow = new PopWindow(CheckOrderActivity.this);
                 popWindow.showPopupWindow(findViewById(R.id.tv_right));
             }
         });
@@ -184,6 +199,11 @@ public class CheckOrderActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        this.finish();
+        if(isPOPOpen){
+            popWindow.dismiss();
+            isPOPOpen=false;
+        }
+
+       // this.finish();
     }
 }
