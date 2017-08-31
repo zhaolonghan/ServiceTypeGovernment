@@ -76,6 +76,7 @@ public class NewsListActivity extends BaseActivity {
 
                                                 //Log.e("getErrorCode", "");
                                                 if (map.get("id") != null) {
+                                                    iscurrentclose=false;
                                                     String id = map.get("id").toString();
                                                     Intent intent = new Intent();
                                                     // intent.putExtra("id",((TextView)((RelativeLayout)listView.getChildAt(i)).getChildAt(0)).getText());
@@ -83,6 +84,7 @@ public class NewsListActivity extends BaseActivity {
                                                     intent.putExtra("index", listtype);
                                                     intent.setClass(NewsListActivity.this, NewsInfoActivity.class);
                                                     NewsListActivity.this.startActivity(intent);
+                                                    
                                                 }
 
 
@@ -112,10 +114,12 @@ public class NewsListActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   /* @Override
+  @Override
     protected void onStop() {
-        super.finish();
-        super.onStop();
+       if(iscurrentclose){
+           super.finish();
+      }
+      super.onStop();
 
-    }*/
+    }
 }

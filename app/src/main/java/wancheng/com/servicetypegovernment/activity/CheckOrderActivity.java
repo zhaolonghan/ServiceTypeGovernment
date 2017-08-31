@@ -108,6 +108,17 @@ public class CheckOrderActivity extends BaseActivity {
         view_2layout= (LinearLayout)findViewById(R.id.view_2);
         view_3layout= (LinearLayout)findViewById(R.id.view_3);
 
+
+        tvNew.setTextColor(btnblack);
+        tvlNotice.setTextColor(btnblue);
+        tvlLaw.setTextColor(btnblack);
+        relNewsListName.getChildAt(1).setBackground(lineblack);
+        relNoticeListName.getChildAt(1).setBackground(linered);
+        relLawListName.getChildAt(1).setBackground(lineblack);
+        view_1layout.setVisibility(View.VISIBLE);
+        view_2layout.setVisibility(View.GONE);
+        view_3layout.setVisibility(View.GONE);
+
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
