@@ -30,7 +30,6 @@
             android:orientation="vertical"
             >
             <LinearLayout
-                android:id="@+id/lin_food"
                 android:layout_marginTop="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -38,6 +37,7 @@
                 android:orientation="horizontal"
                 >
                 <LinearLayout
+                    android:id="@+id/lin_food"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -62,6 +62,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lin_yaopin"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -75,6 +76,7 @@
                         android:layout_height="55dp"
                         android:src="@drawable/medkit"/>
                     <TextView
+                        android:id="@+id/tv_yp"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -85,6 +87,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lin_huazhuangpin"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -98,6 +101,7 @@
                         android:layout_height="55dp"
                         android:src="@drawable/asterisk"/>
                     <TextView
+                        android:id="@+id/tv_bjp"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -114,6 +118,7 @@
                 android:orientation="horizontal"
                 >
                 <LinearLayout
+                    android:id="@+id/lin_baojianpin"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -127,6 +132,7 @@
                         android:layout_height="55dp"
                         android:src="@drawable/briefcase"/>
                     <TextView
+                        android:id="@+id/tv_hzp"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -137,6 +143,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lin_yiliaoqixie"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -150,6 +157,7 @@
                         android:layout_height="55dp"
                         android:src="@drawable/legal"/>
                     <TextView
+                        android:id="@+id/tv_ylqx"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -160,6 +168,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/lin_tezhongshebei"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -173,6 +182,7 @@
                         android:layout_height="55dp"
                         android:src="@drawable/wrench"/>
                     <TextView
+                        android:id="@+id/tv_tzsb"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
