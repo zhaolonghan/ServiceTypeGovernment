@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/check_lin_view_style"
+    android:layout_width="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_height="200dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="18dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:text="日常检查"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/red"
+            android:textSize="18dp"
+            android:id="@+id/check_date"
+            android:text="2017-08-14"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:text="企业总数："
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text="100家"
+            android:id="@+id/check_corpnum"
+
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:text="检查状态："
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:id="@+id/check_status"
+
+            android:text="进行中"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="已检查："
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:id="@+id/check_numed"
+
+            android:text="50家"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="待检查："
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/check_numing"
+
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:text="50家"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="合格企业："
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:id="@+id/check_numthrought"
+
+            android:text="40家"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:text="问题企业："
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text="10家"
+            android:id="@+id/check_numunthrought"
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:text="检查进度："
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text="50%"
+            android:id="@+id/check_radioing"
+
+            android:textColor="@color/red"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_gravity="center_vertical"
+            android:text="合格率："
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text="50%"
+            android:textColor="@color/red"
+            android:id="@+id/check_radiothrought"
+
+            android:textSize="16dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/check_btn_style"
+            android:id="@+id/bt_start_check"
+            android:text="开始检查"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
+
+
+    </RelativeLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="10dp"
+        android:background="@color/silver"
+        />
+</LinearLayout>
+
+
+
+
