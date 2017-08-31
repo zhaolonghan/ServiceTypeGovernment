@@ -39,6 +39,11 @@ public class IndexActivity extends BaseActivity {
     private AMapLocationClient locationClient = null;
     private SlideShowView SlideShowView;
     private LinearLayout linFood;//食品企业
+    private LinearLayout linyp;//食品企业
+    private LinearLayout linbjp;//食品企业
+    private LinearLayout linhzp;//食品企业
+    private LinearLayout linylqx;//食品企业
+    private LinearLayout lintzsb;//食品企业
     private RelativeLayout relNewsListName;//新闻动态
     private RelativeLayout relNoticeListName;//通知公告
     private RelativeLayout relLawListName;//法律法规
@@ -78,6 +83,11 @@ public class IndexActivity extends BaseActivity {
         Toast.makeText(this, "id:" + id, Toast.LENGTH_LONG).show();*/
         getJumpFoot(this, index,oldindexsintent);
         linFood=(LinearLayout)this.findViewById(R.id.lin_food);
+        linyp=(LinearLayout)this.findViewById(R.id.lin_yaopin);
+        linbjp=(LinearLayout)this.findViewById(R.id.lin_baojianpin);
+        linhzp=(LinearLayout)this.findViewById(R.id.lin_huazhuangpin);
+        linylqx=(LinearLayout)this.findViewById(R.id.lin_yiliaoqixie);
+        lintzsb=(LinearLayout)this.findViewById(R.id.lin_tezhongshebei);
         linFood.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)findViewById(R.id.tv_food);
@@ -87,7 +97,51 @@ public class IndexActivity extends BaseActivity {
                 IndexActivity.this.startActivity(intent);
             }
         });
-
+        linyp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                final TextView tv_food=(TextView)findViewById(R.id.tv_yp);
+                Intent intent = new Intent();
+                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.setClass(IndexActivity.this, CheckOrderActivity.class);
+                IndexActivity.this.startActivity(intent);
+            }
+        });
+        linbjp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                final TextView tv_food=(TextView)findViewById(R.id.tv_bjp);
+                Intent intent = new Intent();
+                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.setClass(IndexActivity.this, CheckOrderActivity.class);
+                IndexActivity.this.startActivity(intent);
+            }
+        });
+        linhzp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                final TextView tv_food=(TextView)findViewById(R.id.tv_hzp);
+                Intent intent = new Intent();
+                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.setClass(IndexActivity.this, CheckOrderActivity.class);
+                IndexActivity.this.startActivity(intent);
+            }
+        });
+        linylqx.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                final TextView tv_food=(TextView)findViewById(R.id.tv_ylqx);
+                Intent intent = new Intent();
+                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.setClass(IndexActivity.this, CheckOrderActivity.class);
+                IndexActivity.this.startActivity(intent);
+            }
+        });
+        lintzsb.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                final TextView tv_food=(TextView)findViewById(R.id.tv_tzsb);
+                Intent intent = new Intent();
+                intent.putExtra("companyType","特种设备");
+                intent.setClass(IndexActivity.this, CheckOrderActivity.class);
+                IndexActivity.this.startActivity(intent);
+            }
+        });
         tvlNotice =(TextView)this.findViewById(R.id.tv_notice);
         tvlLaw=(TextView)this.findViewById(R.id.tv_loyal);
         tvNew=(TextView)this.findViewById(R.id.tv_news);
