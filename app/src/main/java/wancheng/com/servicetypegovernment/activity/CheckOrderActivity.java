@@ -8,13 +8,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
+import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.view.PopWindow;
 /**
@@ -38,11 +47,36 @@ public class CheckOrderActivity extends BaseActivity {
     private TextView tvlLaw;
     private PopWindow popWindow;
     private boolean  isPOPOpen=false;
+    /**企业列表里**/
+    private CheckAdspter madapter = null;
+    private ListView corplistView=null;;
+    List<Map<String, Object>> listcorp;
+
+    /**执法**/
+    private CheckAdspter questionadapter = null;
+    private ListView questionlistView=null;;
+    List<Map<String, Object>> listquestion;
+
+    /**问题*/
+    /**执法**/
+    private CheckAdspter enforcementadapter = null;
+    private ListView enforcementlistView=null;;
+    List<Map<String, Object>> listenforcement;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
-        bt_history=(Button)findViewById(R.id.bt_history);
+
+        //企业列表
+        corplist();
+        //执法列表
+        enforcementlist();
+        //问题
+        question();
+
+
+
+      /*  bt_history=(Button)findViewById(R.id.bt_history);
         bt_history.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Toast.makeText(CheckOrderActivity.this, " 跳转历史检查列表页面", Toast.LENGTH_SHORT).show();
@@ -75,7 +109,7 @@ public class CheckOrderActivity extends BaseActivity {
                 intent.setClass(CheckOrderActivity.this, CompanyCheckListActivity.class);
                 CheckOrderActivity.this.startActivity(intent);
             }
-        });
+        });*/
         Intent intent=getIntent();
         int index= intent.getIntExtra("index", 5);
         oldindexsintent=intent.getIntExtra("oldindexs",5);
@@ -205,5 +239,215 @@ public class CheckOrderActivity extends BaseActivity {
         }
 
        // this.finish();
+    }
+    /**
+     *
+     * num展示企业条数
+     * */
+    public List<Map<String, Object>> corplistcontext(int type,int num){
+        List<Map<String, Object>>  list;
+        List<Map<String, Object>>  addalllist;
+        String id;
+        String corp_name;
+        String corp_code;
+        String corp_person;
+        String corp_tel;
+        String corp_address;
+        list=new ArrayList<Map<String, Object>>();
+        //企业
+        if(type==0){
+            for(int j=0;j<num;j++){
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("id",j);
+
+                map.put("corp_name","天津市大河食品有限公司");
+                map.put("corp_code","001002003");
+                map.put("corp_person","漓江上");
+                map.put("corp_tel","0101234567");
+                map.put("corp_address","北京上地77号楼");
+                list.add(map);
+            }
+        }
+
+        String check_date="2018-08-23";
+        String check_corpnum="100家";
+        String check_status="进行中";
+        String check_numed="50家";
+        String check_numing="50家";
+        String check_numthrought="40家";
+        String check_numunthrought="10家";
+        String check_radioing="50%";
+        String check_radiothrought="40%";
+
+        //执法
+        if(type==1){
+            for(int j=0;j<num;j++){
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("id",j);
+                map.put("check_date",check_date);
+                map.put("check_corpnum",check_corpnum);
+                map.put("check_status",check_status);
+                map.put("check_numed",check_numed);
+                map.put("check_numing",check_numing);
+                map.put("check_numthrought",check_numthrought);
+                map.put("check_numunthrought",check_numunthrought);
+                map.put("check_radioing", check_radioing);
+                map.put("check_radiothrought", check_radiothrought);
+                list.add(map);
+            }
+        }
+
+        String question_corpname="天津市大河食品有限公司";
+        String question_no="20170228000001";
+        String question_date="2017-08-28";
+        String question_result="基本符合";
+        String question_management="书面责令整改";
+        String question_status="未整改";
+        String question_limit="2017-09-30";
+
+
+        //问题
+        if(type==2){
+            for(int j=0;j<num;j++){
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("id",j);
+                map.put("question_corpname",question_corpname);
+                map.put("question_no",question_no);
+                map.put("question_date",question_date);
+                map.put("question_result",question_result);
+                map.put("question_management",question_management);
+                map.put("question_status",question_status);
+                map.put("question_limit",question_limit);
+                list.add(map);
+            }
+        }
+        return list;
+
+    }
+    public void corplist(){
+        listcorp= corplistcontext(0,5);
+        corplistView=(ListView)findViewById(R.id.corplist);
+        madapter = new CheckAdspter(this, listcorp,0);
+        corplistView.setAdapter(madapter);
+        corplistView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                            madapter.add(listcorp);
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
+    }
+
+    public void enforcementlist(){
+        listenforcement= corplistcontext(1,5);
+        enforcementlistView=(ListView)findViewById(R.id.enforcementlist);
+        enforcementadapter = new CheckAdspter(this, listenforcement,1);
+        enforcementlistView.setAdapter(enforcementadapter);
+        enforcementlistView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                            enforcementadapter.add(listenforcement);
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
+    }
+
+
+    public void question(){
+        listquestion= corplistcontext(2,5);
+        questionlistView=(ListView)findViewById(R.id.questionlist);
+        questionadapter = new CheckAdspter(this, listquestion,2);
+        questionlistView.setAdapter(questionadapter);
+        questionlistView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                            questionadapter.add(listquestion);
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
     }
 }
