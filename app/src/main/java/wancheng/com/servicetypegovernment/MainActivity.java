@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
 import wancheng.com.servicetypegovernment.activity.BaseActivity;
+import wancheng.com.servicetypegovernment.activity.CoreActivity;
 import wancheng.com.servicetypegovernment.activity.IndexActivity;
 import wancheng.com.servicetypegovernment.util.Sha1;
 
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity {
                 Log.e("11111111111111111", Sha1.sHA1(MainActivity.this));
                 Intent intent = new Intent();
                 intent.putExtra("username", username);
-                intent.setClass(MainActivity.this, IndexActivity.class);
+                intent.setClass(MainActivity.this, CoreActivity.class);
                 MainActivity.this.startActivity(intent);
             }
         });

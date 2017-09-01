@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -503,7 +502,7 @@ public  class BaseActivity extends Activity {
         whitetext.setTextColor(textcolor);//文字变蓝
         switch (index){
             case 0:
-                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.sy002);//换图
+                ((ImageView)foot.getChildAt(0)).setImageResource(R.drawable.sy01);//换图
                 break;
 
             case 1:
