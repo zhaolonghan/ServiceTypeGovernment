@@ -59,7 +59,7 @@ public  class IndexFragment  extends BaseFragment {
             "http://jiangsu.china.com.cn/uploadfile/2016/0316/1458124624807199.png.jpg",
             "http://ww1.sinaimg.cn/orj480/999a7ed9jw1f2pc4wn1fpj20b4089aap.jpg",
             "http://www.5888.tv/Upload_Map/uploads/2014/7/2014-07-16-11-15-33.jpg"};
-    private View contactsLayout ;
+
     /*
     * 新闻
     * */

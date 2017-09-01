@@ -31,6 +31,7 @@ public abstract class BaseFragment extends Fragment {
     protected  TextView tv_title;
     protected TextView tv_left;
     protected TextView tv_right;
+    protected View contactsLayout ;
     public void getTopView(TopBean topBean,View view){
         tv_title=(TextView)view.findViewById(R.id.tv_title);
         tv_left=(TextView)view.findViewById(R.id.tv_left);
