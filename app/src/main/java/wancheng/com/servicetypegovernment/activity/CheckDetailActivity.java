@@ -18,15 +18,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.adspter.CheckQuestionAdspter;
 import wancheng.com.servicetypegovernment.adspter.ImageChooseAdapter;
+import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.adspter.NoScrollGridAdapter;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.ItemEntity;
@@ -42,20 +46,37 @@ public class CheckDetailActivity extends BaseActivity {
     private ArrayList<ImagesBean> newList;
     private int type=1;
     private String photoFileName;
+
+    List<Map<String, Object>>  listnews;
+    private CheckQuestionAdspter madapter = null;
+    private ListView listView=null;
+    private CheckQuestionAdspter  infomadapter = null;
+    private ListView infolistView=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_detail);
         noScrollGridVieww=(NoScrollGridView) findViewById(R.id.gridview);
         Intent intent=getIntent();
+
+        listnews= newlistcontext(1,5);
+        listView=(ListView)findViewById(R.id.checkquestionlist);
+        madapter = new CheckQuestionAdspter(this, listnews,0);
+        listView.setAdapter(madapter);
+
+
         initData();
-        itemEntity=itemEntities.get(3);
+ /*       itemEntity=itemEntities.get(3);
         imageUrls = itemEntity.getImageUrls();
         if (imageUrls == null || imageUrls.size() == 0) { // 没有图片资源就隐藏GridView
             noScrollGridVieww.setVisibility(View.GONE);
+
+
         } else {
             noScrollGridAdapter=new NoScrollGridAdapter(this, imageUrls);
             noScrollGridVieww.setAdapter(noScrollGridAdapter);
+
         }
         // 点击回帖九宫格，查看大图
         noScrollGridVieww.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,7 +104,7 @@ public class CheckDetailActivity extends BaseActivity {
                }
                 return true;
             }
-        });
+        });*/
 //        bt_check=(Button)findViewById(R.id.bt_check);
 //        bt_check.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View arg0) {
@@ -109,14 +130,14 @@ public class CheckDetailActivity extends BaseActivity {
 
         TopBean topBean=new TopBean("检查要点","返回","下一步",true,true);
         getTopView(topBean);
-        TextView tv = (TextView) findViewById(R.id.tv_zhinan);
+        /*TextView tv = (TextView) findViewById(R.id.tv_zhinan);
         tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showNormalDialog();
             }
-        });
+        });*/
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -268,32 +289,15 @@ public class CheckDetailActivity extends BaseActivity {
      */
     private void initData() {
         itemEntities = new ArrayList<ItemEntity>();
-        // 1.无图片
-        ItemEntity entity1 = new ItemEntity(//
-                "http://img.my.csdn.net/uploads/201410/19/1413698871_3655.jpg", "张三", "今天天气不错...", null);
-        itemEntities.add(entity1);
-        // 2.1张图片
-        ArrayList<ImagesBean> urls_1 = new ArrayList<ImagesBean>();
-        urls_1.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg"));
-        ItemEntity entity2 = new ItemEntity(//
-                "http://img.my.csdn.net/uploads/201410/19/1413698865_3560.jpg", "李四", "今天雾霾呢...", urls_1);
-        itemEntities.add(entity2);
-        // 3.3张图片
-        ArrayList<ImagesBean> urls_2 = new ArrayList<ImagesBean>();
-        urls_2.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698867_8323.jpg"));
-        urls_2.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg"));
-        urls_2.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698837_5654.jpg"));
-        ItemEntity entity3 = new ItemEntity(//
-                "http://img.my.csdn.net/uploads/201410/19/1413698837_5654.jpg", "王五", "今天好大的太阳...", urls_2);
-        itemEntities.add(entity3);
+
         // 4.6张图片
         ArrayList<ImagesBean> urls_3 = new ArrayList<ImagesBean>();
-        urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698837_7507.jpg"));
-        urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698865_3560.jpg"));
+        urls_3.add(new ImagesBean("defaultImage",""));
+      /*     urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698865_3560.jpg"));
         urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698867_8323.jpg"));
         urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698837_5654.jpg"));
-        urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg"));
-   //     urls_3.add("http://img.my.csdn.net/uploads/201410/19/1413698839_2302.jpg");
+        urls_3.add(new ImagesBean("netImage","http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg"));*/
+   //    urls_3.add("http://img.my.csdn.net/uploads/201410/19/1413698839_2302.jpg");
         ItemEntity entity4 = new ItemEntity(//
                 "http://img.my.csdn.net/uploads/201410/19/1413698883_5877.jpg", "赵六", "今天下雨了...", urls_3);
         itemEntities.add(entity4);

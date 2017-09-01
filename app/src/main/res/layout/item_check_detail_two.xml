@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*"
+                android:textColor="@color/red"
+                android:textSize="16dp"
+                android:gravity="right"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:text="1.1 厂区无扬尘、无积水，厂区、车间卫生整洁。"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/btnblue"
+                android:text="检查指南"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/tv_zhinan"/>
+        </LinearLayout>
+
+        <RadioGroup
+            android:contentDescription="是否"
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp">
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:checked="false" android:textSize="16dp"
+                android:textColor="@color/black" android:text="是"></RadioButton>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                android:textColor="@color/black" android:text="否" android:checked="false"></RadioButton>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:checked="false" android:textSize="16dp"
+                android:textColor="@color/black" android:text="合理缺项" ></RadioButton>
+        </RadioGroup>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="如果需要，请在此处写下备注。"
+            android:textSize="16dp"
+            android:gravity="left"
+            android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:text="添加图片："/>
+            <wancheng.com.servicetypegovernment.view.NoScrollGridView
+                android:id="@+id/gridview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="20dp"
+                android:columnWidth="50dp"
+                android:gravity="center"
+                android:horizontalSpacing="1dp"
+                android:numColumns="5"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="1dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/black"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
