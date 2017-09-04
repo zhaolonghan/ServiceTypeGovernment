@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:background="@drawable/check_lin_view_style"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+    android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/rela_history"
+        android:layout_marginTop="10dp"
+
+    android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/tv_left1"
+            android:text="过"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_left1"
+            android:text="日常检查"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:textColor="@color/red"
+            android:textSize="18dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/iv_right1"
+
+            android:id="@+id/history_time"
+            android:text="2017-08-23"
+            />
+        <ImageView
+            android:id="@+id/iv_right1"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/right"/>
+
+    </RelativeLayout>
+</LinearLayout>
