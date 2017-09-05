@@ -34,9 +34,9 @@ public class CompanyDetailActivity extends BaseActivity {
         getTopView(topBean);
         Intent intent=getIntent();
 
-        int index= intent.getIntExtra("index", 5);
+     /*   int index= intent.getIntExtra("index", 5);
         oldindexsintent=intent.getIntExtra("oldindexs",5);
-        getJumpFoot(this, index, oldindexsintent);
+        getJumpFoot(this, index, oldindexsintent);*/
 
         tvlNotice =(TextView)this.findViewById(R.id.tv_notice);
         tvlLaw=(TextView)this.findViewById(R.id.tv_loyal);

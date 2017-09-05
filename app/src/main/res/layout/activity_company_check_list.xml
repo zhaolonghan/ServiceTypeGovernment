@@ -67,14 +67,7 @@
         android:layout_alignParentBottom="true"
         >
 
-        <LinearLayout
-            android:paddingTop="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <include layout="@layout/bottom_view"
-                />
-        </LinearLayout>
+
 
     </LinearLayout>
 
