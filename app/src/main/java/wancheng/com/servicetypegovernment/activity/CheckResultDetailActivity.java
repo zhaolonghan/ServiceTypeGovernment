@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -63,7 +64,42 @@ public class CheckResultDetailActivity extends BaseActivity {
         listView=(ListView)findViewById(R.id.checkquestionlist);
         madapter = new CheckResultAdspter(this, listnews,0);
         listView.setAdapter(madapter);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+
+                            madapter.add(listnews);
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
     }
 
 
