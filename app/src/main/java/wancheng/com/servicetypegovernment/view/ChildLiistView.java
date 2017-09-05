@@ -1,4 +1,4 @@
-package wancheng.com.servicetypegovernment.util;
+package wancheng.com.servicetypegovernment.view;
 
 /**
  * Created by john on 2017/8/16.

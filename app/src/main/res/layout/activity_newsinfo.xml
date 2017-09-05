@@ -23,7 +23,7 @@
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/newsinfo"
             >
             <TextView
@@ -83,26 +83,5 @@
 
 
 
-
-
-    <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:id="@+id/lin_bottom"
-        android:background="@color/btnblue"
-        android:layout_alignParentBottom="true"
-        >
-
-        <LinearLayout
-            android:paddingTop="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <include layout="@layout/bottom_view"
-                />
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>

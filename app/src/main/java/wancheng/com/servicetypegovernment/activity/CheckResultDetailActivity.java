@@ -13,12 +13,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.adspter.CheckQuestionAdspter;
+import wancheng.com.servicetypegovernment.adspter.CheckResultAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 
 public class CheckResultDetailActivity extends BaseActivity {
@@ -31,7 +40,9 @@ public class CheckResultDetailActivity extends BaseActivity {
     private TextView tvNew;
     private TextView tvlNotice;
     private TextView tvlLaw;
-
+    List<Map<String, Object>> listnews;
+    private CheckResultAdspter madapter = null;
+    private ListView listView=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +59,73 @@ public class CheckResultDetailActivity extends BaseActivity {
 
         TopBean topBean=new TopBean("检查详情","返回","下一步",true,false);
         getTopView(topBean);
+        indata();
+        listnews= checkresultlistcontext(5);
+        listView=(ListView)findViewById(R.id.checkquestionlist);
+        madapter = new CheckResultAdspter(this, listnews,0);
+        listView.setAdapter(madapter);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+
+                            madapter.add(listnews);
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    public void indata(){
         tvlNotice =(TextView)this.findViewById(R.id.tv_notice);
         tvlLaw=(TextView)this.findViewById(R.id.tv_loyal);
         tvNew=(TextView)this.findViewById(R.id.tv_news);
@@ -123,28 +200,50 @@ public class CheckResultDetailActivity extends BaseActivity {
             }
         });
     }
+    public List<Map<String, Object>> checkresultlistcontext(int num){
+        List<Map<String, Object>>  list;
+        List<Map<String, Object>>  addalllist;
+        //标题0  时间1  内容2String id="1";
+        String title="";
+        String time="";
+        String content="";
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        list=new ArrayList<Map<String, Object>>();
+        for(int j=0;j<num;j++){
+            //tv_result3=1  合理    ；2是；3否
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("detail_title", "1、生产环境条件");
+                List<Map<String, Object>>  infolist=new ArrayList<Map<String, Object>>();
+                Map<String, Object> infomap=new HashMap<String, Object>();
+                infomap.put("detail_info","1.1 厂区基本无扬尘、基本无积水，基本厂区、基本车间卫生整洁。基本厂区无扬尘、无积水，厂区、车间卫生整洁。厂区无扬尘、无积水，厂区、车间卫生整洁。");
+                infomap.put("tv_result3",1);
+                infomap.put("detail_remark","整体不错，继续努力");
+                infomap.put("detail_image","");
+                infolist.add(infomap);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            infomap=new HashMap<String, Object>();
+            infomap.put("detail_info","1.2 厂区无扬尘、无积水，厂区、车间卫生整洁。厂区无扬尘、无积水，厂区、车间卫生整洁。厂区无扬尘、无积水，厂区、车间卫生整洁。");
+            infomap.put("tv_result3",2);
+            infomap.put("detail_remark","全部合格");
+            infomap.put("detail_image","");
+            infolist.add(infomap);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+           infomap=new HashMap<String, Object>();
+            infomap.put("detail_info","1.3 厂区有扬尘、有积水，厂区、车间卫生整洁。厂区有扬尘、有积水，厂区、车间卫生不整洁。厂区有扬尘、有积水，厂区、车间卫生不整洁。");
+            infomap.put("tv_result3",3);
+            infomap.put("detail_remark","很不合格");
+            infomap.put("detail_image","");
+            infolist.add(infomap);
+            map.put("infolist",infolist);
+
+
+            list.add(map);
         }
 
-        return super.onOptionsItemSelected(item);
+        return list;
+
     }
 }

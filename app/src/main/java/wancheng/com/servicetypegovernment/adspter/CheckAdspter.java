@@ -174,8 +174,9 @@ public class CheckAdspter extends BaseAdapter
         btStartCheck.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 Intent intent = new Intent();
-                intent.setClass(context, CompanyCheckListActivity.class);
+                intent.setClass(context, InformActivity.class);
                 context.startActivity(intent);
+
             }
         });
         return  zujian;
