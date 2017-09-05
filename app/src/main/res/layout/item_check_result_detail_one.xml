@@ -39,17 +39,11 @@ android:layout_width="match_parent"
             android:padding="5dp"
             android:textColor="@color/white"/>
     </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <wancheng.com.servicetypegovernment.util.ChildLiistView
+        <wancheng.com.servicetypegovernment.view.ChildLiistView
             android:id="@+id/check_question"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
             />
-
-    </LinearLayout>
     <View
         android:layout_width="fill_parent"
         android:layout_height="10dp"

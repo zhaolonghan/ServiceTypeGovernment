@@ -44,7 +44,7 @@
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="vertical">
-    <wancheng.com.servicetypegovernment.util.ChildLiistView
+    <wancheng.com.servicetypegovernment.view.ChildLiistView
         android:id="@+id/check_question"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

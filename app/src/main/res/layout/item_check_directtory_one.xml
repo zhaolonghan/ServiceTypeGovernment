@@ -39,7 +39,7 @@
             android:textColor="@color/white"/>
     </RelativeLayout>
 
-    <wancheng.com.servicetypegovernment.util.ChildLiistView
+    <wancheng.com.servicetypegovernment.view.ChildLiistView
         android:id="@+id/check_info"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

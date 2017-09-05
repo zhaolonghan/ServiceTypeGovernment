@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.util.ChildLiistView;
+import wancheng.com.servicetypegovernment.view.ChildLiistView;
 
 /**
  * Created by john on 2017/8/17.
@@ -67,10 +67,10 @@ public class CheckResultAdspter extends BaseAdapter
             if(type==0){
                 convertView=layoutInflater.inflate(R.layout.item_check_result_detail_one, null);
                zujian.childListView = (ChildLiistView) convertView.findViewById(R.id.check_question);
-                Log.e("11111111111111111", ((List<Map<String, Object>>)data.get(i).get("infolist")).size()+"");
+                Log.e("11111111111111111", ((List<Map<String, Object>>) data.get(i).get("infolist")).size() + "");
+                final CheckResultChidAdspter adapter=new CheckResultChidAdspter(context, (List<Map<String, Object>>) data.get(i).get("infolist"));
 
-
-                zujian.childListView.setAdapter(new CheckResultChidAdspter(context, (List<Map<String, Object>>) data.get(i).get("infolist")));
+                zujian.childListView.setAdapter(adapter);
             }
             zujian.detail_title = (TextView) convertView.findViewById(R.id.detail_title);
             zujian.detail_title.setText(data.get(i).get("detail_title").toString());

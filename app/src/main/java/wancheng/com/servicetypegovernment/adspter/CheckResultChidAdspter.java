@@ -94,7 +94,8 @@ public class CheckResultChidAdspter extends BaseAdapter
             zujian. tv_result3= (ImageView) convertView.findViewById(R.id.tv_result3);
             if("1".equals(isstatus)){
                 //图片不变
-                zujian.detail_remark.setVisibility(View.GONE);
+
+                 zujian.detail_remark.setVisibility(View.GONE);
                 zujian.detail_image.setVisibility(View.GONE);
 
             }else if("2".equals(isstatus)){
@@ -107,7 +108,7 @@ public class CheckResultChidAdspter extends BaseAdapter
                 zujian. tv_result3.setImageResource(R.drawable.fou);
 
                 Log.e("isstatus1", isstatus);
-                zujian.detail_remark.setVisibility(View.VISIBLE);
+               zujian.detail_remark.setVisibility(View.VISIBLE);
 
                 Log.e("isstatus2", isstatus);
                 zujian.detail_image.setVisibility(View.VISIBLE);

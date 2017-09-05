@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.util.ChildLiistView;
+import wancheng.com.servicetypegovernment.view.ChildLiistView;
 
 /**
  * Created by john on 2017/8/17.

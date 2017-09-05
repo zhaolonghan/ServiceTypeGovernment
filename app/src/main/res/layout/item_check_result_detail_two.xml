@@ -43,7 +43,7 @@
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/detail_remark"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -73,7 +73,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:id="@+id/detail_image"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginBottom="10dp"
         >
         <TextView
