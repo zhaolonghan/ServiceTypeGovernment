@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/check_lin_view_style"
@@ -9,8 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="10dp"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,7 +17,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -53,18 +48,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
-                android:text="检查编号:"
+                android:text="检查编号："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
                 android:text="20170828000001"
                 android:id="@+id/question_no"
@@ -79,11 +75,11 @@
             android:layout_marginLeft="18dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="检查时间:"
+                android:text="检查时间："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -93,7 +89,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="2017-08-28"
                 android:id="@+id/question_date"
-
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -103,12 +99,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="18dp"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="检查结果:"
+                android:text="检查结果："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -117,7 +113,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/question_result"
-
+                android:layout_marginLeft="10dp"
                 android:text="基本符合"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
@@ -128,13 +124,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="18dp"
 
-                android:text="结果处置:"
+                android:text="结果处置："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -142,7 +138,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:id="@+id/question_management"
-
+                android:layout_marginLeft="10dp"
                 android:layout_gravity="center_vertical"
                 android:text="书面责令整改"
                 android:textColor="@color/red"
@@ -154,13 +150,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
 
                 android:layout_marginLeft="18dp"
-                android:text="处置状态:"
+                android:text="处置状态："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -169,7 +165,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/question_status"
-
+                android:layout_marginLeft="10dp"
                 android:text="未整改"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
@@ -180,12 +176,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="18dp"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="整改限期:"
+                android:text="整改限期："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -195,14 +191,14 @@
                 android:layout_gravity="center_vertical"
                 android:text="2017-09-30"
                 android:id="@+id/question_limit"
-
+                android:layout_marginLeft="10dp"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <LinearLayout

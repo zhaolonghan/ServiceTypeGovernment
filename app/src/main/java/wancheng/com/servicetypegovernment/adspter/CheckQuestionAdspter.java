@@ -9,12 +9,15 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.util.ChildLiistView;
+import wancheng.com.servicetypegovernment.view.ViewHolder;
 
 /**
  * Created by john on 2017/8/17.
@@ -25,14 +28,13 @@ public class CheckQuestionAdspter extends BaseAdapter
     private List<Map<String, Object>> data;
     private LayoutInflater layoutInflater;
     private Context context;
-    private String id;
-    private int type;
-    private CheckQuestionChidAdspter childAdapter;
-    public CheckQuestionAdspter(Context context, List<Map<String, Object>> data, int type){
+    private ListView listView;
+    public static  View listView1;
+    public CheckQuestionAdspter(Context context, List<Map<String, Object>> data, ListView listView){
         this.context=context;
         this.data=data;
         this.layoutInflater=LayoutInflater.from(context);
-        this.type=type;
+        this.listView=listView;
     }
     public final class Zujian{
         public TextView id;
@@ -63,24 +65,19 @@ public class CheckQuestionAdspter extends BaseAdapter
         Zujian zujian=null;
         if(convertView==null){
             zujian=new Zujian();
-
-           // this.childAdapter  = new CheckQuestionChidAdspter(context,data);
-            //获得组件，实例化组件
-            if(type==0){
                 convertView=layoutInflater.inflate(R.layout.item_check_detail_one, null);
-                zujian.childListView = (ChildLiistView) convertView.findViewById(R.id.check_question);
-                zujian.childListView.setAdapter(new CheckQuestionChidAdspter(context,data));
-            }
-
-/*            zujian.id=(TextView)convertView.findViewById(R.id.newsid);
-            zujian.title=(TextView)convertView.findViewById(R.id.newslist1);
-            zujian.time=(TextView)convertView.findViewById(R.id.tv_time);
-            zujian.context=(TextView)convertView.findViewById(R.id.tv_content);*/
+            //    zujian.childListView = (ChildLiistView) convertView.findViewById(R.id.check_question);
+           zujian.childListView.setAdapter(new CheckQuestionChidAdspter(context,data,listView));
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
         }
-
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listView1=view;
+            }
+        });
 
         return convertView;
     }
@@ -101,4 +98,10 @@ public class CheckQuestionAdspter extends BaseAdapter
         //删除的话用remove
         notifyDataSetChanged();
     }
+//    public void updataView(View convertView,final List<Map<String,Object>> data,ArrayList<ImagesBean> imagesBean) {
+//        Zujian holder = (Zujian) convertView.getTag();
+//        CheckQuestionChidAdspter childAdapter = new CheckQuestionChidAdspter(context, data,imagesBean);
+//        holder.childListView.setAdapter(childAdapter);
+//        childAdapter.notifyDataSetInvalidated();
+//    }
 }

@@ -75,18 +75,27 @@
                 android:textSize="16dp"
                 android:layout_gravity="center_vertical"
                 android:text="添加图片："/>
-            <wancheng.com.servicetypegovernment.view.NoScrollGridView
-                android:id="@+id/gridview"
+            <!--<wancheng.com.servicetypegovernment.view.NoScrollGridView-->
+                <!--android:id="@+id/gridview"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:columnWidth="50dp"-->
+                <!--android:gravity="center"-->
+                <!--android:horizontalSpacing="1dp"-->
+                <!--android:numColumns="5"-->
+                <!--android:stretchMode="columnWidth"-->
+                <!--android:verticalSpacing="1dp" />-->
+            <LinearLayout
+                android:id="@+id/lin_images"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginRight="20dp"
-                android:columnWidth="50dp"
-                android:gravity="center"
-                android:horizontalSpacing="1dp"
-                android:numColumns="5"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="1dp" />
+                android:orientation="horizontal"></LinearLayout>
+
+
         </LinearLayout>
 
         <View

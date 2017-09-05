@@ -369,24 +369,32 @@ public abstract class BaseFragment extends Fragment {
         List<Map<String, Object>>  list;
         List<Map<String, Object>>  addalllist;
         //标题0  时间1  内容2String id="1";
+        String day="";
+        String year="";
         String title="";
-        String time="";
-        String content="";
+        String count="";
+        String source="";
         switch (i){
             case 1:
                 title="国家质量监督检验检疫总局《进出口工业品风险管理办法》";
-                time="2017-06-21";
-                content="《进出口工业品风险管理办法》已经2017年2月21日国家质量监督检验检疫总局局务会议审议通过，现予公布，自2017年4月1日起施行。";
+                day="01";
+                year="2017/09";
+                count="5";
+                source="南方日报";
                 break;
             case 2:
                 title="中华人民共和国食品安全法实施条例";
-                time="2015-08-17 ";
-                content="《中华人民共和国食品安全法实施条例》已经2009年7月8日国务院第73次常务会议通过，现予公布，自公布之日起施行。";
+                day="01";
+                year="2017/09";
+                count="10";
+                source="南方日报";
                 break;
             case 3:
                 title="市市场监管委党委召开领导干部警示教育大";
-                time="2015-06-27";
-                content="\\u3000\\u3000日前，市市场监管委委党委组织召开了全系统领导干部警示教育大会，传达学习全市领导干部警示教育大会精神，组织开展警示教育，引导广大党员干部知晓、敬畏和严守党纪国法，做到心有所畏、言有沙达14%。";
+                day="01";
+                year="2017/09";
+                count="15";
+                source="南方日报";
                 break;
         }
 
@@ -394,10 +402,11 @@ public abstract class BaseFragment extends Fragment {
         list=new ArrayList<Map<String, Object>>();
         for(int j=0;j<num;j++){
             Map<String, Object> map=new HashMap<String, Object>();
-            map.put("id",j);
+            map.put("day",day);
             map.put("title",title);
-            map.put("time",time);
-            map.put("context",content);
+            map.put("year",year);
+            map.put("count",count);
+            map.put("source",source);
             list.add(map);
         }
 

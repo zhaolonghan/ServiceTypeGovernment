@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 public class ImageLoader
 {
 	/**
@@ -152,10 +154,8 @@ public class ImageLoader
 
 	/**
 	 * 加载图片
-	 * 
-	 * @param path
-	 * @param imageView
-	 */
+	 *  @param path
+	 * @param imageView*/
 	public void loadImage(final String path, final ImageView imageView)
 	{
 		// set tag

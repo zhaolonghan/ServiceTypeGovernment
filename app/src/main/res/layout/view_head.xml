@@ -271,6 +271,13 @@
                         android:background="@color/white"
                         android:layout_alignParentBottom="true"
                         ></View>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="30dp"
+                        android:background="@color/black"
+                        android:layout_alignParentRight="true"
+                        ></View>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -299,13 +306,7 @@
                         android:background="@color/white"
 
                         ></View>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_centerInParent="true"
-                        android:layout_height="30dp"
-                        android:background="@color/black"
-                        android:layout_alignParentRight="true"
-                        ></View>
+
                 </RelativeLayout>
 
             </LinearLayout>

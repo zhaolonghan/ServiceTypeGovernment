@@ -37,10 +37,11 @@ public class NewsAdspter extends BaseAdapter
         Log.e("datasize", data.size()+"");
     }
     public final class Zujian{
-        public TextView id;
-        public TextView title;
-        public TextView time;
-        public TextView context;
+        public TextView tv_day  ;
+        public TextView tv_year;
+        public TextView tv_content_title;
+        public TextView tv_count;
+        public TextView tv_source;
     }
 
     @Override
@@ -65,21 +66,23 @@ public class NewsAdspter extends BaseAdapter
             zujian=new Zujian();
             //获得组件，实例化组件
             convertView=layoutInflater.inflate(R.layout.item_news, null);
-            zujian.id=(TextView)convertView.findViewById(R.id.newsid);
-            zujian.title=(TextView)convertView.findViewById(R.id.newslist1);
-            zujian.time=(TextView)convertView.findViewById(R.id.tv_time);
-            zujian.context=(TextView)convertView.findViewById(R.id.tv_content);
+            zujian.tv_day=(TextView)convertView.findViewById(R.id.tv_day);
+            zujian.tv_year=(TextView)convertView.findViewById(R.id.tv_year);
+            zujian.tv_content_title=(TextView)convertView.findViewById(R.id.tv_content_title);
+            zujian.tv_count=(TextView)convertView.findViewById(R.id.tv_count);
+            zujian.tv_source=(TextView)convertView.findViewById(R.id.tv_source);
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
         }
 
         //绑定数据
-        id=data.get(i).get("id")+"";
-        zujian.id.setText(data.get(i).get("id")+"");
-        zujian.title.setText(data.get(i).get("title").toString());
-        zujian.time.setText(data.get(i).get("time").toString());
-        zujian.context.setText(data.get(i).get("context").toString());
+
+        zujian.tv_day.setText(data.get(i).get("day")+"");
+        zujian.tv_year.setText(data.get(i).get("year").toString());
+        zujian.tv_content_title.setText(data.get(i).get("title").toString());
+        zujian.tv_count.setText(data.get(i).get("count").toString());
+        zujian.tv_source.setText(data.get(i).get("source").toString());
        /* if(convertView!=null) ((RelativeLayout)convertView.findViewById(R.id.newsid).getParent()).setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 //打开详情

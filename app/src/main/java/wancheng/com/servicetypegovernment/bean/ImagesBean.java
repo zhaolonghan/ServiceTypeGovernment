@@ -1,5 +1,8 @@
 package wancheng.com.servicetypegovernment.bean;
 
+import android.util.Log;
+import android.view.View;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +17,9 @@ public class ImagesBean implements Serializable {
         this.type = type;
         this.path = path;
     }
+    public ImagesBean() {
+    }
+
 
     public int getId() {
         return id;

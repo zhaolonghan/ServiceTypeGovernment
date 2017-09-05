@@ -93,82 +93,82 @@ public  class IndexFragment  extends BaseFragment {
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
         return mOption;
     }
-    /**
-     * i=1 公告
-     *
-     * i=1 法律
-     *
-     * i=1 新闻
-     *
-     * num=条数
-     *
-     * */
-    public List<Map<String, Object>> newlistcontext(int i,int num){
-        List<Map<String, Object>>  list;
-        List<Map<String, Object>>  addalllist;
-        //标题0  时间1  内容2String id="1";
-        String title="";
-        String time="";
-        String content="";
-        switch (i){
-            case 1:
-                title="国家质量监督检验检疫总局《进出口工业品风险管理办法》";
-                time="2017-06-21";
-                content="《进出口工业品风险管理办法》已经2017年2月21日国家质量监督检验检疫总局局务会议审议通过，现予公布，自2017年4月1日起施行。";
-                break;
-            case 2:
-                title="中华人民共和国食品安全法实施条例";
-                time="2015-08-17 ";
-                content="《中华人民共和国食品安全法实施条例》已经2009年7月8日国务院第73次常务会议通过，现予公布，自公布之日起施行。";
-                break;
-            case 3:
-                title="市市场监管委党委召开领导干部警示教育大";
-                time="2015-06-27";
-                content="\\u3000\\u3000日前，市市场监管委委党委组织召开了全系统领导干部警示教育大会，传达学习全市领导干部警示教育大会精神，组织开展警示教育，引导广大党员干部知晓、敬畏和严守党纪国法，做到心有所畏、言有沙达14%。";
-                break;
-        }
-
-
-        list=new ArrayList<Map<String, Object>>();
-        for(int j=0;j<num;j++){
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("id",j);
-            map.put("title",title);
-            map.put("time",time);
-            map.put("context",content);
-            list.add(map);
-        }
-
-        return list;
-
-    }
-    public List<Map<String, Object>> newslistcontext(int num){
-        //http://www.tjcac.gov.cn/zlaqzd/
-        List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
-        Map<String, Object> map=new HashMap<String, Object>();
-        map.put("id","1");
-        map.put("title","市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议");
-        map.put("time","2017-08-23");
-        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
-                "\n" +
-                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
-
-
-        list.add(map);
-
-
-        map=new HashMap<String, Object>();
-        map.put("id","2");
-        map.put("title","总队强化全运会建筑施工应急保障组织工作");
-        map.put("time","2017-08-23");
-        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
-                "\n" +
-                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
-
-
-        list.add(map);
-        return list;
-    }
+//    /**
+//     * i=1 公告
+//     *
+//     * i=1 法律
+//     *
+//     * i=1 新闻
+//     *
+//     * num=条数
+//     *
+//     * */
+//    public List<Map<String, Object>> newlistcontext(int i,int num){
+//        List<Map<String, Object>>  list;
+//        List<Map<String, Object>>  addalllist;
+//        //标题0  时间1  内容2String id="1";
+//        String title="";
+//        String time="";
+//        String content="";
+//        switch (i){
+//            case 1:
+//                title="国家质量监督检验检疫总局《进出口工业品风险管理办法》";
+//                time="2017-06-21";
+//                content="《进出口工业品风险管理办法》已经2017年2月21日国家质量监督检验检疫总局局务会议审议通过，现予公布，自2017年4月1日起施行。";
+//                break;
+//            case 2:
+//                title="中华人民共和国食品安全法实施条例";
+//                time="2015-08-17 ";
+//                content="《中华人民共和国食品安全法实施条例》已经2009年7月8日国务院第73次常务会议通过，现予公布，自公布之日起施行。";
+//                break;
+//            case 3:
+//                title="市市场监管委党委召开领导干部警示教育大";
+//                time="2015-06-27";
+//                content="\\u3000\\u3000日前，市市场监管委委党委组织召开了全系统领导干部警示教育大会，传达学习全市领导干部警示教育大会精神，组织开展警示教育，引导广大党员干部知晓、敬畏和严守党纪国法，做到心有所畏、言有沙达14%。";
+//                break;
+//        }
+//
+//
+//        list=new ArrayList<Map<String, Object>>();
+//        for(int j=0;j<num;j++){
+//            Map<String, Object> map=new HashMap<String, Object>();
+//            map.put("id",j);
+//            map.put("title",title);
+//            map.put("time",time);
+//            map.put("context",content);
+//            list.add(map);
+//        }
+//
+//        return list;
+//
+//    }
+//    public List<Map<String, Object>> newslistcontext(int num){
+//        //http://www.tjcac.gov.cn/zlaqzd/
+//        List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
+//        Map<String, Object> map=new HashMap<String, Object>();
+//        map.put("id","1");
+//        map.put("title","市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议");
+//        map.put("time","2017-08-23");
+//        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
+//                "\n" +
+//                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
+//
+//
+//        list.add(map);
+//
+//
+//        map=new HashMap<String, Object>();
+//        map.put("id","2");
+//        map.put("title","总队强化全运会建筑施工应急保障组织工作");
+//        map.put("time","2017-08-23");
+//        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
+//                "\n" +
+//                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
+//
+//
+//        list.add(map);
+//        return list;
+//    }
     public List<Map<String, Object>> lawslistcontext(int num){
         List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
         return list;

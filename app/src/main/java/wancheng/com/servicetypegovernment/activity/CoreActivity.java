@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
 
 /**
  * Created by HANZHAOLONG on 2017/8/31.
@@ -69,6 +72,10 @@ public class CoreActivity extends BaseActivity implements View.OnClickListener{
         fragmentManager = getFragmentManager();
         // 第一次启动时选中第0个tab
         setTabSelection(0);
+        Log.e("loginName", UserDateBean.getInstance().getUsername() + "");
+        Log.e("uid", UserDateBean.getInstance().getId() + "");
+        Log.e("name", UserDateBean.getInstance().getName()+"");
+        Log.e("mobile", UserDateBean.getInstance().getPhone() + "");
     }
     private void initViews() {
         lin_index=(LinearLayout)findViewById(R.id.lin_foot1);

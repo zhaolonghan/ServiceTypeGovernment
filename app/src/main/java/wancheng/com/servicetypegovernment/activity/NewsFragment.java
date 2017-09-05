@@ -61,16 +61,12 @@ public class NewsFragment  extends BaseFragment {
                                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                                     Map<String, Object> map = listnews.get(i);
 
-                                                    //Log.e("getErrorCode", "");
-                                                    if (map.get("id") != null) {
-                                                        String id = map.get("id").toString();
-                                                        Intent intent = new Intent();
-                                                        // intent.putExtra("id",((TextView)((RelativeLayout)listView.getChildAt(i)).getChildAt(0)).getText());
-                                                        intent.putExtra("ids", id);
-                                                        intent.setClass(context, NewsInfoActivity.class);
-                                                        context.startActivity(intent);
 
-                                                    }
+
+                                                        Intent intent = new Intent();
+                                                      intent.putExtra("title","新闻详情");
+                                                        intent.setClass(context, ContextDetailActivity.class);
+                                                        context.startActivity(intent);
 
 
                                                 }
