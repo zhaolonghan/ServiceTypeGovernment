@@ -153,15 +153,16 @@ public class ImageChooseAdapter extends CommonAdapter<String>
         });
     }
     protected void imageBrower(int position, ArrayList<String> url2) {
-        Intent intent = new Intent(context, ImagePager3Activity.class);
+        Intent intent = new Intent(context, ImagePagerActivity.class);
         // 图片url,为了演示这里使用常量，一般从数据库中或网络中获取
-        List<ImagesBean> list=new ArrayList<ImagesBean>();
+        ArrayList<ImagesBean> list=new ArrayList<ImagesBean>();
         for(String s:url2){
             list.add(new ImagesBean("localImage",s));
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, url2);
+        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, list);
         intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
+        intent.putExtra("count", count);
         context.startActivity(intent);
     }
 }

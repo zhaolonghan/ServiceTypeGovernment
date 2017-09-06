@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +20,34 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.view.RefreshListView;
 
 /**
  * Created by HANZHAOLONG on 2017/8/31.
  */
-public class NewsFragment  extends BaseFragment {
+public class NewsFragment  extends BaseFragment implements RefreshListView.OnRefreshListener{
     List<Map<String, Object>> listnews;
     private NewsAdspter madapter = null;
     private Context context;
     private boolean isRef=false;
     private  View view1;
-    private ListView listView=null;
+    private RefreshListView listView=null;
+  //  private RefreshListView refreshListView;
+    private final static int REFRESH_COMPLETE = 0;
+    private Handler mHandler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case REFRESH_COMPLETE:
+                    listView.setOnRefreshComplete();
+                    madapter.notifyDataSetChanged();
+                    listView.setSelection(0);
+                    break;
+
+                default:
+                    break;
+            }
+        };
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,7 +70,23 @@ public class NewsFragment  extends BaseFragment {
             Log.e("走没走？", "没走");
         }
     }
+    @Override
+    public void onRefresh() {
+        new Thread(new Runnable() {
 
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                 //   mDatas.add(0, "new data");
+                    mHandler.sendEmptyMessage(REFRESH_COMPLETE);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     @Override
     protected void lazyLoad() {
         {
@@ -67,10 +101,11 @@ public class NewsFragment  extends BaseFragment {
             TopBean topBean=new TopBean("新闻动态","","",false,false);
 
             getTopView(topBean,contactsLayout);
-            listView=(ListView)contactsLayout.findViewById(R.id.newslist);
+            listView=(RefreshListView)contactsLayout.findViewById(R.id.newslist);
             listnews=  newlistcontext(3,10);
             madapter = new NewsAdspter(context, listnews);
             listView.setAdapter(madapter);
+            listView.setOnRefreshListener(this);
             // madapter.update(listnews);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

@@ -19,7 +19,7 @@
             android:layout_marginTop="16dp"
             android:duplicateParentState="true"
             android:singleLine="true"
-            android:text="所有图片"
+            android:text="查看相册"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

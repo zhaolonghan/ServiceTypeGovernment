@@ -87,7 +87,6 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 			initListDirPopupWindw();
 		}
 	};
-
 	/**
 	 * 为View绑定数据
 	 */
@@ -141,12 +140,10 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 				mImageFloders, LayoutInflater.from(getApplicationContext())
 				.inflate(R.layout.list_dir, null));
 
-		mListImageDirPopupWindow.setOnDismissListener(new OnDismissListener()
-		{
+		mListImageDirPopupWindow.setOnDismissListener(new OnDismissListener() {
 
 			@Override
-			public void onDismiss()
-			{
+			public void onDismiss() {
 				// 设置背景颜色变暗
 				WindowManager.LayoutParams lp = getWindow().getAttributes();
 				lp.alpha = 1.0f;
@@ -161,18 +158,18 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 		// TODO Auto-generated method stub
 		super.onResume();
 
-		DisplayMetrics outMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
-		mScreenHeight = outMetrics.heightPixels;
-		initView();
-		getImages();
-		initEvent();
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.image_choose);
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+		mScreenHeight = outMetrics.heightPixels;
+		initView();
+		getImages();
+		initEvent();
 
 
 	}
@@ -278,6 +275,7 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 
 	}
 
+
 	/**
 	 * 初始化View
 	 */
@@ -288,6 +286,13 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 		mImageCount = (TextView) findViewById(R.id.id_total_count);
 		tv_looking= (TextView) findViewById(R.id.tv_looking);
 		mBottomLy = (RelativeLayout) findViewById(R.id.id_bottom_ly);
+		TextView title_right_btn= (TextView) findViewById(R.id.title_right_btn);
+		title_right_btn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 
 	}
 

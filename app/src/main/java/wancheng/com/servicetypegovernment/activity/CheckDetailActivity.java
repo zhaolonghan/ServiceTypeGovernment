@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -80,10 +82,10 @@ public class CheckDetailActivity extends BaseActivity {
             case 998:// 拍照带回
                 final LinearLayout f_lin_image=lin_image;
                 final ArrayList<ImagesBean> f_imageUrlNew=imageUrlsNew;
-                String path=Environment.getExternalStorageDirectory() + "/sgin/" + photoFileName + ".jpg";
+                String path=Environment.getExternalStorageDirectory() + "/sgin/Photos/" + photoFileName + ".jpg";
                 int size = f_imageUrlNew.size();
-                f_imageUrlNew.remove(size - 1);
                 if (fileIsExists(path)) {
+                    f_imageUrlNew.remove(size - 1);
                     f_imageUrlNew.add(new ImagesBean("localImage", path));
                     if (size <5) {
                         f_imageUrlNew.add(new ImagesBean("defaultImage", ""));
@@ -91,7 +93,6 @@ public class CheckDetailActivity extends BaseActivity {
                     f_lin_image.removeAllViews();
                     getImageGridViews(f_imageUrlNew,f_lin_image);
                 }
-
                 break;
         }
         switch (resultCode) {
@@ -139,6 +140,25 @@ public class CheckDetailActivity extends BaseActivity {
                     final LinearLayout iv_images=(LinearLayout)itemChild.findViewById(R.id.lin_images);
                     final ArrayList<ImagesBean> imagesBeans=new ArrayList<ImagesBean>();
                     final TextView zhinan=(TextView)itemChild.findViewById(R.id.tv_zhinan);
+                    final RadioGroup radioGroup=(RadioGroup)itemChild.findViewById(R.id.rg_yse_no);
+                    final RadioButton rb_yes=(RadioButton)itemChild.findViewById(R.id.rb_yes);
+                    final RadioButton rb_np=(RadioButton)itemChild.findViewById(R.id.rb_no);
+                    final RadioButton rb_rational=(RadioButton)itemChild.findViewById(R.id.rb_rational);
+                    final LinearLayout lin_no=(LinearLayout)itemChild.findViewById(R.id.lin_no);
+                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                            if(rb_yes.getId()==checkedId){
+                                lin_no.setVisibility(View.GONE);
+                            }
+                            if(rb_np.getId()==checkedId){
+                                lin_no.setVisibility(View.VISIBLE);
+                            }
+                            if(rb_rational.getId()==checkedId){
+                                lin_no.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                     zhinan.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
                     zhinan.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -290,15 +310,16 @@ public class CheckDetailActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
                         photoFileName = System.currentTimeMillis() + ((Math.random() * 9 + 1) * 1000) + "";
-
-                        String path=Environment.getExternalStorageDirectory() + "/sgin/" + photoFileName + ".jpg";
-                        Log.e("path1",path);
+                        File destDir = new File("/sdcard/sgin/Photos/");
+                        if (!destDir.exists()) {
+                            destDir.mkdirs();
+                        }
                         Intent intent = new Intent(
                                 MediaStore.ACTION_IMAGE_CAPTURE);
                         // 指定调用相机拍照后的照片存储的路径
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
                                 .fromFile(new File(Environment
-                                        .getExternalStorageDirectory()+"/sgin/",
+                                        .getExternalStorageDirectory()+"/sgin/Photos/",
                                         photoFileName + ".jpg")));
                         startActivityForResult(intent, 998);
                     }

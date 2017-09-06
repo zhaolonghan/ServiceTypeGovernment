@@ -33,7 +33,6 @@ public class ImagePagerActivity extends FragmentActivity {
 
 		pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
 		ArrayList<ImagesBean> urls = (ArrayList<ImagesBean>)getIntent().getSerializableExtra(EXTRA_IMAGE_URLS);
-
 		mPager = (HackyViewPager) findViewById(R.id.pager);
 		ImagePagerAdapter mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), urls);
 		mPager.setAdapter(mAdapter);
@@ -74,6 +73,7 @@ public class ImagePagerActivity extends FragmentActivity {
 	private class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
 		public ArrayList<ImagesBean> fileList;
+		public int count ;
 
 		public ImagePagerAdapter(FragmentManager fm, ArrayList<ImagesBean> fileList) {
 			super(fm);
