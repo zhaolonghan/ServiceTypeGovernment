@@ -9,15 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.bean.ImagesBean;
-import wancheng.com.servicetypegovernment.util.ChildLiistView;
-import wancheng.com.servicetypegovernment.view.ViewHolder;
+import wancheng.com.servicetypegovernment.view.ChildLiistView;
 
 /**
  * Created by john on 2017/8/17.

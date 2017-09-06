@@ -96,6 +96,17 @@ public class NewsAdspter extends BaseAdapter
         });*/
         return convertView;
     }
+    public boolean updataView(View view,int count){
+        boolean flag=false;
+        if(view!=null){
+            Zujian holder=new Zujian();
+            holder.tv_count=(TextView)view.findViewById(R.id.tv_count);
+            holder.tv_count.setText(count+"");
+            flag=true;
+        }
+        return flag;
+    }
+
     public void add(List<Map<String, Object>> datas){
         if (datas == null) {
             datas = new LinkedList<>();

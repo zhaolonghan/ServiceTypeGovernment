@@ -41,18 +41,30 @@ public class NewsListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newslist);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("text","OK");
         Intent intent=getIntent();
         int index= intent.getIntExtra("index", 0);
         oldindexsintent=intent.getIntExtra("oldindexs",0);
         getJumpFoot(this, index,oldindexsintent);
         String titlename="通知公告";
-       if(index==2){
-           titlename="法律法规";
-           RelativeLayout   layout= (RelativeLayout) findViewById(R.id.search);
-           layout.setVisibility(View.VISIBLE);
-       }else if(index==3){
-           titlename="新闻动态";
-       }
+        if(index==2){
+            titlename="法律法规";
+            RelativeLayout   layout= (RelativeLayout) findViewById(R.id.search);
+            layout.setVisibility(View.VISIBLE);
+        }else if(index==3){
+            titlename="新闻动态";
+        }
         listtype=index;
         TopBean topBean=new TopBean(titlename,"返回","",true,true);
         getTopView(topBean);
@@ -69,7 +81,7 @@ public class NewsListActivity extends BaseActivity {
         listnews=  newlistcontext(index,10);
         madapter = new NewsAdspter(this, listnews);
         listView.setAdapter(madapter);
-       // madapter.update(listnews);
+        // madapter.update(listnews);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,7 +97,7 @@ public class NewsListActivity extends BaseActivity {
                                                     intent.putExtra("index", listtype);
                                                     intent.setClass(NewsListActivity.this, NewsInfoActivity.class);
                                                     NewsListActivity.this.startActivity(intent);
-                                                    
+
                                                 }
 
 
@@ -129,12 +141,7 @@ public class NewsListActivity extends BaseActivity {
             }
 
         });
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        Log.e("text", "OK");
     }
 
     @Override

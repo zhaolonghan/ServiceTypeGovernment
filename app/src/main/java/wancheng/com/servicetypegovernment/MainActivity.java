@@ -20,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import wancheng.com.servicetypegovernment.activity.BaseActivity;
 import wancheng.com.servicetypegovernment.activity.CoreActivity;
-import wancheng.com.servicetypegovernment.activity.IndexActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.NetUtil;
@@ -38,25 +37,17 @@ public class MainActivity extends BaseActivity {
         btnLogin =(Button)findViewById(R.id.btn_login);
         final EditText ed=(EditText)findViewById(R.id.editText1);
         final EditText ed2=(EditText)findViewById(R.id.editText2);
-
+        ed.setText("thinkgem");
+        ed2.setText("admin");
         btnLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-
-
                 username=ed.getText().toString();
                 passWord=ed2.getText().toString();
                 Log.e("11111111111111111", Sha1.sHA1(MainActivity.this));
                 if (TextUtils.isEmpty(username)||TextUtils.isEmpty(passWord)) {
                     Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     getData(username,passWord);
-//		                if (!"admin".equals(username)||!"123456".equals(passWord)){
-//		                    Toast.makeText(LoginActivity.this, "用户名或密码输入错误", Toast.LENGTH_SHORT).show();
-//		                } else {
-//		    				LoginActivity.this.finish();
-//		                }
                 }
             }
         });

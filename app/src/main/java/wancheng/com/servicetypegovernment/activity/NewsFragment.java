@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,8 @@ public class NewsFragment  extends BaseFragment {
     List<Map<String, Object>> listnews;
     private NewsAdspter madapter = null;
     private Context context;
-
-
+    private boolean isRef=false;
+    private  View view1;
     private ListView listView=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +38,21 @@ public class NewsFragment  extends BaseFragment {
         lazyLoad();
         return contactsLayout;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isRef) {
+            if (madapter.updataView(view1, 150)) {
+                listView.deferNotifyDataSetChanged();
+                Log.e("走没走？", "走了");
+                isRef = false;
+            }
+        }else{
+
+            Log.e("走没走？", "没走");
+        }
+    }
+
     @Override
     protected void lazyLoad() {
         {
@@ -57,20 +73,19 @@ public class NewsFragment  extends BaseFragment {
             listView.setAdapter(madapter);
             // madapter.update(listnews);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                                    Map<String, Object> map = listnews.get(i);
 
+                  @Override
+                   public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                      view1=view;
+                          isRef=true;
+                          Map<String, Object> map = listnews.get(i);
+                          Intent intent = new Intent();
+                          intent.putExtra("title","新闻详情");
+                          intent.setClass(context, ContextDetailActivity.class);
+                          context.startActivity(intent);
 
-
-                                                        Intent intent = new Intent();
-                                                      intent.putExtra("title","新闻详情");
-                                                        intent.setClass(context, ContextDetailActivity.class);
-                                                        context.startActivity(intent);
-
-
-                                                }
-                                            }
+                     }
+                   }
             );
 
             listView.setOnScrollListener(new AbsListView.OnScrollListener() {
