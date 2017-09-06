@@ -37,11 +37,11 @@ public class SignActivity extends BaseActivity {
 
                     try {
 
-                        File destDir = new File("/sdcard/sgin/");
+                        File destDir = new File("/sdcard/Wancheng/Signs/");
                         if (!destDir.exists()) {
                             destDir.mkdirs();
                         }
-                        String path="/sdcard/sgin/"+System.currentTimeMillis()+".png";
+                        String path="/sdcard/Wancheng/Signs/"+System.currentTimeMillis()+".png";
                         mPathView.save(path, true, 10);
                         Intent intent = new Intent();
                         intent.putExtra("path", path);

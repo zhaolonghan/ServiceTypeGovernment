@@ -2,6 +2,7 @@ package wancheng.com.servicetypegovernment.view;
 
 import java.util.List;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.CommonAdapter;
 import wancheng.com.servicetypegovernment.bean.ImageFloder;
+import wancheng.com.servicetypegovernment.util.ImageLoader;
 
 
 public class ListImageDirPopupWindow extends BasePopupWindowForListView<ImageFloder>
@@ -28,6 +30,7 @@ public class ListImageDirPopupWindow extends BasePopupWindowForListView<ImageFlo
 		mListDir = (ListView) findViewById(R.id.id_list_dir);
 		mListDir.setAdapter(new CommonAdapter<ImageFloder>(context, mDatas,
 				R.layout.list_dir_item)
+
 		{
 			@Override
 			public void convert(ViewHolder helper, ImageFloder item)

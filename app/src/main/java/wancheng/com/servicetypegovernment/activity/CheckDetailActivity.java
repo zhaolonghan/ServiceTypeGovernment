@@ -82,7 +82,7 @@ public class CheckDetailActivity extends BaseActivity {
             case 998:// 拍照带回
                 final LinearLayout f_lin_image=lin_image;
                 final ArrayList<ImagesBean> f_imageUrlNew=imageUrlsNew;
-                String path=Environment.getExternalStorageDirectory() + "/sgin/Photos/" + photoFileName + ".jpg";
+                String path=Environment.getExternalStorageDirectory() + "/Wancheng/Photos/" + photoFileName + ".jpg";
                 int size = f_imageUrlNew.size();
                 if (fileIsExists(path)) {
                     f_imageUrlNew.remove(size - 1);
@@ -96,7 +96,7 @@ public class CheckDetailActivity extends BaseActivity {
                 break;
         }
         switch (resultCode) {
-            case 999: // 选择带回
+            case 999: // 选择带回W
                 if(data!=null){
                     final LinearLayout f_lin_image=lin_image;
                     final ArrayList<ImagesBean> f_imageUrlNew=imageUrlsNew;
@@ -310,7 +310,7 @@ public class CheckDetailActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
                         photoFileName = System.currentTimeMillis() + ((Math.random() * 9 + 1) * 1000) + "";
-                        File destDir = new File("/sdcard/sgin/Photos/");
+                        File destDir = new File("/sdcard/Wancheng/Photos/");
                         if (!destDir.exists()) {
                             destDir.mkdirs();
                         }
@@ -319,7 +319,7 @@ public class CheckDetailActivity extends BaseActivity {
                         // 指定调用相机拍照后的照片存储的路径
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
                                 .fromFile(new File(Environment
-                                        .getExternalStorageDirectory()+"/sgin/Photos/",
+                                        .getExternalStorageDirectory()+"/Wancheng/Photos/",
                                         photoFileName + ".jpg")));
                         startActivityForResult(intent, 998);
                     }

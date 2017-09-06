@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -73,7 +74,6 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 	private TextView tv_looking;
 	private int mScreenHeight;
 	private ArrayList<String> chooseUrls;
-
 	private ListImageDirPopupWindow mListImageDirPopupWindow;
 
 	private Handler mHandler = new Handler()
@@ -83,6 +83,7 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 			mProgressDialog.dismiss();
 			// 为View绑定数据
 			data2View();
+			mChooseDir.setText("/"+mImgDir.getName());
 			// 初始化展示文件夹的popupWindw
 			initListDirPopupWindw();
 		}
@@ -118,18 +119,6 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 		mGirdView.setAdapter(mAdapter);
 		mImageCount.setText(""+count+"张 确定");
 	};
-	public boolean fileIsExists(String path){
-		try{
-			File f=new File(path);
-			if(!f.exists()){
-				return false;
-			}
-		}catch (Exception e) {
-			// TODO: handle exception
-			return false;
-		}
-		return true;
-	}
 	/**
 	 * 初始化展示文件夹的popupWindw
 	 */
@@ -224,43 +213,40 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 					String dirPath = parentFile.getAbsolutePath();
 					ImageFloder imageFloder = null;
 					// 利用一个HashSet防止多次扫描同一个文件夹（不加这个判断，图片多起来还是相当恐怖的~~）
-					if(mDirPaths!=null){
-						if (mDirPaths.contains(dirPath))
-						{
+					if(mDirPaths!=null) {
+						if (mDirPaths.contains(dirPath)) {
 							continue;
-						} else
-						{
+						} else {
 							mDirPaths.add(dirPath);
 							// 初始化imageFloder
-							imageFloder = new ImageFloder();
-							imageFloder.setDir(dirPath);
-							imageFloder.setFirstImagePath(path);
+								imageFloder = new ImageFloder();
+								imageFloder.setDir(dirPath);
+								imageFloder.setFirstImagePath(path);
+
 						}
+						if (parentFile != null && parentFile.list() != null) {
+							int picSize = parentFile.list(new FilenameFilter() {
+								@Override
+								public boolean accept(File dir, String filename) {
+									if (filename.endsWith(".jpg")
+											|| filename.endsWith(".png")
+											|| filename.endsWith(".jpeg"))
+										return true;
+									return false;
+								}
+							}).length;
+							totalCount += picSize;
 
-						int picSize = parentFile.list(new FilenameFilter()
-						{
-							@Override
-							public boolean accept(File dir, String filename)
-							{
-								if (filename.endsWith(".jpg")
-										|| filename.endsWith(".png")
-										|| filename.endsWith(".jpeg"))
-									return true;
-								return false;
+							imageFloder.setCount(picSize);
+							mImageFloders.add(imageFloder);
+
+							if (picSize > mPicsSize) {
+								mPicsSize = picSize;
+								mImgDir = parentFile;
 							}
-						}).length;
-						totalCount += picSize;
 
-						imageFloder.setCount(picSize);
-						mImageFloders.add(imageFloder);
-
-						if (picSize > mPicsSize)
-						{
-							mPicsSize = picSize;
-							mImgDir = parentFile;
 						}
 					}
-
 				}
 				mCursor.close();
 
