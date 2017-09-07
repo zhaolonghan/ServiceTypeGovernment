@@ -30,7 +30,7 @@ import wancheng.com.servicetypegovernment.bean.TopBean;
 
 public class InformActivity extends BaseActivity {
 
-
+    public static InformActivity instance = null;
     private TextView ed_date;
     private TextView ed_date2;
     private TextView ed_date3;
@@ -49,6 +49,7 @@ public class InformActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inform);
+        instance=this;
         ed_date=(TextView)findViewById(R.id.ed_date);
         ed_date2=(TextView)findViewById(R.id.ed_date2);
         ed_date3=(TextView)findViewById(R.id.ed_date3);

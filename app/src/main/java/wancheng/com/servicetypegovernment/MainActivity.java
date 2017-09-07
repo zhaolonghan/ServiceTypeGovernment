@@ -46,14 +46,15 @@ public class MainActivity extends BaseActivity {
         ed2.setText("admin");
         btnLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-                username = ed.getText().toString();
-                passWord = ed2.getText().toString();
-                Log.e("11111111111111111", Sha1.sHA1(MainActivity.this));
-                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(passWord)) {
-                    Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
-                } else {
-                    getData(username, passWord);
-                }
+//                username = ed.getText().toString();
+//                passWord = ed2.getText().toString();
+//                Log.e("11111111111111111", Sha1.sHA1(MainActivity.this));
+//                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(passWord)) {
+//                    Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    getData(username, passWord);
+//                }
+                updateView();
             }
         });
         File destDir = new File("/sdcard/Wancheng/Photos/");

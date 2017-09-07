@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,9 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.service.SubmitImageService;
+import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
+
 public class CheckDetailActivity extends BaseActivity {
     private ArrayList<ImagesBean> imageUrls;
     private ArrayList<ImagesBean> imageUrlsNew;
@@ -43,6 +47,7 @@ public class CheckDetailActivity extends BaseActivity {
     private LayoutInflater layoutInflater;
     private LinearLayout linearLayout;
     private boolean isDel;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,9 @@ public class CheckDetailActivity extends BaseActivity {
         TopBean topBean=new TopBean("检查要点","返回","下一步",true,true);
         getTopView(topBean);
         imageUrls=new ArrayList<ImagesBean>();
+          databaseHelper=new DatabaseHelper(this);
+//        boolean isOK=databaseHelper.deleteById(2);
+//        Log.e("111111111",isOK+"");
 //        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698837_7507.jpg"));
 //        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698865_3560.jpg"));
 //        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698867_8323.jpg"));
@@ -63,11 +71,62 @@ public class CheckDetailActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
-                CheckDetailActivity.this.startActivityForResult(intent, 0);
+//                Intent intent = new Intent();
+//                intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
+//                CheckDetailActivity.this.startActivityForResult(intent, 0);
+                // getListViewData();
+                boolean isOK = databaseHelper.deleteById(2);
+                if(isOK){
+                    List<Map<String, String>> list = databaseHelper.find(2);
+                    if (list != null && list.size() > 0) {
+                        Intent intent = new Intent(CheckDetailActivity.this, SubmitImageService.class);
+                        intent.putExtra("datalist", (Serializable) (list));
+                        startService(intent);
+                        InformActivity.instance.finish();
+                        finish();
+
+                    }
+                }
             }
         });
+
+    }
+
+    private void getListViewData(){
+        boolean falg=true;
+        if(linearLayout!=null&&linearLayout.getChildCount()>0){
+            for(int i=0;i<linearLayout.getChildCount();i++){
+                LinearLayout linearLayoutChlid=(LinearLayout)linearLayout.getChildAt(i);
+                LinearLayout linearLayoutChlid1=(LinearLayout)linearLayoutChlid.findViewById(R.id.check_question);
+              //  Log.e("tv",tv.getText()!=null?tv.getText().toString():""+"");
+                Log.e("outChlid1()",linearLayoutChlid1.getChildCount()+"");
+                for(int j=0;j<linearLayoutChlid1.getChildCount();j++){
+                    LinearLayout l1=(LinearLayout)linearLayoutChlid1.getChildAt(j);
+                    TextView tv=(TextView)l1.findViewById(R.id.tv_question_title);
+                    RadioGroup radioGroup=(RadioGroup)l1.findViewById(R.id.rg_yse_no);
+                    RadioButton rb_yes=(RadioButton)l1.findViewById(R.id.rb_yes);
+                    RadioButton rb_np=(RadioButton)l1.findViewById(R.id.rb_no);
+                    RadioButton rb_rational=(RadioButton)l1.findViewById(R.id.rb_rational);
+                    if (radioGroup.getCheckedRadioButtonId()==rb_yes.getId()){
+                        Log.e("tv()",rb_yes.getText()!=null?rb_yes.getText().toString():""+"");
+                    } else  if(radioGroup.getCheckedRadioButtonId()==rb_np.getId()){
+                        Log.e("tv()",rb_np.getText()!=null?rb_np.getText().toString():""+"");
+                    }else  if(radioGroup.getCheckedRadioButtonId()==rb_rational.getId()){
+                        Log.e("tv()",rb_rational.getText()!=null?rb_rational.getText().toString():""+"");
+                    }else{
+                        Log.e("tv()",i+"."+j+"meiyou");
+                        falg=false;
+                        break;
+                    }
+
+                }
+                if(falg==false){
+                    break;
+                }
+
+            }
+
+        }
 
     }
 
