@@ -1,12 +1,14 @@
 package wancheng.com.servicetypegovernment;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +16,8 @@ import android.widget.Button;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONException;
@@ -28,22 +27,29 @@ import wancheng.com.servicetypegovernment.activity.CoreActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.NetUtil;
-import wancheng.com.servicetypegovernment.util.Sha1;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
+import wancheng.com.servicetypegovernment.util.UpdateManager;
+
 public class MainActivity extends BaseActivity {
 
    private Button btnLogin;
     private String username;
     private String passWord;
+    private static final int REQUEST_CODE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        requestMultiplePermissions();
         btnLogin =(Button)findViewById(R.id.btn_login);
         final EditText ed=(EditText)findViewById(R.id.editText1);
         final EditText ed2=(EditText)findViewById(R.id.editText2);
         ed.setText("thinkgem");
         ed2.setText("admin");
+//        UpdateManager manager = new UpdateManager(this,"http://gdown.baidu.com/data/wisegame/f98d235e39e29031/baiduxinwen.apk");
+//			// 检查软件更新
+//		manager.checkUpdate();
+
         btnLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 //                username = ed.getText().toString();
@@ -95,6 +101,21 @@ public class MainActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         finish();
+    }
+    /**
+     * 获取版本号
+     * @return 当前应用的版本号
+     */
+    public String getVersion() {
+        try {
+            PackageManager manager = this.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+            String version = info.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
     /**
      * 获取数据
@@ -149,4 +170,20 @@ public class MainActivity extends BaseActivity {
             ;
         }.start();
 
-    }}
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            int grantResult = grantResults[1];
+            boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
+            Log.i("权限申请", "onRequestPermissionsResult granted=" + granted);
+        }
+    }
+    private void requestMultiplePermissions() {
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE};
+        requestPermissions(permissions, REQUEST_CODE);
+    }
+
+
+}
