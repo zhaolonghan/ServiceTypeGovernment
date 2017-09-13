@@ -33,8 +33,9 @@ public class ContextDetailActivity extends BaseActivity {
         web_view.getSettings().setJavaScriptEnabled(true);
         web_view.getSettings().setUseWideViewPort(true);//web1就是你自己定义的窗口对象。
         web_view.getSettings().setLoadWithOverviewMode(true);
+
         //加载需要显示的网页
-        web_view.loadUrl("http://192.168.1.101:8181/a/newstest/news/news");
+        web_view.loadUrl(intent.getStringExtra("url"));
         //设置Web视图
         web_view.setWebViewClient(new WebViewClient() {
             // 这个方法在用户试图点开页面上的某个链接时被调用

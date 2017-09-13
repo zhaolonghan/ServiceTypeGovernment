@@ -201,7 +201,6 @@ public abstract class BaseFragment extends Fragment {
                 b.setMessage("您的网络不给力，请检查网络。");
                 b.setNeutralButton("确 定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
                 break;

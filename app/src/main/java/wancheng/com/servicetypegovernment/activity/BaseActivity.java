@@ -653,4 +653,6 @@ public  class BaseActivity extends Activity {
         //什么时候调用finish方法？
         super.onStop();
     }*/
+    protected void lazyLoad(){};
+
 }
