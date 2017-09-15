@@ -161,8 +161,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/ib_search"
+                android:id="@+id/corpSearchName"
                 android:layout_margin="5dp"
-                android:focusableInTouchMode="false"
                 android:textSize="16dp"
                 android:hint="请输入企业名称的关键字进行高级检索"/>
             <ImageView

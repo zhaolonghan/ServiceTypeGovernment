@@ -1,10 +1,14 @@
 package wancheng.com.servicetypegovernment.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Message;
+import android.os.SystemClock;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +25,11 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
+
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +37,21 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.util.ConstUtil;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
+import wancheng.com.servicetypegovernment.util.NetUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 /**
  * Created by HANZHAOLONG on 2017/8/31.
  */
 public  class IndexFragment  extends BaseFragment {
+    private  List<Map<String, Object>>  oaNotifylist=new ArrayList<Map<String, Object>>();
+    private  List<Map<String, Object>>  lawslist=new ArrayList<Map<String, Object>>();
+    private  List<Map<String, Object>>  newslist=new ArrayList<Map<String, Object>>();
+    private  List<Map<String, Object>>  imagelist=new ArrayList<Map<String, Object>>();
 
     private AMapLocationClient locationClient = null;
     private wancheng.com.servicetypegovernment.view.SlideShowView SlideShowView;
@@ -59,6 +77,7 @@ public  class IndexFragment  extends BaseFragment {
             "http://jiangsu.china.com.cn/uploadfile/2016/0316/1458124624807199.png.jpg",
             "http://ww1.sinaimg.cn/orj480/999a7ed9jw1f2pc4wn1fpj20b4089aap.jpg",
             "http://www.5888.tv/Upload_Map/uploads/2014/7/2014-07-16-11-15-33.jpg"};
+    private String[] ztlxcorp=new String[6];
 
     /*
     * 新闻
@@ -72,11 +91,17 @@ public  class IndexFragment  extends BaseFragment {
                              Bundle savedInstanceState) {
         contactsLayout = inflater.inflate(R.layout.activity_index,
                 container, false);
+        getData();
 
         lazyLoad();
         return contactsLayout;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     private AMapLocationClientOption getDefaultOption() {
         AMapLocationClientOption mOption = new AMapLocationClientOption();
@@ -93,82 +118,7 @@ public  class IndexFragment  extends BaseFragment {
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
         return mOption;
     }
-//    /**
-//     * i=1 公告
-//     *
-//     * i=1 法律
-//     *
-//     * i=1 新闻
-//     *
-//     * num=条数
-//     *
-//     * */
-//    public List<Map<String, Object>> newlistcontext(int i,int num){
-//        List<Map<String, Object>>  list;
-//        List<Map<String, Object>>  addalllist;
-//        //标题0  时间1  内容2String id="1";
-//        String title="";
-//        String time="";
-//        String content="";
-//        switch (i){
-//            case 1:
-//                title="国家质量监督检验检疫总局《进出口工业品风险管理办法》";
-//                time="2017-06-21";
-//                content="《进出口工业品风险管理办法》已经2017年2月21日国家质量监督检验检疫总局局务会议审议通过，现予公布，自2017年4月1日起施行。";
-//                break;
-//            case 2:
-//                title="中华人民共和国食品安全法实施条例";
-//                time="2015-08-17 ";
-//                content="《中华人民共和国食品安全法实施条例》已经2009年7月8日国务院第73次常务会议通过，现予公布，自公布之日起施行。";
-//                break;
-//            case 3:
-//                title="市市场监管委党委召开领导干部警示教育大";
-//                time="2015-06-27";
-//                content="\\u3000\\u3000日前，市市场监管委委党委组织召开了全系统领导干部警示教育大会，传达学习全市领导干部警示教育大会精神，组织开展警示教育，引导广大党员干部知晓、敬畏和严守党纪国法，做到心有所畏、言有沙达14%。";
-//                break;
-//        }
-//
-//
-//        list=new ArrayList<Map<String, Object>>();
-//        for(int j=0;j<num;j++){
-//            Map<String, Object> map=new HashMap<String, Object>();
-//            map.put("id",j);
-//            map.put("title",title);
-//            map.put("time",time);
-//            map.put("context",content);
-//            list.add(map);
-//        }
-//
-//        return list;
-//
-//    }
-//    public List<Map<String, Object>> newslistcontext(int num){
-//        //http://www.tjcac.gov.cn/zlaqzd/
-//        List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
-//        Map<String, Object> map=new HashMap<String, Object>();
-//        map.put("id","1");
-//        map.put("title","市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议");
-//        map.put("time","2017-08-23");
-//        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
-//                "\n" +
-//                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
-//
-//
-//        list.add(map);
-//
-//
-//        map=new HashMap<String, Object>();
-//        map.put("id","2");
-//        map.put("title","总队强化全运会建筑施工应急保障组织工作");
-//        map.put("time","2017-08-23");
-//        map.put("context","8月17日，市质安监管总队召开2017年第一次建设工程质量安全专项检查通报分析会议，总队长郝恩海，副总队长施航华、王斌、王书生，市建委质量安全处处长王俊河，执法监督处处长石林，市施工企业协会秘书长黑金山同志在主席台就坐。市、区两级监管机构负责同志，有关企业、协会及驻津办代表，共计300余人参加会议，会议由王斌副总队长主持。\n" +
-//                "\n" +
-//                "    王书生副总队长传达了8月12日全市安全生产电视电话会议精神；王斌副总队长传达了8月14日天津市社会维稳和信访工作会议精神。施航华副总队长通报了今年以来建设工程质量安全专项检查、建筑材料封样抽测、行政处罚、安全事故、观摩交流、扬尘治理情况。");
-//
-//
-//        list.add(map);
-//        return list;
-//    }
+
     public List<Map<String, Object>> lawslistcontext(int num){
         List<Map<String, Object>>  list=new ArrayList<Map<String, Object>>();
         return list;
@@ -183,11 +133,9 @@ public  class IndexFragment  extends BaseFragment {
     protected void lazyLoad() {
         context = getActivity();
         vHead=getActivity().getLayoutInflater().inflate(R.layout.view_head, null);
-        listnews= newlistcontext(1,5);
         listView=(ListView)contactsLayout.findViewById(R.id.newslist);
         listView.addHeaderView(vHead);
-        madapter = new NewsAdspter(context, listnews);
-        listView.setAdapter(madapter);
+
         linFood=(LinearLayout)contactsLayout.findViewById(R.id.lin_food);
         linyp=(LinearLayout)contactsLayout.findViewById(R.id.lin_yaopin);
         linbjp=(LinearLayout)contactsLayout.findViewById(R.id.lin_baojianpin);
@@ -199,6 +147,7 @@ public  class IndexFragment  extends BaseFragment {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_food);
                 Intent intent = new Intent();
                 intent.putExtra("companyType",tv_food.getText().toString());
+                intent.putExtra("ztlx", ztlxcorp[0]);
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
             }
@@ -207,6 +156,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_yp);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[1]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -216,6 +166,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_bjp);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[2]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -225,6 +176,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_hzp);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[3]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -234,6 +186,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_ylqx);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[4]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -243,6 +196,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_tzsb);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[5]);
                 intent.putExtra("companyType","特种设备");
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -265,19 +219,15 @@ public  class IndexFragment  extends BaseFragment {
 //公告
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
+                madapter.update(oaNotifylist);
+                listnews=oaNotifylist;
                 tvNew.setTextColor(btnblack);
                 tvlNotice.setTextColor(btnblue);
                 tvlLaw.setTextColor(btnblack);
                 //线
-
                 relNewsListName.getChildAt(1).setBackground(lineblack);
                 relNoticeListName.getChildAt(1).setBackground(linered);
                 relLawListName.getChildAt(1).setBackground(lineblack);
-                listnews=newlistcontext(1,5);
-                madapter.update(listnews);
-                listtype=1;
-
             }
         });
 
@@ -285,7 +235,8 @@ public  class IndexFragment  extends BaseFragment {
 
         relLawListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
+                listnews=lawslist;
+                madapter.update(lawslist);
                 tvNew.setTextColor(btnblack);
                 tvlNotice.setTextColor(btnblack);
                 tvlLaw.setTextColor(btnblue);
@@ -293,32 +244,26 @@ public  class IndexFragment  extends BaseFragment {
                 relNewsListName.getChildAt(1).setBackground(lineblack);
                 relNoticeListName.getChildAt(1).setBackground(lineblack);
                 relLawListName.getChildAt(1).setBackground(linered);
-
-                listnews= newlistcontext(2,5);
-                madapter.update(listnews);
                 listtype=2;
             }
         });
         //新闻
         relNewsListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                // footView(2);
+                listnews=newslist;
+                madapter.update(newslist);
                 tvNew.setTextColor(btnblue);
                 tvlNotice.setTextColor(btnblack);
                 tvlLaw.setTextColor(btnblack);
                 //线
-
                 relNewsListName.getChildAt(1).setBackground(linered);
                 relNoticeListName.getChildAt(1).setBackground(lineblack);
                 relLawListName.getChildAt(1).setBackground(lineblack);
-
-                listnews=  newlistcontext(3,5);
-                madapter.update(listnews);
+                madapter.update(newslist);
                 listtype=3;
             }
         });
         SlideShowView= (wancheng.com.servicetypegovernment.view.SlideShowView) contactsLayout.findViewById(R.id.sv_photo);
-        SlideShowView.setView(imageUrls);
         //初始化client
         locationClient = new AMapLocationClient(context);
         //设置定位参数
@@ -344,30 +289,164 @@ public  class IndexFragment  extends BaseFragment {
         locationClient.startLocation();
         //监听文本
         TopBean topBean=new TopBean("首页","","",false,false);
-        getTopView(topBean,contactsLayout);
-
+        getTopView(topBean, contactsLayout);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                                Map<String, Object> map = listnews.get(i);
-
-                                                //Log.e("getErrorCode", "");
-                                                if (map.get("id") != null) {
-                                                    String id = map.get("id").toString();
-                                                    Intent intent = new Intent();
-                                                    // intent.putExtra("id",((TextView)((RelativeLayout)listView.getChildAt(i)).getChildAt(0)).getText());
-                                                    intent.putExtra("ids", id);
-                                                    intent.putExtra("index",  listtype);
-                                                    intent.setClass(context, NewsInfoActivity.class);
-                                                    context.startActivity(intent);
-                                                }
-
-
+                                                Map<String, Object> map = listnews.get(i - 1);
+                                                Intent intent = new Intent();
+                                                intent.putExtra("title", "详情");
+                                                intent.putExtra("url", map.get("url").toString());
+                                                intent.setClass(context, ContextDetailActivity.class);
+                                                context.startActivity(intent);
                                             }
                                         }
         );
+
+    //  首页图片
+
+    }
+    @Override
+    public void updateView(){
+        if(listnews==null||listnews.size()==0){
+            listnews=oaNotifylist;
+        }
+        madapter = new NewsAdspter(context, listnews);
+        listView.setAdapter(madapter);
+        SlideShowView.setView(imageUrls);
     }
 
+    /**
+     * 获取数据
+     *  类型 1公告 2法律 3新闻
+     *
+     * */
+    private void getData() {
+
+         oaNotifylist=new ArrayList<Map<String, Object>>();
+         lawslist=new ArrayList<Map<String, Object>>();
+         newslist=new ArrayList<Map<String, Object>>();
+
+        context = getActivity();
+        pd = ProgressDialog.show(context, "", "请稍候...");
+
+        new Thread() {
+            public void run() {
+                    String url=ConstUtil.METHOD_INDEXLIST;
+                    Map<String, Object> map = new HashMap<String, Object>();
+
+                    NetUtil net = new NetUtil();
+                    String res = net.posturl(url , map);
+                    if(res==null||"".equals(res)||res.contains("Fail to establish http connection!")){
+                        handler.sendEmptyMessage(4);
+                    }else{
+                        Message msg=new Message();
+                        msg.what=14;
+                        if (!res.isEmpty()) {
+                            JSONObject jsonObj;
+                            try {
+                                jsonObj = new JSONObject(res);
+                                String msg_code = testStringNull(jsonObj.optString("msg"));
+                                String code = testStringNull(jsonObj.optString("code"));
+                                if("0".equals(code)){
+                                    String  data=jsonObj.getString("data");
+                                   // JSONArray dataArray = jsondate.getJSONArray("data");
+
+                                    if(data!=null){
+                                        Map<String, Object> contextmap=null;
+                                        data =new String(Base64.decode(data, Base64.DEFAULT));
+                                        JSONObject   jsondate = new JSONObject(data);
+                                        //新闻
+                                        JSONArray newsdataArray = jsondate.getJSONArray("news");
+                                        Map<String ,Object> onecontextmap=null;
+                                        for(int i=0;i<newsdataArray.length();i++){
+                                            onecontextmap= contextMap(newsdataArray.getJSONObject(i));
+                                            newslist.add(onecontextmap);
+                                        }
+                                        //法律
+                                        newsdataArray = jsondate.getJSONArray("laws");
+                                        for(int i=0;i<newsdataArray.length();i++){
+                                            onecontextmap= contextMap(newsdataArray.getJSONObject(i));
+                                            lawslist.add(onecontextmap);
+                                        }
+                                        //通知
+                                        newsdataArray = jsondate.getJSONArray("notify");
+                                        for(int i=0;i<newsdataArray.length();i++){
+                                            onecontextmap= contextMap(newsdataArray.getJSONObject(i));
+                                            oaNotifylist.add(onecontextmap);
+                                        }
+                                        //图片
+
+                                        newsdataArray = jsondate.getJSONArray("images");
+                                        for(int i=0;i<newsdataArray.length();i++){
+                                            imageUrls[i]=JSONUtils.getString(newsdataArray.getJSONObject(i), "image", "");
+                                        }
+
+                                        //企业主题类型 ztlx
+                                               /* "drugs": "药品企业",
+                                                "health_products": "保健品",
+                                                "food": "食品类型",
+                                                "cosmetics": "化妆",
+                                                "medical ": "医疗",
+                                                "special_equipment": "特种"*/
+                                        JSONObject ztlx= jsondate.getJSONObject("ztlx");
+                                        ztlxcorp[0]=JSONUtils.getString(ztlx, "food", "");
+                                        ztlxcorp[1]=JSONUtils.getString(ztlx, "drugs", "");
+                                        ztlxcorp[2]=JSONUtils.getString(ztlx, "health_products", "");
+                                        ztlxcorp[3]=JSONUtils.getString(ztlx, "cosmetics", "");
+                                        ztlxcorp[4]=JSONUtils.getString(ztlx, "medical", "");
+                                        ztlxcorp[5]=JSONUtils.getString(ztlx, "special_equipment", "");
 
 
+                                    }
+                                    msg.what=14;
+                                }else{
+                                    if(msg_code!=null&&!msg_code.isEmpty())
+                                        msg.obj=msg_code;
+                                    else
+                                        msg.obj="请求异常，请稍后重试！";
+
+                                }
+                            } catch (JSONException e) {
+
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                                Log.getStackTraceString(e);
+                                msg.obj="请求异常，请稍后重试！";
+                            }
+                            handler.sendMessage(msg);
+                        }
+                }
+
+
+    }
+
+    ;
+}.start();
+
+        }
+public  Map<String ,Object>  contextMap( JSONObject dataobject){
+    Map<String, Object> contextmap=new HashMap<String, Object>();
+    String title=JSONUtils.getString(dataobject, "title", "");
+    if(title!=null&&title.length()>15){
+        title=title.substring(0,15)+"...";
+    }
+    long timelong=JSONUtils.getLong(dataobject, "ptime", 0);
+    String oneurl=JSONUtils.getString(dataobject, "url", "");
+    String count=JSONUtils.getString(dataobject, "count", "0");
+    String source=JSONUtils.getString(dataobject, "source", "");
+    Date timedate=  new Date(timelong);
+    SimpleDateFormat format=new SimpleDateFormat("yyyy-MM");
+    String year=format.format(timedate);
+    format=new SimpleDateFormat("dd");
+    String day=format.format(timedate);
+    contextmap=new HashMap<String, Object>();
+    contextmap.put("title",title);
+    contextmap.put("url",oneurl);
+    contextmap.put("count",count);
+    contextmap.put("source",source);
+    contextmap.put("day",day);
+    contextmap.put("year",year);
+    return contextmap;
+    }
 }

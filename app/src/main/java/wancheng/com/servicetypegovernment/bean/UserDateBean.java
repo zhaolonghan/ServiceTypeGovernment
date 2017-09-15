@@ -12,7 +12,7 @@ public class UserDateBean implements Serializable {
 	 * 
 	 */
 	private String username;// 用户名
-	private int id = 0;// 用户ID
+	private String id = "0";// 用户ID
 	private String name;//真实姓名
     private String password;//密码
     private int sex;//性别1 男 2 女
@@ -39,11 +39,11 @@ public class UserDateBean implements Serializable {
 		this.username = username;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

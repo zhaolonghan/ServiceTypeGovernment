@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,12 +30,13 @@ public class NewsAdspter extends BaseAdapter
     private LayoutInflater layoutInflater;
     private Context context;
     private String id;
+    public  static List<TextView>  veiwlist=new ArrayList<TextView>();;
+
     public NewsAdspter(Context context, List<Map<String, Object>> data){
+        super();
         this.context=context;
         this.data=data;
         this.layoutInflater=LayoutInflater.from(context);
-
-        Log.e("datasize", data.size()+"");
     }
     public final class Zujian{
         public TextView tv_day  ;
@@ -42,6 +44,7 @@ public class NewsAdspter extends BaseAdapter
         public TextView tv_content_title;
         public TextView tv_count;
         public TextView tv_source;
+        public TextView tv_url;
     }
 
     @Override
@@ -61,12 +64,15 @@ public class NewsAdspter extends BaseAdapter
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        if(data!=null){
         Zujian zujian=null;
         if(convertView==null){
             zujian=new Zujian();
             //获得组件，实例化组件
             convertView=layoutInflater.inflate(R.layout.item_news, null);
             zujian.tv_day=(TextView)convertView.findViewById(R.id.tv_day);
+            veiwlist.add(zujian.tv_day);
+
             zujian.tv_year=(TextView)convertView.findViewById(R.id.tv_year);
             zujian.tv_content_title=(TextView)convertView.findViewById(R.id.tv_content_title);
             zujian.tv_count=(TextView)convertView.findViewById(R.id.tv_count);
@@ -78,7 +84,7 @@ public class NewsAdspter extends BaseAdapter
 
         //绑定数据
 
-        zujian.tv_day.setText(data.get(i).get("day")+"");
+        zujian.tv_day.setText(data.get(i).get("day").toString());
         zujian.tv_year.setText(data.get(i).get("year").toString());
         zujian.tv_content_title.setText(data.get(i).get("title").toString());
         zujian.tv_count.setText(data.get(i).get("count").toString());
@@ -94,6 +100,7 @@ public class NewsAdspter extends BaseAdapter
 
             }
         });*/
+        }
         return convertView;
     }
     public boolean updataView(View view,int count){
@@ -111,6 +118,9 @@ public class NewsAdspter extends BaseAdapter
         if (datas == null) {
             datas = new LinkedList<>();
         }
+        if (data == null) {
+            data = new LinkedList<>();
+        }
         data.addAll(datas);
         //删除的话用remove
         notifyDataSetChanged();
@@ -119,9 +129,22 @@ public class NewsAdspter extends BaseAdapter
         if (datas == null) {
             datas = new LinkedList<>();
         }
-
+        if (data == null) {
+            data = new LinkedList<>();
+        }
         data=datas;
         //删除的话用remove
         notifyDataSetChanged();
+    }
+    public TextView getOtemView(int i){
+        if(veiwlist!=null){
+            Log.e("获取的参数:数量",veiwlist.size()+"");
+        }
+
+        if(veiwlist==null||veiwlist.size()==0){
+            return null;
+        }else{
+            return  veiwlist.get(i);
+        }
     }
 }

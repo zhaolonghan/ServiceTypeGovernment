@@ -8,6 +8,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,15 +57,15 @@ public class MainActivity extends BaseActivity {
 
         btnLogin.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
-//                username = ed.getText().toString();
-//                passWord = ed2.getText().toString();
-//                Log.e("11111111111111111", Sha1.sHA1(MainActivity.this));
-//                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(passWord)) {
-//                    Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    getData(username, passWord);
-//                }
-                updateView();
+                username = ed.getText().toString();
+                passWord = ed2.getText().toString();
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(passWord)) {
+                    Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    getData(username, passWord);
+                }
+
+                //updateView();
             }
         });
         File destDir = new File("/sdcard/Wancheng/Photos/");
@@ -214,11 +216,19 @@ public class MainActivity extends BaseActivity {
         new Thread() {
             public void run() {
                 Map<String, Object> map = new HashMap<String, Object>();
-                map.put("username", username);
-                map.put("password", password);
+                JSONObject jsonQuery = new JSONObject();
+                try{
+
+                    jsonQuery.put("username",username);
+                    jsonQuery.put("password", password);
+                    String data=  jsonQuery.toString();
+                    data= Base64.encodeToString(data.getBytes(), 0);
+                    map.put("data", data);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 NetUtil net = new NetUtil();
                 String res = net.posturl(ConstUtil.METHOD_LOGIN, map);
-                Log.e("返回值", res);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
                     handler.sendEmptyMessage(4);
                 } else {
@@ -231,9 +241,11 @@ public class MainActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if ("0".equals(code)) {
-                                JSONObject dataArray = jsonObj.getJSONObject("data");
+                                String  data=jsonObj.getString("data");
+                                data =new String(Base64.decode(data, Base64.DEFAULT));
+                                JSONObject   dataArray = new JSONObject(data);
                                 UserDateBean.getInstance().setUsername(JSONUtils.getString(dataArray, "loginName", ""));
-                                UserDateBean.getInstance().setId(JSONUtils.getInt(dataArray, "uid", 0));
+                                UserDateBean.getInstance().setId(JSONUtils.getString(dataArray, "uid", "0"));
                                 UserDateBean.getInstance().setName(JSONUtils.getString(dataArray, "name", ""));
                                 UserDateBean.getInstance().setPhone(JSONUtils.getString(dataArray, "mobile", ""));
                                 msg.what = 13;
