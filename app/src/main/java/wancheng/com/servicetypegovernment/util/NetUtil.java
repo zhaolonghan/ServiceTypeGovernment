@@ -173,7 +173,7 @@ public class NetUtil  {
 		InputStream is = null;
 		String result = "";
 		String url = ConstUtil.IP+method+appendParams(map,'?');
-		Log.e("请求的接口地址", url);
+		Log.e("请求的接口地址:", url);
 		try{
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpGet httppost = new HttpGet(url);

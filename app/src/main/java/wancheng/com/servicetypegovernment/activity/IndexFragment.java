@@ -77,6 +77,7 @@ public  class IndexFragment  extends BaseFragment {
             "http://jiangsu.china.com.cn/uploadfile/2016/0316/1458124624807199.png.jpg",
             "http://ww1.sinaimg.cn/orj480/999a7ed9jw1f2pc4wn1fpj20b4089aap.jpg",
             "http://www.5888.tv/Upload_Map/uploads/2014/7/2014-07-16-11-15-33.jpg"};
+    private String[] ztlxcorp=new String[6];
 
     /*
     * 新闻
@@ -90,6 +91,8 @@ public  class IndexFragment  extends BaseFragment {
                              Bundle savedInstanceState) {
         contactsLayout = inflater.inflate(R.layout.activity_index,
                 container, false);
+        getData();
+
         lazyLoad();
         return contactsLayout;
     }
@@ -97,7 +100,6 @@ public  class IndexFragment  extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        getData();
 
     }
 
@@ -145,6 +147,7 @@ public  class IndexFragment  extends BaseFragment {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_food);
                 Intent intent = new Intent();
                 intent.putExtra("companyType",tv_food.getText().toString());
+                intent.putExtra("ztlx", ztlxcorp[0]);
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
             }
@@ -153,6 +156,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_yp);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[1]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -162,6 +166,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_bjp);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[2]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -171,6 +176,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_hzp);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[3]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -180,6 +186,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_ylqx);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[4]);
                 intent.putExtra("companyType",tv_food.getText().toString());
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -189,6 +196,7 @@ public  class IndexFragment  extends BaseFragment {
             public void onClick(View arg0) {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_tzsb);
                 Intent intent = new Intent();
+                intent.putExtra("ztlx", ztlxcorp[5]);
                 intent.putExtra("companyType","特种设备");
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
@@ -373,6 +381,21 @@ public  class IndexFragment  extends BaseFragment {
                                         for(int i=0;i<newsdataArray.length();i++){
                                             imageUrls[i]=JSONUtils.getString(newsdataArray.getJSONObject(i), "image", "");
                                         }
+
+                                        //企业主题类型 ztlx
+                                               /* "drugs": "药品企业",
+                                                "health_products": "保健品",
+                                                "food": "食品类型",
+                                                "cosmetics": "化妆",
+                                                "medical ": "医疗",
+                                                "special_equipment": "特种"*/
+                                        JSONObject ztlx= jsondate.getJSONObject("ztlx");
+                                        ztlxcorp[0]=JSONUtils.getString(ztlx, "food", "");
+                                        ztlxcorp[1]=JSONUtils.getString(ztlx, "drugs", "");
+                                        ztlxcorp[2]=JSONUtils.getString(ztlx, "health_products", "");
+                                        ztlxcorp[3]=JSONUtils.getString(ztlx, "cosmetics", "");
+                                        ztlxcorp[4]=JSONUtils.getString(ztlx, "medical", "");
+                                        ztlxcorp[5]=JSONUtils.getString(ztlx, "special_equipment", "");
 
 
                                     }

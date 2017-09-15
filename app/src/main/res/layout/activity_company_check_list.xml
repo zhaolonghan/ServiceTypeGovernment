@@ -58,17 +58,6 @@
 
 
 
-    <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:id="@+id/lin_bottom"
-        android:background="@color/btnblue"
-        android:layout_alignParentBottom="true"
-        >
 
-
-
-    </LinearLayout>
 
     </RelativeLayout>
