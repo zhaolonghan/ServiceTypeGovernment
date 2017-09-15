@@ -40,5 +40,11 @@ public class ConstUtil {
 	public static String METHOD_SAVECORPLOW = "a/app/corp/saveCorpLow";
 	public static String METHOD_GETVERSION = "a/app/corp/version";
 	public static String METHOD_CHECKDETAIL="a/inspect/inspectItem/getzhiFaResult?t=phone&id=";
-
+	public static String METHOD_OANOTIFYLIST= "a/app/oaNotify/getList";//公告列表
+	public static String METHOD_LAWSLIST = "a/app/laws/getList";//法律列表
+	public static String METHOD_NEWSLIST = "a/app/news/getList";//新闻列表
+	public static String METHOD_INDEXLIST = "a/app/corp/index";//首页列表
+	public static String METHOD_GETCORPLIST_FIRST = "a/app/corp/getCorpListByztlx";//初次进入列表页数据
+	public static String METHOD_SPECIALLIST = "a/app/special/getSpecialList";//执法检查列表
+	public static String METHOD_INSPECTDAILYLIST = "a/app/inspectDaily/getResultList ";//
 }
