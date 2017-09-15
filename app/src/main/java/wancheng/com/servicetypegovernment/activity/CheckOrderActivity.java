@@ -105,6 +105,7 @@ public class CheckOrderActivity extends BaseActivity {
 
         //企业列表
         corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
+        checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
         getListDataFirst();
         //getCorpListData();
         //问题
@@ -307,6 +308,7 @@ public class CheckOrderActivity extends BaseActivity {
 
                         if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
                             checkQuery.pageNo = checkQuery.pageNo + 1;
+                            Log.e("页码", checkQuery.pageNo+"");
                             getenforcementListData();
 
                         }
@@ -619,15 +621,15 @@ public class CheckOrderActivity extends BaseActivity {
         pd = ProgressDialog.show(this, "", "请稍候...");
         new Thread() {
             public void run() {
-                String url= ConstUtil.METHOD_GETCORPLIST;
+                String url= ConstUtil.METHOD_SPECIALLIST;
                 Map<String, Object> map = new HashMap<String, Object>();
                 try{
                     JSONObject jsonQuery = new JSONObject();
-                    jsonQuery.put("pageNo",corpquery.pageNo);
-                    jsonQuery.put("pageSize", corpquery.pageSize);
-                    jsonQuery.put("corpName", corpquery.corpName);
-                    jsonQuery.put("ztlx", corpquery.ztlx);
-                    jsonQuery.put("uid", corpquery.uid);
+                    jsonQuery.put("pageNo",checkQuery.pageNo);
+                    jsonQuery.put("pageSize", checkQuery.pageSize);
+                    jsonQuery.put("corpName", checkQuery.corpName);
+                    jsonQuery.put("ztlx", checkQuery.ztlx);
+                    jsonQuery.put("uid", checkQuery.uid);
                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
 
                 }catch (Exception e){
