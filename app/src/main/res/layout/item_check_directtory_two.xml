@@ -33,6 +33,8 @@
                         android:text="*"
                         android:textColor="@color/red"
                         android:textSize="16dp"
+                        android:id="@+id/isred"
+                        android:visibility="gone"
                         android:gravity="right"/>
                     <TextView
                         android:layout_width="wrap_content"

@@ -1,11 +1,29 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,62 +31,38 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
 import wancheng.com.servicetypegovernment.adspter.CheckDirecttoryAdspter;
 import wancheng.com.servicetypegovernment.adspter.CheckResultAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.util.Base64Coder;
+import wancheng.com.servicetypegovernment.util.ConstUtil;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
+import wancheng.com.servicetypegovernment.util.NetUtil;
 
 public class CheckDirectoryActivity extends BaseActivity {
     List<Map<String, Object>> listcontext;
     private CheckDirecttoryAdspter madapter = null;
     private ListView listView=null;
+    private  String ztlx="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_directory);
-
-        TopBean topBean=new TopBean("食品生产日常监督检查操作手册","返回","",true,false);
+        initView();
+        getListData();
+    }
+    private void initView(){
+        Intent intent=getIntent();
+        ztlx=intent.getStringExtra("ztlx");
+        TopBean topBean=new TopBean(intent.getStringExtra("name"),"返回","",true,false);
         getTopView(topBean);
-
-        listcontext= checkDirlistcontext(5);
         listView=(ListView)findViewById(R.id.check_list);
+    }
+    @Override
+    public void updateView() {
         madapter = new CheckDirecttoryAdspter(this, listcontext,0);
         listView.setAdapter(madapter);
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            @Override
-
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-                switch (scrollState) {
-
-                    // 当不滚动时
-
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-
-                        // 判断滚动到底部
-
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
-
-                            madapter.add(listcontext);
-
-                        }
-
-                        break;
-
-                }
-
-            }
-
-
-            @Override
-
-            public void onScroll(AbsListView view, int firstVisibleItem,
-
-                                 int visibleItemCount, int totalItemCount) {
-
-            }
-
-        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,53 +85,103 @@ public class CheckDirectoryActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public List<Map<String, Object>> checkDirlistcontext(int num){
-        List<Map<String, Object>>  list;
-        List<Map<String, Object>>  addalllist;
-        //标题0  时间1  内容2String id="1";
 
-        list=new ArrayList<Map<String, Object>>();
-        for(int j=0;j<num;j++){
-            //tv_result3=1  合理    ；2是；3否
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("directtory_tittle", "1、生产环境条件");
-            List<Map<String, Object>>  infolist=new ArrayList<Map<String, Object>>();
-            Map<String, Object> infomap=new HashMap<String, Object>();
-            infomap.put("directtory_info_tittle", "1.1 厂区无扬尘、无积水，厂区、车间卫生整洁。");
-                      infomap.put("directtory_info_laws","《食品安全法》第三十三条、GB 14881-2013《食品生产通用卫生规范》3.2");
-            infomap.put("directtory_info_way","检查厂区、车间环境，是否符合卫生规范");
-            infomap.put("directtory_info_explain", "1.厂区内的道路一般应铺设混凝土、沥青、或者其他硬质材料；空地应采取必要措施，如铺设水泥、地砖或铺设草坪等方式，保持环境清洁，正常天气下不得有扬尘和积水等现象；\n" +
-                    "                                          2.生产车间地面应当无积水、无蛛网积灰、无破损等；需要经常冲洗的地面，应当有一定坡度，其最低处应设在排水沟或者地漏的位置；\n" +
-                    "                                          3.查看车间的墙面及地面有无污垢、霉变、积水，不得有食品原辅料、半成品、成品等散落；");
-            infolist.add(infomap);
+    public  void getListData(){
 
-            infomap=new HashMap<String, Object>();
-            infomap.put("directtory_info_tittle","1.2 厂区无扬尘、无积水，厂区、车间卫生整洁。");
-            infomap.put("directtory_info_laws","《食品安全法》第三十三条、GB 14881-2013《食品生产通用卫生规范》3.2");
-            infomap.put("directtory_info_way","检查厂区、车间环境，是否符合卫生规范");
-            infomap.put("directtory_info_explain", "1.厂区内的道路一般应铺设混凝土、沥青、或者其他硬质材料；空地应采取必要措施，如铺设水泥、地砖或铺设草坪等方式，保持环境清洁，正常天气下不得有扬尘和积水等现象；\n" +
-                    "                                          2.生产车间地面应当无积水、无蛛网积灰、无破损等；需要经常冲洗的地面，应当有一定坡度，其最低处应设在排水沟或者地漏的位置；\n" +
-                    "                                          3.查看车间的墙面及地面有无污垢、霉变、积水，不得有食品原辅料、半成品、成品等散落；");
-            infolist.add(infomap);
+            listcontext=new ArrayList<Map<String, Object>>();
+            pd = ProgressDialog.show(this, "", "请稍候...");
+            new Thread() {
+                public void run() {
+                    String url= ConstUtil.METHOD_GIODELIST;
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    try{
+                        JSONObject jsonQuery = new JSONObject();
+                        jsonQuery.put("ztlx", ztlx);
+                        map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    NetUtil net = new NetUtil();
+                    String res = net.posturl(url , map);
+                    if(res==null||"".equals(res)||res.contains("Fail to establish http connection!")){
+                        handler.sendEmptyMessage(4);
+                    }else{
+                        Message msg=new Message();
+                        msg.what=15;
+                        if (!res.isEmpty()) {
+                            JSONObject jsonObj;
+                            try {
+                                jsonObj = new JSONObject(res);
+                                String msg_code = testStringNull(jsonObj.optString("msg"));
+                                String code = testStringNull(jsonObj.optString("code"));
+                                if("0".equals(code)){
+                                    String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                    if(data!=null&&data!="") {
+                                        JSONArray jsondata = new JSONArray(data);
+                                        if(jsondata!=null&&jsondata.length()>0){
+                                            for(int i=0;i<jsondata.length();i++){
+                                                JSONObject onedate=jsondata.getJSONObject(i);
+                                                if(onedate!=null){
+                                                    //第一层
+                                                    Map<String, Object> onemap=new HashMap<String, Object>();
+                                                    //标题与备注
+                                                    onemap.put("directtory_tittle", (i+1)+"、"+JSONUtils.getString(onedate, "name", ""));
+                                                    onemap.put("directtory_remark", JSONUtils.getString(onedate, "remark", ""));
+                                                    //第二层数据
+                                                    List<Map<String, Object>>  infolist=new ArrayList<Map<String, Object>>();
+                                                    JSONArray infojsonarray = onedate.getJSONArray("content");
+                                                    if(infojsonarray!=null&&infojsonarray.length()>0){
+                                                        for(int j=0;j<infojsonarray.length();j++){
+                                                            Map<String, Object> infomap=new HashMap<String, Object>();
+                                                            JSONObject twodate=infojsonarray.getJSONObject(j);
+                                                            infomap.put("directtory_info_tittle", (i+1)+"."+(j+1)+"、"+ JSONUtils.getString(twodate, "content", ""));
+                                                            infomap.put("directtory_info_laws",JSONUtils.getString(twodate, "base", ""));
+                                                            infomap.put("directtory_info_way",JSONUtils.getString(twodate, "mode", ""));
+                                                            infomap.put("directtory_info_explain", JSONUtils.getString(twodate, "guide", ""));
+                                                            infomap.put("isPoint", JSONUtils.getString(twodate, "isPoint", ""));
+                                                            infolist.add(infomap);
+                                                            onemap.put("infolist", infolist);
+                                                        }
+                                                    }
+
+                                                    listcontext.add(onemap);
+                                                }
 
 
-
-            infomap=new HashMap<String, Object>();
-            infomap.put("directtory_info_tittle","1.3 厂区无扬尘、无积水，厂区、车间卫生整洁。");
-            infomap.put("directtory_info_laws","《食品安全法》第三十三条、GB 14881-2013《食品生产通用卫生规范》3.2");
-            infomap.put("directtory_info_way","检查厂区、车间环境，是否符合卫生规范");
-            infomap.put("directtory_info_explain", "1.厂区内的道路一般应铺设混凝土、沥青、或者其他硬质材料；空地应采取必要措施，如铺设水泥、地砖或铺设草坪等方式，保持环境清洁，正常天气下不得有扬尘和积水等现象；\n" +
-                    "                                          2.生产车间地面应当无积水、无蛛网积灰、无破损等；需要经常冲洗的地面，应当有一定坡度，其最低处应设在排水沟或者地漏的位置；\n" +
-                    "                                          3.查看车间的墙面及地面有无污垢、霉变、积水，不得有食品原辅料、半成品、成品等散落；");
-            infolist.add(infomap);
-
-            map.put("infolist",infolist);
+                                            }
+                                        }
 
 
-            list.add(map);
-        }
+                                    }else{
+                                        msg.obj="请求异常，请稍后重试！";
+                                    }
+                                    msg.what=14;
+                                }else{
+                                    if(msg_code!=null&&!msg_code.isEmpty())
+                                        msg.obj=msg_code;
+                                    else
+                                        msg.obj="请求异常，请稍后重试！";
 
-        return list;
+                                }
+                            } catch (JSONException e) {
+
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                                Log.getStackTraceString(e);
+                                msg.obj="请求异常，请稍后重试！";
+                            }
+                            handler.sendMessage(msg);
+                        }
+
+
+                    }
+                }
+
+                ;
+            }.start();
+
 
     }
+
+
 }
