@@ -28,6 +28,7 @@ import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 
 
 /**
@@ -169,7 +170,7 @@ public  class BaseActivity extends Activity {
                         if(msgtxt!=null&&!msgtxt.isEmpty())
                             Toast.makeText(getApplicationContext(), msgtxt,Toast.LENGTH_SHORT).show();
                     }
-                    updateData();
+                    updataData();
                     break;
                 default:
                     break;
@@ -182,7 +183,7 @@ public  class BaseActivity extends Activity {
     public void finishOwn(){
 
     }
-    public void updateData() {
+    public void updataData() {
 
     }
     @Override

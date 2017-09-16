@@ -28,6 +28,7 @@ import wancheng.com.servicetypegovernment.activity.BaseActivity;
 import wancheng.com.servicetypegovernment.activity.CoreActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
+import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
@@ -222,13 +223,14 @@ public class MainActivity extends BaseActivity {
                     jsonQuery.put("username",username);
                     jsonQuery.put("password", password);
                     String data=  jsonQuery.toString();
-                    data= Base64.encodeToString(data.getBytes(), 0);
+                    data= Base64Coder.encodeString(data);
                     map.put("data", data);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
                 NetUtil net = new NetUtil();
                 String res = net.posturl(ConstUtil.METHOD_LOGIN, map);
+                Log.e("res",res);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
                     handler.sendEmptyMessage(4);
                 } else {
@@ -242,7 +244,7 @@ public class MainActivity extends BaseActivity {
                             String code = testStringNull(jsonObj.optString("code"));
                             if ("0".equals(code)) {
                                 String  data=jsonObj.getString("data");
-                                data =new String(Base64.decode(data, Base64.DEFAULT));
+                                data =new String(Base64Coder.decodeString(data));
                                 JSONObject   dataArray = new JSONObject(data);
                                 UserDateBean.getInstance().setUsername(JSONUtils.getString(dataArray, "loginName", ""));
                                 UserDateBean.getInstance().setId(JSONUtils.getString(dataArray, "uid", "0"));

@@ -53,11 +53,11 @@ public class CheckDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_detail);
+        databaseHelper=new DatabaseHelper(this);
         layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         TopBean topBean=new TopBean("检查要点","返回","下一步",true,true);
         getTopView(topBean);
         imageUrls=new ArrayList<ImagesBean>();
-          databaseHelper=new DatabaseHelper(this);
 //        boolean isOK=databaseHelper.deleteById(2);
 //        Log.e("111111111",isOK+"");
 //        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698837_7507.jpg"));
@@ -75,9 +75,9 @@ public class CheckDetailActivity extends BaseActivity {
 //                intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
 //                CheckDetailActivity.this.startActivityForResult(intent, 0);
                 // getListViewData();
-                boolean isOK = databaseHelper.deleteById(2);
-                if(isOK){
-                    List<Map<String, String>> list = databaseHelper.find(2);
+//                boolean isOK = databaseHelper.deleteById(4);
+//                if(isOK){
+                    List<Map<String, String>> list = databaseHelper.find(4);
                     if (list != null && list.size() > 0) {
                         Intent intent = new Intent(CheckDetailActivity.this, SubmitImageService.class);
                         intent.putExtra("datalist", (Serializable) (list));
@@ -86,7 +86,7 @@ public class CheckDetailActivity extends BaseActivity {
                         finish();
 
                     }
-                }
+//                }
             }
         });
 
