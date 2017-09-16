@@ -81,7 +81,6 @@ public class MainActivity extends BaseActivity {
         intent.setClass(MainActivity.this, CoreActivity.class);
         MainActivity.this.startActivity(intent);
     }
-    @Override
     public void updataData(){
         String versionName=map.get("versionName").toString();
         String versionCoder=map.get("versionCode").toString();

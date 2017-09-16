@@ -23,6 +23,7 @@ import wancheng.com.servicetypegovernment.activity.CheckResultDetailActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyCheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyDetailActivity;
 import wancheng.com.servicetypegovernment.activity.InformActivity;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
 
 /**
  * Created by john on 2017/8/17.
@@ -200,17 +201,21 @@ public class CheckAdspter extends BaseAdapter
     public void initCorpData(subgroup zujian,int i) {
         // corpsubgroup.id=(TextView)convertView.findViewById(R.id.newsid);
         if(typeadapter==0){
-            if(data!=null&&data.size()> 0 &&data.get(i)!=null){
+            if(data!=null&&data.size()> 0 &&data.get(i)!=null&&data.get(i).get("id")!=null){
                 zujian.corp_name.setText(data.get(i).get("corp_name").toString());
                 zujian.corp_code.setText(data.get(i).get("corp_code").toString());
                 zujian.corp_person.setText(data.get(i).get("corp_person").toString());
                 zujian.corp_tel.setText(data.get(i).get("corp_tel").toString());
                 zujian.corp_address.setText(data.get(i).get("corp_address").toString());
+                final String corpId =data.get(i).get("id").toString();
+                final String ztlx =data.get(i).get("ztlx").toString();
                 zujian.bt_history.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         Toast.makeText(context, " 跳转历史检查列表页面", Toast.LENGTH_SHORT).show();
                         Intent intent;
                         intent = new Intent();
+                        intent.putExtra("corpId",corpId);
+                        intent.putExtra("ztlx",ztlx);
                         intent.setClass(context, CheckHistoryListActivity.class);
                         context.startActivity(intent);
                     }
@@ -219,6 +224,8 @@ public class CheckAdspter extends BaseAdapter
                     public void onClick(View arg0) {
                         Toast.makeText(context, " 跳转告知页面", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent();
+                        intent.putExtra("corpId",corpId);
+                        intent.putExtra("ztlx",ztlx);
                         intent.setClass(context, InformActivity.class);
                         context.startActivity(intent);
                     }
@@ -226,6 +233,7 @@ public class CheckAdspter extends BaseAdapter
                 zujian.btDetail.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         Intent intent = new Intent();
+                        intent.putExtra("corpId",corpId);
                         intent.setClass(context, CompanyDetailActivity.class);
                         context.startActivity(intent);
                     }
@@ -233,6 +241,8 @@ public class CheckAdspter extends BaseAdapter
                 zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         Intent intent = new Intent();
+                        intent.putExtra("corpId",corpId);
+                        intent.putExtra("ztlx",ztlx);
                         intent.setClass(context, InformActivity.class);
                         context.startActivity(intent);
 

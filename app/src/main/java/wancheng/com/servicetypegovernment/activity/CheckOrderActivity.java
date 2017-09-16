@@ -8,26 +8,22 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.format.DateFormat;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,11 +32,9 @@ import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
-import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
-import wancheng.com.servicetypegovernment.util.Base64UtilUser;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
@@ -49,11 +43,9 @@ import wancheng.com.servicetypegovernment.view.PopWindow;
  * test
  */
 public class CheckOrderActivity extends BaseActivity {
-
-    private Button btDetail;
-    private Button btStartCheck;
-    private Button bt_history;
-    private Button bt_check;
+    boolean isadd=true;
+    boolean isonclickadd=true;
+    List<Map<String, Object>> bottondatalist;
     private LinearLayout view_1layout;//企业
     private LinearLayout view_2layout;//检查
     private LinearLayout view_3layout;//问题
@@ -67,7 +59,6 @@ public class CheckOrderActivity extends BaseActivity {
     private boolean  isPOPOpen=false;
     private ImageView corpSearch;
     private EditText corpSearchName;
-    private String companyType;//主题类型
     /**企业列表里**/
     private CheckAdspter madapter = null;
     private ListView corplistView=null;;
@@ -97,17 +88,9 @@ public class CheckOrderActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
-       // lazyLoad();
 ;        initView();
-        Intent intent=getIntent();
-        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","检查指南",true,true);
-        getTopView(topBean);
 
-        //企业列表
-        corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
-        checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
         getListDataFirst();
-        //getCorpListData();
         //问题
         question();
 
@@ -116,6 +99,13 @@ public class CheckOrderActivity extends BaseActivity {
         onOperationEvent();
     }
     private void initView(){
+        Intent intent=getIntent();
+        //企业列表
+        corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
+        checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
+        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
+        getTopView(topBean);
+
         tvlNotice = (TextView) this.findViewById(R.id.tv_notice);
         tvlLaw = (TextView) this.findViewById(R.id.tv_loyal);
         tvNew = (TextView) this.findViewById(R.id.tv_news);
@@ -150,32 +140,52 @@ public class CheckOrderActivity extends BaseActivity {
 
     @Override
     public void updateView() {
-        listcorp.addAll(oneGetcorp);
-        if(madapter ==null){
-            madapter = new CheckAdspter(this, listcorp,0);
-            corplistView.setAdapter(madapter);
-        }else{
-            if(listcorp.size()<=10){
-                corplistView.setSelection(0);
-            }
-            madapter.update(listcorp);
-            madapter.notifyDataSetChanged();
+        if(oneGetcorp!=null&&oneGetcorp.size()>0){
+            listcorp.addAll(oneGetcorp);
+            if(madapter ==null){
+                madapter = new CheckAdspter(this, listcorp,0);
+                corplistView.setAdapter(madapter);
+            }else{
+                if(listcorp.size()<=10){
+                    corplistView.setSelection(0);
+                }
+                madapter.update(listcorp);
+                madapter.notifyDataSetChanged();
 
-      }
-
-        listenforcement.addAll(oneGetenforcement);
-        if(enforcementadapter ==null){
-            enforcementadapter = new CheckAdspter(this, listenforcement,1);
-            enforcementlistView.setAdapter(enforcementadapter);
-        }else{
-            if(listenforcement.size()<=10){
-                enforcementlistView.setSelection(0);
             }
-            enforcementadapter.update(listenforcement);
-            enforcementadapter.notifyDataSetChanged();
         }
+       if(oneGetenforcement!=null&&oneGetenforcement.size()>0){
+           listenforcement.addAll(oneGetenforcement);
+           if(enforcementadapter ==null){
+               enforcementadapter = new CheckAdspter(this, listenforcement,1);
+               enforcementlistView.setAdapter(enforcementadapter);
+           }else{
+               if(listenforcement.size()<=10){
+                   enforcementlistView.setSelection(0);
+               }
+               enforcementadapter.update(listenforcement);
+               enforcementadapter.notifyDataSetChanged();
+           }
+
+       }
 
 
+        isadd=true;
+        if (isonclickadd&&bottondatalist!=null&&bottondatalist.size()>0){
+            Intent intent=getIntent();
+            TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","检查指南",true,true);
+            getTopView(topBean);
+            //指南
+                isonclickadd=false;
+                tv_right.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        isPOPOpen = true;
+                        popWindow = new PopWindow(CheckOrderActivity.this,bottondatalist);
+                        popWindow.showPopupWindow(findViewById(R.id.tv_right));
+                    }
+                });
+        }
 
     }
     public void onOperationEvent() {
@@ -191,14 +201,7 @@ public class CheckOrderActivity extends BaseActivity {
             }
         });
 
-        tv_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                isPOPOpen = true;
-                popWindow = new PopWindow(CheckOrderActivity.this);
-                popWindow.showPopupWindow(findViewById(R.id.tv_right));
-            }
-        });
+
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
@@ -267,7 +270,9 @@ public class CheckOrderActivity extends BaseActivity {
 
                         // 判断滚动到底部
 
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
+                            isadd=false;
                             // null, null listcorp.size() /corpquery.pageSize + 2, 10
 
                             corpquery.pageNo = corpquery.pageNo + 1;
@@ -306,9 +311,9 @@ public class CheckOrderActivity extends BaseActivity {
 
                         // 判断滚动到底部
 
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
+                            isadd=false;
                             checkQuery.pageNo = checkQuery.pageNo + 1;
-                            Log.e("页码", checkQuery.pageNo+"");
                             getenforcementListData();
 
                         }
@@ -330,24 +335,9 @@ public class CheckOrderActivity extends BaseActivity {
 
         });
 
-    }
-    @Override
-    protected void lazyLoad() {
-       /* super.lazyLoad();
-        //企业列表
-
-        //执法列表
-        enforcementlist();
-        //问题
-        question();
-*/
-
-
-
-
-
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -447,7 +437,9 @@ public class CheckOrderActivity extends BaseActivity {
 
                         // 判断滚动到底部
 
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
+                            isadd=false;
                             questionadapter.add(listquestion);
 
                         }
@@ -478,6 +470,8 @@ public class CheckOrderActivity extends BaseActivity {
             oneGetcorp=new ArrayList<Map<String, Object>>();
             oneGetenforcement=new ArrayList<Map<String, Object>>();
             oneGetquestion=new ArrayList<Map<String, Object>>();
+            bottondatalist=new ArrayList<Map<String, Object>>();
+
             pd = ProgressDialog.show(this, "", "请稍候...");
             new Thread() {
                 public void run() {
@@ -488,7 +482,7 @@ public class CheckOrderActivity extends BaseActivity {
                         JSONObject jsonQuery = new JSONObject();
                         jsonQuery.put("ztlx", corpquery.ztlx);
                         jsonQuery.put("uid", corpquery.uid);
-                        map.put("data", Base64UtilUser.encode(jsonQuery.toString()));
+                        map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -506,14 +500,35 @@ public class CheckOrderActivity extends BaseActivity {
                                 String msg_code = testStringNull(jsonObj.optString("msg"));
                                 String code = testStringNull(jsonObj.optString("code"));
                                 if("0".equals(code)){
-                                    String  data=Base64UtilUser.decode(jsonObj.getString("data"));
+                                    String  data=Base64Coder.decodeString(jsonObj.getString("data"));
                                     if(data!=null&&data!="") {
                                         JSONObject jsondata = new JSONObject(data);
                                         JSONArray   dataArray = jsondata.getJSONArray("corp");
-
-                                        setcorpdata(dataArray);
+                                        if (dataArray!=null&&dataArray.length()>0){
+                                            setcorpdata(dataArray);
+                                        }
                                         dataArray = jsondata.getJSONArray("special");
-                                        setCheckdata(dataArray);
+                                        if (dataArray!=null&&dataArray.length()>0) {
+                                            setCheckdata(dataArray);
+                                        }
+                                        dataArray = jsondata.getJSONArray("ztlx");
+                                        Log.e("主题类型：",jsondata.getString("ztlx"));
+                                        if (dataArray!=null&&dataArray.length()>0) {
+                                            {
+                                                Map<String, Object> contextmap=null;
+                                                for(int i=0;i<dataArray.length();i++){
+                                                    JSONObject dataobject = dataArray.getJSONObject(i);
+                                                    if(dataobject!=null){
+                                                        contextmap=new HashMap<String, Object>();
+                                                            contextmap.put("name", JSONUtils.getString(dataobject, "name", ""));
+                                                            contextmap.put("ztlx", JSONUtils.getString(dataobject, "ztlx", ""));
+                                                            bottondatalist.add(contextmap);
+                                                    }
+
+                                                }
+                                            }
+                                        }
+
                                     }else{
                                         msg.obj="已经到底了";
                                     }
@@ -580,10 +595,12 @@ public class CheckOrderActivity extends BaseActivity {
                     String msg_code = testStringNull(jsonObj.optString("msg"));
                     String code = testStringNull(jsonObj.optString("code"));
                     if("0".equals(code)){
-                        String  data=Base64UtilUser.decode(jsonObj.getString("data"));
+                        String  data=Base64Coder.decodeString(jsonObj.getString("data"));
                         if(data!=null&&data!=""){
                             JSONArray dataArray=new JSONArray(data);
-                            setcorpdata(dataArray);
+                            if (dataArray!=null&&dataArray.length()>0) {
+                                setcorpdata(dataArray);
+                            }
                         }else{
                             msg.obj="已经到底了";
                         }
@@ -649,7 +666,7 @@ public class CheckOrderActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64UtilUser.decode(jsonObj.getString("data"));
+                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                     JSONArray dataArray=new JSONArray(data);
                                     setcorpdata(dataArray);
@@ -695,15 +712,19 @@ public class CheckOrderActivity extends BaseActivity {
                     if(title!=null&&title.length()>15){
                         title=title.substring(15)+"...";
                     }
+                    if(JSONUtils.getString(dataobject, "id", "")!=null&&JSONUtils.getString(dataobject, "id", "").length()>0){
+                        contextmap=new HashMap<String, Object>();
+                        contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
+                        contextmap.put("ztlx", corpquery.ztlx);
 
-                    contextmap=new HashMap<String, Object>();
-                    contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
-                    contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
-                    contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
-                    contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
-                    contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
-                    contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
-                    oneGetcorp.add(contextmap);
+                        contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
+                        contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
+                        contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
+                        contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
+                        contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
+                        oneGetcorp.add(contextmap);
+                    }
+
                 }
 
             }
@@ -719,38 +740,20 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
         for(int i=0;i<dataArray.length();i++){
             JSONObject dataobject = dataArray.getJSONObject(i);
             if(dataobject!=null){
-               /* "special": [
-                {
-                    "buhege": 0,  问题企业数
-                        "hegelv": "0%", 合格率
-                        "corpCount": 2, 企业数量
-                        "jindu": "0%",检查进度
-                        "name": "11",
-                        "checked": 0,检查数量
-                        "startTime": 1504775295000,日常检查
-                        "endTime": 1504775297000,
-                        "hege": 0,合格数
-                        "notChecked": 2,没检查
-                        "status": "进行中",检查状态
-                        "ztlx": [
-                    {
-                        "name": "保健食品销售经营",
-                            "ztlx": "7b99732786ce4809b0d300888f524f62"
-                    }
-                    ]
-                }*/
                 contextmap=new HashMap<String, Object>();
-                contextmap.put("check_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "startTime", "0")))));
-                contextmap.put("check_corpnum",JSONUtils.getString(dataobject, "corpCount", ""));
-                contextmap.put("check_status",JSONUtils.getString(dataobject, "status", ""));
-                contextmap.put("check_numed",JSONUtils.getString(dataobject, "checked", ""));
-                contextmap.put("check_numing",JSONUtils.getString(dataobject, "notChecked", ""));
-                contextmap.put("check_numthrought", JSONUtils.getString(dataobject, "hege", ""));
-                contextmap.put("check_numunthrought",JSONUtils.getString(dataobject, "buhege", ""));
-                contextmap.put("check_radioing", JSONUtils.getString(dataobject, "jindu", ""));
-                contextmap.put("check_radiothrought", JSONUtils.getString(dataobject, "hegelv", ""));
-
-                oneGetenforcement.add(contextmap);
+                if(JSONUtils.getString(dataobject, "startTime", "")!=null&&JSONUtils.getString(dataobject, "startTime", "").length()>0) {
+                    contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
+                    contextmap.put("check_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "startTime", "0")))));
+                    contextmap.put("check_corpnum", JSONUtils.getString(dataobject, "corpCount", ""));
+                    contextmap.put("check_status", JSONUtils.getString(dataobject, "status", ""));
+                    contextmap.put("check_numed", JSONUtils.getString(dataobject, "checked", ""));
+                    contextmap.put("check_numing", JSONUtils.getString(dataobject, "notChecked", ""));
+                    contextmap.put("check_numthrought", JSONUtils.getString(dataobject, "hege", ""));
+                    contextmap.put("check_numunthrought", JSONUtils.getString(dataobject, "buhege", ""));
+                    contextmap.put("check_radioing", JSONUtils.getString(dataobject, "jindu", ""));
+                    contextmap.put("check_radiothrought", JSONUtils.getString(dataobject, "hegelv", ""));
+                    oneGetenforcement.add(contextmap);
+                }
             }
 
         }

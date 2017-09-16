@@ -37,6 +37,7 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
@@ -354,7 +355,7 @@ public  class IndexFragment  extends BaseFragment {
 
                                     if(data!=null){
                                         Map<String, Object> contextmap=null;
-                                        data =new String(Base64.decode(data, Base64.DEFAULT));
+                                        data =new String(Base64Coder.decode(data));
                                         JSONObject   jsondate = new JSONObject(data);
                                         //新闻
                                         JSONArray newsdataArray = jsondate.getJSONArray("news");
@@ -396,7 +397,6 @@ public  class IndexFragment  extends BaseFragment {
                                         ztlxcorp[3]=JSONUtils.getString(ztlx, "cosmetics", "");
                                         ztlxcorp[4]=JSONUtils.getString(ztlx, "medical", "");
                                         ztlxcorp[5]=JSONUtils.getString(ztlx, "special_equipment", "");
-
 
                                     }
                                     msg.what=14;

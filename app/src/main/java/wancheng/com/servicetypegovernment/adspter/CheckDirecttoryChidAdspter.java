@@ -58,7 +58,7 @@ public class CheckDirecttoryChidAdspter extends BaseAdapter
         public TextView directtory_info_laws;
         public TextView directtory_info_way;;
         public TextView directtory_info_explain;;
-
+        public View  isred;
 
     }
 
@@ -82,30 +82,26 @@ public class CheckDirecttoryChidAdspter extends BaseAdapter
         Directtory zujian=null;
         if(convertView==null){
             zujian=new Directtory();
-
             convertView=layoutInflater.inflate(R.layout.item_check_directtory_two, null);
-
             zujian.directtory_info_tittle = (TextView) convertView.findViewById(R.id.directtory_info_tittle);
-            zujian.directtory_info_tittle.setText(data.get(i).get("directtory_info_tittle").toString());
-
-
             zujian.directtory_info_laws = (TextView) convertView.findViewById(R.id.directtory_info_laws);
-            zujian.directtory_info_laws.setText(data.get(i).get("directtory_info_laws").toString());
-
-
             zujian.directtory_info_way = (TextView) convertView.findViewById(R.id.directtory_info_way);
-            zujian.directtory_info_way.setText(data.get(i).get("directtory_info_way").toString());
-
-
             zujian.directtory_info_explain = (TextView) convertView.findViewById(R.id.directtory_info_explain);
-            zujian.directtory_info_explain.setText(data.get(i).get("directtory_info_explain").toString());
-
+            zujian.isred= convertView.findViewById(R.id.isred);
             convertView.setTag(zujian);
         }else{
             zujian=(Directtory)convertView.getTag();
         }
 
-
+        zujian.directtory_info_tittle.setText(data.get(i).get("directtory_info_tittle").toString());
+        zujian.directtory_info_laws.setText(data.get(i).get("directtory_info_laws").toString());
+        zujian.directtory_info_way.setText(data.get(i).get("directtory_info_way").toString());
+        zujian.directtory_info_explain.setText(data.get(i).get("directtory_info_explain").toString());
+        String isPoint=data.get(i).get("isPoint").toString();
+        if("1".equals(isPoint)){
+            zujian.isred.setVisibility(View.VISIBLE);
+        }
+        //isPoint
         return convertView;
     }
     public void add(List<Map<String, Object>> datas){

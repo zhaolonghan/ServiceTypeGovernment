@@ -6,9 +6,9 @@ import android.os.Environment;
 /**
  * 常量工具类<br>
  * <br>
- * 
+ *
  * 定义工程中的所有常量
- * 
+ *
  * @author hanzl
  */
 public class ConstUtil {
@@ -16,13 +16,13 @@ public class ConstUtil {
 	 * 路径
 	 */
 	public static String rootDir = Environment.getExternalStorageDirectory()+ "/temp/";// 
-	
+
 	/**
 	 * URL
 	 */
 	//public static String IP = "http://223.71.241.40/";
 	public static String IP = "http://192.168.1.111:8181/";
-	
+
 	/**
 	 * METHOD
 	 */
@@ -47,4 +47,7 @@ public class ConstUtil {
 	public static String METHOD_GETCORPLIST_FIRST = "a/app/corp/getCorpListByztlx";//初次进入列表页数据
 	public static String METHOD_SPECIALLIST = "a/app/special/getSpecialList";//执法检查列表
 	public static String METHOD_INSPECTDAILYLIST = "a/app/inspectDaily/getResultList ";//
+	public static String METHOD_GIODELIST = "a/app/inspectDaily/guide";//检查指南
+	public static String METHOD_HISTORYLIST ="a/app/inspectDaily/getHistoryList";//历史记录列表
+
 }
