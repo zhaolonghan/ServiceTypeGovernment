@@ -47,4 +47,6 @@ public class ConstUtil {
 	public static String METHOD_GETCORPLIST_FIRST = "a/app/corp/getCorpListByztlx";//初次进入列表页数据
 	public static String METHOD_SPECIALLIST = "a/app/special/getSpecialList";//执法检查列表
 	public static String METHOD_INSPECTDAILYLIST = "a/app/inspectDaily/getResultList ";//
+	public static String METHOD_GIODELIST = "a/app/inspectDaily/guide";//检查指南
+
 }
