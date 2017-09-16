@@ -89,12 +89,7 @@ public class CheckOrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
 ;        initView();
-        Intent intent=getIntent();
-        //企业列表
-        corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
-        checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
-        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
-        getTopView(topBean);
+
         getListDataFirst();
         //问题
         question();
@@ -104,6 +99,13 @@ public class CheckOrderActivity extends BaseActivity {
         onOperationEvent();
     }
     private void initView(){
+        Intent intent=getIntent();
+        //企业列表
+        corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
+        checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
+        TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
+        getTopView(topBean);
+
         tvlNotice = (TextView) this.findViewById(R.id.tv_notice);
         tvlLaw = (TextView) this.findViewById(R.id.tv_loyal);
         tvNew = (TextView) this.findViewById(R.id.tv_news);
@@ -713,6 +715,8 @@ public class CheckOrderActivity extends BaseActivity {
                     if(JSONUtils.getString(dataobject, "id", "")!=null&&JSONUtils.getString(dataobject, "id", "").length()>0){
                         contextmap=new HashMap<String, Object>();
                         contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
+                        contextmap.put("ztlx", corpquery.ztlx);
+
                         contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
                         contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
                         contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
@@ -738,6 +742,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
             if(dataobject!=null){
                 contextmap=new HashMap<String, Object>();
                 if(JSONUtils.getString(dataobject, "startTime", "")!=null&&JSONUtils.getString(dataobject, "startTime", "").length()>0) {
+                    contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
                     contextmap.put("check_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "startTime", "0")))));
                     contextmap.put("check_corpnum", JSONUtils.getString(dataobject, "corpCount", ""));
                     contextmap.put("check_status", JSONUtils.getString(dataobject, "status", ""));
