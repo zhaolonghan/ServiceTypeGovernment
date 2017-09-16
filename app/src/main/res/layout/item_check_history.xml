@@ -18,12 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:background="@drawable/shape_round_textviewgreen"
             android:textSize="18dp"
             android:layout_gravity="left"
             android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true"
             android:id="@+id/tv_left1"
             android:text="过"
+            android:padding="5dp"
+
             />
         <TextView
             android:layout_width="match_parent"
@@ -35,6 +38,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/tv_left1"
             android:text="日常检查"
+            android:id="@+id/type"
             />
 
         <TextView

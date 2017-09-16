@@ -17,6 +17,7 @@ import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 
+import wancheng.com.servicetypegovernment.activity.ContextDetailActivity;
 import wancheng.com.servicetypegovernment.activity.IndexActivity;
 import wancheng.com.servicetypegovernment.activity.NewsInfoActivity;
 
@@ -89,17 +90,17 @@ public class NewsAdspter extends BaseAdapter
         zujian.tv_content_title.setText(data.get(i).get("title").toString());
         zujian.tv_count.setText(data.get(i).get("count").toString());
         zujian.tv_source.setText(data.get(i).get("source").toString());
-       /* if(convertView!=null) ((RelativeLayout)convertView.findViewById(R.id.newsid).getParent()).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                //打开详情
-                Intent intent = new Intent();
-                intent.putExtra("id", id);
-                Log.e("no", "定位失败");
-                intent.setClass(context, IndexActivity.class);
-                context.startActivity(intent);
-
-            }
-        });*/
+          final  String url=  data.get(i).get("url").toString();
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("title", "详情");
+                    intent.putExtra("url",url);
+                    intent.setClass(context, ContextDetailActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
         return convertView;
     }

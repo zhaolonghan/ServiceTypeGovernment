@@ -101,8 +101,10 @@ public class CheckHistoryListActivity extends BaseActivity {
                     // 当不滚动时
                     case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
                         // 判断滚动到底部
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
-                            madapter.add(listcontext);
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
+                            isadd=false;
+                            historyQuery.pageNo= historyQuery.pageNo+1;
+                           getHistoryListData();
                         }
                         break;
                 }
@@ -130,7 +132,7 @@ public class CheckHistoryListActivity extends BaseActivity {
                     JSONObject jsonQuery = new JSONObject();
                     jsonQuery.put("pageNo",historyQuery.pageNo);
                     jsonQuery.put("pageSize", historyQuery.pageSize);
-                    jsonQuery.put("corpName", historyQuery.corpId);
+                    jsonQuery.put("corpId", historyQuery.corpId);
                     jsonQuery.put("ztlx", historyQuery.ztlx);
                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
 
@@ -208,14 +210,7 @@ public class CheckHistoryListActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
 
     }
-    private void initdata() {
 
-        listcontext= listcontext(18);
-        madapter = new CheckHistoryAdspter(this, listcontext);
-        listView.setAdapter(madapter);
-
-
-    }
     //解析执法检查
     public void setdata( JSONArray   dataArray) throws JSONException{
         if(listcontext==null){
@@ -241,22 +236,7 @@ public class CheckHistoryListActivity extends BaseActivity {
             }
         }
     }
-    public List<Map<String, Object>> listcontext(int num){
-        List<Map<String, Object>>  list;
-        List<Map<String, Object>>  addalllist;
-        //标题0  时间1  内容2String id="1";
-        String history_time="2017-08-24";
-        list=new ArrayList<Map<String, Object>>();
-        for(int j=0;j<num;j++){
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("id",j);
-            map.put("history_time",history_time);
-            list.add(map);
-        }
 
-        return list;
-
-    }
     public HistoryQuery historyQuery;
     protected  class HistoryQuery{
         public  String corpId="";

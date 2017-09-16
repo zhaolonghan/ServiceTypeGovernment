@@ -39,6 +39,7 @@
                 android:layout_margin="5dp"
                 android:focusableInTouchMode="false"
                 android:textSize="16dp"
+                android:id="@+id/keyword"
                 android:hint="请输入关键字进行查询"/>
             <ImageView
                 android:layout_alignParentRight="true"
@@ -55,6 +56,7 @@
             android:layout_below="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             />
     </RelativeLayout>
 </LinearLayout>

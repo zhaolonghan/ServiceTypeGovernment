@@ -49,5 +49,5 @@ public class ConstUtil {
 	public static String METHOD_INSPECTDAILYLIST = "a/app/inspectDaily/getResultList ";//
 	public static String METHOD_GIODELIST = "a/app/inspectDaily/guide";//检查指南
 	public static String METHOD_HISTORYLIST ="a/app/inspectDaily/getHistoryList";//历史记录列表
-
+	public static String METHOD_INSPECTRESULTDETAIL ="a/app/inspectDaily/getInspectResultDetail";//检查详情
 }
