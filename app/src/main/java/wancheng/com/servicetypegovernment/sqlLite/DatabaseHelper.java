@@ -39,20 +39,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id integer primary key autoincrement, " +
                 "companyId INTEGER," +
                 "comoanyAdd TEXT," +
-                "checker1 INTEGER," +
-                "checker2 INTEGER," +
+                "checker1 TEXT," +
+                "checker2 TEXT," +
                 "checkdate TEXT," +
                 "ifBack TEXT," +
                 "companySign TEXT," +
                 "companySignDate TEXT," +
                 "checkSign TEXT," +
-                "checkSignDate TEXT" +
+                "checkSignDate TEXT," +
+                "content TEXT" +
                 ")");
         //创建检查表
         db.execSQL("CREATE TABLE IF NOT EXISTS tb_check (" +
                 "id integer primary key autoincrement, " +
-                "pid INTEGER," +
-                "cid INTEGER," +
+                "pid TEXT," +
+                "cid TEXT," +
                 "isImp INTEGER," +
                 "msgId INTEGER," +
                 "checkResult INTEGER," +
@@ -78,7 +79,112 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // db.execSQL("ALTER TABLE person ADD phone VARCHAR(12)"); //往表中增加一列
     }
+    public long insertMsg(Map<String,Object> map){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues cValue = new ContentValues();
+        cValue.put("companyId",map.get("companyId").toString());
+        cValue.put("checker1",map.get("checker1").toString());
+        cValue.put("checker2",map.get("checker2").toString());
+        cValue.put("checkdate",map.get("checkdate").toString());
+        cValue.put("ifBack",map.get("ifBack").toString());
+        cValue.put("companySign",map.get("companySign").toString());
+        cValue.put("companySignDate",map.get("companySignDate").toString());
+        cValue.put("checkSign", map.get("checkSign").toString());
+        cValue.put("checkSignDate", map.get("checkSignDate").toString());
+        cValue.put("content", map.get("content").toString());
+        long id=db.insert("tb_msg", null, cValue);
+        db.close();
+        return id;
+    }
+    public boolean updataMsg(Map<String,Object> map,long id){
+        boolean flag=false;
+        SQLiteDatabase db=getWritableDatabase();
+        try {
+            ContentValues cValue = new ContentValues();
+            cValue.put("companyId",map.get("companyId").toString());
+            cValue.put("checker1",map.get("checker1").toString());
+            cValue.put("checker2",map.get("checker2").toString());
+            cValue.put("checkdate",map.get("checkdate").toString());
+            cValue.put("ifBack",map.get("ifBack").toString());
+            cValue.put("companySign",map.get("companySign").toString());
+            cValue.put("companySignDate",map.get("companySignDate").toString());
+            cValue.put("checkSign", map.get("checkSign").toString());
+            cValue.put("checkSignDate", map.get("checkSignDate").toString());
+            cValue.put("content", map.get("content").toString());
+            db.update("tb_msg", cValue, "id="+id, null);
+            flag=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        db.close();
 
+        return flag;
+    }
+    public boolean findMsg(long id) {
+        boolean falg=false;
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,String>> images = null;
+        Cursor cursor = db.query("tb_msg", null, "id=" + id, null, null, null, null);
+        if( cursor.getCount()>0){
+            falg=true;
+        }
+        db.close();
+        return falg;
+    }
+    public boolean findCheck(String pid,String cid,long msgId) {
+        boolean falg=false;
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,String>> images = null;
+        Cursor cursor = db.query("tb_check", null, "pid="+pid+"and cid="+cid+"and msgId="+msgId, null, null, null, null);
+        if( cursor.getCount()>0){
+            falg=true;
+        }
+        db.close();
+        return falg;
+    }
+    public boolean updataCheck(Map<String,Object> map){
+        boolean flag=false;
+        SQLiteDatabase db=getWritableDatabase();
+        try {
+            ContentValues cValue = new ContentValues();
+            cValue.put("isImp",map.get("isImp").toString());
+            cValue.put("checkResult", map.get("checkResult").toString());
+            cValue.put("checkNote", map.get("checkNote").toString());
+            long msgid=Long.parseLong(map.get("msgId").toString());
+            db.update("tb_check", cValue, "pid="+map.get("pid").toString()+"and cid="+map.get("cid").toString()+"and msgId="+msgid, null);
+            flag=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        db.close();
+
+        return flag;
+    }
+    public long insertCheck(Map<String,Object> map){
+        SQLiteDatabase db=getWritableDatabase();
+        ContentValues cValue = new ContentValues();
+        cValue.put("pid",map.get("pid").toString());
+        cValue.put("cid",map.get("cid").toString());
+        cValue.put("isImp",map.get("isImp").toString());
+        cValue.put("msgId",map.get("msgId").toString());
+        cValue.put("checkResult",map.get("checkResult").toString());
+        cValue.put("checkNote",map.get("checkNote").toString());
+        long id=db.insert("tb_check", null, cValue);
+        db.close();
+        return id;
+    }
+    public boolean delMsg(long id){
+        SQLiteDatabase db=getWritableDatabase();
+        boolean flag=false;
+        try {
+            db.delete("tb_msg", "id="+id, null);
+            flag=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        db.close();
+        return flag;
+    }
     public boolean insertImages(int checkid,String imagepath){
         SQLiteDatabase db=getWritableDatabase();
         boolean flag=false;

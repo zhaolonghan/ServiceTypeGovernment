@@ -1,6 +1,8 @@
 package wancheng.com.servicetypegovernment.adspter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,18 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.activity.CheckHistoryListActivity;
-import wancheng.com.servicetypegovernment.activity.CheckOrderActivity;
 import wancheng.com.servicetypegovernment.activity.CheckResultDetailActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyCheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyDetailActivity;
 import wancheng.com.servicetypegovernment.activity.InformActivity;
-import wancheng.com.servicetypegovernment.util.JSONUtils;
 
 /**
  * Created by john on 2017/8/17.
@@ -202,13 +201,26 @@ public class CheckAdspter extends BaseAdapter
         // corpsubgroup.id=(TextView)convertView.findViewById(R.id.newsid);
         if(typeadapter==0){
             if(data!=null&&data.size()> 0 &&data.get(i)!=null&&data.get(i).get("id")!=null){
-                zujian.corp_name.setText(data.get(i).get("corp_name").toString());
+
+                final String corp_name=data.get(i).get("corp_name").toString();
+                final String corp_address=data.get(i).get("corp_address").toString();
+                zujian.corp_name.setText(corp_name);
                 zujian.corp_code.setText(data.get(i).get("corp_code").toString());
                 zujian.corp_person.setText(data.get(i).get("corp_person").toString());
                 zujian.corp_tel.setText(data.get(i).get("corp_tel").toString());
-                zujian.corp_address.setText(data.get(i).get("corp_address").toString());
+                zujian.corp_address.setText(corp_address);
                 final String corpId =data.get(i).get("id").toString();
                 final String ztlx =data.get(i).get("ztlx").toString();
+                final ArrayList<Map<String,Object>> dataTypeArray=(ArrayList<Map<String,Object>>)data.get(i).get("corpTypeList");
+                Log.e("dataTypeArray",dataTypeArray.size()+"");
+                String str="";
+                if(dataTypeArray!=null&&dataTypeArray.size()>1){
+                    for(Map<String,Object>map:dataTypeArray){
+                         str+=","+map.get("tableName").toString();
+                    }
+                }
+                final String str1=str;
+
                 zujian.bt_history.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         Toast.makeText(context, " 跳转历史检查列表页面", Toast.LENGTH_SHORT).show();
@@ -220,6 +232,10 @@ public class CheckAdspter extends BaseAdapter
                         context.startActivity(intent);
                     }
                 });
+//                if(dataTypeArray==null||dataTypeArray.size()==0){
+//
+//                    zujian.bt_check.setBackgroundColor(context.getResources().getColor(R.color.darkgrey));
+//                }
                 zujian.bt_check.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         Toast.makeText(context, " 跳转告知页面", Toast.LENGTH_SHORT).show();
@@ -240,11 +256,39 @@ public class CheckAdspter extends BaseAdapter
                 });
                 zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
-                        Intent intent = new Intent();
-                        intent.putExtra("corpId",corpId);
-                        intent.putExtra("ztlx",ztlx);
-                        intent.setClass(context, InformActivity.class);
-                        context.startActivity(intent);
+                        if(dataTypeArray!=null&&dataTypeArray.size()>0){
+                            if(dataTypeArray.size()==1){
+                                Toast.makeText(context, " 跳转告知页面", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent();
+                                intent.putExtra("corpId",corpId);
+                                intent.putExtra("corp_name",corp_name);
+                                intent.putExtra("corp_address",corp_address);
+                                intent.putExtra("ztlx",dataTypeArray.get(0).get("ztlx2").toString());
+                                intent.setClass(context, InformActivity.class);
+                                context.startActivity(intent);
+                            }else{
+                                    final String[]  strArray=str1.substring(1).split(",");
+                                    AlertDialog dialog = new AlertDialog.Builder(context).setTitle("选择检查表")
+                                            .setSingleChoiceItems(strArray, -1, new DialogInterface.OnClickListener() {
+
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Toast.makeText(context, strArray[which], Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent();
+                                                    intent.putExtra("corpId",corpId);
+                                                    intent.putExtra("corp_name",corp_name);
+                                                    intent.putExtra("corp_address",corp_address);
+                                                    intent.putExtra("ztlx",dataTypeArray.get(which).get("ztlx2").toString());
+                                                    intent.setClass(context, InformActivity.class);
+                                                    context.startActivity(intent);
+                                                    dialog.dismiss();
+                                                }
+                                            }).create();
+                                    dialog.show();
+                            }
+                        }else{
+                            Toast.makeText(context, "该企业没有主体类型，暂时无法检查！", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });

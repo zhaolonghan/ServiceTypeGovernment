@@ -36,7 +36,6 @@ public class SignActivity extends BaseActivity {
             public void onClick(View v) {    if (mPathView.getTouched()) {
 
                     try {
-
                         File destDir = new File("/sdcard/Wancheng/Signs/");
                         if (!destDir.exists()) {
                             destDir.mkdirs();

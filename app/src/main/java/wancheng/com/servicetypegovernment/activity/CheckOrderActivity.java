@@ -311,8 +311,8 @@ public class CheckOrderActivity extends BaseActivity {
 
                         // 判断滚动到底部
 
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
-                            isadd=false;
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1) && isadd) {
+                            isadd = false;
                             checkQuery.pageNo = checkQuery.pageNo + 1;
                             getenforcementListData();
 
@@ -512,7 +512,7 @@ public class CheckOrderActivity extends BaseActivity {
                                             setCheckdata(dataArray);
                                         }
                                         dataArray = jsondata.getJSONArray("ztlx");
-                                        Log.e("主题类型：",jsondata.getString("ztlx"));
+                                        Log.e("主题类型：", jsondata.getString("ztlx"));
                                         if (dataArray!=null&&dataArray.length()>0) {
                                             {
                                                 Map<String, Object> contextmap=null;
@@ -705,6 +705,9 @@ public class CheckOrderActivity extends BaseActivity {
         }
         if(dataArray!=null){
             Map<String, Object> contextmap=null;
+            ArrayList<Map<String,Object>> corpTypeList;
+            JSONArray dataTypeArray=null;
+            Map<String, Object> type=null;
             for(int i=0;i<dataArray.length();i++){
                 JSONObject dataobject = dataArray.getJSONObject(i);
                 if(dataobject!=null){
@@ -714,14 +717,25 @@ public class CheckOrderActivity extends BaseActivity {
                     }
                     if(JSONUtils.getString(dataobject, "id", "")!=null&&JSONUtils.getString(dataobject, "id", "").length()>0){
                         contextmap=new HashMap<String, Object>();
+                        corpTypeList=new ArrayList<Map<String,Object>>();
                         contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
                         contextmap.put("ztlx", corpquery.ztlx);
-
                         contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
                         contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
                         contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
                         contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
                         contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
+                        dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable",""));
+                        if(dataTypeArray!=null&&dataTypeArray.length()>0){
+                            for(int j=0;j<dataTypeArray.length();j++){
+                                JSONObject typeobject = dataTypeArray.getJSONObject(j);
+                                type=new HashMap<String, Object>();
+                                type.put("tableName",JSONUtils.getString(typeobject, "tableName", ""));
+                                type.put("ztlx2",JSONUtils.getString(typeobject, "ztlx2",""));
+                                corpTypeList.add(type);
+                            }
+                        }
+                        contextmap.put("corpTypeList", corpTypeList);
                         oneGetcorp.add(contextmap);
                     }
 

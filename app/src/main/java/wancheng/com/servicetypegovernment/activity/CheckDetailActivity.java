@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -26,9 +27,13 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +42,7 @@ import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.service.SubmitImageService;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
 
 public class CheckDetailActivity extends BaseActivity {
     private ArrayList<ImagesBean> imageUrls;
@@ -48,24 +54,80 @@ public class CheckDetailActivity extends BaseActivity {
     private LinearLayout linearLayout;
     private boolean isDel;
     private DatabaseHelper databaseHelper;
+    private String corpId;
+    private String ztlx;
+    private String checkAll;
+    private String uid;
+    private long msgId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_detail);
         databaseHelper=new DatabaseHelper(this);
+        Intent intent=getIntent();
+        corpId=intent.getStringExtra("corpId");
+        ztlx=intent.getStringExtra("ztlx");
+        checkAll=intent.getStringExtra("checkAll");
+        uid=intent.getStringExtra("uid");
+        msgId=intent.getIntExtra("insertid",-1);
         layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         TopBean topBean=new TopBean("检查要点","返回","下一步",true,true);
         getTopView(topBean);
         imageUrls=new ArrayList<ImagesBean>();
-//        boolean isOK=databaseHelper.deleteById(2);
-//        Log.e("111111111",isOK+"");
-//        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698837_7507.jpg"));
-//        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698865_3560.jpg"));
-//        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698867_8323.jpg"));
-//        imageUrls.add(new ImagesBean("netImage", "http://img.my.csdn.net/uploads/201410/19/1413698837_5654.jpg"));
+        dataList=new ArrayList<Map<String, Object>>();
+        try {
+            Map<String,Object> map=null;
+            Map<String,Object> mapChild=null;
+            List<Map<String, Object>>  dataChildList;
+            JSONArray checkerList=new JSONArray(checkAll);
+            if(checkerList!=null&&checkerList.length()>0){
+                for(int i=0;i<checkerList.length();i++){
+                    map=new HashMap<String,Object>();
+                    dataChildList=new ArrayList<Map<String,Object>>();
+                    JSONObject object=checkerList.getJSONObject(i);
+                    String no=JSONUtils.getString(object, "no", "");
+                    String name=JSONUtils.getString(object, "name", "");
+                    String remarks=JSONUtils.getString(object, "remarks", "");
+                    JSONArray checkerChildList=new JSONArray(JSONUtils.getString(object, "content", ""));
+                    if(checkerChildList!=null&&checkerChildList.length()>0){
+                        for(int j=0;j<checkerChildList.length();j++){
+                            mapChild=new HashMap<String,Object>();
+                            JSONObject objectChild=checkerChildList.getJSONObject(j);
+                            String content_sort=JSONUtils.getString(objectChild, "content_sort", "");
+                            String itemId=JSONUtils.getString(objectChild, "itemId", "");
+                            String isPoint=JSONUtils.getString(objectChild, "isPoint", "");
+                            String itemContentId=JSONUtils.getString(objectChild, "itemContentId", "");
+                            String content=JSONUtils.getString(objectChild, "content", "");
+                            String mode=JSONUtils.getString(objectChild, "mode", "");
+                            String guide=JSONUtils.getString(objectChild, "guide", "");
+                            String base=JSONUtils.getString(objectChild, "base", "");
+                            mapChild.put("content_sort",content_sort);
+                            mapChild.put("itemId",itemId);
+                            mapChild.put("isPoint",isPoint);
+                            mapChild.put("itemContentId",itemContentId);
+                            mapChild.put("content",content);
+                            mapChild.put("mode",mode);
+                            mapChild.put("guide",guide);
+                            mapChild.put("base",base);
+                            dataChildList.add(mapChild);
+                        }
+
+                    }
+                    map.put("no",no);
+                    map.put("name",name);
+                    map.put("remarks",remarks);
+                    map.put("dataChildList",dataChildList);
+                    Log.e("name",name);
+                    dataList.add(map);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         imageUrls.add(new ImagesBean("defaultImage", ""));
-        dataList= newlistcontext(1,5,imageUrls);
         linearLayout=(LinearLayout)findViewById(R.id.lin_data_list);
         init();
         tv_right.setOnClickListener(new View.OnClickListener() {
@@ -74,26 +136,33 @@ public class CheckDetailActivity extends BaseActivity {
 //                Intent intent = new Intent();
 //                intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
 //                CheckDetailActivity.this.startActivityForResult(intent, 0);
-                // getListViewData();
+                //
 //                boolean isOK = databaseHelper.deleteById(4);
 //                if(isOK){
-                    List<Map<String, String>> list = databaseHelper.find(4);
-                    if (list != null && list.size() > 0) {
-                        Intent intent = new Intent(CheckDetailActivity.this, SubmitImageService.class);
-                        intent.putExtra("datalist", (Serializable) (list));
-                        startService(intent);
-                        InformActivity.instance.finish();
-                        finish();
-
-                    }
+//                    List<Map<String, String>> list = databaseHelper.find(4);
+//                    if (list != null && list.size() > 0) {
+//                        Intent intent = new Intent(CheckDetailActivity.this, SubmitImageService.class);
+//                        intent.putExtra("datalist", (Serializable) (list));
+//                        startService(intent);
+//                        InformActivity.instance.finish();
+//                        finish();
+//
+//                    }
 //                }
+               if(getListViewData()){
+
+               }else{
+
+               }
             }
         });
 
     }
 
-    private void getListViewData(){
-        boolean falg=true;
+    private boolean getListViewData(){
+        String str="";
+        int result;
+        Map<String,Object> map=null;
         if(linearLayout!=null&&linearLayout.getChildCount()>0){
             for(int i=0;i<linearLayout.getChildCount();i++){
                 LinearLayout linearLayoutChlid=(LinearLayout)linearLayout.getChildAt(i);
@@ -103,31 +172,47 @@ public class CheckDetailActivity extends BaseActivity {
                 for(int j=0;j<linearLayoutChlid1.getChildCount();j++){
                     LinearLayout l1=(LinearLayout)linearLayoutChlid1.getChildAt(j);
                     TextView tv=(TextView)l1.findViewById(R.id.tv_question_title);
+                    EditText ed_checknote=(EditText)l1.findViewById(R.id.ed_checknote);
                     RadioGroup radioGroup=(RadioGroup)l1.findViewById(R.id.rg_yse_no);
                     RadioButton rb_yes=(RadioButton)l1.findViewById(R.id.rb_yes);
                     RadioButton rb_np=(RadioButton)l1.findViewById(R.id.rb_no);
                     RadioButton rb_rational=(RadioButton)l1.findViewById(R.id.rb_rational);
                     if (radioGroup.getCheckedRadioButtonId()==rb_yes.getId()){
                         Log.e("tv()",rb_yes.getText()!=null?rb_yes.getText().toString():""+"");
+                        result=1;
                     } else  if(radioGroup.getCheckedRadioButtonId()==rb_np.getId()){
                         Log.e("tv()",rb_np.getText()!=null?rb_np.getText().toString():""+"");
+                        result=0;
                     }else  if(radioGroup.getCheckedRadioButtonId()==rb_rational.getId()){
+                        result=2;
                         Log.e("tv()",rb_rational.getText()!=null?rb_rational.getText().toString():""+"");
                     }else{
+                        result=3;
                         Log.e("tv()",i+"."+j+"meiyou");
-                        falg=false;
-                        break;
+                        str+=","+i+"."+"j";
+                    }
+                    map=new HashMap<String,Object>();
+                    map.put("pid",ztlx);
+                    map.put("cid", ((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("itemId"));
+                    map.put("msgId",msgId);
+                    map.put("isImp",((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("isPoint"));
+                    map.put("checkResult",result);
+                    map.put("checkNote",ed_checknote.getText().toString());
+                    if(databaseHelper.findCheck(map.get("pid").toString(),map.get("cid").toString())){
+
                     }
 
                 }
-                if(falg==false){
-                    break;
+                if(!",".equals(str)){
+                    str+="没有选择，是否确认为不检查的项目？";
+                    showNormalDialog1(str.substring(1));
+                    return false;
                 }
 
             }
 
         }
-
+        return true;
     }
 
     @Override
@@ -190,11 +275,31 @@ public class CheckDetailActivity extends BaseActivity {
     private void init(){
         if(dataList!=null&&dataList.size()>0){
             LinearLayout item ;
+            Map<String,Object> map;
+            Map<String,Object> mapChild;
             for(int i=0;i<dataList.size();i++){
                 item = (LinearLayout) layoutInflater.inflate(R.layout.item_check_detail_one, null);
+                map=dataList.get(i);
+                final TextView tv_checktitle=(TextView)item.findViewById(R.id.tv_checktitle);
+                final TextView tv_checkremark=(TextView)item.findViewById(R.id.tv_checkremark);
+                tv_checktitle.setText(map.get("no").toString()+"、"+map.get("name").toString());
+                final String remark=map.get("remarks").toString();
+                if(remark!=null&&!"".equals(remark)){
+                    tv_checkremark.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            showNormalDialog(remark);
+                        }
+                    });
+                }else{
+                    tv_checkremark.setVisibility(View.GONE);
+                }
+                tv_checkremark.setText(map.get("no").toString()+"、"+map.get("name").toString());
                 LinearLayout itemChild;
                 LinearLayout linChlid=(LinearLayout)item.findViewById(R.id.check_question);
-                for(int j=0;j<dataList.size();j++){
+                List<Map<String,Object>> childList=(List<Map<String,Object>>)map.get("dataChildList");
+                for(int j=0;j<childList.size();j++){
+                    mapChild=childList.get(j);
                     itemChild = (LinearLayout) layoutInflater.inflate(R.layout.item_check_detail_two, null);
                     final LinearLayout iv_images=(LinearLayout)itemChild.findViewById(R.id.lin_images);
                     final ArrayList<ImagesBean> imagesBeans=new ArrayList<ImagesBean>();
@@ -204,16 +309,27 @@ public class CheckDetailActivity extends BaseActivity {
                     final RadioButton rb_np=(RadioButton)itemChild.findViewById(R.id.rb_no);
                     final RadioButton rb_rational=(RadioButton)itemChild.findViewById(R.id.rb_rational);
                     final LinearLayout lin_no=(LinearLayout)itemChild.findViewById(R.id.lin_no);
+                    final TextView tv_question_title=(TextView)itemChild.findViewById(R.id.tv_question_title);
+                    final TextView tv_isPoint=(TextView)itemChild.findViewById(R.id.tv_isPoint);
+                    tv_question_title.setText(map.get("no").toString() + "." + mapChild.get("content_sort").toString() + " " + mapChild.get("content").toString());
+                    final String mode=mapChild.get("mode").toString();
+                    final String guide=mapChild.get("guide").toString();
+                    final String base=mapChild.get("base").toString();
+                    if("1".equals(mapChild.get("isPoint").toString())){
+                        tv_isPoint.setVisibility(View.VISIBLE);
+                    }else{
+                        tv_isPoint.setVisibility(View.GONE);
+                    }
                     radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
-                            if(rb_yes.getId()==checkedId){
+                            if (rb_yes.getId() == checkedId) {
                                 lin_no.setVisibility(View.GONE);
                             }
-                            if(rb_np.getId()==checkedId){
+                            if (rb_np.getId() == checkedId) {
                                 lin_no.setVisibility(View.VISIBLE);
                             }
-                            if(rb_rational.getId()==checkedId){
+                            if (rb_rational.getId() == checkedId) {
                                 lin_no.setVisibility(View.GONE);
                             }
                         }
@@ -222,7 +338,7 @@ public class CheckDetailActivity extends BaseActivity {
                     zhinan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            showNormalDialog();
+                            showNormalDialog(mode,guide,base);
                         }
                     });
                     imagesBeans.addAll(imageUrls);
@@ -400,10 +516,16 @@ public class CheckDetailActivity extends BaseActivity {
         this.startActivity(intent);
     }
 
-    protected void showNormalDialog(){
+    protected void showNormalDialog(String mode,String guide,String base){
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.layout_mydialog,
                 (ViewGroup) findViewById(R.id.dialog));
+        TextView tv_mode=(TextView)layout.findViewById(R.id.tv_mode);
+        TextView tv_guide=(TextView)layout.findViewById(R.id.tv_guide);
+        TextView tv_base=(TextView)layout.findViewById(R.id.tv_base);
+        tv_mode.setText(mode);
+        tv_guide.setText(guide);
+        tv_base.setText(base);
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -423,7 +545,56 @@ public class CheckDetailActivity extends BaseActivity {
 
         normalDialog.show();
     }
+    protected void showNormalDialog(String remark){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_remarkdialog,
+                (ViewGroup) findViewById(R.id.dialog));
+        TextView tv_remarks=(TextView)layout.findViewById(R.id.tv_remarks);
+        tv_remarks.setText(remark);
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setView(layout);
+        normalDialog.setTitle("注意");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+
+        normalDialog.show();
+    }
+    protected void showNormalDialog1(String remark){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_remarkdialog,
+                (ViewGroup) findViewById(R.id.dialog));
+        TextView tv_remarks=(TextView)layout.findViewById(R.id.tv_remarks);
+        tv_remarks.setText(remark);
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setView(layout);
+        normalDialog.setTitle("注意");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        normalDialog.show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
