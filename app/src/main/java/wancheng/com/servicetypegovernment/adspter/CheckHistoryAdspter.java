@@ -1,17 +1,20 @@
 package wancheng.com.servicetypegovernment.adspter;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
 
 /**
  * Created by john on 2017/8/17.
@@ -32,6 +35,8 @@ public class CheckHistoryAdspter extends BaseAdapter
     public final class history{
         public TextView id;
         public TextView history_time;
+        public TextView result;
+        public TextView type;
     }
 
     @Override
@@ -51,23 +56,44 @@ public class CheckHistoryAdspter extends BaseAdapter
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        if(data!=null){
         history history=null;
         if(convertView==null){
             history=new history();
-
-           // this.childAdapter  = new CheckQuestionChidAdspter(context,data);
             //获得组件，实例化组件
-                convertView=layoutInflater.inflate(R.layout.item_check_history, null);
-
+            convertView=layoutInflater.inflate(R.layout.item_check_history, null);
             history.history_time = (TextView) convertView.findViewById(R.id.history_time);
-            history.history_time.setText(data.get(i).get("history_time").toString());
-
+            history.result= (TextView) convertView.findViewById(R.id.tv_left1);
+            history.type= (TextView) convertView.findViewById(R.id.type);
             convertView.setTag(history);
         }else{
             history=(history)convertView.getTag();
         }
 
+            history.history_time.setText(data.get(i).get("history_time").toString());
+            if("1".equals(data.get(i).get("result").toString())){
+                history.result.setText("合");
+                history.result.setTextColor(convertView.getResources().getColor(R.color.green));
+                history.result.setBackground(convertView.getResources().getDrawable(R.drawable.shape_round_textviewgreen));
+            }else  if("2".equals(data.get(i).get("result").toString())){
+                history.result.setText("基");
+                history.result.setTextColor(convertView.getResources().getColor(R.color.orange));
+                history.result.setBackground(convertView.getResources().getDrawable(R.drawable.shape_round_textvieworage));
 
+            }else{
+                history.result.setText("不");
+                history.result.setTextColor(convertView.getResources().getColor(R.color.red));
+                history.result.setBackground(convertView.getResources().getDrawable(R.drawable.shape_round_textviewred));
+
+            }
+            history.type.setText(data.get(i).get("type").toString());
+
+           /* contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
+            contextmap.put("history_time", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
+            contextmap.put("result",JSONUtils.getString(dataobject, "result", ""));
+            contextmap.put("type",JSONUtils.getString(dataobject, "type", ""));
+            contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));*/
+        }
         return convertView;
     }
     public void add(List<Map<String, Object>> datas){
