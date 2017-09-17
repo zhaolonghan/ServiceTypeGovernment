@@ -198,7 +198,7 @@ public class CheckDetailActivity extends BaseActivity {
                     map.put("isImp",((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("isPoint"));
                     map.put("checkResult",result);
                     map.put("checkNote",ed_checknote.getText().toString());
-                    if(databaseHelper.findCheck(map.get("pid").toString(),map.get("cid").toString())){
+                    if(databaseHelper.findCheck(map.get("pid").toString(),map.get("cid").toString(),msgId)){
 
                     }
 
