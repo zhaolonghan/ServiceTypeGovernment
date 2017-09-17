@@ -19,6 +19,7 @@
         android:textColor="@color/white"
         android:textSize="16dp"/>
         <TextView
+            android:id="@+id/tv_base"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="《食品安全法》第三十三条、GB 14881-2013《食品生产通用卫生规范》3.2"
@@ -37,6 +38,7 @@
             android:textColor="@color/white"
             android:textSize="16dp"/>
         <TextView
+            android:id="@+id/tv_guide"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="检查厂区、车间环境，是否符合卫生规范"
@@ -55,6 +57,7 @@
             android:textColor="@color/white"
             android:textSize="16dp"/>
         <TextView
+            android:id="@+id/tv_mode"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="1.厂区内的道路一般应铺设混凝土、沥青、或者其他硬质材料；空地应采取必要措施，如铺设水泥、地砖或铺设草坪等方式，保持环境清洁，正常天气下不得有扬尘和积水等现象；

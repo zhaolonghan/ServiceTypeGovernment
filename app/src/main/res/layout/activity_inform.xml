@@ -54,6 +54,7 @@
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
+                android:id="@+id/tv_corpname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -79,11 +80,11 @@
                 android:gravity="right"
                 android:textSize="16dp"/>
             <EditText
+                android:id="@+id/tb_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:layout_marginRight="10dp"
-                android:focusableInTouchMode="false"
                 android:text="天津市南开区什么什么什么道路"
                 android:textSize="16dp"/>
         </LinearLayout>
@@ -105,6 +106,7 @@
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <Spinner
+                android:id="@+id/sp_check1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/life_spinner_style"
@@ -128,6 +130,7 @@
             android:textColor="@color/black"
             android:textSize="16dp"/>
         <Spinner
+            android:id="@+id/sp_check2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/life_spinner_style"

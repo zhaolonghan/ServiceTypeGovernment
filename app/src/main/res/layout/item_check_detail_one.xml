@@ -16,6 +16,7 @@
     android:layout_height="45dp"
     android:background="@color/btnblue">
     <TextView
+        android:id="@+id/tv_checktitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -28,6 +29,7 @@
 
 
     <TextView
+        android:id="@+id/tv_checkremark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
