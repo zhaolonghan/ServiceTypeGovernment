@@ -1,6 +1,8 @@
 package wancheng.com.servicetypegovernment.adspter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,8 +38,9 @@ public class CheckResultAdspter extends BaseAdapter
     public final class Zujian{
         public TextView id;
         public TextView detail_title;
-
+        public TextView isshow;
         public ChildLiistView childListView;
+
 
     }
 
@@ -58,6 +61,9 @@ public class CheckResultAdspter extends BaseAdapter
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        if(data!=null&&data.size()>0){
+
+
         Zujian zujian=null;
         if(convertView==null){
             zujian=new Zujian();
@@ -66,21 +72,37 @@ public class CheckResultAdspter extends BaseAdapter
             //获得组件，实例化组件
             if(type==0){
                 convertView=layoutInflater.inflate(R.layout.item_check_result_detail_one, null);
-               zujian.childListView = (ChildLiistView) convertView.findViewById(R.id.check_question);
-                Log.e("11111111111111111", ((List<Map<String, Object>>) data.get(i).get("infolist")).size() + "");
-                final CheckResultChidAdspter adapter=new CheckResultChidAdspter(context, (List<Map<String, Object>>) data.get(i).get("infolist"));
-
-                zujian.childListView.setAdapter(adapter);
             }
             zujian.detail_title = (TextView) convertView.findViewById(R.id.detail_title);
-            zujian.detail_title.setText(data.get(i).get("detail_title").toString());
-
+            zujian.isshow = (TextView) convertView.findViewById(R.id.remark);;
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
         }
+        zujian.childListView = (ChildLiistView) convertView.findViewById(R.id.check_question);
+        zujian.detail_title.setText(data.get(i).get("detail_title").toString());
 
 
+        if(data.get(i).get("infolist")!=null){
+            final CheckResultChidAdspter adapter=new CheckResultChidAdspter(context, (List<Map<String, Object>>) data.get(i).get("infolist"));
+
+            zujian.childListView.setAdapter(adapter);
+
+        }
+        if(data.get(i).get("remark")!=null){
+            final String remark=data.get(i).get("detail_remarks").toString();
+            final View  onconvertView=convertView;
+            if(remark!=null&&remark.length()>0){
+                zujian.isshow.setVisibility(View.VISIBLE);
+                zujian.isshow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showNormalDialog(onconvertView, remark);
+                    }
+                });
+            }
+        }
+        }
         return convertView;
     }
     public void add(List<Map<String, Object>> datas){
@@ -99,5 +121,30 @@ public class CheckResultAdspter extends BaseAdapter
         data=datas;
         //删除的话用remove
         notifyDataSetChanged();
+    }
+    protected void showNormalDialog(View convertView,String remark){
+        LayoutInflater inflater =LayoutInflater.from(context);
+        View layout = inflater.inflate(R.layout.layout_mystarsdialog,  (ViewGroup)  convertView.findViewById(R.id.dialog));
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        TextView tipview=(TextView)layout.findViewById(R.id.isTip);
+        tipview.setText(remark);
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(context);
+        normalDialog.setView(layout);
+        normalDialog.setTitle("注意事项");
+        // normalDialog.setMessage(data.get(i).get("directtory_remark").toString());
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        normalDialog.show();
     }
 }

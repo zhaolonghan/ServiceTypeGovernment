@@ -37,6 +37,8 @@ android:layout_width="match_parent"
             android:text="注"
             android:textSize="16dp"
             android:padding="5dp"
+            android:id="@+id/remark"
+            android:visibility="gone"
             android:textColor="@color/white"/>
     </RelativeLayout>
         <wancheng.com.servicetypegovernment.view.ChildLiistView
