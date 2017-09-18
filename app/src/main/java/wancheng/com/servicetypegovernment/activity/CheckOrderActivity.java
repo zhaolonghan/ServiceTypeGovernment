@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
@@ -57,6 +58,8 @@ public class CheckOrderActivity extends BaseActivity {
     private TextView tvlLaw;
     private PopWindow popWindow;
     private boolean  isPOPOpen=false;
+    private ImageView ib_search1;
+    private EditText question_corpnamesearch;
     private ImageView corpSearch;
     private EditText corpSearchName;
     /**企业列表里**/
@@ -89,13 +92,7 @@ public class CheckOrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
 ;        initView();
-
         getListDataFirst();
-        //问题
-        question();
-
-
-
         onOperationEvent();
     }
     private void initView(){
@@ -103,6 +100,8 @@ public class CheckOrderActivity extends BaseActivity {
         //企业列表
         corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
         checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
+        questionquery=new QuestionQuery("",intent.getStringExtra("ztlx"),1,10);
+
         TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
         getTopView(topBean);
 
@@ -133,43 +132,42 @@ public class CheckOrderActivity extends BaseActivity {
         corplistView=(ListView)findViewById(R.id.corplist);
         corpSearch=(ImageView)findViewById(R.id.ib_search);
         corpSearchName=(EditText)findViewById(R.id.corpSearchName);
+        ib_search1=(ImageView)findViewById(R.id.ib_search1);
+        question_corpnamesearch=(EditText)findViewById(R.id.question_corpnamesearch);
+
         //执法
         enforcementlistView=(ListView)findViewById(R.id.enforcementlist);
 
+        listquestion= new ArrayList<Map<String,Object>>();//corplistcontext(2,5);
+        questionlistView=(ListView)findViewById(R.id.questionlist);
+        questionadapter = new CheckAdspter(this, listquestion,2);
+        questionlistView.setAdapter(questionadapter);
+
+        madapter = new CheckAdspter(this, listquestion,0);
+        corplistView.setAdapter(madapter);
+        enforcementadapter = new CheckAdspter(this, listquestion,1);
+        enforcementlistView.setAdapter(enforcementadapter);
     }
 
     @Override
     public void updateView() {
         if(oneGetcorp!=null&&oneGetcorp.size()>0){
             listcorp.addAll(oneGetcorp);
-            if(madapter ==null){
-                madapter = new CheckAdspter(this, listcorp,0);
-                corplistView.setAdapter(madapter);
-            }else{
-                if(listcorp.size()<=10){
-                    corplistView.setSelection(0);
-                }
-                madapter.update(listcorp);
-                madapter.notifyDataSetChanged();
-
-            }
         }
+        madapter.update(listcorp);
+        madapter.notifyDataSetChanged();
+
        if(oneGetenforcement!=null&&oneGetenforcement.size()>0){
-           listenforcement.addAll(oneGetenforcement);
-           if(enforcementadapter ==null){
-               enforcementadapter = new CheckAdspter(this, listenforcement,1);
-               enforcementlistView.setAdapter(enforcementadapter);
-           }else{
-               if(listenforcement.size()<=10){
-                   enforcementlistView.setSelection(0);
-               }
-               enforcementadapter.update(listenforcement);
-               enforcementadapter.notifyDataSetChanged();
-           }
+            listenforcement.addAll(oneGetenforcement);
+        }
+       enforcementadapter.update(listenforcement);
+       enforcementadapter.notifyDataSetChanged();
 
-       }
-
-
+        if(oneGetquestion!=null&&oneGetquestion.size()>0){
+            listquestion.addAll(oneGetquestion);
+        }
+        questionadapter.update(listquestion);
+        questionadapter.notifyDataSetChanged();
         isadd=true;
         if (isonclickadd&&bottondatalist!=null&&bottondatalist.size()>0){
             Intent intent=getIntent();
@@ -193,6 +191,8 @@ public class CheckOrderActivity extends BaseActivity {
         corpSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isadd=true;
+
                 String corpname=corpSearchName.getText().toString();
                 corpquery.corpName=corpname;
                 corpquery.pageNo=1;
@@ -201,9 +201,21 @@ public class CheckOrderActivity extends BaseActivity {
             }
         });
 
+        ib_search1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isadd=true;
+                String corpname=question_corpnamesearch.getText().toString();
+                questionquery.corpName=corpname;
+                questionquery.pageNo=1;
+                listquestion=new ArrayList<Map<String, Object>>();
+                getquestionListData();
+            }
+        });
 
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                isadd=true;
 
                 tvNew.setTextColor(btnblack);
                 tvlNotice.setTextColor(btnblue);
@@ -224,6 +236,7 @@ public class CheckOrderActivity extends BaseActivity {
 
         relLawListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                isadd=true;
 
                 tvNew.setTextColor(btnblack);
                 tvlNotice.setTextColor(btnblack);
@@ -240,6 +253,7 @@ public class CheckOrderActivity extends BaseActivity {
         });
         relNewsListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                isadd=true;
                 // footView(2);
                 tvNew.setTextColor(btnblue);
                 tvlNotice.setTextColor(btnblack);
@@ -334,7 +348,43 @@ public class CheckOrderActivity extends BaseActivity {
             }
 
         });
+        questionlistView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
+            @Override
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                switch (scrollState) {
+
+                    // 当不滚动时
+
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+                        // 判断滚动到底部
+
+                        if (view.getLastVisiblePosition() == (view.getCount() - 1) && isadd) {
+                            isadd = false;
+                            questionquery.pageNo = questionquery.pageNo + 1;
+                            getquestionListData();
+
+                        }
+
+                        break;
+
+                }
+
+            }
+
+
+            @Override
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+
+                                 int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
 
     }
 
@@ -370,97 +420,13 @@ public class CheckOrderActivity extends BaseActivity {
 
        // this.finish();
     }
-    /**
-     *
-     * num展示企业条数
-     * */
-    public List<Map<String, Object>> corplistcontext(int type,int num){
-        List<Map<String, Object>>  list;
-        List<Map<String, Object>>  addalllist;
-        String id;
-        String corp_name;
-        String corp_code;
-        String corp_person;
-        String corp_tel;
-        String corp_address;
-        list=new ArrayList<Map<String, Object>>();
-
-
-        String question_corpname="天津市大河食品有限公司";
-        String question_no="20170228000001";
-        String question_date="2017-08-28";
-        String question_result="基本符合";
-        String question_management="书面责令整改";
-        String question_status="未整改";
-        String question_limit="2017-09-30";
-
-
-        //问题
-        if(type==2){
-            for(int j=0;j<num;j++){
-                Map<String, Object> map=new HashMap<String, Object>();
-                map.put("id",j);
-                map.put("question_corpname",question_corpname);
-                map.put("question_no",question_no);
-                map.put("question_date",question_date);
-                map.put("question_result",question_result);
-                map.put("question_management",question_management);
-                map.put("question_status",question_status);
-                map.put("question_limit",question_limit);
-                list.add(map);
-            }
-        }
-        return list;
-
-    }
 
 
 
 
 
-    public void question(){
-        listquestion= corplistcontext(2,5);
-        questionlistView=(ListView)findViewById(R.id.questionlist);
-        questionadapter = new CheckAdspter(this, listquestion,2);
-        questionlistView.setAdapter(questionadapter);
-        questionlistView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
-            @Override
-
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-                switch (scrollState) {
-
-                    // 当不滚动时
-
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-
-                        // 判断滚动到底部
 
 
-                        if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
-                            isadd=false;
-                            questionadapter.add(listquestion);
-
-                        }
-
-                        break;
-
-                }
-
-            }
-
-
-            @Override
-
-            public void onScroll(AbsListView view, int firstVisibleItem,
-
-                                 int visibleItemCount, int totalItemCount) {
-
-            }
-
-        });
-    }
     /**
      * 初次加载数据
      * */
@@ -511,8 +477,13 @@ public class CheckOrderActivity extends BaseActivity {
                                         if (dataArray!=null&&dataArray.length()>0) {
                                             setCheckdata(dataArray);
                                         }
+                                        dataArray = jsondata.getJSONArray("result");
+                                        if (dataArray!=null&&dataArray.length()>0) {
+                                            setQuestiondata(dataArray);
+                                        }
+
                                         dataArray = jsondata.getJSONArray("ztlx");
-                                        Log.e("主题类型：", jsondata.getString("ztlx"));
+
                                         if (dataArray!=null&&dataArray.length()>0) {
                                             {
                                                 Map<String, Object> contextmap=null;
@@ -774,35 +745,101 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
     }
 }
     //解析问题处置
-   /* public void setcorpdata( JSONObject jsondata) throws JSONException{
-        JSONArray   dataArray = jsondata.getJSONArray("corp");
+    public  void getquestionListData(){
+        if(listquestion==null){
+            listquestion=new ArrayList<Map<String, Object>>();
+        }
+        oneGetquestion=new ArrayList<Map<String, Object>>();
+        pd = ProgressDialog.show(this, "", "请稍候...");
+        new Thread() {
+            public void run() {
+                String url= ConstUtil.METHOD_QUESTIONLIST;
+                Map<String, Object> map = new HashMap<String, Object>();
+                try{
+                    JSONObject jsonQuery = new JSONObject();
+                    jsonQuery.put("pageNo",questionquery.pageNo);
+                    jsonQuery.put("pageSize", questionquery.pageSize);
+                    jsonQuery.put("corpName", questionquery.corpName);
+                    jsonQuery.put("ztlx", questionquery.ztlx);
+                    jsonQuery.put("uid", questionquery.uid);
+                    map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                NetUtil net = new NetUtil();
+                String res = net.posturl(url , map);
+                if(res==null||"".equals(res)||res.contains("Fail to establish http connection!")){
+                    handler.sendEmptyMessage(4);
+                }else{
+                    Message msg=new Message();
+                    msg.what=15;
+                    if (!res.isEmpty()) {
+                        JSONObject jsonObj;
+                        try {
+                            jsonObj = new JSONObject(res);
+                            String msg_code = testStringNull(jsonObj.optString("msg"));
+                            String code = testStringNull(jsonObj.optString("code"));
+                            if("0".equals(code)){
+                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                if(data!=null&&data!=""){
+                                    JSONArray dataArray=new JSONArray(data);
+                                    setQuestiondata(dataArray);
+                                }else{
+                                    msg.obj="已经到底了";
+                                }
+
+                                msg.what=14;
+                            }else{
+                                if(msg_code!=null&&!msg_code.isEmpty())
+                                    msg.obj=msg_code;
+                                else
+                                    msg.obj="请求异常，请稍后重试！";
+
+                            }
+                        } catch (JSONException e) {
+
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            Log.getStackTraceString(e);
+                            msg.obj="请求异常，请稍后重试！";
+                        }
+                        handler.sendMessage(msg);
+                    }
+
+
+                }
+            }
+
+            ;
+        }.start();}
+
+    public void setQuestiondata( JSONArray   dataArray) throws JSONException{
+        if(listquestion==null){
+            listquestion=new ArrayList<Map<String, Object>>();
+        }
         if(dataArray!=null){
             Map<String, Object> contextmap=null;
             for(int i=0;i<dataArray.length();i++){
                 JSONObject dataobject = dataArray.getJSONObject(i);
                 if(dataobject!=null){
-                    String title= JSONUtils.getString(dataobject, "title", "");
-                    if(title!=null&&title.length()>15){
-                        title=title.substring(15)+"...";
-                    }
-
                     contextmap=new HashMap<String, Object>();
-                    contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
-                    contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
-                    contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
-                    contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
-                    contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
-                    contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
-                    oneGetcorp.add(contextmap);
-                       oneGetenforcement=new ArrayList<Map<String, Object>>();
-                oneGetquestion=new ArrayList<Map<String, Object>>();
+                    if(JSONUtils.getString(dataobject, "time", "")!=null&&JSONUtils.getString(dataobject, "time", "").length() > 0) {
+                        contextmap.put("id",JSONUtils.getString(dataobject, "resultId", ""));
+                        contextmap.put("question_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
+                        contextmap.put("question_corpname", JSONUtils.getString(dataobject, "name", ""));
+                        contextmap.put("question_no", JSONUtils.getString(dataobject, "code", ""));
+                        contextmap.put("question_result", JSONUtils.getString(dataobject, "result", ""));
+                        contextmap.put("question_management", JSONUtils.getString(dataobject, "zhuzhi", ""));
+                        contextmap.put("question_status", JSONUtils.getString(dataobject, "status", ""));
+                        contextmap.put("question_limit", JSONUtils.getString(dataobject, "deadline", "0").length() > 0 ? DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "deadline", "0")))):"");
+                        oneGetquestion.add(contextmap);
+                    }
                 }
 
             }
         }
-    }*/
-
-
+    }
 
 
     /**企业的查询条件*/

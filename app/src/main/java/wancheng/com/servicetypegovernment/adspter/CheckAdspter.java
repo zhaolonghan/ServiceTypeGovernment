@@ -94,6 +94,8 @@ public class CheckAdspter extends BaseAdapter
 
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
+        if(data!=null&&data.size()>0){
+
         subgroup zujian=null;
         if(convertView==null){
             zujian=new subgroup();
@@ -123,6 +125,7 @@ public class CheckAdspter extends BaseAdapter
             initquestionData(zujian, i);
         }
 
+        }
         return convertView;
     }
     public void add(List<Map<String, Object>> datas){

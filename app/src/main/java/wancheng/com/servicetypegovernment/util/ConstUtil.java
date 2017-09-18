@@ -51,4 +51,5 @@ public class ConstUtil {
 	public static String METHOD_HISTORYLIST ="a/app/inspectDaily/getHistoryList";//历史记录列表
 	public static String METHOD_INSPECTRESULTDETAIL ="a/app/inspectDaily/getInspectResultDetail";//检查详情
 	public static String METHOD_GETGZY="a/app/inspectDaily/getGzy";
+	public static String METHOD_QUESTIONLIST="a/app/inspectDaily/getResultList ";//问题处置
 }
