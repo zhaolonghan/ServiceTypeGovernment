@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
@@ -19,15 +17,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -46,8 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.adspter.CheckHistoryAdspter;
-import wancheng.com.servicetypegovernment.adspter.CheckQuestionAdspter;
+
 import wancheng.com.servicetypegovernment.adspter.CheckResultAdspter;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
@@ -73,7 +67,6 @@ public class CheckResultDetailActivity extends BaseActivity {
     private     Map<String, Object> gzyMap=new Hashtable<String, Object>();
     private   LayoutInflater layoutInflater;
 
-   // METHOD_INSPECTRESULTDETAIL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,8 +152,8 @@ public class CheckResultDetailActivity extends BaseActivity {
                 Map<String, Object> map = new HashMap<String, Object>();
                 try{
                     JSONObject jsonQuery = new JSONObject();
-                   // jsonQuery.put("resultId", resultid);
-                    jsonQuery.put("resultId", "02d1a533ee034f7585e3701d04772d0b");
+                    jsonQuery.put("resultId", resultid);
+                    //jsonQuery.put("resultId", "02d1a533ee034f7585e3701d04772d0b");
                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
                 }catch (Exception e){
                     e.printStackTrace();
@@ -600,16 +593,17 @@ public class CheckResultDetailActivity extends BaseActivity {
                             JSONArray threearray= twojson.getJSONArray("image");
 
                             ArrayList<ImagesBean> imageUrls=new ArrayList<ImagesBean>();
-                            for(int k=0;k<1;k++){
+                            for(int k=0;k<threearray.length();k++){
                                 String path="http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg";
                                 ImagesBean imagesBean=new ImagesBean();
                                 imagesBean.setType("netImage");
                                 imagesBean.setPath(threearray.getString(k));
-                                imagesBean.setPath(path);
+                               // imagesBean.setPath(path);
                                 imageUrls.add(imagesBean);
                             }
                             infomap.put("detail_image", imageUrls);
                             infolist.add(infomap);
+
 
                         }
                     }
