@@ -544,14 +544,14 @@ public class CheckResultDetailActivity extends BaseActivity {
             }else if("3".equals(dataobject.getString("result"))){
                 gzyMap.put("result_result","不符合");
             }
-            gzyMap.put("result_remarks", "及时更改数据，当前假数据");
-            //gzyMap.put("result_remarks",!dataobject.isNull("fuzerenTel")?dataobject.getString("remarks"):"");//说明
+            //gzyMap.put("result_remarks", "及时更改数据，当前假数据");
+            gzyMap.put("result_remarks",!dataobject.isNull("remarks")?dataobject.getString("remarks"):"");//说明
 
             gzyMap.put("result_zfryqzTime",DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("zfryqzTime")))).toString());//检查时间
             gzyMap.put("result_frhfzrqzTime",DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("frhfzrqzTime")))).toString());
 
-           // gzyMap.put("result_inspectUnitOpinions",dataobject.getString("inspectUnitOpinions"));//检查次数
-            gzyMap.put("result_inspectUnitOpinions","假的，不是真数据");
+            gzyMap.put("result_inspectUnitOpinions",!dataobject.isNull("remarks")?dataobject.getString("inspectUnitOpinions"):"");//检查次数
+           // gzyMap.put("result_inspectUnitOpinions","假的，不是真数据");
             ArrayList<ImagesBean> imageUrls;
             if(null!=dataobject.getString("zfryqz")&&!"".equals(dataobject.getString("zfryqz"))){
                 imageUrls=new ArrayList<ImagesBean>()  ;
@@ -592,7 +592,7 @@ public class CheckResultDetailActivity extends BaseActivity {
                         if(twojson!=null){
                             Map<String, Object> infomap=new HashMap<String, Object>();
                             infomap.put("detail_info", (i + 1) + "." + (j + 1) + "、" + twojson.getString("content"));
-                            infomap.put("tv_result3",twojson.getString("result"));
+                            infomap.put("tv_result3",0);
                             infomap.put("isPoint",twojson.getString("isPoint"));
                             infomap.put("remarks", twojson.getString("remarks"));
 
@@ -600,7 +600,7 @@ public class CheckResultDetailActivity extends BaseActivity {
                             JSONArray threearray= twojson.getJSONArray("image");
 
                             ArrayList<ImagesBean> imageUrls=new ArrayList<ImagesBean>();
-                            for(int k=0;k<threearray.length();k++){
+                            for(int k=0;k<1;k++){
                                 String path="http://pic30.nipic.com/20130626/8174275_085522448172_2.jpg";
                                 ImagesBean imagesBean=new ImagesBean();
                                 imagesBean.setType("netImage");
@@ -610,12 +610,15 @@ public class CheckResultDetailActivity extends BaseActivity {
                             }
                             infomap.put("detail_image", imageUrls);
                             infolist.add(infomap);
+
                         }
                     }
                     map.put("infolist", infolist);
                 }
 
                 listnews.add(map);
+                /*listnews.add(map);
+                listnews.add(map);*/
 
 
 

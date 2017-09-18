@@ -61,7 +61,8 @@ public class CheckResultChidAdspter extends BaseAdapter
         private LinearLayout detail_remark;
         private LinearLayout detail_image;
         private TextView detail_info;
-        private LinearLayout linearLayout;
+        private NoScrollGridView noScrollGridView;
+        private NoScrollGridAdapter noScrollGridAdapter;
     }
 
     @Override
@@ -93,13 +94,10 @@ public class CheckResultChidAdspter extends BaseAdapter
             zujian.detail_remark = (LinearLayout) convertView.findViewById(R.id.detail_remark);
             zujian.tv_result3= (ImageView) convertView.findViewById(R.id.tv_result3);
             zujian.tv_left3=(TextView) convertView.findViewById(R.id.tv_left3);
-            zujian.linearLayout=(LinearLayout)convertView.findViewById(R.id.lin_images);
-            /*String isstatus= data.get(i).get("tv_result3").toString();
+            zujian.noScrollGridView=(NoScrollGridView) convertView.findViewById(R.id.gridview);
+           /* String isstatus= data.get(i).get("tv_result3").toString();
             if("0".equals(isstatus)){
                 //图片否
-                zujian. tv_result3.setImageResource(R.drawable.fou);
-                zujian.detail_remark.setVisibility(View.VISIBLE);
-                zujian.detail_image.setVisibility(View.VISIBLE);
                 if(data.get(i).get("detail_image")!=null){
                     ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)data.get(i).get("detail_image");
                     Log.e("图片数量",imageUrls.size()+"");
@@ -123,9 +121,26 @@ public class CheckResultChidAdspter extends BaseAdapter
             zujian.detail_remark.setVisibility(View.VISIBLE);
             zujian.detail_image.setVisibility(View.VISIBLE);
             if(data.get(i).get("detail_image")!=null){
-                ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)data.get(i).get("detail_image");
+                final ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)data.get(i).get("detail_image");
+                if (imageUrls == null ||imageUrls.size() == 0) { // 没有图片资源就隐藏GridView
+                    zujian.noScrollGridView.setVisibility(View.GONE);
+
+
+                } else {
+                    zujian.noScrollGridAdapter=new NoScrollGridAdapter(context,imageUrls);
+                    zujian.noScrollGridView.setAdapter(zujian.noScrollGridAdapter);
+
+                }
+                // 点击回帖九宫格，查看大图
+                zujian.noScrollGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        imageBrower(position, imageUrls);
+                    }
+                });
                 Log.e("图片数量",imageUrls.size()+"");
-                getImageGridViews(imageUrls, zujian.linearLayout);
+               // getImageGridViews(imageUrls, zujian.linearLayout);
             }
         }else if("2".equals(isstatus)){
             //合理
@@ -178,14 +193,7 @@ public class CheckResultChidAdspter extends BaseAdapter
             lin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    final ArrayList<ImagesBean> newList = new ArrayList<ImagesBean>();
-                    if (!(imageUrls.get(index).getType().equals("defaultImage"))) {
-                        newList.addAll(imageUrls);
-                        if (imageUrls.get(imageUrls.size() - 1).getType().equals("defaultImage")) {
-                            newList.remove(newList.size() - 1);
-                        }
-                        imageBrower(index, newList);
-                    }
+                    imageBrower(index, imageUrls);
                 }
             });
 
