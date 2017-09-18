@@ -122,7 +122,7 @@ public class CheckAdspter extends BaseAdapter
             initcheckData(zujian, i);
         }
         if(typeadapter==2){
-            initquestionData(zujian, i);
+            initquestionData(zujian, i,convertView);
         }
 
         }
@@ -190,14 +190,7 @@ public class CheckAdspter extends BaseAdapter
         zujian.question_management = (TextView) convertView.findViewById(R.id.question_management);
         zujian.question_status = (TextView) convertView.findViewById(R.id.question_status);
         zujian.question_limit = (TextView) convertView.findViewById(R.id.question_limit);
-        Button btStartCheck = (Button) convertView.findViewById(R.id.bt_check_detail);
-        btStartCheck.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent intent = new Intent();
-                intent.setClass(context, CheckResultDetailActivity.class);
-                context.startActivity(intent);
-            }
-        });
+
 
     }
     public void initCorpData(subgroup zujian,int i) {
@@ -215,7 +208,6 @@ public class CheckAdspter extends BaseAdapter
                 final String corpId =data.get(i).get("id").toString();
                 final String ztlx =data.get(i).get("ztlx").toString();
                 final ArrayList<Map<String,Object>> dataTypeArray=(ArrayList<Map<String,Object>>)data.get(i).get("corpTypeList");
-                Log.e("dataTypeArray",dataTypeArray.size()+"");
                 String str="";
                 if(dataTypeArray!=null&&dataTypeArray.size()>1){
                     for(Map<String,Object>map:dataTypeArray){
@@ -339,9 +331,10 @@ public class CheckAdspter extends BaseAdapter
         }
 
     }
-    public void initquestionData(subgroup zujian,int i) {
+    public void initquestionData(subgroup zujian,int i,View convertView) {
 
         if(data!=null&&data.size()> 0 &&data.get(i)!=null) {
+            final String id=  data.get(i).get("id").toString();
             zujian.question_corpname.setText(data.get(i).get("question_corpname").toString());
             zujian.question_no.setText(data.get(i).get("question_no").toString());
             zujian.question_date.setText(data.get(i).get("question_date").toString());
@@ -349,7 +342,15 @@ public class CheckAdspter extends BaseAdapter
             zujian.question_management.setText(data.get(i).get("question_management").toString());
             zujian.question_status.setText(data.get(i).get("question_status").toString());
             zujian.question_limit.setText(data.get(i).get("question_limit").toString());
-
+            Button btStartCheck = (Button) convertView.findViewById(R.id.bt_check_detail);
+            btStartCheck.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View arg0) {
+                    Intent intent = new Intent();
+                    intent.putExtra("ids",id);
+                    intent.setClass(context, CheckResultDetailActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }else{
             zujian.question_corpname.setText(null);
             zujian.question_no.setText(null);
@@ -359,6 +360,7 @@ public class CheckAdspter extends BaseAdapter
             zujian.question_status.setText(null);
             zujian.question_limit.setText(null);
         }
+
 
     }
 }
