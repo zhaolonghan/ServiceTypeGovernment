@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -140,12 +141,12 @@ public class CheckOrderActivity extends BaseActivity {
 
         listquestion= new ArrayList<Map<String,Object>>();//corplistcontext(2,5);
         questionlistView=(ListView)findViewById(R.id.questionlist);
-        questionadapter = new CheckAdspter(this, listquestion,2);
+        questionadapter = new CheckAdspter(this, listquestion,2, pd,  handler);
         questionlistView.setAdapter(questionadapter);
 
-        madapter = new CheckAdspter(this, listquestion,0);
+        madapter = new CheckAdspter(this, listquestion,0 ,pd,  handler);
         corplistView.setAdapter(madapter);
-        enforcementadapter = new CheckAdspter(this, listquestion,1);
+        enforcementadapter = new CheckAdspter(this, listquestion,1, pd,  handler);
         enforcementlistView.setAdapter(enforcementadapter);
     }
 
@@ -167,7 +168,7 @@ public class CheckOrderActivity extends BaseActivity {
             listquestion.addAll(oneGetquestion);
         }
         questionadapter.update(listquestion);
-        questionadapter.notifyDataSetChanged();
+        //questionadapter.notifyDataSetChanged();
         isadd=true;
         if (isonclickadd&&bottondatalist!=null&&bottondatalist.size()>0){
             Intent intent=getIntent();
@@ -578,8 +579,9 @@ public class CheckOrderActivity extends BaseActivity {
 
                         msg.what=14;
                     }else{
-                        if(msg_code!=null&&!msg_code.isEmpty())
+                        if(msg_code!=null&&!msg_code.isEmpty()){
                             msg.obj=msg_code;
+                        msg.what=14;}
                         else
                             msg.obj="请求异常，请稍后重试！";
 
@@ -696,6 +698,8 @@ public class CheckOrderActivity extends BaseActivity {
                         contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
                         contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
                         contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
+                        if(JSONUtils.getString(dataobject, "inspectTable","").length()>0){
+
                         dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable",""));
                         if(dataTypeArray!=null&&dataTypeArray.length()>0){
                             for(int j=0;j<dataTypeArray.length();j++){
@@ -706,6 +710,8 @@ public class CheckOrderActivity extends BaseActivity {
                                 corpTypeList.add(type);
                             }
                         }
+                    }
+
                         contextmap.put("corpTypeList", corpTypeList);
                         oneGetcorp.add(contextmap);
                     }
@@ -833,6 +839,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
                         contextmap.put("question_management", JSONUtils.getString(dataobject, "zhuzhi", ""));
                         contextmap.put("question_status", JSONUtils.getString(dataobject, "status", ""));
                         contextmap.put("question_limit", JSONUtils.getString(dataobject, "deadline", "0").length() > 0 ? DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "deadline", "0")))):"");
+                        contextmap.put("uid",UserDateBean.getUser().getId());
                         oneGetquestion.add(contextmap);
                     }
                 }

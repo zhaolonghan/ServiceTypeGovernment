@@ -32,6 +32,7 @@ import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
+import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 
 public class CompanyDetailActivity extends BaseActivity {
@@ -187,10 +188,16 @@ public class CompanyDetailActivity extends BaseActivity {
                             if("0".equals(code)){
                                 String  data=Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
-                                    JSONArray dataArray=new JSONArray(data);
+                                   /* JSONArray dataArray=new JSONArray(data);
                                     if (dataArray!=null&&dataArray.length()>0) {
                                        // setcorpdata(dataArray);
-                                    }
+                                    }*/
+                                    //基本信息
+                                    JSONObject corpobject= JSONUtils.getJSONObject(data,"corp",null);
+                                    //许可证
+                                    JSONObject permitobject= JSONUtils.getJSONObject(data,"permit",null);
+                                    //营业
+                                    JSONObject businessLicenseobject= JSONUtils.getJSONObject(data,"businessLicense",null);
                                 }else{
                                     msg.obj="已经到底了";
                                 }

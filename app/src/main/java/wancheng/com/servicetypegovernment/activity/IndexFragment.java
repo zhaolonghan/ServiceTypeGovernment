@@ -168,7 +168,7 @@ public  class IndexFragment  extends BaseFragment {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_bjp);
                 Intent intent = new Intent();
                 intent.putExtra("ztlx", ztlxcorp[2]);
-                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.putExtra("companyType","保健品企业");
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
             }
@@ -178,7 +178,7 @@ public  class IndexFragment  extends BaseFragment {
                 final TextView tv_food=(TextView)contactsLayout.findViewById(R.id.tv_hzp);
                 Intent intent = new Intent();
                 intent.putExtra("ztlx", ztlxcorp[3]);
-                intent.putExtra("companyType",tv_food.getText().toString());
+                intent.putExtra("companyType","化妆品企业");
                 intent.setClass(context, CheckOrderActivity.class);
                 context.startActivity(intent);
             }
