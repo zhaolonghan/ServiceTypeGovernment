@@ -55,6 +55,7 @@
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
+                android:id="@+id/tv_corpname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -79,6 +80,7 @@
                 android:gravity="right"
                 android:textSize="16dp"/>
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -104,6 +106,7 @@
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <EditText
+                android:id="@+id/ed_fuzeren"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -129,6 +132,7 @@
             android:textColor="@color/black"
             android:textSize="16dp"/>
         <EditText
+            android:id="@+id/ed_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -159,7 +163,7 @@
                     android:textColor="@color/black"
                     android:layout_marginRight="10dp"
                     android:text="56693655224sqw565"
-                    android:id="@+id/ed_date"
+                    android:id="@+id/tv_permits"
                     android:textSize="16dp"/>
             </LinearLayout>
             <View
@@ -185,7 +189,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_marginRight="10dp"
-                    android:id="@+id/tv_gaozhi"
+                    android:id="@+id/tv_checks"
                     android:text="本年度第5次检查"
                     android:textSize="16dp"/>
             </LinearLayout>
@@ -208,6 +212,7 @@
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <TextView
+                    android:id="@+id/tv_checkdetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -237,16 +242,17 @@
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <RadioGroup
+                    android:id="@+id/rg_result"
                     android:contentDescription="是否"
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp">
-                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp" android:id="@+id/rb_yes"
                         android:textColor="@color/black" android:text="符合"></RadioButton>
-                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp" android:id="@+id/rb_rational"
                         android:textColor="@color/black" android:text="基本符合" android:checked="true"></RadioButton>
-                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp" android:id="@+id/rb_no"
                         android:textColor="@color/black" android:text="不符合" android:checked="true"></RadioButton>
                 </RadioGroup>
             </LinearLayout>
@@ -269,16 +275,17 @@
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <RadioGroup
+                    android:id="@+id/rg_result1"
                     android:contentDescription="是否"
                     android:layout_width="wrap_content"
                     android:orientation="vertical"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp">
-                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp" android:id="@+id/rb_ok"
                         android:textColor="@color/black" android:text="通过"></RadioButton>
-                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp" android:id="@+id/rb_ok1"
                         android:textColor="@color/black" android:text="书面限期整改" android:checked="true"></RadioButton>
-                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp"
+                    <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="16dp" android:id="@+id/rb_ok2"
                         android:textColor="@color/black" android:text="食品生产经营者立即停止食品生产经营活动" android:checked="true"></RadioButton>
                 </RadioGroup>
             </LinearLayout>
@@ -300,6 +307,7 @@
                     android:textColor="@color/black"
                     android:textSize="16dp"/>
                 <EditText
+                    android:id="@+id/ed_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -318,6 +326,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <TextView
+
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -326,6 +335,7 @@
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <ImageView
+                    android:id="@+id/iv_addsign"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
                     android:layout_margin="5dp"
@@ -351,6 +361,7 @@
                     android:gravity="right"
                     android:textSize="16dp"/>
                 <TextView
+                    android:id="@+id/ed_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -375,6 +386,7 @@
                     android:textColor="@color/black"
                     android:textSize="16dp"/>
                 <EditText
+                    android:id="@+id/ed_advice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -430,7 +442,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_marginRight="10dp"
-                    android:id="@+id/ed_date3"
+                    android:id="@+id/ed_date2"
                     android:textSize="16dp"/>
             </LinearLayout>
             <View

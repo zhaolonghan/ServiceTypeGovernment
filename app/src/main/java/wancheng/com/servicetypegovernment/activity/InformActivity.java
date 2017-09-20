@@ -54,6 +54,7 @@ public class InformActivity extends BaseActivity {
     public static InformActivity instance = null;
     private TextView ed_date;
     private TextView ed_date2;
+    private int mYear, mMonth, mDay;
     private TextView tv_corpname;
     private EditText tb_address;
     private TextView ed_date3;
@@ -61,7 +62,6 @@ public class InformActivity extends BaseActivity {
     private ImageView iv_addsign2;
     private Spinner sp_check1;
     private Spinner sp_check2;
-    private int mYear, mMonth, mDay;
     private final int DATE_DIALOG = 1;
     private final int DATE_DIALOG2 =2;
     private final int DATE_DIALOG3 = 3;
@@ -84,6 +84,14 @@ public class InformActivity extends BaseActivity {
     private RadioButton rb_np;
     private int isBack=0;
     private long insertid=-1;
+    private String address;
+    private String fuzeren;
+    private String phone;
+    private String tableName;
+    private String type;
+    private String permits;
+    private String  msgId;
+    private String resuilId;
     private String html="　　我们是监督检查人员，现出示执法证件。我们依法对你（单位）进行日常监督检查，请予配合。\n" +
             "　　依照法律规定，监督检查人员少于两人或者所出示的执法证件与其身份不符的，你（单位）有权拒绝检查；对于监督检查人员有下列情形之一的，" +
             "你（单位）有权申请回避：（1）系当事人或当事人的近亲属；（2）与本人或本人近亲属有利害关系；（3）与当事人有其他关系，可能影响公正执法的。";
@@ -97,6 +105,8 @@ public class InformActivity extends BaseActivity {
         final String corp_name=intent.getStringExtra("corp_name");
         final String corp_address=intent.getStringExtra("corp_address");
         final String ztlx=intent.getStringExtra("ztlx");
+        resuilId=intent.getStringExtra("resuilId");
+        msgId= intent.getStringExtra("insertid");
         getData(corpId,ztlx);
         instance=this;
         tv_corpname=(TextView)findViewById(R.id.tv_corpname);
@@ -119,7 +129,7 @@ public class InformActivity extends BaseActivity {
         tv_corpname.setText(corp_name);
         tb_address.setText(corp_address);
         tv_gaozhi.setText(html);
-               ed_date.setOnClickListener(new View.OnClickListener() {
+        ed_date.setOnClickListener(new View.OnClickListener() {
 
                    @Override
                    public void onClick(View v) {
@@ -186,7 +196,6 @@ public class InformActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spIndex2=i;
-                Toast.makeText(InformActivity.this, "你选择的是！"+ i, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -255,9 +264,20 @@ public class InformActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.putExtra("corpId",corpId);
                 intent.putExtra("ztlx",ztlx);
-                intent.putExtra("checkAll",checkAll);
                 intent.putExtra("uid","2");
+                intent.putExtra("address",tb_address.getText().toString());
                 intent.putExtra("insertid",insertid);
+                intent.putExtra("checkAll",checkAll);
+                intent.putExtra("fuzeren",fuzeren);
+                intent.putExtra("phone",phone);
+                intent.putExtra("permits",permits);
+                intent.putExtra("tableName",tableName);
+                intent.putExtra("resuilId",resuilId);
+                intent.putExtra("checkDate",ed_date.getText().toString());
+                intent.putExtra("type",type);
+                intent.putExtra("zfry1",map.get("checker1").toString());
+                intent.putExtra("zfry2",map.get("checker2").toString());
+                intent.putExtra("corpname",tv_corpname.getText().toString());
                 intent.setClass(InformActivity.this, CheckDetailActivity.class);
                 InformActivity.this.startActivity(intent);
             }
@@ -387,6 +407,7 @@ public class InformActivity extends BaseActivity {
     @Override
     public void updateView() {
         tv_gaozhi.setText(Html.fromHtml(html));
+        tb_address.setText(address);
         if(checkers!=null&&checkers.size()>0){
             for(int i=0;i<checkers.size();i++){
                 list.add(checkers.get(i).get("userName"));
@@ -444,7 +465,13 @@ public class InformActivity extends BaseActivity {
 
                                 }
                                 html=JSONUtils.getString(dataArray, "gzsx", "");
+                                address=JSONUtils.getString(dataArray, "address", "");
                                 checkAll=JSONUtils.getString(dataArray, "content", "");
+                                fuzeren=JSONUtils.getString(dataArray, "fuzeren", "");
+                                phone=JSONUtils.getString(dataArray, "fuzerenTel", "");
+                                permits=JSONUtils.getString(dataArray, "permits", "");
+                                tableName=JSONUtils.getString(dataArray, "tableName", "");
+                                type=JSONUtils.getString(dataArray, "type", "");
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {
@@ -469,4 +496,64 @@ public class InformActivity extends BaseActivity {
         }.start();
 
     }
+
+
+//    private String getJsonStr(){
+//        try{
+//            msgId
+//
+//
+//
+//            String str="{";
+//            str+="\"uid\":\""+corpId+"\"";
+//            str+=",\"corpId\":\""+zfry1+"\"";
+//            str+=",\"appResultId\":\""+zfry2+"\"";
+//    'resultId': '检查结果id',
+//            'appResultUpTime':'app上传的时间',
+//            'IMES':'',
+
+
+//            str+=",\"address\":\""+zfry2+"\"";
+//            str+=",\"fuzeren\":\""+checkDate+"\"";
+//            str+=",\"jcjgnr\":\""+tableName+"\"";
+//            str+=",\"fuzerenTel\":\""+type+"\"";
+//            str+=",\"ztlx2\":\""+type+"\"";
+//            str+=",\"inspectResult\":\""+type+"\"";
+//            str+=",\"result\":\""+type+"\"";
+//            str+=",\"deadline\":\""+type+"\"";
+//            str+=",\"remarks\":\""+type+"\"";
+//            str+=",\"zfryqz\":\""+type+"\"";
+//            str+=",\"zfryqzTime\":\""+type+"\"";
+//            str+=",\"inspectUnitOpinions\":\""+type+"\"";
+//            str+=",\"frhfzrjz\":\""+type+"\"";
+//            str+=",\"frhfzrjzTime\":\""+type+"\"";
+//            str+=",\"gzyZhifaBy\":\""+type+"\"";
+//            str+=",\"gzyInspectTime\":\""+type+"\"";
+//            str+=",\"gzyGzsx\":\""+type+"\"";
+//            str+=",\"gzySfhb\":\""+type+"\"";
+//            str+=",\"gzyBjcdwqz\":\""+type+"\"";
+//            str+=",\"gzyBjcdwqzTime\":\""+type+"\"";
+//            str+=",\"gzyJcdwqz\":\""+type+"\"";
+//            str+=",\"gzyJcdwqzTime\":\""+type+"\"";
+//            str+=",\"lng\":\""+type+"\"";
+//            str+=",\"latz\":\""+type+"\"";
+//            str+=",\"resultItem\":[";
+//            for(int i=0;i <sendList.size();i++){
+//                Map<String,Object> map=sendList.get(i);
+//                if(i==0){
+//                    str+="{";
+//                }else{
+//                    str+=",{";
+//                }
+//                str+="\"content_sort\":\""+map.get("content_sort").toString()+"\"";
+//                str+=",\"ispoint\":\""+map.get("isImp").toString()+"\"";
+//                str+=",\"result\":\""+map.get("checkResult").toString()+"\"}";
+//            }
+//            str+="]}";
+//            return str;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return "";
+//    }
 }
