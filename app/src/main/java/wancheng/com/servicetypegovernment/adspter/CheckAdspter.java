@@ -336,6 +336,8 @@ public class CheckAdspter extends BaseAdapter
                     }
                 });
                 final String specialId=data.get(i).get("specialId")!=null?data.get(i).get("specialId").toString():"";
+                final String resultId=data.get(i).get("resultId")!=null?data.get(i).get("resultId").toString():"";
+
                 zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         if(dataTypeArray!=null&&dataTypeArray.size()>0){
@@ -347,6 +349,7 @@ public class CheckAdspter extends BaseAdapter
                                 intent.putExtra("corp_name",corp_name);
                                 intent.putExtra("corp_address",corp_address);
                                 intent.putExtra("ztlx",dataTypeArray.get(0).get("ztlx2").toString());
+                                intent.putExtra("resultId",resultId);
                                 intent.setClass(context, InformActivity.class);
                                 context.startActivity(intent);
                             }else{
@@ -362,6 +365,7 @@ public class CheckAdspter extends BaseAdapter
                                                     intent.putExtra("specialId",specialId);
                                                     intent.putExtra("corp_name",corp_name);
                                                     intent.putExtra("corp_address",corp_address);
+                                                    intent.putExtra("resultId",resultId);
                                                     intent.putExtra("ztlx",dataTypeArray.get(which).get("ztlx2").toString());
                                                     intent.setClass(context, InformActivity.class);
                                                     context.startActivity(intent);
