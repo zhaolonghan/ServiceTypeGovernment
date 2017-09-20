@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout1"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+    android:background="@color/silver"
+        >
+    <include layout="@layout/top_view"
+        android:id="@+id/top_view"/>
+
+
+    <LinearLayout
+        android:id="@+id/view_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_view"
+        android:orientation="vertical"
+        android:visibility="visible"
+
+        >
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ib_search"
+                android:id="@+id/corpSearchName"
+                android:layout_margin="5dp"
+                android:textSize="16dp"
+                android:hint="请输入企业名称的关键字进行高级检索"/>
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:id="@+id/ib_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/search"
+                />
+        </RelativeLayout>
+
+            <ListView
+                android:id="@+id/corplist"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                ></ListView>
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>

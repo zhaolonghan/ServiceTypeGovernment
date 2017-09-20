@@ -1,8 +1,10 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +82,7 @@ public class CompanyCheckListActivity extends BaseActivity {
     public void corplist(){
         listcorp= corplistcontext(0,5);
         corplistView=(ListView)findViewById(R.id.corplist);
-        madapter = new CheckAdspter(this, listcorp,0);
+        madapter = new CheckAdspter(this, listcorp,0, pd,  handler);
         corplistView.setAdapter(madapter);
         corplistView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -97,7 +99,7 @@ public class CompanyCheckListActivity extends BaseActivity {
                         // 判断滚动到底部
 
                         if (view.getLastVisiblePosition() == (view.getCount() - 1)) {
-                            madapter.add(listcorp);
+                           // madapter.add(listcorp);
 
                         }
 

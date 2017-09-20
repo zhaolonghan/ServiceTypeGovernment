@@ -199,6 +199,7 @@
                 android:background="@drawable/check_btn_style"
                 android:text="问题处置"
                 android:textSize="16dp"
+                android:id="@+id/questionbotton"
                 android:textColor="@color/white"
                 android:layout_gravity="center"
                 android:gravity="center"/>

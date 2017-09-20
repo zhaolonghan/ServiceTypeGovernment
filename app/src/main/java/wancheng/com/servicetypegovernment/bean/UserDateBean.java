@@ -1,8 +1,11 @@
 package wancheng.com.servicetypegovernment.bean;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class UserDateBean implements Serializable {
+
 
 	/**
 	 * 
@@ -20,7 +23,7 @@ public class UserDateBean implements Serializable {
     private String cardid;//身份证号
     private String address;//联系地址
     private String photoimage;//头像
-   
+   	private Bitmap photoimagebit;
 
 	private static UserDateBean user;
 
@@ -101,6 +104,13 @@ public class UserDateBean implements Serializable {
 
 	public void setPhotoimage(String photoimage) {
 		this.photoimage = photoimage;
+	}
+	public String getPhotoimagebit() {
+		return photoimage;
+	}
+
+	public void setPhotoimagebit(Bitmap photoimagebit) {
+		this.photoimagebit = photoimagebit;
 	}
 
 	public static UserDateBean getUser() {

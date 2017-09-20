@@ -169,7 +169,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="天津是大河食品有限公司"
+                        android:id="@+id/corpName"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -193,8 +194,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:id="@+id/address"
+
                         android:textColor="@color/black"
-                        android:text="天津市南开区芥园里道189号"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -219,7 +222,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="张三"
+                        android:id="@+id/gzyZhifaBy1"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -244,7 +248,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="李四"
+                        android:id="@+id/gzyZhifaBy2"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -269,7 +274,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="2016年8月28日"
+                        android:id="@+id/gzyInspectTime"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -296,7 +302,7 @@
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
                         android:id="@+id/tv_gaozhi"
-                        android:text="天津市南开区什么什么什么道路"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -342,7 +348,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="否"
+                        android:id="@+id/gzySfhb"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -368,6 +375,7 @@
                         android:layout_height="65dp"
                         android:id="@+id/iv_addsign"
                         android:layout_margin="5dp"
+                        android:visibility="gone"
                         android:background="@drawable/add_img"/>
                 </LinearLayout>
                 <View
@@ -393,7 +401,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="2016年8月30日"
+                        android:id="@+id/gzyBjcdwqzTime"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -418,6 +427,7 @@
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_margin="5dp"
+                        android:visibility="gone"
                         android:id="@+id/iv_addsign2"
                         android:background="@drawable/add_img"/>
                 </LinearLayout>
@@ -445,7 +455,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="2016年8月30日"
+                        android:id="@+id/gzyJcdwqzTime"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
             </LinearLayout>
@@ -526,7 +537,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/black"
-                        android:text="天津是大河食品有限公司"
+                        android:id="@+id/result_corpName"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -550,7 +562,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="天津市南开区什么什么什么道路"
+                        android:text=""
+                        android:id="@+id/result_address"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -575,7 +588,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="里江山"
+                        android:text=""
+                        android:id="@+id/result_fuzeren"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -600,7 +614,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="13515152321"
+                        android:text=""
+                        android:id="@+id/result_tel"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -625,8 +640,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="56693655224sqw565"
-                        android:id="@+id/ed_date"
+                        android:text=""
+                        android:id="@+id/result_permitCode"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -652,7 +667,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="本年度第5次检查"
+                        android:text=""
+                        android:id="@+id/result_inspectTimes"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -678,10 +694,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="（食品药品监督管理部门全称）  检查人员 张三，李四    根据《中华人民共和国食品安全法》及其实施条例、《食品生产经营日常监督检查管理办法》的规定，于 2017  年 8   月  30  日对你单位进行了监督检查。本次监督检查按照表       开展，共检查了（    ）项内容；其中：
-重点项（ 36 ）项，项目序号分别是（ 1,3,5    ），发现问题（1  ）项，项目序号分别是（ 1      ）；
-一般项（  18）项，项目序号分别是（   2,3,4  ），发现问题（  0）项，项目序号分别是（ 无      ）。
-"
+                        android:id="@+id/result_inspectContent"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -707,7 +721,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="符合"
+                        android:text=""
+                        android:id="@+id/result_inspectResult"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -733,7 +748,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="通过"
+                        android:text=""
+                        android:id="@+id/result_result"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -758,7 +774,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="无"
+                        android:text=""
+                        android:id="@+id/result_remarks"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -783,6 +800,7 @@
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_margin="5dp"
+                        android:id="@+id/result_zfryqz"
                         android:background="@drawable/add_img"/>
                 </LinearLayout>
                 <View
@@ -809,7 +827,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="2017年8月28日"
+                        android:text=""
+                        android:id="@+id/result_zfryqzTime"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -834,7 +853,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="无意见"
+                        android:text=""
+                        android:id="@+id/result_inspectUnitOpinions"
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
@@ -858,6 +878,7 @@
                         android:layout_width="65dp"
                         android:layout_height="65dp"
                         android:layout_margin="5dp"
+                        android:id="@+id/result_frhfzrqz"
                         android:background="@drawable/add_img"/>
                 </LinearLayout>
                 <View
@@ -884,7 +905,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:layout_marginRight="10dp"
-                        android:text="2017年8月28日"
+                        android:id="@+id/result_frhfzrqzTime"
+                        android:text=""
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <View
