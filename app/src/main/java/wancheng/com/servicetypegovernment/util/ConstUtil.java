@@ -54,5 +54,6 @@ public class ConstUtil {
 	public static String METHOD_QUESTIONLIST="a/app/inspectDaily/getResultList";//问题处置
 	public static String METHOD_UPDATERESULT="a/app/inspectDaily/updateResult";//问题处置状态修改
 	public static String METHOD_SPECIALCORPLIST = "a/app/special/getSpecialCorpList";//查找检查企业接口
+	public static String METHOD_GETJCNR ="a/app/inspectDaily/getJcnr";//研判接口
 
 }
