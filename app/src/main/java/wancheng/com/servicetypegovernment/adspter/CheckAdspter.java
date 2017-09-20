@@ -28,6 +28,7 @@ import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.activity.CheckHistoryListActivity;
+import wancheng.com.servicetypegovernment.activity.CheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CheckResultDetailActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyCheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyDetailActivity;
@@ -218,13 +219,7 @@ public class CheckAdspter extends BaseAdapter
         zujian.check_radioing = (TextView) convertView.findViewById(R.id.check_radioing);
         zujian.check_radiothrought = (TextView) convertView.findViewById(R.id.check_radiothrought);
         zujian.btStartCheck = (Button) convertView.findViewById(R.id.bt_start_check);
-        zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-                Intent intent = new Intent();
-                intent.setClass(context, CompanyCheckListActivity.class);
-                context.startActivity(intent);
-            }
-        });
+
 
 
     }
@@ -284,7 +279,11 @@ public class CheckAdspter extends BaseAdapter
                 zujian.corp_tel.setText(data.get(i).get("corp_tel").toString());
                 zujian.corp_address.setText(corp_address);
                 final String corpId =data.get(i).get("id").toString();
-                final String ztlx =data.get(i).get("ztlx").toString();
+                String ztlx2 ="";
+                if(data.get(i).get("ztlx")!=null){
+                    ztlx2=data.get(i).get("ztlx").toString();
+                }
+                final String ztlx = ztlx2;
                 final ArrayList<Map<String,Object>> dataTypeArray=(ArrayList<Map<String,Object>>)data.get(i).get("corpTypeList");
                 String str="";
                 if(dataTypeArray!=null&&dataTypeArray.size()>1){
@@ -336,7 +335,7 @@ public class CheckAdspter extends BaseAdapter
                         context.startActivity(intent);
                     }
                 });
-
+                final String specialId=data.get(i).get("specialId")!=null?data.get(i).get("specialId").toString():"";
                 zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
                         if(dataTypeArray!=null&&dataTypeArray.size()>0){
@@ -344,6 +343,7 @@ public class CheckAdspter extends BaseAdapter
                                 Toast.makeText(context, " ", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent();
                                 intent.putExtra("corpId",corpId);
+                                intent.putExtra("specialId",specialId);
                                 intent.putExtra("corp_name",corp_name);
                                 intent.putExtra("corp_address",corp_address);
                                 intent.putExtra("ztlx",dataTypeArray.get(0).get("ztlx2").toString());
@@ -359,6 +359,7 @@ public class CheckAdspter extends BaseAdapter
                                                     Toast.makeText(context, strArray[which], Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent();
                                                     intent.putExtra("corpId",corpId);
+                                                    intent.putExtra("specialId",specialId);
                                                     intent.putExtra("corp_name",corp_name);
                                                     intent.putExtra("corp_address",corp_address);
                                                     intent.putExtra("ztlx",dataTypeArray.get(which).get("ztlx2").toString());
@@ -405,7 +406,17 @@ public class CheckAdspter extends BaseAdapter
             zujian.check_numunthrought.setText(data.get(i).get("check_numunthrought").toString());
             zujian.check_radioing.setText(data.get(i).get("check_radioing").toString());
             zujian.check_radiothrought.setText(data.get(i).get("check_radiothrought").toString());
-
+           final String companyType=data.get(i).get("companyType").toString();
+            final String specialId=data.get(i).get("specialId").toString();
+            zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View arg0) {
+                    Intent intent = new Intent();
+                    intent.putExtra("companyType", companyType);
+                    intent.putExtra("specialId", specialId);
+                    intent.setClass(context, CheckListActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }else {
             zujian.check_date.setText(null);
             zujian.check_corpnum.setText(null);

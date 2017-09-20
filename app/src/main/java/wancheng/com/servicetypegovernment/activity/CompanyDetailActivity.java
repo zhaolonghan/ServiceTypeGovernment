@@ -46,6 +46,10 @@ public class CompanyDetailActivity extends BaseActivity {
     private TextView tvlNotice;
     private TextView tvlLaw;
     private  String corpId;
+    private  Map<String ,Object> mapinfo=new HashMap<String ,Object>();
+     LinearLayout view_1layoute;
+     LinearLayout view_2layoute;
+     LinearLayout view_3layoute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,9 @@ public class CompanyDetailActivity extends BaseActivity {
         relNoticeListName=(RelativeLayout)this.findViewById(R.id.listname_notice);
         relNewsListName=(RelativeLayout)this.findViewById(R.id.listname_news);
         relLawListName=(RelativeLayout)this.findViewById(R.id.listname_law);
+        view_1layoute=(LinearLayout)this.findViewById(R.id.view_1);;
+        view_2layoute=(LinearLayout)this.findViewById(R.id.view_2);;
+        view_3layoute=(LinearLayout)this.findViewById(R.id.view_3);;
 
     }
     public void onOperationEvent() {
@@ -99,6 +106,9 @@ public class CompanyDetailActivity extends BaseActivity {
                 relNoticeListName.getChildAt(1).setBackground(linered);
                 relLawListName.getChildAt(1).setBackground(lineblack);
 
+                view_1layoute.setVisibility(View.VISIBLE);
+                view_2layoute.setVisibility(View.GONE);
+                view_3layoute.setVisibility(View.GONE);
 
 
             }
@@ -115,6 +125,9 @@ public class CompanyDetailActivity extends BaseActivity {
                 relNewsListName.getChildAt(1).setBackground(lineblack);
                 relNoticeListName.getChildAt(1).setBackground(lineblack);
                 relLawListName.getChildAt(1).setBackground(linered);
+                view_1layoute.setVisibility(View.GONE);
+                view_2layoute.setVisibility(View.VISIBLE);
+                view_3layoute.setVisibility(View.GONE);
 
 
             }
@@ -131,6 +144,9 @@ public class CompanyDetailActivity extends BaseActivity {
                 relNoticeListName.getChildAt(1).setBackground(lineblack);
                 relLawListName.getChildAt(1).setBackground(lineblack);
 
+                view_1layoute.setVisibility(View.GONE);
+                view_2layoute.setVisibility(View.GONE);
+                view_3layoute.setVisibility(View.VISIBLE);
 
             }
         });
@@ -194,6 +210,32 @@ public class CompanyDetailActivity extends BaseActivity {
                                     }*/
                                     //基本信息
                                     JSONObject corpobject= JSONUtils.getJSONObject(data,"corp",null);
+                                    if(corpobject!=null){
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("code", JSONUtils.getString(corpobject, "code", ""));
+                                        mapinfo.put("legal", JSONUtils.getString(corpobject, "legal", ""));
+                                        mapinfo.put("legalTel", JSONUtils.getString(corpobject, "legalTel", ""));
+                                        mapinfo.put("fuzeren", JSONUtils.getString(corpobject, "fuzeren", ""));
+                                        mapinfo.put("fuzerenTel", JSONUtils.getString(corpobject, "fuzerenTel", ""));
+                                        mapinfo.put("status", JSONUtils.getString(corpobject, "status", ""));
+                                        mapinfo.put("jjxz", JSONUtils.getString(corpobject, "jjxz", ""));
+                                        mapinfo.put("jyfs", JSONUtils.getString(corpobject, "jyfs", ""));
+                                        mapinfo.put("zgywxyfl", JSONUtils.getString(corpobject, "zgywxyfl", ""));
+                                        mapinfo.put("zczb", JSONUtils.getString(corpobject, "zczb", ""));
+                                        mapinfo.put("ztlxName3", JSONUtils.getString(corpobject, "ztlxName3", ""));
+                                        mapinfo.put("jymj", JSONUtils.getString(corpobject, "jymj", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+                                        mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
+
+                                    }
                                     //许可证
                                     JSONObject permitobject= JSONUtils.getJSONObject(data,"permit",null);
                                     //营业

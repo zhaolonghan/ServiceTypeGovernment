@@ -87,6 +87,7 @@ public class CheckOrderActivity extends BaseActivity {
     public  ColorStateList btnblack=null;
     public  Drawable  linered=null;
     public   Drawable lineblack=null;
+    public  String  companyType="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class CheckOrderActivity extends BaseActivity {
         corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
         checkQuery=new CheckQuery("",intent.getStringExtra("ztlx"),1,10);
         questionquery=new QuestionQuery("",intent.getStringExtra("ztlx"),1,10);
-
+        companyType=intent.getStringExtra("companyType");
         TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
         getTopView(topBean);
 
@@ -698,6 +699,8 @@ public class CheckOrderActivity extends BaseActivity {
                         contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
                         contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
                         contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
+
+
                         if(JSONUtils.getString(dataobject, "inspectTable","").length()>0){
 
                         dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable",""));
@@ -743,6 +746,8 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
                     contextmap.put("check_numunthrought", JSONUtils.getString(dataobject, "buhege", ""));
                     contextmap.put("check_radioing", JSONUtils.getString(dataobject, "jindu", ""));
                     contextmap.put("check_radiothrought", JSONUtils.getString(dataobject, "hegelv", ""));
+                    contextmap.put("companyType", companyType);
+                    contextmap.put("specialId", JSONUtils.getString(dataobject, "specialId", ""));
                     oneGetenforcement.add(contextmap);
                 }
             }
