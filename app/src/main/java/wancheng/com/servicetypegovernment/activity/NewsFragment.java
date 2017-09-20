@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,7 +48,7 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
   //  private RefreshListView refreshListView;
     private final static int REFRESH_COMPLETE = 0;
     private Handler mHandler = new Handler(){
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
                     listView.setOnRefreshComplete();
@@ -236,14 +235,14 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
     }
     public  Map<String ,Object>  contextMap( JSONObject dataobject){
         Map<String, Object> contextmap=new HashMap<String, Object>();
-        String title=JSONUtils.getString(dataobject, "title", "");
+        String title= JSONUtils.getString(dataobject, "title", "");
         if(title!=null&&title.length()>15){
             title=title.substring(0,15)+"...";
         }
-        long timelong=JSONUtils.getLong(dataobject, "ptime", 0);
-        String oneurl=JSONUtils.getString(dataobject, "url", "");
-        String count=JSONUtils.getString(dataobject, "count", "0");
-        String source=JSONUtils.getString(dataobject, "source", "");
+        long timelong= JSONUtils.getLong(dataobject, "ptime", 0);
+        String oneurl= JSONUtils.getString(dataobject, "url", "");
+        String count= JSONUtils.getString(dataobject, "count", "0");
+        String source= JSONUtils.getString(dataobject, "source", "");
         Date timedate=  new Date(timelong);
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM");
         String year=format.format(timedate);

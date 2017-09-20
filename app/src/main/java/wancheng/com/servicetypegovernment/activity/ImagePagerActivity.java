@@ -1,7 +1,5 @@
 package wancheng.com.servicetypegovernment.activity;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
@@ -89,7 +89,7 @@ public class ImagePagerActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			String url = fileList.get(position).getPath();
 			String type = fileList.get(position).getType();
-			return ImageDetailFragment.newInstance(url,type);
+			return ImageDetailFragment.newInstance(url, type);
 		}
 
 	}

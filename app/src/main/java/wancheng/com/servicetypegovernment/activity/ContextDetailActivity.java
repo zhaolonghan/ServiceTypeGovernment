@@ -2,8 +2,6 @@ package wancheng.com.servicetypegovernment.activity;
 
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -11,9 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;

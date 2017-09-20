@@ -11,24 +11,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -202,14 +195,14 @@ public class CompanyDetailActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                    /* JSONArray dataArray=new JSONArray(data);
                                     if (dataArray!=null&&dataArray.length()>0) {
                                        // setcorpdata(dataArray);
                                     }*/
                                     //基本信息
-                                    JSONObject corpobject= JSONUtils.getJSONObject(data,"corp",null);
+                                    JSONObject corpobject= JSONUtils.getJSONObject(data, "corp", null);
                                     if(corpobject!=null){
                                         mapinfo.put("name", JSONUtils.getString(corpobject, "name", ""));
                                         mapinfo.put("code", JSONUtils.getString(corpobject, "code", ""));
@@ -237,9 +230,9 @@ public class CompanyDetailActivity extends BaseActivity {
 
                                     }
                                     //许可证
-                                    JSONObject permitobject= JSONUtils.getJSONObject(data,"permit",null);
+                                    JSONObject permitobject= JSONUtils.getJSONObject(data, "permit", null);
                                     //营业
-                                    JSONObject businessLicenseobject= JSONUtils.getJSONObject(data,"businessLicense",null);
+                                    JSONObject businessLicenseobject= JSONUtils.getJSONObject(data, "businessLicense", null);
                                 }else{
                                     msg.obj="已经到底了";
                                 }

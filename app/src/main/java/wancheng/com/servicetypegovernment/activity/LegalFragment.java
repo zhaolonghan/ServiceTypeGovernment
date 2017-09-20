@@ -1,9 +1,7 @@
 package wancheng.com.servicetypegovernment.activity;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -11,12 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +32,6 @@ import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
-import wancheng.com.servicetypegovernment.view.RefreshListView;
 
 /**
  * Created by HANZHAOLONG on 2017/8/31.
@@ -207,10 +202,10 @@ public class LegalFragment   extends BaseFragment {
         if(title!=null&&title.length()>15){
             title=title.substring(0,15)+"...";
         }
-        long timelong=JSONUtils.getLong(dataobject, "ptime", 0);
-        String oneurl=JSONUtils.getString(dataobject, "url", "");
-        String count=JSONUtils.getString(dataobject, "count", "0");
-        String source=JSONUtils.getString(dataobject, "source", "");
+        long timelong= JSONUtils.getLong(dataobject, "ptime", 0);
+        String oneurl= JSONUtils.getString(dataobject, "url", "");
+        String count= JSONUtils.getString(dataobject, "count", "0");
+        String source= JSONUtils.getString(dataobject, "source", "");
         Date timedate=  new Date(timelong);
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM");
         String year=format.format(timedate);

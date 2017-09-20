@@ -1,15 +1,9 @@
 package wancheng.com.servicetypegovernment.activity;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
-import wancheng.com.servicetypegovernment.R;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +14,10 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
+import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
+import wancheng.com.servicetypegovernment.R;
 
 /**
  * 单张图片显示Fragment

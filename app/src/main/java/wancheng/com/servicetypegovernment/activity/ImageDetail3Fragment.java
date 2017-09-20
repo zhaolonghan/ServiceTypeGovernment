@@ -1,12 +1,6 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
-import java.io.File;
-
-import uk.co.senab.photoview.PhotoViewAttacher;
-import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
-import wancheng.com.servicetypegovernment.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,15 +11,20 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.File;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
+import uk.co.senab.photoview.PhotoViewAttacher.OnPhotoTapListener;
+import wancheng.com.servicetypegovernment.R;
 
 /**
  * 单张图片显示Fragment

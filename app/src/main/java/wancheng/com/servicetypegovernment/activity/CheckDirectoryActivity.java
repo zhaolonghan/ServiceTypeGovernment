@@ -1,25 +1,14 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,9 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
 import wancheng.com.servicetypegovernment.adspter.CheckDirecttoryAdspter;
-import wancheng.com.servicetypegovernment.adspter.CheckResultAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -115,7 +102,7 @@ public class CheckDirectoryActivity extends BaseActivity {
                                 String msg_code = testStringNull(jsonObj.optString("msg"));
                                 String code = testStringNull(jsonObj.optString("code"));
                                 if("0".equals(code)){
-                                    String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                    String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                     if(data!=null&&data!="") {
                                         JSONArray jsondata = new JSONArray(data);
                                         if(jsondata!=null&&jsondata.length()>0){
@@ -125,7 +112,7 @@ public class CheckDirectoryActivity extends BaseActivity {
                                                     //第一层
                                                     Map<String, Object> onemap=new HashMap<String, Object>();
                                                     //标题与备注
-                                                    onemap.put("directtory_tittle", (i+1)+"、"+JSONUtils.getString(onedate, "name", ""));
+                                                    onemap.put("directtory_tittle", (i+1)+"、"+ JSONUtils.getString(onedate, "name", ""));
                                                     onemap.put("directtory_remark", JSONUtils.getString(onedate, "remark", ""));
                                                     //第二层数据
                                                     List<Map<String, Object>>  infolist=new ArrayList<Map<String, Object>>();
@@ -135,8 +122,8 @@ public class CheckDirectoryActivity extends BaseActivity {
                                                             Map<String, Object> infomap=new HashMap<String, Object>();
                                                             JSONObject twodate=infojsonarray.getJSONObject(j);
                                                             infomap.put("directtory_info_tittle", (i+1)+"."+(j+1)+"、"+ JSONUtils.getString(twodate, "content", ""));
-                                                            infomap.put("directtory_info_laws",JSONUtils.getString(twodate, "base", ""));
-                                                            infomap.put("directtory_info_way",JSONUtils.getString(twodate, "mode", ""));
+                                                            infomap.put("directtory_info_laws", JSONUtils.getString(twodate, "base", ""));
+                                                            infomap.put("directtory_info_way", JSONUtils.getString(twodate, "mode", ""));
                                                             infomap.put("directtory_info_explain", JSONUtils.getString(twodate, "guide", ""));
                                                             infomap.put("isPoint", JSONUtils.getString(twodate, "isPoint", ""));
                                                             infolist.add(infomap);

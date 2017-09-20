@@ -5,15 +5,9 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -22,8 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -32,12 +29,11 @@ import java.util.TimerTask;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
-import wancheng.com.servicetypegovernment.view.SlideShowView;
 
 public class IndexActivity extends BaseActivity {
 
     private AMapLocationClient locationClient = null;
-    private SlideShowView SlideShowView;
+    private wancheng.com.servicetypegovernment.view.SlideShowView SlideShowView;
     private LinearLayout linFood;//食品企业
     private LinearLayout linyp;//食品企业
     private LinearLayout linbjp;//食品企业

@@ -2,25 +2,24 @@ package wancheng.com.servicetypegovernment.activity;
 
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.app.DatePickerDialog;
 import android.widget.DatePicker;
-import android.app.Dialog;
-import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +40,6 @@ import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
-import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -90,8 +87,7 @@ public class InformActivity extends BaseActivity {
     private String tableName;
     private String type;
     private String permits;
-    private String  msgId;
-    private String resuilId;
+    private String resultId;
     private String html="　　我们是监督检查人员，现出示执法证件。我们依法对你（单位）进行日常监督检查，请予配合。\n" +
             "　　依照法律规定，监督检查人员少于两人或者所出示的执法证件与其身份不符的，你（单位）有权拒绝检查；对于监督检查人员有下列情形之一的，" +
             "你（单位）有权申请回避：（1）系当事人或当事人的近亲属；（2）与本人或本人近亲属有利害关系；（3）与当事人有其他关系，可能影响公正执法的。";
@@ -105,8 +101,7 @@ public class InformActivity extends BaseActivity {
         final String corp_name=intent.getStringExtra("corp_name");
         final String corp_address=intent.getStringExtra("corp_address");
         final String ztlx=intent.getStringExtra("ztlx");
-        resuilId=intent.getStringExtra("resuilId");
-        msgId= intent.getStringExtra("insertid");
+        resultId=intent.getStringExtra("resultId");
         getData(corpId,ztlx);
         instance=this;
         tv_corpname=(TextView)findViewById(R.id.tv_corpname);
@@ -272,7 +267,7 @@ public class InformActivity extends BaseActivity {
                 intent.putExtra("phone",phone);
                 intent.putExtra("permits",permits);
                 intent.putExtra("tableName",tableName);
-                intent.putExtra("resuilId",resuilId);
+                intent.putExtra("resultId",resultId);
                 intent.putExtra("checkDate",ed_date.getText().toString());
                 intent.putExtra("type",type);
                 intent.putExtra("zfry1",map.get("checker1").toString());
@@ -406,7 +401,8 @@ public class InformActivity extends BaseActivity {
     };
     @Override
     public void updateView() {
-        tv_gaozhi.setText(Html.fromHtml(html));
+        String s=html;
+        tv_gaozhi.setText(Html.fromHtml(s));
         tb_address.setText(address);
         if(checkers!=null&&checkers.size()>0){
             for(int i=0;i<checkers.size();i++){
@@ -453,25 +449,25 @@ public class InformActivity extends BaseActivity {
                                 String  data=jsonObj.getString("data");
                                 data =new String(Base64Coder.decodeString(data));
                                 JSONObject  dataArray = new JSONObject(data);
-                                JSONArray checkerList=new JSONArray(JSONUtils.getString(dataArray,"jcry",""));
+                                JSONArray checkerList=new JSONArray(JSONUtils.getString(dataArray, "jcry", ""));
                                 if(checkerList!=null&&checkerList.length()>0){
                                     for(int i=0;i<checkerList.length();i++){
                                         Map<String,String> checkMap=new HashMap<String,String>();
                                         JSONObject  checkObj = checkerList.getJSONObject(i);
-                                        checkMap.put("userId",JSONUtils.getString(checkObj, "userId", ""));
-                                        checkMap.put("userName",JSONUtils.getString(checkObj, "userName", ""));
+                                        checkMap.put("userId", JSONUtils.getString(checkObj, "userId", ""));
+                                        checkMap.put("userName", JSONUtils.getString(checkObj, "userName", ""));
                                         checkers.add(checkMap);
                                     }
 
                                 }
-                                html=JSONUtils.getString(dataArray, "gzsx", "");
-                                address=JSONUtils.getString(dataArray, "address", "");
-                                checkAll=JSONUtils.getString(dataArray, "content", "");
-                                fuzeren=JSONUtils.getString(dataArray, "fuzeren", "");
-                                phone=JSONUtils.getString(dataArray, "fuzerenTel", "");
-                                permits=JSONUtils.getString(dataArray, "permits", "");
-                                tableName=JSONUtils.getString(dataArray, "tableName", "");
-                                type=JSONUtils.getString(dataArray, "type", "");
+                                html= JSONUtils.getString(dataArray, "gzsx", "");
+                                address= JSONUtils.getString(dataArray, "address", "");
+                                checkAll= JSONUtils.getString(dataArray, "content", "");
+                                fuzeren= JSONUtils.getString(dataArray, "fuzeren", "");
+                                phone= JSONUtils.getString(dataArray, "fuzerenTel", "");
+                                permits= JSONUtils.getString(dataArray, "permits", "");
+                                tableName= JSONUtils.getString(dataArray, "tableName", "");
+                                type= JSONUtils.getString(dataArray, "type", "");
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {
@@ -498,62 +494,5 @@ public class InformActivity extends BaseActivity {
     }
 
 
-//    private String getJsonStr(){
-//        try{
-//            msgId
-//
-//
-//
-//            String str="{";
-//            str+="\"uid\":\""+corpId+"\"";
-//            str+=",\"corpId\":\""+zfry1+"\"";
-//            str+=",\"appResultId\":\""+zfry2+"\"";
-//    'resultId': '检查结果id',
-//            'appResultUpTime':'app上传的时间',
-//            'IMES':'',
 
-
-//            str+=",\"address\":\""+zfry2+"\"";
-//            str+=",\"fuzeren\":\""+checkDate+"\"";
-//            str+=",\"jcjgnr\":\""+tableName+"\"";
-//            str+=",\"fuzerenTel\":\""+type+"\"";
-//            str+=",\"ztlx2\":\""+type+"\"";
-//            str+=",\"inspectResult\":\""+type+"\"";
-//            str+=",\"result\":\""+type+"\"";
-//            str+=",\"deadline\":\""+type+"\"";
-//            str+=",\"remarks\":\""+type+"\"";
-//            str+=",\"zfryqz\":\""+type+"\"";
-//            str+=",\"zfryqzTime\":\""+type+"\"";
-//            str+=",\"inspectUnitOpinions\":\""+type+"\"";
-//            str+=",\"frhfzrjz\":\""+type+"\"";
-//            str+=",\"frhfzrjzTime\":\""+type+"\"";
-//            str+=",\"gzyZhifaBy\":\""+type+"\"";
-//            str+=",\"gzyInspectTime\":\""+type+"\"";
-//            str+=",\"gzyGzsx\":\""+type+"\"";
-//            str+=",\"gzySfhb\":\""+type+"\"";
-//            str+=",\"gzyBjcdwqz\":\""+type+"\"";
-//            str+=",\"gzyBjcdwqzTime\":\""+type+"\"";
-//            str+=",\"gzyJcdwqz\":\""+type+"\"";
-//            str+=",\"gzyJcdwqzTime\":\""+type+"\"";
-//            str+=",\"lng\":\""+type+"\"";
-//            str+=",\"latz\":\""+type+"\"";
-//            str+=",\"resultItem\":[";
-//            for(int i=0;i <sendList.size();i++){
-//                Map<String,Object> map=sendList.get(i);
-//                if(i==0){
-//                    str+="{";
-//                }else{
-//                    str+=",{";
-//                }
-//                str+="\"content_sort\":\""+map.get("content_sort").toString()+"\"";
-//                str+=",\"ispoint\":\""+map.get("isImp").toString()+"\"";
-//                str+=",\"result\":\""+map.get("checkResult").toString()+"\"}";
-//            }
-//            str+="]}";
-//            return str;
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        return "";
-//    }
 }

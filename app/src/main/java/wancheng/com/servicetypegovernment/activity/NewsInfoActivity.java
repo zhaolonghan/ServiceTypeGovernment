@@ -6,16 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Map;
-
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 
 /**

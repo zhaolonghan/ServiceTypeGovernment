@@ -3,11 +3,8 @@ package wancheng.com.servicetypegovernment.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,15 +14,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -262,7 +256,7 @@ public class CheckListActivity extends BaseActivity {
                     String msg_code = testStringNull(jsonObj.optString("msg"));
                     String code = testStringNull(jsonObj.optString("code"));
                     if("0".equals(code)){
-                        String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                        String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                         if(data!=null&&data!=""){
                             JSONArray dataArray=new JSONArray(data);
                             if (dataArray!=null&&dataArray.length()>0) {
@@ -316,27 +310,27 @@ public class CheckListActivity extends BaseActivity {
                     if(title!=null&&title.length()>15){
                         title=title.substring(15)+"...";
                     }
-                    if(JSONUtils.getString(dataobject, "id", "")!=null&&JSONUtils.getString(dataobject, "id", "").length()>0){
+                    if(JSONUtils.getString(dataobject, "id", "")!=null&& JSONUtils.getString(dataobject, "id", "").length()>0){
                         contextmap=new HashMap<String, Object>();
                         corpTypeList=new ArrayList<Map<String,Object>>();
-                        contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
-                        contextmap.put("ztlx",JSONUtils.getString(dataobject, "ztlx2", ""));
-                        contextmap.put("ztlx2",JSONUtils.getString(dataobject, "ztlx2", ""));
-                        contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
-                        contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
-                        contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
-                        contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
-                        contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
-                        contextmap.put("resultId", JSONUtils.getString(dataobject, "resultId",""));
-                        if(JSONUtils.getString(dataobject, "inspectTable","").length()>0){
+                        contextmap.put("id", JSONUtils.getString(dataobject, "id", ""));
+                        contextmap.put("ztlx", JSONUtils.getString(dataobject, "ztlx2", ""));
+                        contextmap.put("ztlx2", JSONUtils.getString(dataobject, "ztlx2", ""));
+                        contextmap.put("corp_name", JSONUtils.getString(dataobject, "name", ""));
+                        contextmap.put("corp_code", JSONUtils.getString(dataobject, "code", ""));
+                        contextmap.put("corp_person", JSONUtils.getString(dataobject, "fuzeren", ""));
+                        contextmap.put("corp_tel", JSONUtils.getString(dataobject, "fuzerenTel", ""));
+                        contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz", ""));
+                        contextmap.put("resultId", JSONUtils.getString(dataobject, "resultId", ""));
+                        if(JSONUtils.getString(dataobject, "inspectTable", "").length()>0){
 
-                        dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable",""));
+                        dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable", ""));
                         if(dataTypeArray!=null&&dataTypeArray.length()>0){
                             for(int j=0;j<dataTypeArray.length();j++){
                                 JSONObject typeobject = dataTypeArray.getJSONObject(j);
                                 type=new HashMap<String, Object>();
-                                type.put("tableName",JSONUtils.getString(typeobject, "tableName", ""));
-                                type.put("ztlx2",JSONUtils.getString(typeobject, "ztlx2",""));
+                                type.put("tableName", JSONUtils.getString(typeobject, "tableName", ""));
+                                type.put("ztlx2", JSONUtils.getString(typeobject, "ztlx2", ""));
                                 corpTypeList.add(type);
                             }
                         }
@@ -358,7 +352,7 @@ public class CheckListActivity extends BaseActivity {
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
         public String specialId="";
         public CorpQuery(){
 
