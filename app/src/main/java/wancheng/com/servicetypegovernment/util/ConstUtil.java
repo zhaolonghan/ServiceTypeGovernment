@@ -21,7 +21,7 @@ public class ConstUtil {
 	 * URL
 	 */
 	//public static String IP = "http://223.71.241.40/";
-	public static String IP = "http://192.168.1.101:8181/";
+	public static String IP = "http://192.168.1.111:8181/";
 
 	/**
 	 * METHOD
@@ -50,6 +50,8 @@ public class ConstUtil {
 	public static String METHOD_GIODELIST = "a/app/inspectDaily/guide";//检查指南
 	public static String METHOD_HISTORYLIST ="a/app/inspectDaily/getHistoryList";//历史记录列表
 	public static String METHOD_INSPECTRESULTDETAIL ="a/app/inspectDaily/getInspectResultDetail";//检查详情
-	public static String METHOD_GETGZY ="a/app/inspectDaily/getGzy";//告知页接口
-	public static String METHOD_GETJCNR ="a/app/inspectDaily/getJcnr";//研判接口
+	public static String METHOD_GETGZY="a/app/inspectDaily/getGzy";
+	public static String METHOD_QUESTIONLIST="a/app/inspectDaily/getResultList";//问题处置
+	public static String METHOD_UPDATERESULT="a/app/inspectDaily/updateResult";//问题处置状态修改
+
 }
