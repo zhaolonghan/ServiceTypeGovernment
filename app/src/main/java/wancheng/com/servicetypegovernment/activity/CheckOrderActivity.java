@@ -699,6 +699,7 @@ public class CheckOrderActivity extends BaseActivity {
                         contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
                         contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
                         contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
+                        contextmap.put("resultId", JSONUtils.getString(dataobject, "resultId",""));
 
 
                         if(JSONUtils.getString(dataobject, "inspectTable","").length()>0){
