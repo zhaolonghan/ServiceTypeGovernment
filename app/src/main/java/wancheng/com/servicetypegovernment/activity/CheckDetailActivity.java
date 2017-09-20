@@ -38,9 +38,9 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
+import wancheng.com.servicetypegovernment.bean.ImageUpload;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
-import wancheng.com.servicetypegovernment.service.SubmitImageService;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 
@@ -59,20 +59,46 @@ public class CheckDetailActivity extends BaseActivity {
     private String checkAll;
     private String uid;
     private long msgId;
-
+    private int imageIndexP=-1;//父索引;
+    private int imageIndexC=-1;//子索引
+    private String address;
+    private String corpname;
+    private String fuzeren;
+    private String phone;
+    private String permits;
+    private String tableName;
+    private String type;
+    private String zfry1;
+    private String zfry2;
+    private String checkDate;
+    private List<ImageUpload> imageUploads=new ArrayList<ImageUpload>();
+    private List<Map<String,Object>> sendList;
+    public static CheckDetailActivity instance = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_detail);
         databaseHelper=new DatabaseHelper(this);
+        instance=this;
         Intent intent=getIntent();
         corpId=intent.getStringExtra("corpId");
         ztlx=intent.getStringExtra("ztlx");
         checkAll=intent.getStringExtra("checkAll");
         uid=intent.getStringExtra("uid");
-        msgId=intent.getIntExtra("insertid",-1);
+        address=intent.getStringExtra("address");
+        corpname=intent.getStringExtra("corpname");
+        fuzeren=intent.getStringExtra("fuzeren");
+        phone=intent.getStringExtra("phone");
+        permits=intent.getStringExtra("permits");
+        msgId=intent.getLongExtra("insertid", -1);
+        tableName=intent.getStringExtra("tableName");
+        checkDate=intent.getStringExtra("checkDate");
+        type=intent.getStringExtra("type");
+        zfry1=intent.getStringExtra("zfry1");
+        zfry2=intent.getStringExtra("zfry2");
+        Log.e("msgId",msgId+"");
         layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-        TopBean topBean=new TopBean("检查要点","返回","下一步",true,true);
+        TopBean topBean=new TopBean("检查要点","上一步","下一步",true,true);
         getTopView(topBean);
         imageUrls=new ArrayList<ImagesBean>();
         dataList=new ArrayList<Map<String, Object>>();
@@ -130,6 +156,12 @@ public class CheckDetailActivity extends BaseActivity {
         imageUrls.add(new ImagesBean("defaultImage", ""));
         linearLayout=(LinearLayout)findViewById(R.id.lin_data_list);
         init();
+        tv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNormalDialog("提示","返回上一步将清空所有检查项，是否确定？");
+            }
+        });
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,14 +181,73 @@ public class CheckDetailActivity extends BaseActivity {
 //
 //                    }
 //                }
+                sendList=new ArrayList<Map<String,Object>>();
                if(getListViewData()){
-
-               }else{
-
+                   Intent intent = new Intent();
+                   intent.putExtra("corpId",corpId);
+                   intent.putExtra("ztlx",ztlx);
+                   intent.putExtra("uid","2");
+                   intent.putExtra("address",address);
+                   intent.putExtra("insertid",msgId);
+                   intent.putExtra("corpname",corpname);
+                   intent.putExtra("fuzeren",fuzeren);
+                   intent.putExtra("phone",phone);
+                   intent.putExtra("permits",permits);
+                   intent.putExtra("data", getJsonStr());
+                   intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
+                   CheckDetailActivity.this.startActivity(intent);
                }
+
             }
         });
 
+    }
+    private String getJsonStr(){
+        try{
+//            JSONObject one=new JSONObject();
+//            one.put("corpId",corpId);
+//            one.put("zfry1",zfry1);
+//            one.put("zfry2",zfry2);
+//            one.put("date",checkDate);
+//            one.put("tableName",tableName);
+//            one.put("type",type);
+//            //one.put("corpId","11");
+//            JSONArray  two=new JSONArray();
+//            for(int i=0;i <sendList.size();i++){
+//                Map<String,Object> map=sendList.get(i);
+//                JSONObject three=new JSONObject();
+//                three.put("content_sort",map.get("content_sort").toString());
+//                three.put("ispoint",map.get("isImp").toString());
+//                three.put("result", map.get("checkResult").toString());
+//                two.put(i,three);
+//            }
+//            one.put("jcnr",two);
+//            Log.e("data size111 ", one.toString().length() + "");
+            String str="{";
+            str+="\"corpId\":\""+corpId+"\"";
+            str+=",\"zfry1\":\""+zfry1+"\"";
+            str+=",\"zfry2\":\""+zfry2+"\"";
+            str+=",\"date\":\""+checkDate+"\"";
+           str+=",\"tableName\":\""+tableName+"\"";
+            str+=",\"type\":\""+type+"\"";
+            str+=",\"jcnr\":[";
+            for(int i=0;i <sendList.size();i++){
+                Map<String,Object> map=sendList.get(i);
+                if(i==0){
+                    str+="{";
+                }else{
+                    str+=",{";
+                }
+                str+="\"content_sort\":\""+map.get("content_sort").toString()+"\"";
+                str+=",\"ispoint\":\""+map.get("isImp").toString()+"\"";
+                str+=",\"result\":\""+map.get("checkResult").toString()+"\"}";
+            }
+            str+="]}";
+            return str;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private boolean getListViewData(){
@@ -167,50 +258,59 @@ public class CheckDetailActivity extends BaseActivity {
             for(int i=0;i<linearLayout.getChildCount();i++){
                 LinearLayout linearLayoutChlid=(LinearLayout)linearLayout.getChildAt(i);
                 LinearLayout linearLayoutChlid1=(LinearLayout)linearLayoutChlid.findViewById(R.id.check_question);
-              //  Log.e("tv",tv.getText()!=null?tv.getText().toString():""+"");
                 Log.e("outChlid1()",linearLayoutChlid1.getChildCount()+"");
                 for(int j=0;j<linearLayoutChlid1.getChildCount();j++){
                     LinearLayout l1=(LinearLayout)linearLayoutChlid1.getChildAt(j);
-                    TextView tv=(TextView)l1.findViewById(R.id.tv_question_title);
                     EditText ed_checknote=(EditText)l1.findViewById(R.id.ed_checknote);
                     RadioGroup radioGroup=(RadioGroup)l1.findViewById(R.id.rg_yse_no);
                     RadioButton rb_yes=(RadioButton)l1.findViewById(R.id.rb_yes);
                     RadioButton rb_np=(RadioButton)l1.findViewById(R.id.rb_no);
                     RadioButton rb_rational=(RadioButton)l1.findViewById(R.id.rb_rational);
                     if (radioGroup.getCheckedRadioButtonId()==rb_yes.getId()){
-                        Log.e("tv()",rb_yes.getText()!=null?rb_yes.getText().toString():""+"");
                         result=1;
                     } else  if(radioGroup.getCheckedRadioButtonId()==rb_np.getId()){
-                        Log.e("tv()",rb_np.getText()!=null?rb_np.getText().toString():""+"");
                         result=0;
                     }else  if(radioGroup.getCheckedRadioButtonId()==rb_rational.getId()){
                         result=2;
-                        Log.e("tv()",rb_rational.getText()!=null?rb_rational.getText().toString():""+"");
                     }else{
                         result=3;
-                        Log.e("tv()",i+"."+j+"meiyou");
-                        str+=","+i+"."+"j";
+                        str+=","+(i+1)+"."+(j+1);
                     }
                     map=new HashMap<String,Object>();
                     map.put("pid",ztlx);
-                    map.put("cid", ((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("itemId"));
+                    String cid=((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("itemContentId").toString();
+                    String isPoint=((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("isPoint").toString();
+                    map.put("cid",cid );
                     map.put("msgId",msgId);
-                    map.put("isImp",((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("isPoint"));
+                    map.put("isImp",isPoint);
                     map.put("checkResult",result);
-                    map.put("checkNote",ed_checknote.getText().toString());
-                    if(databaseHelper.findCheck(map.get("pid").toString(),map.get("cid").toString(),msgId)){
-
+                    map.put("checkNote", ed_checknote.getText().toString());
+                    map.put("content_sort",((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("content_sort").toString());
+                    sendList.add(map);
+                    long id=databaseHelper.findCheck(map.get("pid").toString(), map.get("cid").toString(),msgId);
+                    if(id!=-1){
+                       databaseHelper.updataCheck(map);
+                        Log.e("走修改", i + "," + j);
+                    }else{
+                        id=databaseHelper.insertCheck(map);
+                        Log.e("走插入",i+","+j);
                     }
-
+                    databaseHelper.deleteImageByCheckId(id);
+                    if(imageUploads!=null&&imageUploads.size()>0){
+                        for(int k=0;k<imageUploads.size();k++){
+                            ImageUpload imageUpload=imageUploads.get(k);
+                            if(imageUpload.getIndexP()==i&&imageUpload.getIndexC()==j){
+                                databaseHelper.insertImages(id,imageUpload.getPath(),msgId);
+                            }
+                        }
+                    }
                 }
-                if(!",".equals(str)){
-                    str+="没有选择，是否确认为不检查的项目？";
-                    showNormalDialog1(str.substring(1));
-                    return false;
-                }
-
             }
-
+            if(!",".equals(str)){
+                str+="没有选择，是否确认为不检查的项目？";
+                showNormalDialog1(str.substring(1));
+                return false;
+            }
         }
         return true;
     }
@@ -231,11 +331,15 @@ public class CheckDetailActivity extends BaseActivity {
                 if (fileIsExists(path)) {
                     f_imageUrlNew.remove(size - 1);
                     f_imageUrlNew.add(new ImagesBean("localImage", path));
+                    imageUploads.add(new ImageUpload(imageIndexP,imageIndexC,path));
                     if (size <5) {
                         f_imageUrlNew.add(new ImagesBean("defaultImage", ""));
                     }
                     f_lin_image.removeAllViews();
-                    getImageGridViews(f_imageUrlNew,f_lin_image);
+                    getImageGridViews(f_imageUrlNew, f_lin_image, imageIndexP, imageIndexC);
+                    Log.e("imageIndex拍照P", imageIndexP + "");
+                    Log.e("imageIndex拍照C", imageIndexC+"");
+                    Log.e("imageUploads size", imageUploads.size()+"");
                 }
                 break;
         }
@@ -245,7 +349,6 @@ public class CheckDetailActivity extends BaseActivity {
                     final LinearLayout f_lin_image=lin_image;
                     final ArrayList<ImagesBean> f_imageUrlNew=imageUrlsNew;
                     ArrayList<String> list = data.getBundleExtra("bundle").getStringArrayList("listurl");
-                    ArrayList<ImagesBean> list1 = new ArrayList<ImagesBean>();
                     f_imageUrlNew.remove(f_imageUrlNew.size() - 1);
                     for(int i=0;i<f_imageUrlNew.size();i++){
                         String type=f_imageUrlNew.get(i).getType();
@@ -254,14 +357,26 @@ public class CheckDetailActivity extends BaseActivity {
                             --i;
                         }
                     }
+                    if(imageUploads!=null&&imageUploads.size()>0){
+                        for(int i=0;i<imageUploads.size();i++){
+                           if(imageUploads.get(i).getIndexP()==imageIndexP&&imageUploads.get(i).getIndexC()==imageIndexC){
+                               imageUploads.remove(i);
+                               --i;
+                           }
+                        }
+                    }
                     for (String s : list) {
-                        f_imageUrlNew.add(new ImagesBean("localImage",s));
+                        f_imageUrlNew.add(new ImagesBean("localImage", s));
+                        imageUploads.add(new ImageUpload(imageIndexP,imageIndexC,s));
                     }
                     if(f_imageUrlNew.size()<5){
                         f_imageUrlNew.add(new ImagesBean("defaultImage", ""));
                     }
                     f_lin_image.removeAllViews();
-                    getImageGridViews(f_imageUrlNew,f_lin_image);
+                    getImageGridViews(f_imageUrlNew, f_lin_image, imageIndexP, imageIndexC);
+                    Log.e("imageIndex选择P", imageIndexP + "");
+                    Log.e("imageIndex选择C", imageIndexC + "");
+                    Log.e("imageUploads size", imageUploads.size()+"");
                 }
 
 
@@ -311,7 +426,7 @@ public class CheckDetailActivity extends BaseActivity {
                     final LinearLayout lin_no=(LinearLayout)itemChild.findViewById(R.id.lin_no);
                     final TextView tv_question_title=(TextView)itemChild.findViewById(R.id.tv_question_title);
                     final TextView tv_isPoint=(TextView)itemChild.findViewById(R.id.tv_isPoint);
-                    tv_question_title.setText(map.get("no").toString() + "." + mapChild.get("content_sort").toString() + " " + mapChild.get("content").toString());
+                    tv_question_title.setText(mapChild.get("content_sort").toString() + " " + mapChild.get("content").toString());
                     final String mode=mapChild.get("mode").toString();
                     final String guide=mapChild.get("guide").toString();
                     final String base=mapChild.get("base").toString();
@@ -342,7 +457,7 @@ public class CheckDetailActivity extends BaseActivity {
                         }
                     });
                     imagesBeans.addAll(imageUrls);
-                    getImageGridViews(imagesBeans,iv_images);
+                    getImageGridViews(imagesBeans,iv_images,i,j);
                     linChlid.addView(itemChild);
                 }
                 linearLayout.addView(item);
@@ -354,7 +469,7 @@ public class CheckDetailActivity extends BaseActivity {
 
 
     protected boolean showNormalDialogIsDel(String title,String context,final int position,final ArrayList<ImagesBean> imageUrls,
-                                            final LinearLayout linearLayout){
+                                            final LinearLayout linearLayout,final int  imageindexp,final int  imageindexc){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -368,7 +483,7 @@ public class CheckDetailActivity extends BaseActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        delete(position, imageUrls, linearLayout);
+                        delete(position, imageUrls, linearLayout,imageindexp,imageindexc);
                         isDel = true;
 
                     }
@@ -384,9 +499,10 @@ public class CheckDetailActivity extends BaseActivity {
         normalDialog.show();
         return isDel;
     }
-    private void delete(int position, final ArrayList<ImagesBean> imageUrls, final LinearLayout linearLayout) {//删除选中项方法
+    private void delete(int position, final ArrayList<ImagesBean> imageUrls, final LinearLayout linearLayout,final int imageindexp,final int  imageindexc) {//删除选中项方法
         ArrayList<ImagesBean> newList = new ArrayList<ImagesBean>();
         boolean isDefult = false;
+        String path=imageUrls.get(position).getPath();
         imageUrls.remove(position);
         linearLayout.removeAllViews();
         newList.addAll(imageUrls);
@@ -400,9 +516,20 @@ public class CheckDetailActivity extends BaseActivity {
         if(!isDefult){
             imageUrls.add(new ImagesBean("defaultImage",""));
         }
-        getImageGridViews(imageUrls, linearLayout);
+        if(imageUploads!=null&&imageUploads.size()>0){
+            for(int i=0;i<imageUploads.size();i++){
+                if(imageUploads.get(i).getIndexP()==imageIndexP&&imageUploads.get(i).getIndexC()==imageIndexC&&imageUploads.get(i).getPath().equals(path)){
+                    imageUploads.remove(i);
+                    --i;
+                }
+            }
+        }
+        getImageGridViews(imageUrls, linearLayout, imageindexp, imageindexc);
+        Log.e("imageIndex删除P", imageIndexP + "");
+        Log.e("imageIndex删除C", imageIndexC + "");
+        Log.e("imageUploads size", imageUploads.size() + "");
     }
-    private void getImageGridViews(final ArrayList<ImagesBean> imageUrls,final LinearLayout linearLayout){
+    private void getImageGridViews(final ArrayList<ImagesBean> imageUrls,final LinearLayout linearLayout,final int imageindexp,final int imageindexc){
         for(int k=0;k<imageUrls.size();k++){
             final int index=k;
             LinearLayout lin= (LinearLayout) layoutInflater.inflate(R.layout.item_gridview, null);
@@ -428,6 +555,8 @@ public class CheckDetailActivity extends BaseActivity {
             lin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    imageIndexP=imageindexp;
+                    imageIndexC=imageindexc;
                     final ArrayList<ImagesBean> newList = new ArrayList<ImagesBean>();
                     if (!(imageUrls.get(index).getType().equals("defaultImage"))) {
                         newList.addAll(imageUrls);
@@ -436,15 +565,17 @@ public class CheckDetailActivity extends BaseActivity {
                         }
                         imageBrower(index, newList);
                     } else {
-                        ShowPickDialog(imageUrls, linearLayout);
+                        ShowPickDialog(imageUrls, linearLayout,imageindexp,imageindexc);
                     }
                 }
             });
             lin.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+                    imageIndexP=imageindexp;
+                    imageIndexC=imageindexc;
                     if (!imageUrls.get(index).getType().equals("defaultImage")) {
-                        if(showNormalDialogIsDel("提示", "是否确定删除此图片？", index, imageUrls, linearLayout)){
+                        if(showNormalDialogIsDel("提示", "是否确定删除此图片？", index, imageUrls, linearLayout,imageindexp,imageindexc)){
 
                         }
                     }
@@ -457,9 +588,9 @@ public class CheckDetailActivity extends BaseActivity {
         }
     }
     private void ShowPickDialog(final ArrayList<ImagesBean> imageUrls,
-                                final LinearLayout linearLayout){
+                                final LinearLayout linearLayout,final int imageindexp,final int imageindexc){
         linearLayout.removeAllViews();
-        getImageGridViews(imageUrls,linearLayout);
+        getImageGridViews(imageUrls,linearLayout,imageindexp,imageindexc);
         new AlertDialog.Builder(this)
                 .setTitle("选择图片")
                 .setNegativeButton("相册", new DialogInterface.OnClickListener() {
@@ -589,10 +720,28 @@ public class CheckDetailActivity extends BaseActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Intent intent = new Intent();
+                        intent.putExtra("corpId",corpId);
+                        intent.putExtra("ztlx",ztlx);
+                        intent.putExtra("uid","2");
+                        intent.putExtra("address",address);
+                        intent.putExtra("insertid",msgId);
+                        intent.putExtra("corpname",corpname);
+                        intent.putExtra("fuzeren",fuzeren);
+                        intent.putExtra("phone",phone);
+                        intent.putExtra("permits",permits);
+                        intent.putExtra("data", getJsonStr());
+                        intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
+                        CheckDetailActivity.this.startActivity(intent);
                     }
                 });
-
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
         normalDialog.show();
     }
     @Override
@@ -630,5 +779,34 @@ public class CheckDetailActivity extends BaseActivity {
         return true;
     }
 
-
+    protected void showNormalDialog(String title,String context){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setTitle(title);
+        normalDialog.setMessage(context);
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(databaseHelper.deletCheckeById(msgId)){
+                            databaseHelper.deleteImageByMsgId(msgId);
+                            finish();
+                        }
+                    }
+                });
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
 }

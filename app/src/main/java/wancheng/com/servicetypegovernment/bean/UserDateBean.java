@@ -21,7 +21,8 @@ public class UserDateBean implements Serializable {
     private int sex;//性别1 男 2 女
     private String phone;//手机号码
     private String cardid;//身份证号
-    private String address;//联系地址
+	private String address;//联系地址
+	private String IMEI;//手机组号
     private String photoimage;//头像
    	private Bitmap photoimagebit;
 
@@ -32,6 +33,14 @@ public class UserDateBean implements Serializable {
 			user = new UserDateBean();
 		}
 		return user;
+	}
+
+	public String getIMEI() {
+		return IMEI;
+	}
+
+	public void setIMEI(String IMEI) {
+		this.IMEI = IMEI;
 	}
 
 	public String getUsername() {

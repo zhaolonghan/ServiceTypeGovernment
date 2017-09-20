@@ -63,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS tb_check_image (" +
                 "id integer primary key autoincrement, " +
                 "checkId INTEGER," +
+                "msgId INTEGER," +
                 "imagePath TEXT" +
                 ")");
         db.execSQL("CREATE TABLE IF NOT EXISTS tb_app_version (" +
@@ -131,16 +132,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return falg;
     }
-    public boolean findCheck(String pid,String cid,long msgId) {
-        boolean falg=false;
+    public long findCheck(String pid,String cid,long msgId) {
         SQLiteDatabase db=getWritableDatabase();
-        List<Map<String,String>> images = null;
-        Cursor cursor = db.query("tb_check", null, "pid="+pid+"and cid="+cid+"and msgId="+msgId, null, null, null, null);
+        Cursor cursor = db.query("tb_check", null, "pid='"+pid+"' and cid='"+cid+"' and msgId="+msgId, null, null, null, null);
         if( cursor.getCount()>0){
-            falg=true;
+            while(cursor.moveToNext()){
+                Map<String,String> image = new HashMap<String,String>();
+                long id = cursor.getLong(cursor.getColumnIndex("id"));
+                return id;
+            }
         }
         db.close();
-        return falg;
+        return -1;
     }
     public boolean updataCheck(Map<String,Object> map){
         boolean flag=false;
@@ -151,12 +154,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cValue.put("checkResult", map.get("checkResult").toString());
             cValue.put("checkNote", map.get("checkNote").toString());
             long msgid=Long.parseLong(map.get("msgId").toString());
-            db.update("tb_check", cValue, "pid="+map.get("pid").toString()+"and cid="+map.get("cid").toString()+"and msgId="+msgid, null);
+            db.update("tb_check", cValue, "pid='"+map.get("pid").toString()+"' and cid='"+map.get("cid").toString()+"' and msgId="+msgid, null);
             flag=true;
+            Log.e("修改","修改了检查表");
         }catch (Exception e){
             e.printStackTrace();
         }
-        db.close();
 
         return flag;
     }
@@ -168,9 +171,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValue.put("isImp",map.get("isImp").toString());
         cValue.put("msgId",map.get("msgId").toString());
         cValue.put("checkResult",map.get("checkResult").toString());
-        cValue.put("checkNote",map.get("checkNote").toString());
+        cValue.put("checkNote", map.get("checkNote").toString());
         long id=db.insert("tb_check", null, cValue);
-        db.close();
+
+        Log.e("插入","插入了检查表");
+        Log.e("插入id", id + "");
         return id;
     }
     public boolean delMsg(long id){
@@ -185,12 +190,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return flag;
     }
-    public boolean insertImages(int checkid,String imagepath){
+    public boolean insertImages(long checkid,String imagepath,long msgId){
         SQLiteDatabase db=getWritableDatabase();
         boolean flag=false;
         try {
             ContentValues cValue = new ContentValues();
             cValue.put("checkId",checkid);
+            cValue.put("msgId", msgId);
             cValue.put("imagePath", imagepath);
             db.insert("tb_check_image", null, cValue);
             flag=true;
@@ -207,7 +213,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             ContentValues cv = new ContentValues();
             cv.put("versionCode", versionCode);
-            db.update("tb_app_version", cv, "id="+id,null);
+            db.update("tb_app_version", cv, "id=" + id, null);
             flag=true;
         }catch (Exception e){
             e.printStackTrace();
@@ -264,7 +270,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Log.e("id version ",id + "");
         }
         db.close();
-        Log.e("versionList size", versionList.size()+"");
+        Log.e("versionList size", versionList.size() + "");
         if(versionList!=null&&versionList.size()>0){
             Log.e("id version ",versionList.get(0).get("id" + ""));
             return versionList.get(0).get("versionCode");
@@ -316,12 +322,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return images;
     }
-
-    public boolean deleteByCheckId(int checkId){
+    public List<Map<String,String>> findAllImages() {
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,String>> images = null;
+        Cursor cursor = db.query("tb_check_image", null, null, null, null, null, null);
+        images = new ArrayList<Map<String,String>>();
+        while(cursor.moveToNext()){
+            Map<String,String> image = new HashMap<String,String>();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
+            String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
+            image.put("id",id+"");
+            image.put("checkId",checkId+"");
+            image.put("imagePath",imagePath);
+            images.add(image);
+        }
+        db.close();
+        return images;
+    }
+    public boolean deleteImageByCheckId(long checkId){
         SQLiteDatabase db=getWritableDatabase();
         boolean flag=false;
         try {
-           db.delete("tb_check_image", "checkId="+checkId, null);
+            db.delete("tb_check_image", "checkId="+checkId, null);
+            flag=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        db.close();
+        return flag;
+    }
+    public boolean deleteImageByMsgId(long msgId){
+        SQLiteDatabase db=getWritableDatabase();
+        boolean flag=false;
+        try {
+            db.delete("tb_check_image", "msgId="+msgId, null);
+            flag=true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        db.close();
+        return flag;
+    }
+    public boolean deletCheckeById(long msgId){
+        SQLiteDatabase db=getWritableDatabase();
+        boolean flag=false;
+        try {
+            db.delete("tb_check", "msgId="+msgId, null);
             flag=true;
         }catch (Exception e){
             e.printStackTrace();
