@@ -35,7 +35,7 @@ public class ContextDetailActivity extends BaseActivity {
         web_view.getSettings().setLoadWithOverviewMode(true);
 
         //加载需要显示的网页
-        web_view.loadUrl(intent.getStringExtra("url"));
+        web_view.loadUrl("http://192.168.1.111:8181/a/app/news/url?id=00fae54de2fe4a15b0c6e75ac1b0ad3d");
         //设置Web视图
         web_view.setWebViewClient(new WebViewClient() {
             // 这个方法在用户试图点开页面上的某个链接时被调用
