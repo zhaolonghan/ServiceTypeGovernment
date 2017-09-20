@@ -139,7 +139,8 @@
                 android:textSize="18dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
-                android:text="天津市大河食品有限公司111"
+                android:id="@+id/corp_name"
+                android:text=""
                 />
 
             <View
@@ -168,7 +169,8 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="QS123456789880S"
+                android:text=""
+                android:id="@+id/code"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -197,7 +199,9 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="李东升"
+                android:text=""
+                android:id="@+id/legal"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -226,7 +230,9 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="13265988745"
+                android:text=""
+                android:id="@+id/legalTel"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -255,7 +261,9 @@
             android:layout_height="match_parent"
             android:gravity="left"
             android:layout_gravity="center_vertical"
-            android:text="李东旭"
+            android:text=""
+            android:id="@+id/fuzeren"
+
             android:textColor="@color/red"
             android:textSize="16dp"/>
 
@@ -284,7 +292,8 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="15545123366"
+                android:id="@+id/fuzerenTel"
+                android:text=""
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -313,7 +322,9 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="正常营业"
+                android:text=""
+                android:id="@+id/status"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -343,6 +354,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/jyxz"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -371,7 +383,9 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="15545123366"
+                android:id="@+id/jyfs"
+
+                android:text=""
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -392,7 +406,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="主管业务行业分类："
+                android:text="主营业务行业分类："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -401,6 +415,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/vocation_category_id"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -430,6 +446,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/register_capital"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -459,6 +477,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/ztlxName3"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -488,6 +508,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/jymj"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -517,6 +538,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/cyrysl"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -546,6 +568,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/jydz"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -573,6 +597,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
+                android:id="@+id/zssfqq"
                 android:layout_gravity="center_vertical"
                 android:text=""
                 android:textColor="@color/red"
@@ -604,6 +629,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/ydjy"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -633,6 +659,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/is_important_service"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -663,6 +691,8 @@
                 android:layout_gravity="center_vertical"
                 android:text=""
                 android:textColor="@color/red"
+                android:id="@+id/is_important_inspect"
+
                 android:textSize="16dp"/>
 
         </LinearLayout>
@@ -691,6 +721,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/is_current_districtpay_tax"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -720,6 +752,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/is_current_year_audit"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -749,11 +782,13 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/sfywljy"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
         </LinearLayout>
-        <View
+    <!--    <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
@@ -781,7 +816,7 @@
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -806,7 +841,8 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="电气设备、机电设备、电子元器件、配电柜批发兼零售。（依法须经批准的项目，经相关部门批准后方可开展经营活动）"
+                android:text=""
+                android:id="@+id/jyfw"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -835,7 +871,9 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="南开区芥园道179号底商"
+                android:id="@+id/zcdz"
+
+                android:text=""
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -898,7 +936,8 @@
                 android:textSize="18dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
-                android:text="天津市大河食品有限公司22222222222222222"
+                android:id="@+id/permit_corpname"
+                android:text=""
                 />
 
             <View
@@ -919,7 +958,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="统一社会信用代码："
+                android:text="证书名称　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -927,7 +966,8 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="QS123456789880S"
+                android:text=""
+                android:id="@+id/permit_name"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -948,152 +988,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="企业法人代表　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="李东升"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="企业法人联系电话："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="13265988745"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="企业负责人姓名　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="李东旭"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="企业负责人电话　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="15545123366"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="当前状态　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="正常营业"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="经营性质　　　　："
+                android:text="证书编号　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1102,6 +997,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/permit_code"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1119,39 +1016,10 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="经营方式　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="15545123366"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="主管业务行业分类："
+                android:text="有效起始日期："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1160,6 +1028,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/permit_beginDate"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1180,7 +1050,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="注册资本　　　　："
+                android:text="有效结束日期："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1189,6 +1059,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/permit_endTime"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1209,7 +1080,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="主体类型　　　　："
+                android:text="发证单位　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1218,6 +1089,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/permit_sendOrg"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1238,7 +1110,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="经营面积　　　　："
+                android:text="许可范围　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1247,10 +1119,13 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/permit_scope"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -1267,343 +1142,19 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="从业人员数量　　："
+                android:text="许可证照　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/permit_images"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:background="@drawable/add_img"/>
 
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="经营地址　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="证书是否齐全　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="异地经营　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否重点服务单位："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否重点监管单位："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否本区纳税　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否本年已年检　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否网络经营　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="网络地址　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:text="经营范围　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="电气设备、机电设备、电子元器件、配电柜批发兼零售。（依法须经批准的项目，经相关部门批准后方可开展经营活动）"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="注册地址　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="南开区芥园道179号底商"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-
-
-
-
-
     </LinearLayout>
 
 
@@ -1655,7 +1206,8 @@
                 android:textSize="18dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
-                android:text="333333333天津市大河食品有限公司"
+                android:id="@+id/businessLicense_corpname"
+                android:text=""
                 />
 
             <View
@@ -1676,7 +1228,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="统一社会信用代码："
+                android:text="证书名称　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1684,7 +1236,9 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="QS123456789880S"
+                android:text=""
+                android:id="@+id/businessLicense_name"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1705,152 +1259,7 @@
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="企业法人代表　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="李东升"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="企业法人联系电话："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="13265988745"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="企业负责人姓名　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="李东旭"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="企业负责人电话　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="15545123366"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="当前状态　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="正常营业"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="经营性质　　　　："
+                android:text="证书编号　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1859,6 +1268,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/businessLicense_code"
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1876,39 +1286,10 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="经营方式　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
-                android:text="15545123366"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="主管业务行业分类："
+                android:text="发证日期　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1917,6 +1298,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/businessLicense_sendTime"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1937,7 +1320,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="注册资本　　　　："
+                android:text="发证单位　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1946,6 +1329,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/businessLicense_sendOrg"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1966,7 +1351,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="主体类型　　　　："
+                android:text="许可范围　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -1975,6 +1360,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/businessLicense_scope"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -1995,7 +1382,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="经营面积　　　　："
+                android:text="有效起始日期："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -2004,6 +1391,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/businessLicense_beginDate"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -2024,7 +1413,7 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="从业人员数量　　："
+                android:text="有效结束日期："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
             <TextView
@@ -2033,6 +1422,8 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:text=""
+                android:id="@+id/businessLicense_endTime"
+
                 android:textColor="@color/red"
                 android:textSize="16dp"/>
 
@@ -2053,308 +1444,17 @@
                 android:gravity="left"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="经营地址　　　　："
+                android:text="营业执照　　："
                 android:textColor="@color/black"
                 android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="证书是否齐全　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="异地经营　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否重点服务单位："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否重点监管单位："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否本区纳税　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否本年已年检　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="是否网络经营　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="网络地址　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:text="经营范围　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="电气设备、机电设备、电子元器件、配电柜批发兼零售。（依法须经批准的项目，经相关部门批准后方可开展经营活动）"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/black"></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="注册地址　　　　："
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:text="南开区芥园道179号底商"
-                android:textColor="@color/red"
-                android:textSize="16dp"/>
-
+=
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:id="@+id/businessLicense_images"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:background="@drawable/add_img"/>
         </LinearLayout>
 
 
@@ -2364,26 +1464,5 @@
     </LinearLayout>
 
 
-    <!--
-         <LinearLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:id="@+id/lin_bottom"
-            android:background="@color/btnblue"
-            android:layout_alignParentBottom="true"
-                        >
-
-                        <LinearLayout
-                            android:paddingTop="4dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
-                            <include layout="@layout/bottom_view"
-                                />
-                        </LinearLayout>
-
-                    </LinearLayout>
-    -->
 
     </RelativeLayout>

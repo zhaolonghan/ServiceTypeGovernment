@@ -1,10 +1,11 @@
 package wancheng.com.servicetypegovernment.bean;
 
-import android.graphics.Bitmap;
+
 
 import java.io.Serializable;
 
 public class UserDateBean implements Serializable {
+
 
 
 	/**
@@ -21,10 +22,14 @@ public class UserDateBean implements Serializable {
     private int sex;//性别1 男 2 女
     private String phone;//手机号码
     private String cardid;//身份证号
-	private String address;//联系地址
-	private String IMEI;//手机组号
-    private String photoimage;//头像
-   	private Bitmap photoimagebit;
+    private String address;//联系地址
+	private String email="";//职务
+	private String no="";//工号
+	private String photo="";//头像
+	private String mobile="";//电话
+
+
+
 
 	private static UserDateBean user;
 
@@ -33,14 +38,6 @@ public class UserDateBean implements Serializable {
 			user = new UserDateBean();
 		}
 		return user;
-	}
-
-	public String getIMEI() {
-		return IMEI;
-	}
-
-	public void setIMEI(String IMEI) {
-		this.IMEI = IMEI;
 	}
 
 	public String getUsername() {
@@ -107,19 +104,40 @@ public class UserDateBean implements Serializable {
 		this.address = address;
 	}
 
-	public String getPhotoimage() {
-		return photoimage;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
-	public void setPhotoimage(String photoimage) {
-		this.photoimage = photoimage;
-	}
-	public String getPhotoimagebit() {
-		return photoimage;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPhotoimagebit(Bitmap photoimagebit) {
-		this.photoimagebit = photoimagebit;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public static UserDateBean getUser() {
@@ -129,6 +147,7 @@ public class UserDateBean implements Serializable {
 	public static void setUser(UserDateBean user) {
 		UserDateBean.user = user;
 	}
+
 
 
 
