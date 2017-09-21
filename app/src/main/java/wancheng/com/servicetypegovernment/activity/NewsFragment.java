@@ -242,7 +242,7 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
         }
         long timelong=JSONUtils.getLong(dataobject, "ptime", 0);
         String oneurl=JSONUtils.getString(dataobject, "url", "");
-        String count=JSONUtils.getString(dataobject, "count", "0");
+        String count=JSONUtils.getString(dataobject, "browse", "0");
         String source=JSONUtils.getString(dataobject, "source", "");
         Date timedate=  new Date(timelong);
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM");
