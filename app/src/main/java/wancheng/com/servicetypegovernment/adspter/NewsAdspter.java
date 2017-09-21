@@ -46,6 +46,7 @@ public class NewsAdspter extends BaseAdapter
         public TextView tv_count;
         public TextView tv_source;
         public TextView tv_url;
+        public TextView tv_count_read;
     }
 
     @Override
@@ -78,6 +79,7 @@ public class NewsAdspter extends BaseAdapter
             zujian.tv_content_title=(TextView)convertView.findViewById(R.id.tv_content_title);
             zujian.tv_count=(TextView)convertView.findViewById(R.id.tv_count);
             zujian.tv_source=(TextView)convertView.findViewById(R.id.tv_source);
+            zujian.tv_count_read=(TextView)convertView.findViewById(R.id.tv_count_read);
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
@@ -88,7 +90,17 @@ public class NewsAdspter extends BaseAdapter
         zujian.tv_day.setText(data.get(i).get("day").toString());
         zujian.tv_year.setText(data.get(i).get("year").toString());
         zujian.tv_content_title.setText(data.get(i).get("title").toString());
-        zujian.tv_count.setText(data.get(i).get("count").toString());
+        if("已读".equals(data.get(i).get("count").toString())||"未读".equals(data.get(i).get("count").toString())){
+            zujian.tv_count.setVisibility(View.GONE);
+            zujian.tv_count.setText(data.get(i).get("count").toString());
+            zujian.tv_count_read.setText(data.get(i).get("count").toString());
+            if("未读".equals(data.get(i).get("count").toString())){
+                zujian.tv_count_read.setTextColor(context.getResources().getColor(R.color.red));
+            }
+        }else{
+            zujian.tv_count.setVisibility(View.VISIBLE);
+            zujian.tv_count.setText(data.get(i).get("count").toString());
+        }
         zujian.tv_source.setText(data.get(i).get("source").toString());
           final  String url=  data.get(i).get("url").toString();
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +151,6 @@ public class NewsAdspter extends BaseAdapter
     }
     public TextView getOtemView(int i){
         if(veiwlist!=null){
-            Log.e("获取的参数:数量",veiwlist.size()+"");
         }
 
         if(veiwlist==null||veiwlist.size()==0){
