@@ -233,7 +233,7 @@ public  class IndexFragment  extends BaseFragment {
         SlideShowView= (wancheng.com.servicetypegovernment.view.SlideShowView) contactsLayout.findViewById(R.id.sv_photo);
 
         //监听文本
-        TopBean topBean=new TopBean("首页","","",false,false);
+        TopBean topBean=new TopBean("首页","","刷新",false,true);
         getTopView(topBean, contactsLayout);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
@@ -247,7 +247,12 @@ public  class IndexFragment  extends BaseFragment {
                                             }
                                         }
         );
-
+        tv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData();
+            }
+        });
     //  首页图片
 
     }
