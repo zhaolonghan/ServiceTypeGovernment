@@ -179,7 +179,6 @@ public class InformActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 spIndex1=i;
-                Toast.makeText(InformActivity.this, "你选择的是！"+ i, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -251,10 +250,8 @@ public class InformActivity extends BaseActivity {
                 boolean ok=databaseHelper.findMsg(insertid);
                 if(ok){
                     databaseHelper.updataMsg(map,insertid);
-                    Log.e("修改", "修改id是" + insertid);
                 }else {
                     insertid=databaseHelper.insertMsg(map);
-                    Log.e("插入", "插入id是" + insertid);
                 }
                 if(isBack==1){
                     finish();
