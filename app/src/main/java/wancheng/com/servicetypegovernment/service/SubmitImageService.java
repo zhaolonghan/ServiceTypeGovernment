@@ -22,6 +22,7 @@ import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
+import wancheng.com.servicetypegovernment.util.LogUtil;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 
 public class SubmitImageService extends Service {
@@ -35,6 +36,8 @@ public class SubmitImageService extends Service {
     private String uid;
     private long  msgId;
     private boolean flag=false;
+    private int count;
+    private List<Map<String,String>> mapList;
     public SubmitImageService() {
 
 
@@ -56,16 +59,29 @@ public class SubmitImageService extends Service {
             switch (msg.what) {
                 case 1:
                     flag=false;
+                    updata();
                     break;
                 case 2:
                     flag=false;
+                    updata();
                     break;
                 case 3:
                     flag=true;
+                    updata();
                     break;
             }
         }
     };
+    public void updata(){
+        if(mapList!=null&&mapList.size()>=0&&((mapList.size()-1)==count)){
+            if(flag==true){
+                sendNotification("材料上传成功！");
+            }else{
+                sendNotification("材料上传失败！");
+            }
+        }
+        stopSelf();
+    }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand() executed");
@@ -74,25 +90,19 @@ public class SubmitImageService extends Service {
         IMEI=  intent.getStringExtra("IMEI");
         uid=  intent.getStringExtra("uid");
         msgId= intent.getLongExtra("msgId", 0);
-        List<Map<String,String>> mapList=databaseHelper.findImageByMsgId(msgId);
+        mapList=databaseHelper.findImageByMsgId(msgId);
         if(mapList!=null&&mapList.size()>0){
             for(int i=0;i<mapList.size();i++){
+                count=i;
                 Map<String,String> map=mapList.get(i);
                 try{
-                    shbmitData(getJson(map));
+                    shbmitData(getJson(map).get("str"),getJson(map).get("image"));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
 
             }
-            if(flag==true){
-                sendNotification("材料上传成功！");
-            }else{
-                sendNotification("材料上传失败！");
-            }
 
-
-            stopSelf();
         }else{
             stopSelf();
         }
@@ -142,19 +152,19 @@ public class SubmitImageService extends Service {
         notificationManager.notify(0x101, notification);
 
     }
-    private String getJson(Map<String,String> map) throws Exception{
+    private Map<String,String> getJson(Map<String,String> map) throws Exception{
         Map<String,String> m=encodeBase64File(map.get("imagePath").toString());
         String str="{";
         str+="\"uid\":\""+ UserDateBean.getInstance().getId()+"\"";
         str+=",\"appUpTime\":\""+addTime+"\"";
-        str+=",\"appItemId\":\""+map.get("id").toString()+"\"";
+        str+=",\"appItemId\":\""+map.get("checkId").toString()+"\"";
         str+=",\"appResultId\":\""+msgId+"\"";
         str+=",\"IMEI\":\""+IMEI+"\"";
         str+=",\"fileName\":\""+m.get("fileName").toString()+"\"";
-        str+=",\"images\":\""+m.get("base64").toString()+"\"";
-        Log.e("imagePath",map.get("imagePath").toString());
         str+="}";
-        return str;
+        m.put("image", m.get("base64").toString());
+        m.put("str",str);
+        return m;
     }
     public static Map<String,String> encodeBase64File(String path) throws Exception {
         Map<String,String> map=new HashMap<String,String>();
@@ -170,12 +180,13 @@ public class SubmitImageService extends Service {
     /**
      * 获取数据
      */
-    private void shbmitData(final String str) {
+    private void shbmitData(final String str,final String image) {
         new Thread() {
             public void run() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 // data= Base64Coder.encodeString(data);
-                map.put("data",str);
+                map.put("data",Base64Coder.encodeString(str));
+                map.put("image",image);
                 Log.e("data的长度是",Base64Coder.encodeString(str).length()+"");
                 NetUtil net = new NetUtil();
                 String res = net.sendPost(ConstUtil.METHOD_UPLOADIMAGE, map);

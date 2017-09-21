@@ -516,9 +516,6 @@ public class CheckResultActivity extends BaseActivity {
             addtime=new SimpleDateFormat("yyyyMMDDHHmmss").format(new Date());
             Map<String,Object> map=databaseHelper.findMsgByid(msgId);
             List<Map<String,Object>> mapList=databaseHelper. findCheckByMsgid(msgId);
-
-            Log.e("companySign", map.get("companySign").toString());
-            Log.e("checkSign",map.get("checkSign").toString());
             String str="{";
             str+="\"uid\":\""+ UserDateBean.getInstance().getId()+"\"";
             str+=",\"corpId\":\""+map.get("companyId")+"\"";

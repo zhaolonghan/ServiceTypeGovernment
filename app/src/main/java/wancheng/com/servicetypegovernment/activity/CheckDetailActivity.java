@@ -292,10 +292,8 @@ public class CheckDetailActivity extends BaseActivity {
                     long id=databaseHelper.findCheck(map.get("pid").toString(), map.get("cid").toString(),msgId);
                     if(id!=-1){
                        databaseHelper.updataCheck(map);
-                        Log.e("走修改", i + "," + j);
                     }else{
                         id=databaseHelper.insertCheck(map);
-                        Log.e("走插入",i+","+j);
                     }
                     databaseHelper.deleteImageByCheckId(id);
                     if(imageUploads!=null&&imageUploads.size()>0){
