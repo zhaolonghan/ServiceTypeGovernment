@@ -221,7 +221,7 @@ public class CheckHistoryListActivity extends BaseActivity {
                     contextmap=new HashMap<String, Object>();
                     if(JSONUtils.getString(dataobject, "time", "")!=null&& JSONUtils.getString(dataobject, "time", "").length()>0) {
                         contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
-                        contextmap.put("history_time", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
+                        contextmap.put("history_time", JSONUtils.getString(dataobject, "time", "0"));
                         contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));
                         contextmap.put("type", JSONUtils.getString(dataobject, "type", ""));
                         contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));
