@@ -44,6 +44,7 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.service.SubmitImageService;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -394,7 +395,7 @@ public class CheckResultActivity extends BaseActivity {
             public void run() {
                 Map<String, Object> map = new HashMap<String, Object>();
                // data= Base64Coder.encodeString(data);
-                map.put("data",data);
+                map.put("data",Base64Coder.encodeString(data));
 ;                NetUtil net = new NetUtil();
                 String res = net.sendPost(ConstUtil.METHOD_GETJCNR, map);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
@@ -512,7 +513,7 @@ public class CheckResultActivity extends BaseActivity {
     }
     private String getJsonStr(){
         try{
-            addtime=new SimpleDateFormat("YYYYMMDDHHmmss").format(new Date());
+            addtime=new SimpleDateFormat("yyyyMMDDHHmmss").format(new Date());
             Map<String,Object> map=databaseHelper.findMsgByid(msgId);
             List<Map<String,Object>> mapList=databaseHelper. findCheckByMsgid(msgId);
 
@@ -537,7 +538,7 @@ public class CheckResultActivity extends BaseActivity {
             str+=",\"zfryqz\":\""+ encodeBase64File(signPath1)+"\"";
             str+=",\"zfryqzTime\":\""+ed_date.getText().toString()+"\"";
             str+=",\"inspectUnitOpinions\":\""+ed_advice.getText().toString()+"\"";
-            str+=",\"frhfzrjz\":\""+ encodeBase64File(signPath2)+"\"";
+            str+=",\"frhfzrqz\":\""+ encodeBase64File(signPath2)+"\"";
             str+=",\"frhfzrjzTime\":\""+ed_date2.getText().toString()+"\"";
             str+=",\"gzyZhifaBy\":\""+map.get("checker1")+","+map.get("checker2")+"\"";
             str+=",\"gzyInspectTime\":\""+map.get("checkdate")+"\"";
@@ -548,7 +549,7 @@ public class CheckResultActivity extends BaseActivity {
             str+=",\"gzyJcdwqz\":\""+encodeBase64File(map.get("checkSign").toString())+"\"";
             str+=",\"gzyJcdwqzTime\":\""+map.get("checkSignDate")+"\"";
             str+=",\"lng\":\""+longitude+"\"";
-            str+=",\"latz\":\""+latitude+"\"";
+            str+=",\"lat\":\""+latitude+"\"";
             str+=",\"resultItem\":[";
             for(int i=0;i <mapList.size();i++){
                 Map<String,Object> mapChild=mapList.get(i);
@@ -590,7 +591,7 @@ public class CheckResultActivity extends BaseActivity {
             public void run() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 // data= Base64Coder.encodeString(data);
-                map.put("data",getJsonStr());
+                map.put("data",Base64Coder.encodeString(getJsonStr()));
                 NetUtil net = new NetUtil();
                 String res = net.sendPost(ConstUtil.METHOD_SAVERESULT, map);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
@@ -605,9 +606,9 @@ public class CheckResultActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if ("0".equals(code)) {
-                                String  data=jsonObj.getString("data");
-                                data =new String(Base64Coder.decodeString(data));
-                                Log.e("datadatadatadata",data);
+//                                String  data=jsonObj.getString("data");
+//                                data =new String(Base64Coder.decodeString(data));
+//                                Log.e("datadatadatadata",data);
                                 msg.what = 18;
                                 msg.obj = msg_code;
                             } else {
@@ -633,6 +634,12 @@ public class CheckResultActivity extends BaseActivity {
 
     }
     public void updataData(){
+        Intent intent = new Intent(CheckResultActivity.this, SubmitImageService.class);
+        intent.putExtra("addtime", addtime);
+        intent.putExtra("IMEI", UserDateBean.getInstance().getIMEI());
+        intent.putExtra("uid", UserDateBean.getInstance().getId());
+        intent.putExtra("msgId", msgId);
+        startService(intent);
         CheckDetailActivity.instance.finish();
         InformActivity.instance.finish();
         finish();

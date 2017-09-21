@@ -837,7 +837,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
                     contextmap=new HashMap<String, Object>();
                     if(JSONUtils.getString(dataobject, "time", "")!=null&& JSONUtils.getString(dataobject, "time", "").length() > 0) {
                         contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
-                        contextmap.put("question_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
+                        contextmap.put("question_date",JSONUtils.getString(dataobject, "time", "0"));
                         contextmap.put("question_corpname", JSONUtils.getString(dataobject, "name", ""));
                         contextmap.put("question_no", JSONUtils.getString(dataobject, "code", ""));
                         contextmap.put("question_result", JSONUtils.getString(dataobject, "result", ""));

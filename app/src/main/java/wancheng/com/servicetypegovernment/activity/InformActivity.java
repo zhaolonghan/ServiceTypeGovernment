@@ -214,6 +214,8 @@ public class InformActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 if(tb_address.getText()==null||tb_address.getText().toString()==null||"".equals(tb_address.getText().toString().trim())){
                     Toast.makeText(InformActivity.this, "请输入被检查单位地址！", Toast.LENGTH_SHORT).show();
                     return;
@@ -249,33 +251,34 @@ public class InformActivity extends BaseActivity {
                 boolean ok=databaseHelper.findMsg(insertid);
                 if(ok){
                     databaseHelper.updataMsg(map,insertid);
-
                     Log.e("修改", "修改id是" + insertid);
                 }else {
                     insertid=databaseHelper.insertMsg(map);
                     Log.e("插入", "插入id是" + insertid);
                 }
-
-                Intent intent = new Intent();
-                intent.putExtra("corpId",corpId);
-                intent.putExtra("ztlx",ztlx);
-                intent.putExtra("uid","2");
-                intent.putExtra("address",tb_address.getText().toString());
-                intent.putExtra("insertid",insertid);
-                intent.putExtra("checkAll",checkAll);
-                intent.putExtra("fuzeren",fuzeren);
-                intent.putExtra("phone",phone);
-                intent.putExtra("permits",permits);
-                intent.putExtra("tableName",tableName);
-                intent.putExtra("resultId",resultId);
-                intent.putExtra("checkDate",ed_date.getText().toString());
-                intent.putExtra("type",type);
-                intent.putExtra("zfry1",map.get("checker1").toString());
-                intent.putExtra("zfry2",map.get("checker2").toString());
-                intent.putExtra("corpname",tv_corpname.getText().toString());
-                intent.setClass(InformActivity.this, CheckDetailActivity.class);
-                InformActivity.this.startActivity(intent);
-            }
+                if(isBack==1){
+                    finish();
+                }
+                    Intent intent = new Intent();
+                    intent.putExtra("corpId", corpId);
+                    intent.putExtra("ztlx", ztlx);
+                    intent.putExtra("uid", "2");
+                    intent.putExtra("address", tb_address.getText().toString());
+                    intent.putExtra("insertid", insertid);
+                    intent.putExtra("checkAll", checkAll);
+                    intent.putExtra("fuzeren", fuzeren);
+                    intent.putExtra("phone", phone);
+                    intent.putExtra("permits", permits);
+                    intent.putExtra("tableName", tableName);
+                    intent.putExtra("resultId", resultId);
+                    intent.putExtra("checkDate", ed_date.getText().toString());
+                    intent.putExtra("type", type);
+                    intent.putExtra("zfry1", map.get("checker1").toString());
+                    intent.putExtra("zfry2", map.get("checker2").toString());
+                    intent.putExtra("corpname", tv_corpname.getText().toString());
+                    intent.setClass(InformActivity.this, CheckDetailActivity.class);
+                    InformActivity.this.startActivity(intent);
+                }
         });
         tv_left.setOnClickListener(new View.OnClickListener() {
             @Override

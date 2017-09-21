@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity {
     private String username;
     private String passWord;
     private DatabaseHelper databaseHelper;
+    private String IMEI;
     private HashMap<String, Object> map = new HashMap<String, Object>();
     private static final int REQUEST_CODE = 1;
     @Override
@@ -156,7 +158,10 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE) {
             int grantResult = grantResults[1];
             boolean granted = grantResult == PackageManager.PERMISSION_GRANTED;
+            TelephonyManager TelephonyMgr = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+            IMEI = TelephonyMgr.getDeviceId();
             Log.i("权限申请", "onRequestPermissionsResult granted=" + granted);
+            Log.i("IMEI", "IMEId=" + IMEI);
         }
     }
     private void requestMultiplePermissions() {
@@ -248,12 +253,8 @@ public class MainActivity extends BaseActivity {
                                 UserDateBean.getInstance().setUsername(JSONUtils.getString(dataArray, "loginName", ""));
                                 UserDateBean.getInstance().setId(JSONUtils.getString(dataArray, "uid", "0"));
                                 UserDateBean.getInstance().setName(JSONUtils.getString(dataArray, "name", ""));
-                                UserDateBean.getInstance().setPhone(JSONUtils.getString(dataArray, "phone", ""));
-                                UserDateBean.getInstance().setPhoto(JSONUtils.getString(dataArray, "photo", ""));
-                                UserDateBean.getInstance().setMobile(JSONUtils.getString(dataArray, "mobile", ""));
-                                UserDateBean.getInstance().setNo(JSONUtils.getString(dataArray, "no", ""));
-                                UserDateBean.getInstance().setEmail(JSONUtils.getString(dataArray, "email", ""));
-                                UserDateBean.getInstance().setPassword(password);
+                                UserDateBean.getInstance().setPhone(JSONUtils.getString(dataArray, "mobile", ""));
+                                UserDateBean.getInstance().setIMEI(IMEI);
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {
