@@ -46,7 +46,7 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
     private int pageNo=1;
     private int pageSize=12;
     private String keyword;
-  //  private RefreshListView refreshListView;
+    //  private RefreshListView refreshListView;
     private final static int REFRESH_COMPLETE = 0;
     private Handler mHandler = new Handler(){
         public void handleMessage(android.os.Message msg) {
@@ -95,7 +95,7 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
             public void run() {
                 try {
                     Thread.sleep(3000);
-                 //   mDatas.add(0, "new data");
+                    //   mDatas.add(0, "new data");
                     mHandler.sendEmptyMessage(REFRESH_COMPLETE);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
@@ -107,14 +107,14 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
     @Override
     protected void lazyLoad() {
 
-            context = getActivity();
-            TopBean topBean=new TopBean("新闻动态","","",false,false);
-            getTopView(topBean,contactsLayout);
-            listView=(RefreshListView)contactsLayout.findViewById(R.id.newslist);
-            listnews=  new ArrayList<Map<String, Object>>();
-            madapter = new NewsAdspter(context, listnews);
-            listView.setAdapter(madapter);
-            onOperationEvent();
+        context = getActivity();
+        TopBean topBean=new TopBean("新闻动态","","",false,false);
+        getTopView(topBean,contactsLayout);
+        listView=(RefreshListView)contactsLayout.findViewById(R.id.newslist);
+        listnews=  new ArrayList<Map<String, Object>>();
+        madapter = new NewsAdspter(context, listnews);
+        listView.setAdapter(madapter);
+        onOperationEvent();
 
     }
 
@@ -142,7 +142,7 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
                         if (view.getLastVisiblePosition() == (view.getCount() - 1)&&isadd) {
                             isadd=false;
                             pageNo=pageNo+1;
-                           getData();
+                            getData();
 
                         }
 
@@ -173,15 +173,15 @@ public class NewsFragment  extends BaseFragment implements RefreshListView.OnRef
             public void run() {
                 String url= ConstUtil.METHOD_NEWSLIST;
                 Map<String, Object> map = new HashMap<String, Object>();
-            try{
-                JSONObject jsonQuery = new JSONObject();
-                jsonQuery.put("pageNo",pageNo);
-                jsonQuery.put("pageSize", pageSize);
-                jsonQuery.put("keyword", keyword);
-                map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+                try{
+                    JSONObject jsonQuery = new JSONObject();
+                    jsonQuery.put("pageNo",pageNo);
+                    jsonQuery.put("pageSize", pageSize);
+                    jsonQuery.put("keyword", keyword);
+                    map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 NetUtil net = new NetUtil();
                 String res = net.posturl(url , map);
                 if(res==null||"".equals(res)||res.contains("Fail to establish http connection!")){

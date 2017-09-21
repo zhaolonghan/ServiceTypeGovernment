@@ -3,13 +3,10 @@ package wancheng.com.servicetypegovernment.activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -43,7 +40,7 @@ public class MyCenterFragment   extends BaseFragment {
         TextView username=(TextView)contactsLayout.findViewById(R.id.tv_username );
         username.setText(UserDateBean.getUser().getName());
         com.makeramen.roundedimageview.RoundedImageView userimage=(com.makeramen.roundedimageview.RoundedImageView)contactsLayout.findViewById(R.id.iv_user);
-        if(UserDateBean.getUser().getPhotoimage()!=null&&UserDateBean.getUser().getPhotoimage().length()>0){
+        if(UserDateBean.getUser().getPhotoimage()!=null&& UserDateBean.getUser().getPhotoimage().length()>0){
             String url = "http://s16.sinaimg.cn/orignal/89429f6dhb99b4903ebcf&690";
             //得到可用的图片
             Bitmap bitmap = getHttpBitmap(url);

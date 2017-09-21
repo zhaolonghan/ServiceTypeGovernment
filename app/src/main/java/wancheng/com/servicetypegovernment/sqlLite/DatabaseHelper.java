@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "isImp INTEGER," +
                 "msgId INTEGER," +
                 "checkResult INTEGER," +
+                "content_sort TEXT," +
                 "checkNote TEXT" +
                 ")");
         //创建图片表
@@ -86,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValue.put("companyId",map.get("companyId").toString());
         cValue.put("checker1",map.get("checker1").toString());
         cValue.put("checker2",map.get("checker2").toString());
-        cValue.put("checkdate",map.get("checkdate").toString());
+        cValue.put("checkdate", map.get("checkdate").toString());
         cValue.put("ifBack",map.get("ifBack").toString());
         cValue.put("companySign",map.get("companySign").toString());
         cValue.put("companySignDate",map.get("companySignDate").toString());
@@ -132,6 +133,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return falg;
     }
+    public Map<String,Object> findMsgByid(long id) {
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,Object>> versionList = null;
+        Cursor cursor = db.query("tb_msg", null, "id="+id, null, null,  null, null, null);
+        versionList = new ArrayList<Map<String,Object>>();
+        while(cursor.moveToNext()){
+            Map<String,Object> msg = new HashMap<String,Object>();
+            msg.put("id",cursor.getString(cursor.getColumnIndex("id")));
+            msg.put("companyId",cursor.getString(cursor.getColumnIndex("companyId")));
+            msg.put("checker1",cursor.getString(cursor.getColumnIndex("checker1")));
+            msg.put("checker2",cursor.getString(cursor.getColumnIndex("checker2")));
+            msg.put("checkdate",cursor.getString(cursor.getColumnIndex("checkdate")));
+            msg.put("ifBack",cursor.getString(cursor.getColumnIndex("ifBack")));
+            msg.put("companySign",cursor.getString(cursor.getColumnIndex("companySign")));
+            msg.put("companySignDate",cursor.getString(cursor.getColumnIndex("companySignDate")));
+            msg.put("checkSign",cursor.getString(cursor.getColumnIndex("checkSign")));
+            msg.put("checkSignDate",cursor.getString(cursor.getColumnIndex("checkSignDate")));
+            msg.put("content", cursor.getString(cursor.getColumnIndex("content")));
+            versionList.add(msg);
+        }
+        db.close();
+        Log.e("versionList size", versionList.size() + "");
+        if(versionList!=null&&versionList.size()>0){
+            return versionList.get(0);
+        }
+        return null;
+    }
+    public List<Map<String,Object>> findCheckByMsgid(long id) {
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,Object>> versionList = null;
+        Cursor cursor = db.query("tb_check", null, "msgId="+id, null, null,  null, null, null);
+        versionList = new ArrayList<Map<String,Object>>();
+        while(cursor.moveToNext()){
+            Map<String,Object> msg = new HashMap<String,Object>();
+            msg.put("id",cursor.getString(cursor.getColumnIndex("id")));
+            msg.put("pid",cursor.getString(cursor.getColumnIndex("pid")));
+            msg.put("cid",cursor.getString(cursor.getColumnIndex("cid")));
+            msg.put("isImp",cursor.getString(cursor.getColumnIndex("isImp")));
+            msg.put("msgId",cursor.getString(cursor.getColumnIndex("msgId")));
+            msg.put("checkResult",cursor.getString(cursor.getColumnIndex("checkResult")));
+            msg.put("checkNote",cursor.getString(cursor.getColumnIndex("checkNote")));
+            msg.put("content_sort",cursor.getString(cursor.getColumnIndex("content_sort")));
+            versionList.add(msg);
+        }
+        db.close();
+        return versionList;
+    }
     public long findCheck(String pid,String cid,long msgId) {
         SQLiteDatabase db=getWritableDatabase();
         Cursor cursor = db.query("tb_check", null, "pid='"+pid+"' and cid='"+cid+"' and msgId="+msgId, null, null, null, null);
@@ -172,6 +220,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValue.put("msgId",map.get("msgId").toString());
         cValue.put("checkResult",map.get("checkResult").toString());
         cValue.put("checkNote", map.get("checkNote").toString());
+        cValue.put("content_sort", map.get("content_sort").toString());
         long id=db.insert("tb_check", null, cValue);
 
         Log.e("插入","插入了检查表");
@@ -319,6 +368,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 images.add(image);
 
             }
+        db.close();
+        return images;
+    }
+    public List<Map<String,String>> findImageByMsgId(long msgId) {
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,String>> images = null;
+        Cursor cursor = db.query("tb_check_image", null, "msgId="+msgId, null, null, null, null);
+        images = new ArrayList<Map<String,String>>();
+        while(cursor.moveToNext()){
+            Map<String,String> image = new HashMap<String,String>();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
+            String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
+            String msgId1 = cursor.getString(cursor.getColumnIndex("msgId"));
+            image.put("id",id+"");
+            image.put("checkId",checkId+"");
+            image.put("msgId",msgId1+"");
+            image.put("imagePath",imagePath);
+
+            images.add(image);
+
+        }
         db.close();
         return images;
     }

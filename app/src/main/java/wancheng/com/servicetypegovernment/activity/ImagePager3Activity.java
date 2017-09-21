@@ -1,7 +1,5 @@
 package wancheng.com.servicetypegovernment.activity;
 
-import java.util.ArrayList;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +8,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.view.HackyViewPager;
 

@@ -2,7 +2,6 @@ package wancheng.com.servicetypegovernment.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
-import wancheng.com.servicetypegovernment.util.JSONUtils;
 
 /**
  * Created by HANZHAOLONG on 2017/8/31.

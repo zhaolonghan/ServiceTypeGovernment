@@ -1,7 +1,6 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +9,11 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -153,7 +150,7 @@ public class CheckHistoryListActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                     JSONArray dataArray=new JSONArray(data);
                                     if (dataArray!=null&&dataArray.length()>0) {// 1符合  2基本符合  3不符合
@@ -222,12 +219,12 @@ public class CheckHistoryListActivity extends BaseActivity {
                 JSONObject dataobject = dataArray.getJSONObject(i);
                 if(dataobject!=null){
                     contextmap=new HashMap<String, Object>();
-                    if(JSONUtils.getString(dataobject, "time", "")!=null&&JSONUtils.getString(dataobject, "time", "").length()>0) {
-                        contextmap.put("id",JSONUtils.getString(dataobject, "resultId", ""));
+                    if(JSONUtils.getString(dataobject, "time", "")!=null&& JSONUtils.getString(dataobject, "time", "").length()>0) {
+                        contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
                         contextmap.put("history_time", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
-                        contextmap.put("result",JSONUtils.getString(dataobject, "result", ""));
-                        contextmap.put("type",JSONUtils.getString(dataobject, "type", ""));
-                        contextmap.put("result",JSONUtils.getString(dataobject, "result", ""));
+                        contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));
+                        contextmap.put("type", JSONUtils.getString(dataobject, "type", ""));
+                        contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));
 
                         listcontext.add(contextmap);
                     }

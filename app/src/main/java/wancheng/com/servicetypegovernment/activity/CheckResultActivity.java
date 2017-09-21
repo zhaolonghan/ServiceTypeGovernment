@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,15 +32,19 @@ import com.amap.api.location.AMapLocationListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.service.SubmitImageService;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -97,7 +100,10 @@ public class CheckResultActivity extends BaseActivity {
     private String inspectResult;
     private String jcnr;
     private String latitude;
+    private String resultId;
     private String longitude;
+    private String addtime;
+    private long  msgId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +123,9 @@ public class CheckResultActivity extends BaseActivity {
         phone=intent.getStringExtra("phone");
         permits=intent.getStringExtra("permits");
         data=intent.getStringExtra("data");
-        Log.e("data data ",data);
-        Log.e("data size ", data.length() + "");
+        resultId=intent.getStringExtra("resultId");
+        msgId=intent.getLongExtra("insertid", -1);
+        Log.e("msgId data ",msgId+"");
         getData();
         iv_addsign=(ImageView)findViewById(R.id.iv_addsign);
         iv_addsign2=(ImageView)findViewById(R.id.iv_addsign2);
@@ -224,6 +231,23 @@ public class CheckResultActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ed_fuzeren.getText()==null||ed_fuzeren.getText().toString()==null||"".equals(ed_fuzeren.getText().toString().trim())){
+                    Toast.makeText(CheckResultActivity.this, "请输入联系人！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(ed_phone.getText()==null||ed_phone.getText().toString()==null||"".equals(ed_phone.getText().toString().trim())){
+                    Toast.makeText(CheckResultActivity.this, "请输入联系人电话！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(isSign1==false){
+                    Toast.makeText(CheckResultActivity.this, "请被检查单位签名！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(isSign2==false){
+                    Toast.makeText(CheckResultActivity.this, "请检查单位签名！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 showNormalDialog1("提示", "是否提交检查表？");
             }
         });
@@ -282,7 +306,8 @@ public class CheckResultActivity extends BaseActivity {
     @Override
     public void updateView() {
         tv_checks.setText(ndjccs);
-        tv_checkdetail.setText(Html.fromHtml(jcnr));
+        String s=jcnr;
+        tv_checkdetail.setText(Html.fromHtml(s));
         switch (Integer.parseInt(inspectResult)){
             case 1:
                 rb_yes.setChecked(true);
@@ -370,7 +395,7 @@ public class CheckResultActivity extends BaseActivity {
             public void run() {
                 Map<String, Object> map = new HashMap<String, Object>();
                // data= Base64Coder.encodeString(data);
-                map.put("data",data);
+                map.put("data",Base64Coder.encodeString(data));
 ;                NetUtil net = new NetUtil();
                 String res = net.sendPost(ConstUtil.METHOD_GETJCNR, map);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
@@ -389,10 +414,10 @@ public class CheckResultActivity extends BaseActivity {
                                 data =new String(Base64Coder.decodeString(data));
                                 Log.e("datadatadatadata",data);
                                 JSONObject obj= new JSONObject(data);
-                                result=JSONUtils.getString(obj, "result", "");
-                                ndjccs=JSONUtils.getString(obj, "ndjccs", "");
-                                inspectResult=JSONUtils.getString(obj, "inspectResult", "");
-                                jcnr=JSONUtils.getString(obj, "jcnr", "");
+                                result= JSONUtils.getString(obj, "result", "");
+                                ndjccs= JSONUtils.getString(obj, "ndjccs", "");
+                                inspectResult= JSONUtils.getString(obj, "inspectResult", "");
+                                jcnr= JSONUtils.getString(obj, "jcnr", "");
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {
@@ -458,9 +483,7 @@ public class CheckResultActivity extends BaseActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        CheckDetailActivity.instance.finish();
-                        InformActivity.instance.finish();
-                        finish();
+                        shbmitData();
                     }
                 });
         normalDialog.setNegativeButton("取消",
@@ -487,5 +510,138 @@ public class CheckResultActivity extends BaseActivity {
 //        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
         mOption.setLocationCacheEnable(true); //可选，设置是否使用缓存定位，默认为true
         return mOption;
+    }
+    private String getJsonStr(){
+        try{
+            addtime=new SimpleDateFormat("yyyyMMDDHHmmss").format(new Date());
+            Map<String,Object> map=databaseHelper.findMsgByid(msgId);
+            List<Map<String,Object>> mapList=databaseHelper. findCheckByMsgid(msgId);
+
+            Log.e("companySign", map.get("companySign").toString());
+            Log.e("checkSign",map.get("checkSign").toString());
+            String str="{";
+            str+="\"uid\":\""+ UserDateBean.getInstance().getId()+"\"";
+            str+=",\"corpId\":\""+map.get("companyId")+"\"";
+            str+=",\"appResultId\":\""+map.get("id")+"\"";
+            str+=",\"resultId\":\""+resultId+"\"";
+            str+=",\"appResultUpTime\":\""+addtime+"\"";
+            str+=",\"IMEI\":\""+ UserDateBean.getInstance().getIMEI()+"\"";
+            str+=",\"address\":\""+tv_address.getText().toString()+"\"";
+            str+=",\"fuzeren\":\""+ed_fuzeren.getText().toString()+"\"";
+            str+=",\"jcjgnr\":\""+ Base64Coder.encodeString(jcnr)+"\"";
+            str+=",\"fuzerenTel\":\""+ed_phone.getText().toString()+"\"";
+            str+=",\"ztlx2\":\""+ztlx+"\"";
+            str+=",\"inspectResult\":\""+inspectResult+"\"";
+            str+=",\"result\":\""+result+"\"";
+            str+=",\"deadline\":\""+""+"\"";
+            str+=",\"remarks\":\""+ed_note.getText().toString()+"\"";
+            str+=",\"zfryqz\":\""+ encodeBase64File(signPath1)+"\"";
+            str+=",\"zfryqzTime\":\""+ed_date.getText().toString()+"\"";
+            str+=",\"inspectUnitOpinions\":\""+ed_advice.getText().toString()+"\"";
+            str+=",\"frhfzrqz\":\""+ encodeBase64File(signPath2)+"\"";
+            str+=",\"frhfzrjzTime\":\""+ed_date2.getText().toString()+"\"";
+            str+=",\"gzyZhifaBy\":\""+map.get("checker1")+","+map.get("checker2")+"\"";
+            str+=",\"gzyInspectTime\":\""+map.get("checkdate")+"\"";
+            str+=",\"gzyGzsx\":\"" + Base64Coder.encodeString(map.get("content").toString())+"\"";
+            str+=",\"gzySfhb\":\""+map.get("ifBack")+"\"";
+            str+=",\"gzyBjcdwqz\":\""+encodeBase64File(map.get("companySign").toString())+"\"";
+            str+=",\"gzyBjcdwqzTime\":\""+map.get("companySignDate")+"\"";
+            str+=",\"gzyJcdwqz\":\""+encodeBase64File(map.get("checkSign").toString())+"\"";
+            str+=",\"gzyJcdwqzTime\":\""+map.get("checkSignDate")+"\"";
+            str+=",\"lng\":\""+longitude+"\"";
+            str+=",\"lat\":\""+latitude+"\"";
+            str+=",\"resultItem\":[";
+            for(int i=0;i <mapList.size();i++){
+                Map<String,Object> mapChild=mapList.get(i);
+                if(i==0){
+                    str+="{";
+                }else{
+                    str+=",{";
+                }
+                str+="\"itemId\":\""+mapChild.get("pid").toString()+"\"";
+                str+=",\"itemContentId\":\""+mapChild.get("cid").toString()+"\"";
+                str+=",\"content_sort\":\""+mapChild.get("content_sort").toString()+"\"";
+                str+=",\"ispoint\":\""+mapChild.get("isImp").toString()+"\"";
+                str+=",\"result\":\""+mapChild.get("checkResult").toString()+"\"";
+                str+=",\"remarks\":\""+mapChild.get("checkNote").toString()+"\"";
+                str+=",\"appContentId\":\""+mapChild.get("id").toString()+"\"}";
+            }
+            str+="]}";
+            return str;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+    public static String encodeBase64File(String path) throws Exception {
+        File file = new File(path);;
+        FileInputStream inputFile = new FileInputStream(file);
+        byte[] buffer = new byte[(int) file.length()];
+        inputFile.read(buffer);
+        inputFile.close();
+        return new String(Base64Coder.encodeLines(buffer));
+
+    }
+    /**
+     * 获取数据
+     */
+    private void shbmitData() {
+        pd = ProgressDialog.show(this, "", "请稍候...");
+        new Thread() {
+            public void run() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                // data= Base64Coder.encodeString(data);
+                map.put("data",Base64Coder.encodeString(getJsonStr()));
+                NetUtil net = new NetUtil();
+                String res = net.sendPost(ConstUtil.METHOD_SAVERESULT, map);
+                if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
+                    handler.sendEmptyMessage(4);
+                } else {
+                    Message msg = new Message();
+                    msg.what = 15;
+                    if (!res.isEmpty()) {
+                        JSONObject jsonObj;
+                        try {
+                            jsonObj = new JSONObject(res);
+                            String msg_code = testStringNull(jsonObj.optString("msg"));
+                            String code = testStringNull(jsonObj.optString("code"));
+                            if ("0".equals(code)) {
+//                                String  data=jsonObj.getString("data");
+//                                data =new String(Base64Coder.decodeString(data));
+//                                Log.e("datadatadatadata",data);
+                                msg.what = 18;
+                                msg.obj = msg_code;
+                            } else {
+                                if (msg_code != null && !msg_code.isEmpty())
+                                    msg.obj = msg_code;
+                                else
+                                    msg.obj = "请求异常，请稍后重试！";
+
+                            }
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            msg.obj = "请求异常，请稍后重试！";
+                        }
+                        handler.sendMessage(msg);
+                    }
+
+                }
+            }
+
+            ;
+        }.start();
+
+    }
+    public void updataData(){
+        Intent intent = new Intent(CheckResultActivity.this, SubmitImageService.class);
+        intent.putExtra("addtime", addtime);
+        intent.putExtra("IMEI", UserDateBean.getInstance().getIMEI());
+        intent.putExtra("uid", UserDateBean.getInstance().getId());
+        intent.putExtra("msgId", msgId);
+        startService(intent);
+        CheckDetailActivity.instance.finish();
+        InformActivity.instance.finish();
+        finish();
     }
 }

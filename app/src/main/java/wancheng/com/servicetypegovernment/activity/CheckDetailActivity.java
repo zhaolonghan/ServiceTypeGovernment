@@ -31,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +73,7 @@ public class CheckDetailActivity extends BaseActivity {
     private List<ImageUpload> imageUploads=new ArrayList<ImageUpload>();
     private List<Map<String,Object>> sendList;
     public static CheckDetailActivity instance = null;
+    private String resultId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +96,7 @@ public class CheckDetailActivity extends BaseActivity {
         type=intent.getStringExtra("type");
         zfry1=intent.getStringExtra("zfry1");
         zfry2=intent.getStringExtra("zfry2");
+        resultId=intent.getStringExtra("resultId");
         Log.e("msgId",msgId+"");
         layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         TopBean topBean=new TopBean("检查要点","上一步","下一步",true,true);
@@ -112,22 +113,22 @@ public class CheckDetailActivity extends BaseActivity {
                     map=new HashMap<String,Object>();
                     dataChildList=new ArrayList<Map<String,Object>>();
                     JSONObject object=checkerList.getJSONObject(i);
-                    String no=JSONUtils.getString(object, "no", "");
-                    String name=JSONUtils.getString(object, "name", "");
-                    String remarks=JSONUtils.getString(object, "remarks", "");
+                    String no= JSONUtils.getString(object, "no", "");
+                    String name= JSONUtils.getString(object, "name", "");
+                    String remarks= JSONUtils.getString(object, "remarks", "");
                     JSONArray checkerChildList=new JSONArray(JSONUtils.getString(object, "content", ""));
                     if(checkerChildList!=null&&checkerChildList.length()>0){
                         for(int j=0;j<checkerChildList.length();j++){
                             mapChild=new HashMap<String,Object>();
                             JSONObject objectChild=checkerChildList.getJSONObject(j);
-                            String content_sort=JSONUtils.getString(objectChild, "content_sort", "");
-                            String itemId=JSONUtils.getString(objectChild, "itemId", "");
-                            String isPoint=JSONUtils.getString(objectChild, "isPoint", "");
-                            String itemContentId=JSONUtils.getString(objectChild, "itemContentId", "");
-                            String content=JSONUtils.getString(objectChild, "content", "");
-                            String mode=JSONUtils.getString(objectChild, "mode", "");
-                            String guide=JSONUtils.getString(objectChild, "guide", "");
-                            String base=JSONUtils.getString(objectChild, "base", "");
+                            String content_sort= JSONUtils.getString(objectChild, "content_sort", "");
+                            String itemId= JSONUtils.getString(objectChild, "itemId", "");
+                            String isPoint= JSONUtils.getString(objectChild, "isPoint", "");
+                            String itemContentId= JSONUtils.getString(objectChild, "itemContentId", "");
+                            String content= JSONUtils.getString(objectChild, "content", "");
+                            String mode= JSONUtils.getString(objectChild, "mode", "");
+                            String guide= JSONUtils.getString(objectChild, "guide", "");
+                            String base= JSONUtils.getString(objectChild, "base", "");
                             mapChild.put("content_sort",content_sort);
                             mapChild.put("itemId",itemId);
                             mapChild.put("isPoint",isPoint);
@@ -193,6 +194,7 @@ public class CheckDetailActivity extends BaseActivity {
                    intent.putExtra("fuzeren",fuzeren);
                    intent.putExtra("phone",phone);
                    intent.putExtra("permits",permits);
+                   intent.putExtra("resultId",resultId);
                    intent.putExtra("data", getJsonStr());
                    intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
                    CheckDetailActivity.this.startActivity(intent);
@@ -730,6 +732,7 @@ public class CheckDetailActivity extends BaseActivity {
                         intent.putExtra("fuzeren",fuzeren);
                         intent.putExtra("phone",phone);
                         intent.putExtra("permits",permits);
+                        intent.putExtra("resultId",resultId);
                         intent.putExtra("data", getJsonStr());
                         intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
                         CheckDetailActivity.this.startActivity(intent);

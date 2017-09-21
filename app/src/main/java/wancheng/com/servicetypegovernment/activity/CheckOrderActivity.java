@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -30,7 +29,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.CheckAdspter;
@@ -41,6 +39,7 @@ import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 import wancheng.com.servicetypegovernment.view.PopWindow;
+
 /**
  * test
  */
@@ -468,7 +467,7 @@ public class CheckOrderActivity extends BaseActivity {
                                 String msg_code = testStringNull(jsonObj.optString("msg"));
                                 String code = testStringNull(jsonObj.optString("code"));
                                 if("0".equals(code)){
-                                    String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                    String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                     if(data!=null&&data!="") {
                                         JSONObject jsondata = new JSONObject(data);
                                         JSONArray   dataArray = jsondata.getJSONArray("corp");
@@ -568,7 +567,7 @@ public class CheckOrderActivity extends BaseActivity {
                     String msg_code = testStringNull(jsonObj.optString("msg"));
                     String code = testStringNull(jsonObj.optString("code"));
                     if("0".equals(code)){
-                        String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                        String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                         if(data!=null&&data!=""){
                             JSONArray dataArray=new JSONArray(data);
                             if (dataArray!=null&&dataArray.length()>0) {
@@ -640,7 +639,7 @@ public class CheckOrderActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                     JSONArray dataArray=new JSONArray(data);
                                     setcorpdata(dataArray);
@@ -689,28 +688,28 @@ public class CheckOrderActivity extends BaseActivity {
                     if(title!=null&&title.length()>15){
                         title=title.substring(15)+"...";
                     }
-                    if(JSONUtils.getString(dataobject, "id", "")!=null&&JSONUtils.getString(dataobject, "id", "").length()>0){
+                    if(JSONUtils.getString(dataobject, "id", "")!=null&& JSONUtils.getString(dataobject, "id", "").length()>0){
                         contextmap=new HashMap<String, Object>();
                         corpTypeList=new ArrayList<Map<String,Object>>();
-                        contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
+                        contextmap.put("id", JSONUtils.getString(dataobject, "id", ""));
                         contextmap.put("ztlx", corpquery.ztlx);
-                        contextmap.put("corp_name",JSONUtils.getString(dataobject, "name", ""));
-                        contextmap.put("corp_code",JSONUtils.getString(dataobject, "code",""));
-                        contextmap.put("corp_person",JSONUtils.getString(dataobject, "fuzeren",""));
-                        contextmap.put("corp_tel",JSONUtils.getString(dataobject, "fuzerenTel",""));
-                        contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz",""));
-                        contextmap.put("resultId", JSONUtils.getString(dataobject, "resultId",""));
+                        contextmap.put("corp_name", JSONUtils.getString(dataobject, "name", ""));
+                        contextmap.put("corp_code", JSONUtils.getString(dataobject, "code", ""));
+                        contextmap.put("corp_person", JSONUtils.getString(dataobject, "fuzeren", ""));
+                        contextmap.put("corp_tel", JSONUtils.getString(dataobject, "fuzerenTel", ""));
+                        contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz", ""));
+                        contextmap.put("resultId", JSONUtils.getString(dataobject, "resultId", ""));
 
 
-                        if(JSONUtils.getString(dataobject, "inspectTable","").length()>0){
+                        if(JSONUtils.getString(dataobject, "inspectTable", "").length()>0){
 
-                        dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable",""));
+                        dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable", ""));
                         if(dataTypeArray!=null&&dataTypeArray.length()>0){
                             for(int j=0;j<dataTypeArray.length();j++){
                                 JSONObject typeobject = dataTypeArray.getJSONObject(j);
                                 type=new HashMap<String, Object>();
-                                type.put("tableName",JSONUtils.getString(typeobject, "tableName", ""));
-                                type.put("ztlx2",JSONUtils.getString(typeobject, "ztlx2",""));
+                                type.put("tableName", JSONUtils.getString(typeobject, "tableName", ""));
+                                type.put("ztlx2", JSONUtils.getString(typeobject, "ztlx2", ""));
                                 corpTypeList.add(type);
                             }
                         }
@@ -736,8 +735,8 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
             JSONObject dataobject = dataArray.getJSONObject(i);
             if(dataobject!=null){
                 contextmap=new HashMap<String, Object>();
-                if(JSONUtils.getString(dataobject, "startTime", "")!=null&&JSONUtils.getString(dataobject, "startTime", "").length()>0) {
-                    contextmap.put("id",JSONUtils.getString(dataobject, "id", ""));
+                if(JSONUtils.getString(dataobject, "startTime", "")!=null&& JSONUtils.getString(dataobject, "startTime", "").length()>0) {
+                    contextmap.put("id", JSONUtils.getString(dataobject, "id", ""));
                     contextmap.put("check_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "startTime", "0")))));
                     contextmap.put("check_corpnum", JSONUtils.getString(dataobject, "corpCount", ""));
                     contextmap.put("check_status", JSONUtils.getString(dataobject, "status", ""));
@@ -793,7 +792,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                     JSONArray dataArray=new JSONArray(data);
                                     setQuestiondata(dataArray);
@@ -836,16 +835,16 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
                 JSONObject dataobject = dataArray.getJSONObject(i);
                 if(dataobject!=null){
                     contextmap=new HashMap<String, Object>();
-                    if(JSONUtils.getString(dataobject, "time", "")!=null&&JSONUtils.getString(dataobject, "time", "").length() > 0) {
-                        contextmap.put("id",JSONUtils.getString(dataobject, "resultId", ""));
-                        contextmap.put("question_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
+                    if(JSONUtils.getString(dataobject, "time", "")!=null&& JSONUtils.getString(dataobject, "time", "").length() > 0) {
+                        contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
+                        contextmap.put("question_date",JSONUtils.getString(dataobject, "time", "0"));
                         contextmap.put("question_corpname", JSONUtils.getString(dataobject, "name", ""));
                         contextmap.put("question_no", JSONUtils.getString(dataobject, "code", ""));
                         contextmap.put("question_result", JSONUtils.getString(dataobject, "result", ""));
                         contextmap.put("question_management", JSONUtils.getString(dataobject, "zhuzhi", ""));
                         contextmap.put("question_status", JSONUtils.getString(dataobject, "status", ""));
                         contextmap.put("question_limit", JSONUtils.getString(dataobject, "deadline", "0").length() > 0 ? DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "deadline", "0")))):"");
-                        contextmap.put("uid",UserDateBean.getUser().getId());
+                        contextmap.put("uid", UserDateBean.getUser().getId());
                         oneGetquestion.add(contextmap);
                     }
                 }
@@ -862,7 +861,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
 
         public CorpQuery(){
 
@@ -882,7 +881,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
 
         public CheckQuery(){
 
@@ -902,7 +901,7 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
 
         public QuestionQuery(){
 

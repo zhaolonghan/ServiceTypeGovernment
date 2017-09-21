@@ -6,20 +6,13 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.AbsListView;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -217,7 +210,7 @@ public class QuestionListActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                     JSONArray dataArray=new JSONArray(data);
                                     setQuestiondata(dataArray);
@@ -260,8 +253,8 @@ public class QuestionListActivity extends BaseActivity {
                 JSONObject dataobject = dataArray.getJSONObject(i);
                 if(dataobject!=null){
                     contextmap=new HashMap<String, Object>();
-                    if(JSONUtils.getString(dataobject, "time", "")!=null&&JSONUtils.getString(dataobject, "time", "").length() > 0) {
-                        contextmap.put("id",JSONUtils.getString(dataobject, "resultId", ""));
+                    if(JSONUtils.getString(dataobject, "time", "")!=null&& JSONUtils.getString(dataobject, "time", "").length() > 0) {
+                        contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
                         contextmap.put("question_date", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
                         contextmap.put("question_corpname", JSONUtils.getString(dataobject, "name", ""));
                         contextmap.put("question_no", JSONUtils.getString(dataobject, "code", ""));
@@ -269,7 +262,7 @@ public class QuestionListActivity extends BaseActivity {
                         contextmap.put("question_management", JSONUtils.getString(dataobject, "zhuzhi", ""));
                         contextmap.put("question_status", JSONUtils.getString(dataobject, "status", ""));
                         contextmap.put("question_limit", JSONUtils.getString(dataobject, "deadline", "0").length() > 0 ? DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "deadline", "0")))):"");
-                        contextmap.put("uid",UserDateBean.getUser().getId());
+                        contextmap.put("uid", UserDateBean.getUser().getId());
                         oneGetquestion.add(contextmap);
                     }
                 }
@@ -286,7 +279,7 @@ public class QuestionListActivity extends BaseActivity {
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
 
         public CorpQuery(){
 
@@ -306,7 +299,7 @@ public class QuestionListActivity extends BaseActivity {
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
 
         public CheckQuery(){
 
@@ -326,7 +319,7 @@ public class QuestionListActivity extends BaseActivity {
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
-        public  String uid=UserDateBean.getUser().getId();
+        public  String uid= UserDateBean.getUser().getId();
 
         public QuestionQuery(){
 

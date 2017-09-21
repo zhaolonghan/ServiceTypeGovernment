@@ -8,8 +8,17 @@ import java.util.List;
 public class ImageUpload {
     private int indexP;
     private int indexC;
-    private String path;;
+    private String path;
+    private String fileName;
     private List<ImagesBean> paths;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 
     public String getPath() {
         return path;

@@ -28,7 +28,6 @@ import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
-import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 
 
 /**
@@ -290,7 +289,7 @@ public  class BaseActivity extends Activity {
      * @param
      * @return
      */
-    android.content.DialogInterface.OnClickListener getFavoriteListener() {
+    DialogInterface.OnClickListener getFavoriteListener() {
         return null;
     }
 
@@ -300,7 +299,7 @@ public  class BaseActivity extends Activity {
      * @param
      * @return
      */
-    android.content.DialogInterface.OnClickListener getFavoriteListener1() {
+    DialogInterface.OnClickListener getFavoriteListener1() {
         return null;
     }
 
@@ -494,13 +493,13 @@ public  class BaseActivity extends Activity {
     public void footView(int index){
 
         //未选
-        int untextcolor=R.color.white;
-        int unbackroundcolor=R.color.btnblue;
+        int untextcolor= R.color.white;
+        int unbackroundcolor= R.color.btnblue;
         //已选
         int textcolor=getResources().getColor(R.color.btnblue);
         int backroundcolor=getResources().getColor(R.color.white);
 
-        int[] lin_id={R.id.lin_foot1,R.id.lin_foot2,R.id.lin_foot3,R.id.lin_foot4,R.id.lin_foot5};
+        int[] lin_id={R.id.lin_foot1, R.id.lin_foot2, R.id.lin_foot3, R.id.lin_foot4, R.id.lin_foot5};
         LinearLayout foot=(LinearLayout)findViewById(lin_id[index]);
         foot.setBackgroundColor(backroundcolor);//背景变白
         TextView whitetext=(TextView)foot.getChildAt(1);

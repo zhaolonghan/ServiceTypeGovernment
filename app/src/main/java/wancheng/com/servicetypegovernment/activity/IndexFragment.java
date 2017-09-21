@@ -7,8 +7,6 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.SystemClock;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,9 +36,6 @@ import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 /**
  * Created by HANZHAOLONG on 2017/8/31.
  */
@@ -286,7 +277,7 @@ public  class IndexFragment  extends BaseFragment {
 
         new Thread() {
             public void run() {
-                    String url=ConstUtil.METHOD_INDEXLIST;
+                    String url= ConstUtil.METHOD_INDEXLIST;
                     Map<String, Object> map = new HashMap<String, Object>();
 
                     NetUtil net = new NetUtil();
@@ -333,7 +324,7 @@ public  class IndexFragment  extends BaseFragment {
 
                                         newsdataArray = jsondate.getJSONArray("images");
                                         for(int i=0;i<newsdataArray.length();i++){
-                                            imageUrls[i]=JSONUtils.getString(newsdataArray.getJSONObject(i), "image", "");
+                                            imageUrls[i]= JSONUtils.getString(newsdataArray.getJSONObject(i), "image", "");
                                         }
 
                                         //企业主题类型 ztlx
@@ -344,12 +335,12 @@ public  class IndexFragment  extends BaseFragment {
                                                 "medical ": "医疗",
                                                 "special_equipment": "特种"*/
                                         JSONObject ztlx= jsondate.getJSONObject("ztlx");
-                                        ztlxcorp[0]=JSONUtils.getString(ztlx, "food", "");
-                                        ztlxcorp[1]=JSONUtils.getString(ztlx, "drugs", "");
-                                        ztlxcorp[2]=JSONUtils.getString(ztlx, "health_products", "");
-                                        ztlxcorp[3]=JSONUtils.getString(ztlx, "cosmetics", "");
-                                        ztlxcorp[4]=JSONUtils.getString(ztlx, "medical", "");
-                                        ztlxcorp[5]=JSONUtils.getString(ztlx, "special_equipment", "");
+                                        ztlxcorp[0]= JSONUtils.getString(ztlx, "food", "");
+                                        ztlxcorp[1]= JSONUtils.getString(ztlx, "drugs", "");
+                                        ztlxcorp[2]= JSONUtils.getString(ztlx, "health_products", "");
+                                        ztlxcorp[3]= JSONUtils.getString(ztlx, "cosmetics", "");
+                                        ztlxcorp[4]= JSONUtils.getString(ztlx, "medical", "");
+                                        ztlxcorp[5]= JSONUtils.getString(ztlx, "special_equipment", "");
 
                                     }
                                     msg.what=14;
@@ -380,14 +371,14 @@ public  class IndexFragment  extends BaseFragment {
         }
 public  Map<String ,Object>  contextMap( JSONObject dataobject){
     Map<String, Object> contextmap=new HashMap<String, Object>();
-    String title=JSONUtils.getString(dataobject, "title", "");
+    String title= JSONUtils.getString(dataobject, "title", "");
     if(title!=null&&title.length()>15){
         title=title.substring(0,15)+"...";
     }
-    long timelong=JSONUtils.getLong(dataobject, "ptime", 0);
-    String oneurl=JSONUtils.getString(dataobject, "url", "");
-    String count=JSONUtils.getString(dataobject, "count", "0");
-    String source=JSONUtils.getString(dataobject, "source", "");
+    long timelong= JSONUtils.getLong(dataobject, "ptime", 0);
+    String oneurl= JSONUtils.getString(dataobject, "url", "");
+    String count= JSONUtils.getString(dataobject, "count", "0");
+    String source= JSONUtils.getString(dataobject, "source", "");
     Date timedate=  new Date(timelong);
     SimpleDateFormat format=new SimpleDateFormat("yyyy-MM");
     String year=format.format(timedate);

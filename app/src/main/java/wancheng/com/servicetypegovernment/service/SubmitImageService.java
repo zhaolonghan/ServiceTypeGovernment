@@ -7,18 +7,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
+import wancheng.com.servicetypegovernment.util.Base64Coder;
+import wancheng.com.servicetypegovernment.util.ConstUtil;
+import wancheng.com.servicetypegovernment.util.NetUtil;
 
 public class SubmitImageService extends Service {
 
 
     public static final String TAG = "MyService";
 
-
+    private DatabaseHelper databaseHelper;
+    private String addTime;
+    private String IMEI;
+    private String uid;
+    private long  msgId;
+    private boolean flag=false;
     public SubmitImageService() {
 
 
@@ -31,35 +47,74 @@ public class SubmitImageService extends Service {
     }
 
     private int runCount=0;// 全局变量，用于判断是否是第一次执行
-    private Handler handler = new Handler();
+    private Handler handler = new Handler() {
+        @SuppressWarnings("deprecation")
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    flag=false;
+                    break;
+                case 2:
+                    flag=false;
+                    break;
+                case 3:
+                    flag=true;
+                    break;
+            }
+        }
+    };
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand() executed");
-        List<Map<String,String>> list=( List<Map<String,String>>)intent.getSerializableExtra("datalist");
-              for (Map<String, String> map : list) {
-                    Log.e("id1", map.get("id"));
-                    Log.e("checkId1", map.get("checkId"));
-                    Log.e("imagePath1", map.get("imagePath"));
-               }
-        Runnable runnable = new Runnable(){
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                if(runCount == 1){// 第一次执行则关闭定时执行操作
-                    // 在此处添加执行的代码
-                    Log.e("start", "sendNotification start");
-                    sendNotification();
-                    stopSelf();
-                    Log.e("stop", "sendNotification stop");
-                    handler.removeCallbacks(this);
+        databaseHelper=new DatabaseHelper(this);
+        addTime= intent.getStringExtra("addtime");
+        IMEI=  intent.getStringExtra("IMEI");
+        uid=  intent.getStringExtra("uid");
+        msgId= intent.getLongExtra("msgId", 0);
+        List<Map<String,String>> mapList=databaseHelper.findImageByMsgId(msgId);
+        if(mapList!=null&&mapList.size()>0){
+            for(int i=0;i<mapList.size();i++){
+                Map<String,String> map=mapList.get(i);
+                try{
+                    shbmitData(getJson(map));
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                handler.postDelayed(this, 20000);
-                runCount++;
+
+            }
+            if(flag==true){
+                sendNotification("材料上传成功！");
+            }else{
+                sendNotification("材料上传失败！");
             }
 
-        };
-        handler.postDelayed(runnable, 20000);// 打开定时器，执行操作
+
+            stopSelf();
+        }else{
+            stopSelf();
+        }
+//        Runnable runnable = new Runnable(){
+//
+//            @Override
+//            public void run() {
+//                // TODO Auto-generated method stub
+//                if(runCount == 1){// 第一次执行则关闭定时执行操作
+//                    // 在此处添加执行的代码
+//                    Log.e("start", "sendNotification start");
+//                    sendNotification();
+//                    stopSelf();
+//                    Log.e("stop", "sendNotification stop");
+//                    handler.removeCallbacks(this);
+//                }
+//                handler.postDelayed(this, 20000);
+//                runCount++;
+//            }
+//
+//        };
+//        handler.postDelayed(runnable, 20000);// 打开定时器，执行操作
 
         return super.onStartCommand(intent, flags, startId);
 
@@ -70,13 +125,13 @@ public class SubmitImageService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public void sendNotification(){
+    private void sendNotification(String yesOrNo){
         //实例化通知管理器
         NotificationManager notificationManager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         //实例化通知
         NotificationCompat.Builder builder=new NotificationCompat.Builder(this);
         builder.setContentTitle("系统通知");//设置通知标题
-        builder.setContentText("材料上传成功！");//设置通知内容
+        builder.setContentText(yesOrNo);//设置通知内容
         builder.setDefaults(NotificationCompat.DEFAULT_ALL);//设置通知的方式，震动、LED灯、音乐等
         builder.setAutoCancel(true);//点击通知后，状态栏自动删除通知
         builder.setSmallIcon(android.R.drawable.ic_media_play);//设置小图标
@@ -86,5 +141,84 @@ public class SubmitImageService extends Service {
         //发送通知
         notificationManager.notify(0x101, notification);
 
+    }
+    private String getJson(Map<String,String> map) throws Exception{
+        Map<String,String> m=encodeBase64File(map.get("imagePath").toString());
+        String str="{";
+        str+="\"uid\":\""+ UserDateBean.getInstance().getId()+"\"";
+        str+=",\"appUpTime\":\""+addTime+"\"";
+        str+=",\"appItemId\":\""+map.get("id").toString()+"\"";
+        str+=",\"appResultId\":\""+msgId+"\"";
+        str+=",\"IMEI\":\""+IMEI+"\"";
+        str+=",\"fileName\":\""+m.get("fileName").toString()+"\"";
+        str+=",\"images\":\""+m.get("base64").toString()+"\"";
+        Log.e("imagePath",map.get("imagePath").toString());
+        str+="}";
+        return str;
+    }
+    public static Map<String,String> encodeBase64File(String path) throws Exception {
+        Map<String,String> map=new HashMap<String,String>();
+        File file = new File(path);;
+        FileInputStream inputFile = new FileInputStream(file);
+        byte[] buffer = new byte[(int) file.length()];
+        inputFile.read(buffer);
+        inputFile.close();
+        map.put("base64", new String(Base64Coder.encodeLines(buffer)));
+        map.put("fileName",file.getName());
+        return map;
+    }
+    /**
+     * 获取数据
+     */
+    private void shbmitData(final String str) {
+        new Thread() {
+            public void run() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                // data= Base64Coder.encodeString(data);
+                map.put("data",str);
+                Log.e("data的长度是",Base64Coder.encodeString(str).length()+"");
+                NetUtil net = new NetUtil();
+                String res = net.sendPost(ConstUtil.METHOD_UPLOADIMAGE, map);
+                if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
+                    handler.sendEmptyMessage(1);
+                } else {
+                    Message msg = new Message();
+                    msg.what = 2;
+                    if (!res.isEmpty()) {
+                        JSONObject jsonObj;
+                        try {
+                            jsonObj = new JSONObject(res);
+                            String msg_code = testStringNull(jsonObj.optString("msg"));
+                            String code = testStringNull(jsonObj.optString("code"));
+                            if ("0".equals(code)) {
+//                                String  data=jsonObj.getString("data");
+//                                data =new String(Base64Coder.decodeString(data));
+//                                Log.e("datadatadatadata",data);
+                                msg.what = 3;
+                                msg.obj = msg_code;
+                            } else {
+                                if (msg_code != null && !msg_code.isEmpty())
+                                    msg.obj = msg_code;
+                                else
+                                    msg.obj = "请求异常，请稍后重试！";
+
+                            }
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            msg.obj = "请求异常，请稍后重试！";
+                        }
+                        handler.sendMessage(msg);
+                    }
+
+                }
+            }
+        }.start();
+    }
+    protected String testStringNull(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s;
     }
 }

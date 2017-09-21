@@ -1,9 +1,7 @@
 package wancheng.com.servicetypegovernment.activity;
 
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -41,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-
 import wancheng.com.servicetypegovernment.adspter.CheckResultAdspter;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
@@ -95,14 +92,14 @@ public class CheckResultDetailActivity extends BaseActivity {
         //gzyMap.put("gzyBjcdwqz",imageUrls);
         if(gzyMap.get("gzyBjcdwqz")!=null){
             ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)gzyMap.get("gzyBjcdwqz");
-            getImageGridViews(imageUrls,R.id.iv_addsign);
+            getImageGridViews(imageUrls, R.id.iv_addsign);
         }else{
             ImageView imageView=(ImageView)this.findViewById(R.id.iv_addsign);
             imageView.setVisibility(View.GONE);
         }
         if(gzyMap.get("gzyJcdwqz")!=null){
             ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)gzyMap.get("gzyJcdwqz");
-            getImageGridViews(imageUrls,R.id.iv_addsign2);
+            getImageGridViews(imageUrls, R.id.iv_addsign2);
         }else{
             ImageView imageView=(ImageView)this.findViewById(R.id.iv_addsign2);
             imageView.setVisibility(View.GONE);
@@ -125,14 +122,14 @@ public class CheckResultDetailActivity extends BaseActivity {
         resultinfo.result_frhfzrqzTime.setText(gzyMap.get("result_frhfzrqzTime").toString());;
         if(gzyMap.get("result_zfryqz")!=null){
             ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)gzyMap.get("result_zfryqz");
-            getImageGridViews(imageUrls,R.id.result_zfryqz);
+            getImageGridViews(imageUrls, R.id.result_zfryqz);
         }else{
             ImageView imageView=(ImageView)this.findViewById(R.id.iv_addsign);
             imageView.setVisibility(View.GONE);
         }
         if(gzyMap.get("result_frhfzrqz")!=null){
             ArrayList<ImagesBean> imageUrls=(ArrayList<ImagesBean>)gzyMap.get("result_frhfzrqz");
-            getImageGridViews(imageUrls,R.id.result_frhfzrqz);
+            getImageGridViews(imageUrls, R.id.result_frhfzrqz);
         }else{
             ImageView imageView=(ImageView)this.findViewById(R.id.result_frhfzrqz);
             imageView.setVisibility(View.GONE);
@@ -172,7 +169,7 @@ public class CheckResultDetailActivity extends BaseActivity {
                             String msg_code = testStringNull(jsonObj.optString("msg"));
                             String code = testStringNull(jsonObj.optString("code"));
                             if("0".equals(code)){
-                                String  data=Base64Coder.decodeString(jsonObj.getString("data"));
+                                String  data= Base64Coder.decodeString(jsonObj.getString("data"));
                                 if(data!=null&&data!=""){
                                     JSONObject dataobject=new JSONObject(data);
                                     if (dataobject!=null) {
@@ -406,12 +403,12 @@ public class CheckResultDetailActivity extends BaseActivity {
                 JSONObject dataobject = dataArray.getJSONObject(i);
                 if(dataobject!=null){
                     contextmap=new HashMap<String, Object>();
-                    if(JSONUtils.getString(dataobject, "time", "")!=null&&JSONUtils.getString(dataobject, "time", "").length()>0) {
-                        contextmap.put("id",JSONUtils.getString(dataobject, "resultId", ""));
+                    if(JSONUtils.getString(dataobject, "time", "")!=null&& JSONUtils.getString(dataobject, "time", "").length()>0) {
+                        contextmap.put("id", JSONUtils.getString(dataobject, "resultId", ""));
                         contextmap.put("history_time", DateFormat.format("yyyy-MM-dd", new Date(Long.parseLong(JSONUtils.getString(dataobject, "time", "0")))));
-                        contextmap.put("result",JSONUtils.getString(dataobject, "result", ""));
-                        contextmap.put("type",JSONUtils.getString(dataobject, "type", ""));
-                        contextmap.put("result",JSONUtils.getString(dataobject, "result", ""));
+                        contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));
+                        contextmap.put("type", JSONUtils.getString(dataobject, "type", ""));
+                        contextmap.put("result", JSONUtils.getString(dataobject, "result", ""));
                         listnews.add(contextmap);
                     }
                 }
@@ -487,8 +484,8 @@ public class CheckResultDetailActivity extends BaseActivity {
             if ("1".equals(dataobject.getString("gzySfhb"))){
                 gzyMap.put("gzySfhb","是");//规避.
             }
-            gzyMap.put("gzyBjcdwqzTime",JSONUtils.getString(dataobject,"gzyBjcdwqzTime","").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(JSONUtils.getString(dataobject,"gzyBjcdwqzTime","")))));
-            gzyMap.put("gzyJcdwqzTime",JSONUtils.getString(dataobject,"gzyJcdwqzTime","").length()==0?"": DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(JSONUtils.getString(dataobject,"gzyJcdwqzTime","")))));
+            gzyMap.put("gzyBjcdwqzTime", JSONUtils.getString(dataobject, "gzyBjcdwqzTime", "").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(JSONUtils.getString(dataobject, "gzyBjcdwqzTime", "")))));
+            gzyMap.put("gzyJcdwqzTime", JSONUtils.getString(dataobject, "gzyJcdwqzTime", "").length()==0?"": DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(JSONUtils.getString(dataobject, "gzyJcdwqzTime", "")))));
             ArrayList<ImagesBean> imageUrls;
             if(null!=dataobject.getString("gzyJcdwqz")&&!"".equals(dataobject.getString("gzyJcdwqz"))){
                 imageUrls=new ArrayList<ImagesBean>()  ;
@@ -540,8 +537,8 @@ public class CheckResultDetailActivity extends BaseActivity {
             //gzyMap.put("result_remarks", "及时更改数据，当前假数据");
             gzyMap.put("result_remarks",!dataobject.isNull("remarks")?dataobject.getString("remarks"):"");//说明
 
-            gzyMap.put("result_zfryqzTime",JSONUtils.getString(dataobject,"zfryqzTime","").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("zfryqzTime")))).toString());//检查时间
-            gzyMap.put("result_frhfzrqzTime",JSONUtils.getString(dataobject,"frhfzrqzTime","").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("frhfzrqzTime")))).toString());
+            gzyMap.put("result_zfryqzTime", JSONUtils.getString(dataobject, "zfryqzTime", "").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("zfryqzTime")))).toString());//检查时间
+            gzyMap.put("result_frhfzrqzTime", JSONUtils.getString(dataobject, "frhfzrqzTime", "").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("frhfzrqzTime")))).toString());
 
             gzyMap.put("result_inspectUnitOpinions",!dataobject.isNull("remarks")?dataobject.getString("inspectUnitOpinions"):"");//检查次数
            // gzyMap.put("result_inspectUnitOpinions","假的，不是真数据");
