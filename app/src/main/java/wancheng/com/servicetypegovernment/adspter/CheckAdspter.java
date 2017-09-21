@@ -253,7 +253,7 @@ public class CheckAdspter extends BaseAdapter
 
             }
             if("未处罚".equals(data.get(j).get("question_status").toString())){
-                // zujian.status2.setBackground(context.getResources().getDrawable(R.drawable.check_btn_style));
+                 zujian.status2.setBackground(context.getResources().getDrawable(R.drawable.check_btn_style));
                 final Button button2=zujian.status2;
                 zujian.status2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
