@@ -478,14 +478,14 @@ public class CheckResultDetailActivity extends BaseActivity {
             gzyMap.put("address",dataobject.getString("address"));//地址
             gzyMap.put("gzyZhifaBy1",dataobject.getString("gzyZhifaBy1"));//检查人员1
             gzyMap.put("gzyZhifaBy2",dataobject.getString("gzyZhifaBy2"));
-            gzyMap.put("gzyInspectTime",DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("gzyInspectTime")))));//检查时间
+            gzyMap.put("gzyInspectTime",JSONUtils.getString(dataobject, "gzyInspectTime", "").length()==0?"":dataobject.getString("gzyInspectTime"));//检查时间
             gzyMap.put("gzyGzsx", Html.fromHtml(dataobject.getString("gzyGzsx")));//告知事项
             gzyMap.put("gzySfhb","否");//
             if ("1".equals(dataobject.getString("gzySfhb"))){
                 gzyMap.put("gzySfhb","是");//规避.
             }
-            gzyMap.put("gzyBjcdwqzTime", JSONUtils.getString(dataobject, "gzyBjcdwqzTime", "").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(JSONUtils.getString(dataobject, "gzyBjcdwqzTime", "")))));
-            gzyMap.put("gzyJcdwqzTime", JSONUtils.getString(dataobject, "gzyJcdwqzTime", "").length()==0?"": DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(JSONUtils.getString(dataobject, "gzyJcdwqzTime", "")))));
+            gzyMap.put("gzyBjcdwqzTime", JSONUtils.getString(dataobject, "gzyBjcdwqzTime", ""));
+            gzyMap.put("gzyJcdwqzTime", JSONUtils.getString(dataobject, "gzyJcdwqzTime", ""));
             ArrayList<ImagesBean> imageUrls;
             if(null!=dataobject.getString("gzyJcdwqz")&&!"".equals(dataobject.getString("gzyJcdwqz"))){
                 imageUrls=new ArrayList<ImagesBean>()  ;
@@ -537,8 +537,8 @@ public class CheckResultDetailActivity extends BaseActivity {
             //gzyMap.put("result_remarks", "及时更改数据，当前假数据");
             gzyMap.put("result_remarks",!dataobject.isNull("remarks")?dataobject.getString("remarks"):"");//说明
 
-            gzyMap.put("result_zfryqzTime", JSONUtils.getString(dataobject, "zfryqzTime", "").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("zfryqzTime")))).toString());//检查时间
-            gzyMap.put("result_frhfzrqzTime", JSONUtils.getString(dataobject, "frhfzrqzTime", "").length()==0?"":DateFormat.format("yyyy年MM月dd日", new Date(Long.parseLong(dataobject.getString("frhfzrqzTime")))).toString());
+            gzyMap.put("result_zfryqzTime", JSONUtils.getString(dataobject, "zfryqzTime", ""));//检查时间
+            gzyMap.put("result_frhfzrqzTime", JSONUtils.getString(dataobject, "frhfzrqzTime", ""));
 
             gzyMap.put("result_inspectUnitOpinions",!dataobject.isNull("remarks")?dataobject.getString("inspectUnitOpinions"):"");//检查次数
            // gzyMap.put("result_inspectUnitOpinions","假的，不是真数据");
