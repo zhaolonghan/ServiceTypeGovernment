@@ -253,8 +253,13 @@ public class MainActivity extends BaseActivity {
                                 UserDateBean.getInstance().setUsername(JSONUtils.getString(dataArray, "loginName", ""));
                                 UserDateBean.getInstance().setId(JSONUtils.getString(dataArray, "uid", "0"));
                                 UserDateBean.getInstance().setName(JSONUtils.getString(dataArray, "name", ""));
-                                UserDateBean.getInstance().setPhone(JSONUtils.getString(dataArray, "mobile", ""));
                                 UserDateBean.getInstance().setIMEI(IMEI);
+                                UserDateBean.getInstance().setPhone(JSONUtils.getString(dataArray, "phone", ""));
+                                UserDateBean.getInstance().setPhotoimage(JSONUtils.getString(dataArray, "photo", ""));
+                                UserDateBean.getInstance().setMobile(JSONUtils.getString(dataArray, "mobile", ""));
+                                UserDateBean.getInstance().setNo(JSONUtils.getString(dataArray, "no", ""));
+                                UserDateBean.getInstance().setEmail(JSONUtils.getString(dataArray, "email", ""));
+                                UserDateBean.getInstance().setPassword(password);
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {

@@ -18,13 +18,15 @@ public class UserDateBean implements Serializable {
 	private String id = "0";// 用户ID
 	private String name;//真实姓名
     private String password;//密码
-    private int sex;//性别1 男 2 女
+    private int sex=1;//性别1 男 2 女
     private String phone;//手机号码
     private String cardid;//身份证号
 	private String address;//联系地址
 	private String IMEI;//手机组号
     private String photoimage;//头像
-   	private Bitmap photoimagebit;
+	private String email="";//职务
+	private String no="";//工号
+	private String mobile="";//电话
 
 	private static UserDateBean user;
 
@@ -114,13 +116,8 @@ public class UserDateBean implements Serializable {
 	public void setPhotoimage(String photoimage) {
 		this.photoimage = photoimage;
 	}
-	public String getPhotoimagebit() {
-		return photoimage;
-	}
 
-	public void setPhotoimagebit(Bitmap photoimagebit) {
-		this.photoimagebit = photoimagebit;
-	}
+
 
 	public static UserDateBean getUser() {
 		return user;
@@ -130,6 +127,27 @@ public class UserDateBean implements Serializable {
 		UserDateBean.user = user;
 	}
 
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 }

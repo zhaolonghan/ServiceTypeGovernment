@@ -21,7 +21,7 @@ public class ConstUtil {
 	 * URL
 	 */
 	//public static String IP = "http://223.71.241.40/";
-	public static String IP = "http://192.168.1.101:8181/";
+	public static String IP = "http://192.168.1.111:8181/";
 
 	/**
 	 * METHOD
@@ -56,5 +56,7 @@ public class ConstUtil {
 	public static String METHOD_UPDATERESULT="a/app/inspectDaily/updateResult";//问题处置状态修改
 	public static String METHOD_SPECIALCORPLIST = "a/app/special/getSpecialCorpList";//查找检查企业接口
 	public static String METHOD_SAVERESULT = "a/app/inspectDaily/saveResult";//查找检查企业接口
-	public static String METHOD_UPLOADIMAGE = "a/app/images/uploadImage";//查找检查企业接口
+	public static String METHOD_UPLOADIMAGE = "a/app/images/uploadImage";//修改图片
+	public static String METHOD_UPDATEPASS = "a/app/corp/updatePass";//修改密码
+
 }

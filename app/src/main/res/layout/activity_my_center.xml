@@ -18,10 +18,10 @@
            android:layout_height="200dp">
            <com.makeramen.roundedimageview.RoundedImageView
                xmlns:app="http://schemas.android.com/apk/res-auto"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               android:layout_width="120dp"
+               android:layout_height="120dp"
                android:scaleType="fitCenter"
-               android:src="@drawable/user"
+               android:src="@drawable/touxiang1"
                android:layout_centerInParent="true"
                app:riv_border_color="@color/btnblue"
                android:id="@+id/iv_user"
@@ -48,7 +48,9 @@
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/myinfo"
+                    >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,6 +88,7 @@
                         android:textSize="18dp"
                         android:text="我的收藏"
                         android:layout_marginTop="10dp"
+                        android:id="@+id/myinfo"
                         android:layout_marginLeft="10dp"/>
                     <ImageView
                         android:layout_width="10dp"
@@ -105,7 +108,10 @@
                     android:layout_marginRight="10dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mywork"
+
+                    >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -133,7 +139,9 @@
                     android:layout_marginRight="10dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dataanalysis"
+                    >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -161,7 +169,10 @@
                     android:layout_marginRight="10dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clearspace"
+
+                    >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -170,7 +181,9 @@
                         android:textSize="18dp"
                         android:text="清理空间"
                         android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginLeft="10dp"
+
+                        />
                     <ImageView
                         android:layout_width="10dp"
                         android:layout_height="18dp"
@@ -189,6 +202,7 @@
                     android:layout_marginRight="10dp"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:id="@+id/updatelayout"
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
