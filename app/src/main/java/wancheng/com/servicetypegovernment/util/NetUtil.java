@@ -252,7 +252,7 @@ public class NetUtil  {
 		if(sb.charAt(sb.length()-1)=='&'){
 			sb.deleteCharAt(sb.length()-1);
 		}
-		Log.e("sb.toString()", sb.toString());
+		//Log.e("sb.toString()", sb.toString());
 		return sb.toString();
 	}
 

@@ -193,14 +193,14 @@ public class ImageChooseActivity extends Activity implements ListImageDirPopupWi
 								new String[] { "image/jpeg", "image/png" },
 								MediaStore.Images.Media.DATE_MODIFIED);
 
-				Log.e("TAG", mCursor.getCount() + "");
+				//Log.e("TAG", mCursor.getCount() + "");
 				while (mCursor.moveToNext())
 				{
 					// 获取图片的路径
 					String path = mCursor.getString(mCursor
 							.getColumnIndex(MediaStore.Images.Media.DATA));
 
-					Log.e("TAG", path);
+					//Log.e("TAG", path);
 					// 拿到第一张图片的路径
 					if (firstImage == null)
 						firstImage = path;

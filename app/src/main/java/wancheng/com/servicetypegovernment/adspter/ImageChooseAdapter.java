@@ -54,7 +54,7 @@ public class ImageChooseAdapter extends CommonAdapter<String>
             this.count=count;
         }
 
-        Log.e("mDirPath",dirPath);
+        //Log.e("mDirPath",dirPath);
 
     }
 

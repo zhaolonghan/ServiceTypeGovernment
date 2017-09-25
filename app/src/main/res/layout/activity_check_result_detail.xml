@@ -376,7 +376,7 @@
                         android:id="@+id/iv_addsign"
                         android:layout_margin="5dp"
                         android:visibility="gone"
-                        android:background="@drawable/add_img"/>
+                        />
                 </LinearLayout>
                 <View
                     android:layout_width="fill_parent"
@@ -429,7 +429,7 @@
                         android:layout_margin="5dp"
                         android:visibility="gone"
                         android:id="@+id/iv_addsign2"
-                        android:background="@drawable/add_img"/>
+                        />
                 </LinearLayout>
                 <View
                     android:layout_width="fill_parent"
@@ -801,7 +801,7 @@
                         android:layout_height="65dp"
                         android:layout_margin="5dp"
                         android:id="@+id/result_zfryqz"
-                        android:background="@drawable/add_img"/>
+                        />
                 </LinearLayout>
                 <View
                     android:layout_width="fill_parent"
@@ -879,7 +879,7 @@
                         android:layout_height="65dp"
                         android:layout_margin="5dp"
                         android:id="@+id/result_frhfzrqz"
-                        android:background="@drawable/add_img"/>
+                        />
                 </LinearLayout>
                 <View
                     android:layout_width="fill_parent"

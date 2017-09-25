@@ -914,7 +914,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/lin_banner"
         android:layout_margin="10dp"
         android:id="@+id/view_2"
@@ -1131,12 +1131,40 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/black"></View>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/silver"></View>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="营业执照"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/black"></View>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
+<!--            <TextView
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:gravity="left"
@@ -1144,15 +1172,16 @@
                 android:layout_marginLeft="20dp"
                 android:text="许可证照　　："
                 android:textColor="@color/black"
-                android:textSize="16dp"/>
+                android:textSize="16dp"/>-->
 
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/permit_images"
-                android:layout_margin="5dp"
                 android:visibility="gone"
-                android:background="@drawable/add_img"/>
+                android:paddingLeft="10dp"
+
+                />
 
         </LinearLayout>
     </LinearLayout>
@@ -1184,12 +1213,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/lin_banner"
         android:id="@+id/view_3"
         android:layout_margin="10dp"
         android:layout_above="@+id/lin_bottom"
-        android:background="@drawable/check_lin_view_style"
+        android:background="@color/white"
         android:visibility="gone"
         android:orientation="vertical">
 
@@ -1433,28 +1462,51 @@
             android:layout_height="1dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/black"></View>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/silver"></View>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="营业执照　　："
                 android:textColor="@color/black"
-                android:textSize="16dp"/>
-=
+                android:textSize="18dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:text="营业执照"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/black"></View>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:paddingLeft="10dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:id="@+id/businessLicense_images"
-                android:layout_margin="5dp"
+
                 android:visibility="gone"
-                android:background="@drawable/add_img"/>
+                />
         </LinearLayout>
 
 

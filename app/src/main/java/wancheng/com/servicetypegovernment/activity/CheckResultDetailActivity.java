@@ -443,7 +443,7 @@ public class CheckResultDetailActivity extends BaseActivity {
                     }
                 });
             }
-            imageView.setOnClickListener(new View.OnClickListener() {
+        /*    imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     final ArrayList<ImagesBean> newList = new ArrayList<ImagesBean>();
@@ -455,7 +455,7 @@ public class CheckResultDetailActivity extends BaseActivity {
 
 
                 }
-            });
+            });*/
             imageView.setVisibility(View.VISIBLE);
         }
     }

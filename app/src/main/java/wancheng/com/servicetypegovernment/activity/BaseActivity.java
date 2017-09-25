@@ -409,7 +409,6 @@ public  class BaseActivity extends Activity {
         /*if(oldindexs!=index){
 
         }*/
-        Log.e("11111111111111:", oldindexsintent + "");
         if(index<5){
             footView(index);
         }

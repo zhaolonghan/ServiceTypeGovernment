@@ -50,7 +50,7 @@ public class NewsListActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("text","OK");
+        //Log.e("text","OK");
         Intent intent=getIntent();
         int index= intent.getIntExtra("index", 0);
         oldindexsintent=intent.getIntExtra("oldindexs",0);
@@ -139,7 +139,7 @@ public class NewsListActivity extends BaseActivity {
             }
 
         });
-        Log.e("text", "OK");
+        //Log.e("text", "OK");
     }
 
     @Override

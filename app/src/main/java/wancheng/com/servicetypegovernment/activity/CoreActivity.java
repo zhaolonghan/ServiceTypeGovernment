@@ -70,10 +70,10 @@ public class CoreActivity extends BaseActivity implements View.OnClickListener{
         fragmentManager = getFragmentManager();
         // 第一次启动时选中第0个tab
         setTabSelection(0);
-        Log.e("loginName", UserDateBean.getInstance().getUsername() + "");
+       /* Log.e("loginName", UserDateBean.getInstance().getUsername() + "");
         Log.e("uid", UserDateBean.getInstance().getId() + "");
         Log.e("name", UserDateBean.getInstance().getName()+"");
-        Log.e("mobile", UserDateBean.getInstance().getPhone() + "");
+        Log.e("mobile", UserDateBean.getInstance().getPhone() + "");*/
     }
     private void initViews() {
         lin_index=(LinearLayout)findViewById(R.id.lin_foot1);

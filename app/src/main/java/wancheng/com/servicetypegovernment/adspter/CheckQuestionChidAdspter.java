@@ -133,7 +133,7 @@ public class CheckQuestionChidAdspter extends BaseAdapter
                     }else{
 
                         ShowPickDialog(index);
-                        Log.e("要更新的item索引值是2：", index + "");
+                        //Log.e("要更新的item索引值是2：", index + "");
                     }
                 }
             });
@@ -307,7 +307,7 @@ public class CheckQuestionChidAdspter extends BaseAdapter
                 }).show();
     }
     public void updataView(int index,View view,ArrayList<String> list,Context context) {
-        Log.e("list size" ,list.size()+"");
+        //Log.e("list size" ,list.size()+"");
 
         this.layoutInflater=LayoutInflater.from(context);
         final int index1=index;
@@ -332,7 +332,7 @@ public class CheckQuestionChidAdspter extends BaseAdapter
             imageUrls.add(new ImagesBean("localImage",s));
         }
 
-        Log.e("imageUrls size" ,imageUrls.size()+"");
+        //Log.e("imageUrls size" ,imageUrls.size()+"");
         zujian.noScrollGridVieww.setAdapter(zujian.noScrollGridAdapter);
         zujian.noScrollGridAdapter=new NoScrollGridAdapter(context,imageUrls);
         zujian.noScrollGridAdapter.notifyDataSetChanged();
