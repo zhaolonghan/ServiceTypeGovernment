@@ -30,6 +30,7 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
@@ -48,7 +49,7 @@ public class MessageFragment  extends BaseFragment {
     private String keyword;
     private  boolean isadd=true;
     private EditText editkeyword;
-
+    private String uid= UserDateBean.getUser().getId();
     private ListView listView=null;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -136,6 +137,8 @@ public class MessageFragment  extends BaseFragment {
                     jsonQuery.put("pageNo",pageNo);
                     jsonQuery.put("pageSize", pageSize);
                     jsonQuery.put("keyword", keyword);
+                    jsonQuery.put("uid", uid);
+
                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
                 }catch (Exception e){
                     e.printStackTrace();

@@ -31,6 +31,7 @@ import java.util.Map;
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
@@ -68,7 +69,7 @@ public  class IndexFragment  extends BaseFragment {
             "http://ww1.sinaimg.cn/orj480/999a7ed9jw1f2pc4wn1fpj20b4089aap.jpg",
             "http://www.5888.tv/Upload_Map/uploads/2014/7/2014-07-16-11-15-33.jpg"};
     private String[] ztlxcorp=new String[6];
-
+    private String uid= UserDateBean.getUser().getId();
     /*
     * 新闻
     * */
@@ -284,7 +285,13 @@ public  class IndexFragment  extends BaseFragment {
             public void run() {
                     String url= ConstUtil.METHOD_INDEXLIST;
                     Map<String, Object> map = new HashMap<String, Object>();
-
+                try{
+                    JSONObject jsonQuery = new JSONObject();
+                    jsonQuery.put("uid", uid);
+                    map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                     NetUtil net = new NetUtil();
                     String res = net.posturl(url , map);
                     if(res==null||"".equals(res)||res.contains("Fail to establish http connection!")){
