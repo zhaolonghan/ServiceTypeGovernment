@@ -139,7 +139,7 @@ public class CheckResultChidAdspter extends BaseAdapter
                         imageBrower(position, imageUrls);
                     }
                 });
-                Log.e("图片数量",imageUrls.size()+"");
+                //Log.e("图片数量",imageUrls.size()+"");
                // getImageGridViews(imageUrls, zujian.linearLayout);
             }
         }else if("2".equals(isstatus)){

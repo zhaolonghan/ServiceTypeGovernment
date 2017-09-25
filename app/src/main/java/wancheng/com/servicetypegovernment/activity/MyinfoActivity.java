@@ -4,7 +4,6 @@ package wancheng.com.servicetypegovernment.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -25,8 +24,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,26 +83,31 @@ public class MyinfoActivity extends BaseActivity {
         email.setText(UserDateBean.getUser().getEmail());
         String addres=UserDateBean.getUser().getAddress() ;
         v_address.setText(addres);
+
+
+    }
+
+    @Override
+    protected void onStart() {
         if(UserDateBean.getUser().getPhotoimage()!=null){
             ArrayList<ImagesBean> imageUrls=new ArrayList<ImagesBean>();
             // userDateBean.getPh
-              ImagesBean IB=new ImagesBean();
+            ImagesBean IB=new ImagesBean();
             IB.setType("netImage");
             IB.setPath(UserDateBean.getUser().getPhotoimage());
             imageUrls.add(IB);
             getImageGridViews(imageUrls, R.id.images);
         }else{
-              ImageView imageView=(ImageView)this.findViewById(R.id.images);
+            ImageView imageView=(ImageView)this.findViewById(R.id.images);
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.touxiang1));
             ImagesBean IB=new ImagesBean();
             IB.setType("defaultImage");
             ArrayList<ImagesBean> imageUrls=new ArrayList<ImagesBean>();
             imageUrls.add(IB);
             getImageGridViews(imageUrls, R.id.images);
+            //imageView.setVisibility(View.GONE);
         }
-
     }
-
 
     public void onOperationEvent() {
         //监控筛选按钮
@@ -244,7 +246,7 @@ public class MyinfoActivity extends BaseActivity {
                 }
                 NetUtil net = new NetUtil();
                 String res = net.posturl(ConstUtil.METHOD_UPDATEUSER, map);
-                Log.e("res", res);
+                //Log.e("res", res);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
                     handler.sendEmptyMessage(4);
                 } else {
@@ -307,7 +309,7 @@ public class MyinfoActivity extends BaseActivity {
 
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        //imageView.setVisibility(View.GONE);
+                        imageView.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -340,51 +342,9 @@ public class MyinfoActivity extends BaseActivity {
         this.startActivity(intent);
     }
 
-   /* protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            //处理图库返回
-            case CHOOSE_PHOTO:
-                if(resultCode == RESULT_OK){
-                    photoZoom(data.getData());
-                }
-                break;
-            //处理相机返回
-            case TAKE_PHOTO:
-                if(resultCode == RESULT_OK){
-                    File file = new File(filePath);
-                    photoZoom(Uri.fromFile(file));
-                }
-                //处理裁剪返回
-            case PHOTO_RESULT:
-                Bundle bundle = new Bundle();
-                try {
-                    bundle = data.getExtras();
-                    if (resultCode == RESULT_OK) {
-                        Bitmap bitmap = bundle.getParcelable("data");
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, new ByteArrayOutputStream());
-                        //修改ImageView的图片
-                        photoImage.setImageBitmap(bitmap);
-                    }
-                } catch (java.lang.NullPointerException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
 
-        public void photoZoom(Uri uri) {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-            intent.setDataAndType(uri, "image*//*");
-            intent.putExtra("crop", "true");
-            // aspectX aspectY 是宽高的比例
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            // outputX outputY 是裁剪图片宽高
-            intent.putExtra("outputX", 300);
-            intent.putExtra("outputY", 130);
-            intent.putExtra("return-data", true);
-            startActivityForResult(intent, PHOTO_RESULT);
-        }*/
+
+
 
 
 

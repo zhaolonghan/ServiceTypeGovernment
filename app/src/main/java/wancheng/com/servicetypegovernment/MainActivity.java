@@ -88,8 +88,8 @@ public class MainActivity extends BaseActivity {
         String versionCoder=map.get("versionCode").toString();
         String versionURLr=map.get("versionUrl").toString();
         String versionDb=databaseHelper.findVersion();
-        Log.e("versionCoder",versionCoder);
-        Log.e("versionDb", versionDb + "");
+ /*       Log.e("versionCoder",versionCoder);
+        Log.e("versionDb", versionDb + "");*/
         if(versionDb==null||"".equals(versionDb)){
             boolean ok=databaseHelper.insertVersion(versionName,versionCoder);
             Log.e("versionDb insert",ok+"");
@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity {
             PackageManager manager = this.getPackageManager();
             PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
             String version = info.versionName;
-            Log.e("version",version);
+          //  Log.e("version",version);
             return version;
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +234,7 @@ public class MainActivity extends BaseActivity {
                 }
                 NetUtil net = new NetUtil();
                 String res = net.posturl(ConstUtil.METHOD_LOGIN, map);
-                Log.e("res",res);
+                ///Log.e("res",res);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
                     handler.sendEmptyMessage(4);
                 } else {

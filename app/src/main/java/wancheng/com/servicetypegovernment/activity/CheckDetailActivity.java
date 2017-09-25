@@ -97,7 +97,7 @@ public class CheckDetailActivity extends BaseActivity {
         zfry1=intent.getStringExtra("zfry1");
         zfry2=intent.getStringExtra("zfry2");
         resultId=intent.getStringExtra("resultId");
-        Log.e("msgId",msgId+"");
+        //Log.e("msgId",msgId+"");
         layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         TopBean topBean=new TopBean("检查要点","上一步","下一步",true,true);
         getTopView(topBean);
@@ -145,7 +145,7 @@ public class CheckDetailActivity extends BaseActivity {
                     map.put("name",name);
                     map.put("remarks",remarks);
                     map.put("dataChildList",dataChildList);
-                    Log.e("name",name);
+                    //Log.e("name",name);
                     dataList.add(map);
                 }
             }
@@ -260,7 +260,7 @@ public class CheckDetailActivity extends BaseActivity {
             for(int i=0;i<linearLayout.getChildCount();i++){
                 LinearLayout linearLayoutChlid=(LinearLayout)linearLayout.getChildAt(i);
                 LinearLayout linearLayoutChlid1=(LinearLayout)linearLayoutChlid.findViewById(R.id.check_question);
-                Log.e("outChlid1()",linearLayoutChlid1.getChildCount()+"");
+                //Log.e("outChlid1()",linearLayoutChlid1.getChildCount()+"");
                 for(int j=0;j<linearLayoutChlid1.getChildCount();j++){
                     LinearLayout l1=(LinearLayout)linearLayoutChlid1.getChildAt(j);
                     EditText ed_checknote=(EditText)l1.findViewById(R.id.ed_checknote);
@@ -337,9 +337,9 @@ public class CheckDetailActivity extends BaseActivity {
                     }
                     f_lin_image.removeAllViews();
                     getImageGridViews(f_imageUrlNew, f_lin_image, imageIndexP, imageIndexC);
-                    Log.e("imageIndex拍照P", imageIndexP + "");
+              /*      Log.e("imageIndex拍照P", imageIndexP + "");
                     Log.e("imageIndex拍照C", imageIndexC+"");
-                    Log.e("imageUploads size", imageUploads.size()+"");
+                    Log.e("imageUploads size", imageUploads.size()+"");*/
                 }
                 break;
         }
@@ -374,9 +374,9 @@ public class CheckDetailActivity extends BaseActivity {
                     }
                     f_lin_image.removeAllViews();
                     getImageGridViews(f_imageUrlNew, f_lin_image, imageIndexP, imageIndexC);
-                    Log.e("imageIndex选择P", imageIndexP + "");
+     /*               Log.e("imageIndex选择P", imageIndexP + "");
                     Log.e("imageIndex选择C", imageIndexC + "");
-                    Log.e("imageUploads size", imageUploads.size()+"");
+                    Log.e("imageUploads size", imageUploads.size()+"");*/
                 }
 
 
@@ -525,9 +525,9 @@ public class CheckDetailActivity extends BaseActivity {
             }
         }
         getImageGridViews(imageUrls, linearLayout, imageindexp, imageindexc);
-        Log.e("imageIndex删除P", imageIndexP + "");
+/*        Log.e("imageIndex删除P", imageIndexP + "");
         Log.e("imageIndex删除C", imageIndexC + "");
-        Log.e("imageUploads size", imageUploads.size() + "");
+        Log.e("imageUploads size", imageUploads.size() + "");*/
     }
     private void getImageGridViews(final ArrayList<ImagesBean> imageUrls,final LinearLayout linearLayout,final int imageindexp,final int imageindexc){
         for(int k=0;k<imageUrls.size();k++){

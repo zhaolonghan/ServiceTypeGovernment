@@ -488,7 +488,7 @@ public class CheckAdspter extends BaseAdapter
                 }
                 NetUtil net = new NetUtil();
                 String res = net.posturl(ConstUtil.METHOD_UPDATERESULT, map);
-                Log.e("res",res);
+                //Log.e("res",res);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
                     handler.sendEmptyMessage(4);
                 } else {

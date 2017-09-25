@@ -125,7 +125,7 @@ public class CheckResultActivity extends BaseActivity {
         data=intent.getStringExtra("data");
         resultId=intent.getStringExtra("resultId");
         msgId=intent.getLongExtra("insertid", -1);
-        Log.e("msgId data ",msgId+"");
+        //Log.e("msgId data ",msgId+"");
         getData();
         iv_addsign=(ImageView)findViewById(R.id.iv_addsign);
         iv_addsign2=(ImageView)findViewById(R.id.iv_addsign2);
@@ -265,10 +265,10 @@ public class CheckResultActivity extends BaseActivity {
                        latitude=loc.getLatitude()+"";//纬度
                        longitude=loc.getLongitude()+"";//经度
                         Toast.makeText(CheckResultActivity.this, " 当前定位的地点是：" + loc.getAddress(), Toast.LENGTH_SHORT).show();
-                        Log.e("ok", loc.getAddress());
+                        //Log.e("ok", loc.getAddress());
                     } else {
-                        Log.e("getErrorCode", loc.getErrorCode() + "");
-                        Log.e("errorInfo", loc.getErrorInfo());
+                      /*  Log.e("getErrorCode", loc.getErrorCode() + "");
+                        Log.e("errorInfo", loc.getErrorInfo());*/
                     }
                 } else {
                     Log.e("no", "定位失败");
@@ -412,7 +412,7 @@ public class CheckResultActivity extends BaseActivity {
                             if ("0".equals(code)) {
                                 String  data=jsonObj.getString("data");
                                 data =new String(Base64Coder.decodeString(data));
-                                Log.e("datadatadatadata",data);
+                                //Log.e("datadatadatadata",data);
                                 JSONObject obj= new JSONObject(data);
                                 result= JSONUtils.getString(obj, "result", "");
                                 ndjccs= JSONUtils.getString(obj, "ndjccs", "");
