@@ -80,6 +80,7 @@ public class NewsAdspter extends BaseAdapter
             zujian.tv_count=(TextView)convertView.findViewById(R.id.tv_count);
             zujian.tv_source=(TextView)convertView.findViewById(R.id.tv_source);
             zujian.tv_count_read=(TextView)convertView.findViewById(R.id.tv_count_read);
+
             convertView.setTag(zujian);
         }else{
             zujian=(Zujian)convertView.getTag();
@@ -99,6 +100,7 @@ public class NewsAdspter extends BaseAdapter
             }
         }else{
             zujian.tv_count.setVisibility(View.VISIBLE);
+            zujian.tv_count_read.setText("阅读");
             zujian.tv_count.setText(data.get(i).get("count").toString());
         }
         zujian.tv_source.setText(data.get(i).get("source").toString());
