@@ -107,7 +107,7 @@ public class ImageDetailHeadFragment extends Fragment {
 							mImageView.setImageDrawable(getResources().getDrawable(R.drawable.touxiang1));
 							break;
 					}
-					Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+					//Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 					progressBar.setVisibility(View.GONE);
 					mAttacher.update();
 

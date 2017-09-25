@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -43,11 +44,12 @@ public class MyCenterFragment   extends BaseFragment {
     private LinearLayout linearLayout;
     private boolean isDel;
     private RelativeLayout updatelayout;//修改密码
- /*    private RelativeLayout updatelayout;//我的资料
-    private RelativeLayout updatelayout;//我的工作
-    private RelativeLayout updatelayout;//数据分析
-    private RelativeLayout updatelayout;//清理空间
-    private RelativeLayout updatelayout;*/
+    private RelativeLayout myinfo;//我的资料
+    /* private RelativeLayout updatelayout;//我的工作*/
+    private RelativeLayout myinfocollection;//我的收藏
+
+    private RelativeLayout dataanalysis;//数据分析
+    private RelativeLayout clearspace;//清理空间
 
 
     @Override
@@ -67,7 +69,10 @@ public class MyCenterFragment   extends BaseFragment {
         thiscontext = getContext();
         layoutInflater = LayoutInflater.from(thiscontext);
         updatelayout = (RelativeLayout) contactsLayout.findViewById(R.id.updatelayout);
-
+        myinfocollection = (RelativeLayout) contactsLayout.findViewById(R.id.myinfocollection);
+        dataanalysis = (RelativeLayout) contactsLayout.findViewById(R.id.dataanalysis);
+        clearspace = (RelativeLayout) contactsLayout.findViewById(R.id.clearspace);
+        myinfo = (RelativeLayout) contactsLayout.findViewById(R.id.myinfo);
         TextView username = (TextView) contactsLayout.findViewById(R.id.tv_username);
         username.setText(UserDateBean.getUser().getName());
         com.makeramen.roundedimageview.RoundedImageView userimage = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
@@ -91,11 +96,61 @@ public class MyCenterFragment   extends BaseFragment {
         getImageGridViews(imagesBeans, iv_images);
     }
 
+    @Override
+    public void startActivity(Intent intent) {
+        com.makeramen.roundedimageview.RoundedImageView userimage = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
+        // if(UserDateBean.getUser().getPhoto()!=null&&UserDateBean.getUser().getPhoto().length()>0){
+        //  String url = "http://s16.sinaimg.cn/orignal/89429f6dhb99b4903ebcf&690";
+        String url = "";
+        if (UserDateBean.getUser().getPhotoimage() != null && UserDateBean.getUser().getPhotoimage().length() > 0) {
+            url = UserDateBean.getUser().getPhotoimage();
+        }
+        //得到可用的图片
+        final com.makeramen.roundedimageview.RoundedImageView iv_images = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
+        ImagesBean imagesBeans = new ImagesBean();
+        if (url.length() == 0) {
+            imagesBeans.setPath(url);
+            imagesBeans.setType("defaultImage");
+        } else {
+            imagesBeans.setPath(url);
+            imagesBeans.setType("netImage");
+
+        }
+
+        getImageGridViews(imagesBeans, iv_images);
+
+    }
+
     public void onOperationEvent() {
         updatelayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(thiscontext, NewpasswordActivity.class);
+                thiscontext.startActivity(intent);
+            }
+        });
+        myinfocollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "暂未开放，请敬请期待吧！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dataanalysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "暂未开放，请敬请期待吧！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        clearspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "暂未开放，请敬请期待吧！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        myinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(thiscontext, MyinfoActivity.class);
                 thiscontext.startActivity(intent);
             }
         });

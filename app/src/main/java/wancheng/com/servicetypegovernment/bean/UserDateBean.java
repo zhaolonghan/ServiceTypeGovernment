@@ -14,20 +14,20 @@ public class UserDateBean implements Serializable {
 	/**
 	 * 
 	 */
-	private String username;// 用户名
+	private String username="";// 用户名
 	private String id = "0";// 用户ID
-	private String name;//真实姓名
-    private String password;//密码
+	private String name="";//真实姓名
+    private String password="";//密码
     private int sex=1;//性别1 男 2 女
-    private String phone;//手机号码
-    private String cardid;//身份证号
-	private String address;//联系地址
+    private String phone="";//手机号码
+    private String cardid="";//身份证号
+	private String address="";//联系地址
 	private String IMEI;//手机组号
-    private String photoimage;//头像
-	private String email="";//职务
+    private String photoimage="";//头像
+	private String email="";//邮箱
 	private String no="";//工号
 	private String mobile="";//电话
-
+	private String  office="";
 	private static UserDateBean user;
 
 	public static UserDateBean getInstance() {
@@ -149,5 +149,13 @@ public class UserDateBean implements Serializable {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getOffice() {
+		return office;
+	}
+
+	public void setOffice(String office) {
+		this.office = office;
 	}
 }

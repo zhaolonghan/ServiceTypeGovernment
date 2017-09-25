@@ -259,7 +259,10 @@ public class MainActivity extends BaseActivity {
                                 UserDateBean.getInstance().setMobile(JSONUtils.getString(dataArray, "mobile", ""));
                                 UserDateBean.getInstance().setNo(JSONUtils.getString(dataArray, "no", ""));
                                 UserDateBean.getInstance().setEmail(JSONUtils.getString(dataArray, "email", ""));
+                                UserDateBean.getInstance().setOffice(JSONUtils.getString(dataArray, "office", ""));
+                                UserDateBean.getInstance().setAddress(JSONUtils.getString(dataArray, "address", "").length() == 0 ? "  " : JSONUtils.getString(dataArray, "address", ""));
                                 UserDateBean.getInstance().setPassword(password);
+
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {

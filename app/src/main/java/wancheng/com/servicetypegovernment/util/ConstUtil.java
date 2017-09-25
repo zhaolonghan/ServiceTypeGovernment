@@ -58,5 +58,5 @@ public class ConstUtil {
 	public static String METHOD_SAVERESULT = "a/app/inspectDaily/saveResult";//查找检查企业接口
 	public static String METHOD_UPLOADIMAGE = "a/app/images/uploadImage";//修改图片
 	public static String METHOD_UPDATEPASS = "a/app/corp/updatePass";//修改密码
-
+	public static String METHOD_UPDATEUSER ="a/app/corp/updateUser";//修改信息
 }

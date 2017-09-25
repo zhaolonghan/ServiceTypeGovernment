@@ -51,7 +51,7 @@ public class NewpasswordActivity extends BaseActivity {
         onOperationEvent();
     }
     private void initView(){
-        TopBean topBean=new TopBean("修改密码","返回","保存修改",true,true);
+        TopBean topBean=new TopBean("修改密码","返回","保存",true,true);
         getTopView(topBean);
         v_oldpassword=(TextView)this.findViewById(R.id.oldpassword);
         v_newpassword=(TextView)this.findViewById(R.id.newpassword);
