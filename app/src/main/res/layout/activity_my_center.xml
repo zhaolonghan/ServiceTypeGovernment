@@ -34,7 +34,7 @@
                android:layout_below="@+id/iv_user"
                android:layout_centerHorizontal="true"
                android:layout_marginTop="3dp"
-               android:text="张三"
+               android:text=""
                android:textSize="22dp"
                android:textColor="@color/btnblue"/>
 

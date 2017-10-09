@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,27 +74,7 @@ public class MyCenterFragment   extends BaseFragment {
         dataanalysis = (RelativeLayout) contactsLayout.findViewById(R.id.dataanalysis);
         clearspace = (RelativeLayout) contactsLayout.findViewById(R.id.clearspace);
         myinfo = (RelativeLayout) contactsLayout.findViewById(R.id.myinfo);
-        TextView username = (TextView) contactsLayout.findViewById(R.id.tv_username);
-        username.setText(UserDateBean.getUser().getName());
-        com.makeramen.roundedimageview.RoundedImageView userimage = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
-        // if(UserDateBean.getUser().getPhoto()!=null&&UserDateBean.getUser().getPhoto().length()>0){
-        //  String url = "http://s16.sinaimg.cn/orignal/89429f6dhb99b4903ebcf&690";
-        String url = "";
-        if (UserDateBean.getUser().getPhotoimage() != null && UserDateBean.getUser().getPhotoimage().length() > 0) {
-            url = UserDateBean.getUser().getPhotoimage();
-        }
-        //得到可用的图片
-        final com.makeramen.roundedimageview.RoundedImageView iv_images = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
-        ImagesBean imagesBeans = new ImagesBean();
-        if (url.length() == 0) {
-            imagesBeans.setPath(url);
-            imagesBeans.setType("defaultImage");
-        } else {
-            imagesBeans.setPath(url);
-            imagesBeans.setType("netImage");
-        }
 
-        getImageGridViews(imagesBeans, iv_images);
     }
 
     @Override
@@ -162,7 +143,38 @@ public class MyCenterFragment   extends BaseFragment {
 
     }
 
+    @Override
+    public void updateView() {
+        TextView username = (TextView) contactsLayout.findViewById(R.id.tv_username);
+        username.setText(UserDateBean.getUser().getName());
+        com.makeramen.roundedimageview.RoundedImageView userimage = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
+        // if(UserDateBean.getUser().getPhoto()!=null&&UserDateBean.getUser().getPhoto().length()>0){
+        //  String url = "http://s16.sinaimg.cn/orignal/89429f6dhb99b4903ebcf&690";
+        String url = "";
+        if (UserDateBean.getUser().getPhotoimage() != null && UserDateBean.getUser().getPhotoimage().length() > 0) {
+            url = UserDateBean.getUser().getPhotoimage();
+        }
+        //得到可用的图片
+        final com.makeramen.roundedimageview.RoundedImageView iv_images = (com.makeramen.roundedimageview.RoundedImageView) contactsLayout.findViewById(R.id.iv_user);
+        ImagesBean imagesBeans = new ImagesBean();
+        if (url.length() == 0) {
+            imagesBeans.setPath(url);
+            imagesBeans.setType("defaultImage");
+        } else {
+            imagesBeans.setPath(url);
+            imagesBeans.setType("netImage");
+        }
 
+        getImageGridViews(imagesBeans, iv_images);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("laialal","lailess....................");
+        updateView();
+
+    }
     private void getImageGridViews(final ImagesBean image, final RoundedImageView linearLayout) {
         if (image.getType().equals("netImage")) {
             DisplayImageOptions options = new DisplayImageOptions.Builder()//
