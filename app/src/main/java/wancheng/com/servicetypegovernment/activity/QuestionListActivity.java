@@ -61,8 +61,13 @@ public class QuestionListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questionlist);
 ;        initView();
-        getquestionListData();
         onOperationEvent();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getquestionListData();
+
     }
     private void initView(){
         Intent intent=getIntent();

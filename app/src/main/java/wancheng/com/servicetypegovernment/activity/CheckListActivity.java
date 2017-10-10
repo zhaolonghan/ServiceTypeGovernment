@@ -65,8 +65,13 @@ public class CheckListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
 ;        initView();
-        getCorpListData();
         onOperationEvent();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getCorpListData();
+
     }
     private void initView(){
         Intent intent=getIntent();

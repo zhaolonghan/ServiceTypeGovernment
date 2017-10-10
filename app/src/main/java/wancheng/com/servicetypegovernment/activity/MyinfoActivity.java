@@ -609,7 +609,7 @@ public class MyinfoActivity extends BaseActivity {
                 JSONObject jsonQuery = new JSONObject();
                 try{
                     jsonQuery.put("uid",UserDateBean.getUser().getId());
-                    jsonQuery.put("image",getImageStr(imagePath));
+                    jsonQuery.put("photo",getImageStr(imagePath));
                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
                 }catch (Exception e){
                     e.printStackTrace();

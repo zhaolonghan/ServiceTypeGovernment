@@ -46,7 +46,7 @@ public class MyCenterFragment   extends BaseFragment {
     private boolean isDel;
     private RelativeLayout updatelayout;//修改密码
     private RelativeLayout myinfo;//我的资料
-    /* private RelativeLayout updatelayout;//我的工作*/
+     private RelativeLayout mywork;//我的工作*/
     private RelativeLayout myinfocollection;//我的收藏
 
     private RelativeLayout dataanalysis;//数据分析
@@ -74,6 +74,8 @@ public class MyCenterFragment   extends BaseFragment {
         dataanalysis = (RelativeLayout) contactsLayout.findViewById(R.id.dataanalysis);
         clearspace = (RelativeLayout) contactsLayout.findViewById(R.id.clearspace);
         myinfo = (RelativeLayout) contactsLayout.findViewById(R.id.myinfo);
+        mywork = (RelativeLayout) contactsLayout.findViewById(R.id.mywork);
+
 
     }
 
@@ -123,6 +125,12 @@ public class MyCenterFragment   extends BaseFragment {
             }
         });
         clearspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "暂未开放，请敬请期待吧！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mywork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "暂未开放，请敬请期待吧！", Toast.LENGTH_SHORT).show();
