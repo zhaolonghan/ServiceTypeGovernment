@@ -582,7 +582,7 @@ public class CheckResultDetailActivity extends BaseActivity {
                         if(twojson!=null){
                             Map<String, Object> infomap=new HashMap<String, Object>();
                             infomap.put("detail_info", (i + 1) + "." + (j + 1) + "、" + twojson.getString("content"));
-                            infomap.put("tv_result3",0);
+                            infomap.put("tv_result3",twojson.getString("result"));
                             infomap.put("isPoint",twojson.getString("isPoint"));
                             infomap.put("remarks", twojson.getString("remarks"));
 
