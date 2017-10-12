@@ -84,13 +84,18 @@ public class SubmitImageService extends Service {
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         Log.e(TAG, "onStartCommand() executed");
         databaseHelper=new DatabaseHelper(this);
         addTime= intent.getStringExtra("addtime");
         IMEI=  intent.getStringExtra("IMEI");
         uid=  intent.getStringExtra("uid");
         msgId= intent.getLongExtra("msgId", 0);
-        mapList=databaseHelper.findImageByMsgId(msgId);
+       // Log.e("33333333333333333111111", "33333333111113333");
+
+       /* mapList=databaseHelper.findImageByMsgId(msgId);
+        Log.e("344444", "444444");*/
+
         if(mapList!=null&&mapList.size()>0){
             for(int i=0;i<mapList.size();i++){
                 count=i;
@@ -186,8 +191,10 @@ public class SubmitImageService extends Service {
                 Map<String, Object> map = new HashMap<String, Object>();
                 // data= Base64Coder.encodeString(data);
                 map.put("data",Base64Coder.encodeString(str));
-                map.put("image",image);
-                Log.e("data的长度是",Base64Coder.encodeString(str).length()+"");
+                map.put("image", image);
+                Log.e("33333333333333333", "333333333333");
+
+                Log.e("data的长度是", Base64Coder.encodeString(str).length() + "");
                 NetUtil net = new NetUtil();
                 String res = net.sendPost(ConstUtil.METHOD_UPLOADIMAGE, map);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {

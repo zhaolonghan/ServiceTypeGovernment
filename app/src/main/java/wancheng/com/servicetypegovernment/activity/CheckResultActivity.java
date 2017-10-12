@@ -305,6 +305,7 @@ public class CheckResultActivity extends BaseActivity {
     }
     @Override
     public void updateView() {
+
         tv_checks.setText(ndjccs);
         String s=jcnr;
         tv_checkdetail.setText(Html.fromHtml(s));

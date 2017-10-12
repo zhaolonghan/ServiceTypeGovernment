@@ -47,10 +47,15 @@ public class CompanyCheckListActivity extends BaseActivity {
                 CompanyCheckListActivity.this.startActivity(intent);
             }
         });*/
-        corplist();
 
         TopBean topBean=new TopBean("执法检查","返回","",true,false);
         getTopView(topBean);
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        corplist();
 
     }
     @Override

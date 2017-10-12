@@ -360,52 +360,5 @@ public abstract class BaseFragment extends Fragment {
         }
         return true;
     }
-    public List<Map<String, Object>> newlistcontext(int i,int num){
-        List<Map<String, Object>>  list;
-        List<Map<String, Object>>  addalllist;
-        //标题0  时间1  内容2String id="1";
-        String day="";
-        String year="";
-        String title="";
-        String count="";
-        String source="";
-        switch (i){
-            case 1:
-                title="国家质量监督检验检疫总局《进出口工业品风险管理办法》";
-                day="01";
-                year="2017/09";
-                count="5";
-                source="南方日报";
-                break;
-            case 2:
-                title="中华人民共和国食品安全法实施条例";
-                day="01";
-                year="2017/09";
-                count="10";
-                source="南方日报";
-                break;
-            case 3:
-                title="市市场监管委党委召开领导干部警示教育大";
-                day="01";
-                year="2017/09";
-                count="15";
-                source="南方日报";
-                break;
-        }
-
-
-        list=new ArrayList<Map<String, Object>>();
-        for(int j=0;j<num;j++){
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("day",day);
-            map.put("title",title);
-            map.put("year",year);
-            map.put("count",count);
-            map.put("source",source);
-            list.add(map);
-        }
-
-        return list;
-
-    }
+  
 }

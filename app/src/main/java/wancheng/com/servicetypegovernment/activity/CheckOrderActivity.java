@@ -93,9 +93,16 @@ public class CheckOrderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkorder);
 ;        initView();
-        getListDataFirst();
         onOperationEvent();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getListDataFirst();
+
+    }
+
     private void initView(){
         Intent intent=getIntent();
         //企业列表

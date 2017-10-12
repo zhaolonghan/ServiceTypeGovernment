@@ -82,7 +82,6 @@ public  class IndexFragment  extends BaseFragment {
                              Bundle savedInstanceState) {
         contactsLayout = inflater.inflate(R.layout.activity_index,
                 container, false);
-        getData();
 
         lazyLoad();
         return contactsLayout;
@@ -91,6 +90,7 @@ public  class IndexFragment  extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        getData();
 
     }
 
