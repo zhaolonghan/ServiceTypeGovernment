@@ -20,9 +20,8 @@ public class ConstUtil {
 	/**
 	 * URL
 	 */
-	//public static String IP = "http://223.71.241.40/";
-	public static String IP = "http://192.168.1.111:8181/";
-
+	public static String IP = "http://223.71.241.40/";
+	//public static String IP = "http://192.168.1.147:8181/";
 
 	/**
 	 * METHOD
@@ -37,7 +36,7 @@ public class ConstUtil {
 	public static String METHOD_GETINSPECTRESULTLIST = "a/app/inspect/getInspectResultList";//检查清单列表
 	public static String METHOD_GETCORPINSRES = "a/app/inspect/getCorpInsRes";//检查清单详情
 	public static String METHOD_GETCORPTYPES = "a/app/corp/getCorpType";
-	public static String METHOD_SAVECORP = "a/app/corp/saveCorp";
+	public static  String METHOD_SAVECORP = "a/app/corp/saveCorp";
 	public static String METHOD_SAVECORPLOW = "a/app/corp/saveCorpLow";
 	public static String METHOD_GETVERSION = "a/app/corp/version";
 	public static String METHOD_CHECKDETAIL="a/inspect/inspectItem/getzhiFaResult?t=phone&id=";
@@ -60,7 +59,4 @@ public class ConstUtil {
 	public static String METHOD_UPLOADIMAGE = "a/app/images/uploadImage";//修改图片
 	public static String METHOD_UPDATEPASS = "a/app/corp/updatePass";//修改密码
 	public static String METHOD_UPDATEUSER ="a/app/corp/updateUser";//修改信息
-	public static String METHOD_UPLOADHEADIMAGE = "a/app/images/updatePhoto";//修改头像
-
-
 }
