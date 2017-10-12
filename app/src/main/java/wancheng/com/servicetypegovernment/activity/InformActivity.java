@@ -40,6 +40,7 @@ import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -259,7 +260,7 @@ public class InformActivity extends BaseActivity {
                     Intent intent = new Intent();
                     intent.putExtra("corpId", corpId);
                     intent.putExtra("ztlx", ztlx);
-                    intent.putExtra("uid", "2");
+                    intent.putExtra("uid",UserDateBean.getInstance().getId());
                     intent.putExtra("address", tb_address.getText().toString());
                     intent.putExtra("insertid", insertid);
                     intent.putExtra("checkAll", checkAll);
@@ -422,7 +423,7 @@ public class InformActivity extends BaseActivity {
                 JSONObject jsonQuery = new JSONObject();
                 try{
                    // jsonQuery.put("uid",UserDateBean.getInstance().getId());
-                    jsonQuery.put("uid","2");
+                    jsonQuery.put("uid", UserDateBean.getInstance().getId());
                     jsonQuery.put("corpId", corpId);
                     jsonQuery.put("ztlx2", ztlx2);
                     String data=  jsonQuery.toString();
@@ -492,7 +493,10 @@ public class InformActivity extends BaseActivity {
         }.start();
 
     }
-
+    @Override
+    public void onBackPressed() {
+        showNormalDialog("提示","您还没有编辑完，是否确定退出？");
+    }
 
 
 }

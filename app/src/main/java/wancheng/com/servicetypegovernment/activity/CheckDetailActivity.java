@@ -40,6 +40,7 @@ import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.bean.ImageUpload;
 import wancheng.com.servicetypegovernment.bean.ImagesBean;
 import wancheng.com.servicetypegovernment.bean.TopBean;
+import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 
@@ -187,7 +188,7 @@ public class CheckDetailActivity extends BaseActivity {
                    Intent intent = new Intent();
                    intent.putExtra("corpId",corpId);
                    intent.putExtra("ztlx",ztlx);
-                   intent.putExtra("uid","2");
+                   intent.putExtra("uid", UserDateBean.getInstance().getId());
                    intent.putExtra("address",address);
                    intent.putExtra("insertid",msgId);
                    intent.putExtra("corpname",corpname);
@@ -203,6 +204,10 @@ public class CheckDetailActivity extends BaseActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        showNormalDialog("提示","返回上一步将清空所有检查项，是否确定？");
     }
     private String getJsonStr(){
         try{
@@ -723,7 +728,7 @@ public class CheckDetailActivity extends BaseActivity {
                         Intent intent = new Intent();
                         intent.putExtra("corpId",corpId);
                         intent.putExtra("ztlx",ztlx);
-                        intent.putExtra("uid","2");
+                        intent.putExtra("uid",UserDateBean.getInstance().getId());
                         intent.putExtra("address",address);
                         intent.putExtra("insertid",msgId);
                         intent.putExtra("corpname",corpname);

@@ -126,7 +126,6 @@ public class ImagePagerUploadHeadActivity extends FragmentActivity {
 				.setTitle("选择图片")
 				.setNegativeButton("相册", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
 						Intent intent = new Intent();
 						intent.setClass(ImagePagerUploadHeadActivity.this,
 								ImageChooseActivity.class);

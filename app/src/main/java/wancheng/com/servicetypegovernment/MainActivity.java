@@ -53,8 +53,8 @@ public class MainActivity extends BaseActivity {
         btnLogin =(Button)findViewById(R.id.btn_login);
         final EditText ed=(EditText)findViewById(R.id.editText1);
         final EditText ed2=(EditText)findViewById(R.id.editText2);
-        ed.setText("thinkgem");
-        ed2.setText("admin");
+        ed.setText("ceshi");
+        ed2.setText("123456");
         databaseHelper=new DatabaseHelper(this);
 //        getData();
 
