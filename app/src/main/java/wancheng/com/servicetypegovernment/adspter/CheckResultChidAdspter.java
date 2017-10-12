@@ -62,7 +62,7 @@ public class CheckResultChidAdspter extends BaseAdapter
         private LinearLayout detail_image;
         private TextView detail_info;
         private NoScrollGridView noScrollGridView;
-        private NoScrollGridAdapter noScrollGridAdapter;
+        private NoScrollGridResultAdapter noScrollGridAdapter;
     }
 
     @Override
@@ -127,7 +127,7 @@ public class CheckResultChidAdspter extends BaseAdapter
 
 
                 } else {
-                    zujian.noScrollGridAdapter=new NoScrollGridAdapter(context,imageUrls);
+                    zujian.noScrollGridAdapter=new NoScrollGridResultAdapter(context,imageUrls);
                     zujian.noScrollGridView.setAdapter(zujian.noScrollGridAdapter);
 
                 }
