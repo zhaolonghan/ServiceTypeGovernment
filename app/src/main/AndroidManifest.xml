@@ -60,7 +60,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ae33d7cb748a920996eae1d6e82edd3f" >
-
+<!--
+            0ad282924be630edb229facdb7a467a3
+-->
             <!-- 开发者申请的key -->
         </meta-data>
 
