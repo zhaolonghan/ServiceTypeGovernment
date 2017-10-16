@@ -6,12 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -31,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -138,6 +142,8 @@ public class CheckDetailActivity extends BaseActivity {
                             mapChild.put("mode",mode);
                             mapChild.put("guide",guide);
                             mapChild.put("base",base);
+                            mapChild.put("i_num",i);
+                            mapChild.put("j_num",j);
                             dataChildList.add(mapChild);
                         }
 
@@ -146,7 +152,6 @@ public class CheckDetailActivity extends BaseActivity {
                     map.put("name",name);
                     map.put("remarks",remarks);
                     map.put("dataChildList",dataChildList);
-                    //Log.e("name",name);
                     dataList.add(map);
                 }
             }
@@ -167,22 +172,6 @@ public class CheckDetailActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent();
-//                intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
-//                CheckDetailActivity.this.startActivityForResult(intent, 0);
-                //
-//                boolean isOK = databaseHelper.deleteById(4);
-//                if(isOK){
-//                    List<Map<String, String>> list = databaseHelper.find(4);
-//                    if (list != null && list.size() > 0) {
-//                        Intent intent = new Intent(CheckDetailActivity.this, SubmitImageService.class);
-//                        intent.putExtra("datalist", (Serializable) (list));
-//                        startService(intent);
-//                        InformActivity.instance.finish();
-//                        finish();
-//
-//                    }
-//                }
                 sendList=new ArrayList<Map<String,Object>>();
                if(getListViewData()){
                    Intent intent = new Intent();
@@ -211,25 +200,7 @@ public class CheckDetailActivity extends BaseActivity {
     }
     private String getJsonStr(){
         try{
-//            JSONObject one=new JSONObject();
-//            one.put("corpId",corpId);
-//            one.put("zfry1",zfry1);
-//            one.put("zfry2",zfry2);
-//            one.put("date",checkDate);
-//            one.put("tableName",tableName);
-//            one.put("type",type);
-//            //one.put("corpId","11");
-//            JSONArray  two=new JSONArray();
-//            for(int i=0;i <sendList.size();i++){
-//                Map<String,Object> map=sendList.get(i);
-//                JSONObject three=new JSONObject();
-//                three.put("content_sort",map.get("content_sort").toString());
-//                three.put("ispoint",map.get("isImp").toString());
-//                three.put("result", map.get("checkResult").toString());
-//                two.put(i,three);
-//            }
-//            one.put("jcnr",two);
-//            Log.e("data size111 ", one.toString().length() + "");
+
             String str="{";
             str+="\"corpId\":\""+corpId+"\"";
             str+=",\"zfry1\":\""+zfry1+"\"";
@@ -281,7 +252,10 @@ public class CheckDetailActivity extends BaseActivity {
                         result=2;
                     }else{
                         result=3;
-                        str+=","+(i+1)+"."+(j+1);
+                        if(( (List<Map<String, Object>>) dataList.get(i).get("dataChildList")).get(j).get("isDel")!=null&&"1".equals(( (List<Map<String, Object>>) dataList.get(i).get("dataChildList")).get(j).get("isDel").toString())){}
+                       else{
+                            str+=","+(i+1)+"."+(j+1);
+                        }
                     }
                     map=new HashMap<String,Object>();
                     map.put("pid",ztlx);
@@ -293,6 +267,10 @@ public class CheckDetailActivity extends BaseActivity {
                     map.put("checkResult",result);
                     map.put("checkNote", ed_checknote.getText().toString());
                     map.put("content_sort",((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("content_sort").toString());
+                    //((List<Map<String, Object>>) (dataList.get(i).get("dataChildList")).get(j).get("isDel")
+                   // ((List<Map<String, Object>>)(dataList.get(i).get("dataChildList")).
+
+                    map.put("isDel", ((List<Map<String, Object>>)dataList.get(i).get("dataChildList")).get(j).get("isDel") == null ? "":((List<Map<String, Object>>)dataList.get(i).get("dataChildList")).get(j).get("isDel"));
                     sendList.add(map);
                     long id=databaseHelper.findCheck(map.get("pid").toString(), map.get("cid").toString(),msgId);
                     if(id!=-1){
@@ -392,6 +370,76 @@ public class CheckDetailActivity extends BaseActivity {
 
 
     }
+    private  void addChoose(LinearLayout item,final int copy_i){
+        //获取有几个被隐藏
+        List<Map<String,Object>> childList=(List<Map<String,Object>>)dataList.get(copy_i).get("dataChildList");
+        //计算被删除的条数
+        int num=0;
+        for(Map<String,Object> onetwo:childList){
+            if(onetwo!=null&&onetwo.get("isDel")!=null&&"1".equals(onetwo.get("isDel").toString())){
+                num++;
+            }
+        }
+        String[]  strArrayold=new String[num];
+        List<Map<String,Object>> havechildList=new ArrayList<Map<String,Object>>();
+        int strArrayAddNum=0;
+        for(Map<String,Object> onetwo:childList){
+            if(onetwo!=null&&onetwo.get("isDel")!=null&&"1".equals(onetwo.get("isDel").toString())){
+                strArrayold[strArrayAddNum]=onetwo.get("content_sort").toString() + " " + onetwo.get("content").toString();
+                strArrayAddNum++;
+                havechildList.add(onetwo);
+            }
+        }
+        final   List<Map<String,Object>> finalhavechildList=havechildList;
+        final int havenum=strArrayAddNum;
+        AlertDialog dialog = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom)).setTitle("检查要点")
+                .setSingleChoiceItems(strArrayold, -1, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LinearLayout itemChildview = (LinearLayout) finalhavechildList.get(which).get("itemChildview");
+                        //显示
+                        itemChildview.setVisibility(View.VISIBLE);
+                        //恢复不隐藏
+                        int i_num = Integer.parseInt(finalhavechildList.get(which).get("i_num").toString());
+                        int j_num = Integer.parseInt(finalhavechildList.get(which).get("j_num").toString());
+                        List<Map<String, Object>> childList = (List<Map<String, Object>>) dataList.get(i_num).get("dataChildList");
+                        childList.get(j_num).put("isDel", "0");
+                        dataList.get(i_num).put("dataChildList", childList);
+                        //判断是否还有隐藏
+                        if (havenum<=1) {
+                            TextView tv_isadd = (TextView) finalhavechildList.get(which).get("tv_isadd");
+                            tv_isadd.setVisibility(View.GONE);
+                        }
+
+                        dialog.dismiss();
+                    }
+                }).create();
+
+        dialog.show();
+       /* try {
+            Field mAlert = AlertDialog.class.getDeclaredField("mAlert");
+
+            mAlert.setAccessible(true);
+            Object mAlertController = mAlert.get(dialog);
+            Field mMessage = mAlertController.getClass().getDeclaredField("mSingleChoiceItemLayout");
+          *//*  Field [] a=mAlertController.getClass().getDeclaredFields();
+            if(a!=null){
+                for(Field b:a){
+                    Log.e("类型：",b.getName());
+                }
+            }*//*
+            mMessage.setAccessible(true);
+           *//* LinearLayout mMessageView = (LinearLayout)*//* mMessage.get(mAlertController);
+
+            Log.e("单选数量：", mMessage.get(mAlertController)+"");
+           // mMessageView.setTextColor(Color.BLUE);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }*/
+    }
     private void init(){
         if(dataList!=null&&dataList.size()>0){
             LinearLayout item ;
@@ -402,6 +450,8 @@ public class CheckDetailActivity extends BaseActivity {
                 map=dataList.get(i);
                 final TextView tv_checktitle=(TextView)item.findViewById(R.id.tv_checktitle);
                 final TextView tv_checkremark=(TextView)item.findViewById(R.id.tv_checkremark);
+                final TextView tv_isadd=(TextView)item.findViewById(R.id.tv_isadd);
+
                 tv_checktitle.setText(map.get("no").toString()+"、"+map.get("name").toString());
                 final String remark=map.get("remarks").toString();
                 if(remark!=null&&!"".equals(remark)){
@@ -418,6 +468,18 @@ public class CheckDetailActivity extends BaseActivity {
                 LinearLayout itemChild;
                 LinearLayout linChlid=(LinearLayout)item.findViewById(R.id.check_question);
                 List<Map<String,Object>> childList=(List<Map<String,Object>>)map.get("dataChildList");
+                final int copy_i=i;
+                final LinearLayout itemfinal=item;
+                //添加事件
+                tv_isadd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addChoose(itemfinal,copy_i);
+
+                    }
+                });
+
+
                 for(int j=0;j<childList.size();j++){
                     mapChild=childList.get(j);
                     itemChild = (LinearLayout) layoutInflater.inflate(R.layout.item_check_detail_two, null);
@@ -454,14 +516,29 @@ public class CheckDetailActivity extends BaseActivity {
                             }
                         }
                     });
+                    final  String sort=mapChild.get("content_sort").toString();
+                    final  LinearLayout itemChildview =itemChild;
+                    final int copy_j=j;
+                    itemChild.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            String remark = "是否要删除" + sort + "项?";
+                            showNormalDialogBydelete(remark, itemChildview, tv_isadd, copy_i, copy_j);
+                            //操作
+                            return false;
+                        }
+                    });
                     zhinan.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
                     zhinan.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            showNormalDialog(mode,guide,base);
+                            showNormalDialog(mode, guide, base);
                         }
                     });
                     imagesBeans.addAll(imageUrls);
+                    mapChild.put("itemChildview", itemChildview);
+                    mapChild.put("itemChild",itemChild);
+                    mapChild.put("tv_isadd",tv_isadd);
                     getImageGridViews(imagesBeans,iv_images,i,j);
                     linChlid.addView(itemChild);
                 }
@@ -726,16 +803,16 @@ public class CheckDetailActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent();
-                        intent.putExtra("corpId",corpId);
-                        intent.putExtra("ztlx",ztlx);
-                        intent.putExtra("uid",UserDateBean.getInstance().getId());
-                        intent.putExtra("address",address);
-                        intent.putExtra("insertid",msgId);
-                        intent.putExtra("corpname",corpname);
-                        intent.putExtra("fuzeren",fuzeren);
-                        intent.putExtra("phone",phone);
-                        intent.putExtra("permits",permits);
-                        intent.putExtra("resultId",resultId);
+                        intent.putExtra("corpId", corpId);
+                        intent.putExtra("ztlx", ztlx);
+                        intent.putExtra("uid", UserDateBean.getInstance().getId());
+                        intent.putExtra("address", address);
+                        intent.putExtra("insertid", msgId);
+                        intent.putExtra("corpname", corpname);
+                        intent.putExtra("fuzeren", fuzeren);
+                        intent.putExtra("phone", phone);
+                        intent.putExtra("permits", permits);
+                        intent.putExtra("resultId", resultId);
                         intent.putExtra("data", getJsonStr());
                         intent.setClass(CheckDetailActivity.this, CheckResultActivity.class);
                         CheckDetailActivity.this.startActivity(intent);
@@ -813,6 +890,43 @@ public class CheckDetailActivity extends BaseActivity {
                     }
                 });
         // 显示
+        normalDialog.show();
+    }
+    protected void showNormalDialogBydelete(String remark,final  LinearLayout itemChildview,final TextView tv_isadd,final int copy_i,final int copy_j){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.layout_mystarsdialog,
+                (ViewGroup) findViewById(R.id.dialog));
+        TextView tv_remarks=(TextView)layout.findViewById(R.id.isTip);
+        tv_remarks.setText(remark);
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(this);
+        normalDialog.setView(layout);
+        normalDialog.setTitle("提示");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        itemChildview.setVisibility(View.GONE);
+                        tv_isadd.setVisibility(View.VISIBLE);
+                        //增加判断删除标识
+                        List<Map<String,Object>> childList=(List<Map<String,Object>>)dataList.get(copy_i).get("dataChildList");
+                        childList.get(copy_j).put("isDel", "1");
+                        childList.get(copy_j).put("itemChildview",itemChildview);
+                        dataList.get(copy_i).put("dataChildList",childList);
+                    }
+                });
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
         normalDialog.show();
     }
 }

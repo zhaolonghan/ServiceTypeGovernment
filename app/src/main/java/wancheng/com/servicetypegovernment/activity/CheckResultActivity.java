@@ -521,6 +521,9 @@ public class CheckResultActivity extends BaseActivity {
             addtime=new SimpleDateFormat("yyyyMMDDHHmmss").format(new Date());
             Map<String,Object> map=databaseHelper.findMsgByid(msgId);
             List<Map<String,Object>> mapList=databaseHelper. findCheckByMsgid(msgId);
+            //判断是否没有图片需要上传
+            List<Map<String,String>> imagemapList=databaseHelper. findImageByMsgId(msgId);
+
             String str="{";
             str+="\"uid\":\""+ UserDateBean.getInstance().getId()+"\"";
             str+=",\"corpId\":\""+map.get("companyId")+"\"";
@@ -552,6 +555,11 @@ public class CheckResultActivity extends BaseActivity {
             str+=",\"gzyJcdwqzTime\":\""+map.get("checkSignDate")+"\"";
             str+=",\"lng\":\""+longitude+"\"";
             str+=",\"lat\":\""+latitude+"\"";
+            str+=",\"tzsbId\":\""+map.get("tzsbId")+"\"";
+
+            if(imagemapList==null||imagemapList.size()==0){
+                str+=",\"onOff\":\""+1+"\"";
+            }
             str+=",\"resultItem\":[";
             for(int i=0;i <mapList.size();i++){
                 Map<String,Object> mapChild=mapList.get(i);
@@ -568,7 +576,10 @@ public class CheckResultActivity extends BaseActivity {
                 str+=",\"remarks\":\""+mapChild.get("checkNote").toString()+"\"";
                 str+=",\"appContentId\":\""+mapChild.get("id").toString()+"\"}";
             }
-            str+="]}";
+            str+="]";
+
+
+            str+="}";
             return str;
         }catch (Exception e){
             e.printStackTrace();

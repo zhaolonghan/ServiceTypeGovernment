@@ -20,8 +20,8 @@ public class ConstUtil {
 	/**
 	 * URL
 	 */
-	public static String IP = "http://223.71.241.40/";
-	//public static String IP = "http://192.168.1.147:8181/";
+	//public static String IP = "http://223.71.241.40/";
+	public static String IP = "http://192.168.1.111:8181/";
 
 	/**
 	 * METHOD
@@ -59,4 +59,7 @@ public class ConstUtil {
 	public static String METHOD_UPLOADIMAGE = "a/app/images/uploadImage";//修改图片
 	public static String METHOD_UPDATEPASS = "a/app/corp/updatePass";//修改密码
 	public static String METHOD_UPDATEUSER ="a/app/corp/updateUser";//修改信息
+	public static String METHOD_UPLOADHEADIMAGE = "a/app/images/updatePhoto";//修改头像
+	public static String METHOD_ONOFF = "a/app/inspectDaily/onOff"; //开关
+
 }

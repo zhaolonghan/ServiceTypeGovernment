@@ -38,6 +38,8 @@ public class SubmitImageService extends Service {
     private boolean flag=false;
     private int count;
     private List<Map<String,String>> mapList;
+    private boolean OnOffflag=false;
+    int imageid=0;
     public SubmitImageService() {
 
 
@@ -73,13 +75,19 @@ public class SubmitImageService extends Service {
         }
     };
     public void updata(){
-        if(mapList!=null&&mapList.size()>=0&&((mapList.size()-1)==count)){
-            if(flag==true){
-                sendNotification("材料上传成功！");
-            }else{
-                sendNotification("材料上传失败！");
+        if(!OnOffflag){
+            if(mapList!=null&&mapList.size()>=0&&((mapList.size()-1)==count)){
+                if(flag==true){
+                    sendNotification("材料上传成功！");
+                    databaseHelper.deleteById(imageid);
+                }else{
+                    sendNotification("材料上传失败！");
+                }
             }
+        }else{
+            sendNotification("检查数据已同步完成！");
         }
+
         stopSelf();
     }
     @Override
@@ -91,22 +99,25 @@ public class SubmitImageService extends Service {
         IMEI=  intent.getStringExtra("IMEI");
         uid=  intent.getStringExtra("uid");
         msgId= intent.getLongExtra("msgId", 0);
-       // Log.e("33333333333333333111111", "33333333111113333");
-
-       /* mapList=databaseHelper.findImageByMsgId(msgId);
-        Log.e("344444", "444444");*/
-
+        try {
+            mapList=databaseHelper.findImageByMsgId(msgId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if(mapList!=null&&mapList.size()>0){
             for(int i=0;i<mapList.size();i++){
                 count=i;
                 Map<String,String> map=mapList.get(i);
                 try{
+                    imageid=Integer.parseInt(map.get("id").toString());
                     shbmitData(getJson(map).get("str"),getJson(map).get("image"));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
 
             }
+            //提交完毕，走开关
+            openOnOff();
 
         }else{
             stopSelf();
@@ -168,7 +179,7 @@ public class SubmitImageService extends Service {
         str+=",\"fileName\":\""+m.get("fileName").toString()+"\"";
         str+="}";
         m.put("image", m.get("base64").toString());
-        m.put("str",str);
+        m.put("str", str);
         return m;
     }
     public static Map<String,String> encodeBase64File(String path) throws Exception {
@@ -192,9 +203,6 @@ public class SubmitImageService extends Service {
                 // data= Base64Coder.encodeString(data);
                 map.put("data",Base64Coder.encodeString(str));
                 map.put("image", image);
-                Log.e("33333333333333333", "333333333333");
-
-                Log.e("data的长度是", Base64Coder.encodeString(str).length() + "");
                 NetUtil net = new NetUtil();
                 String res = net.sendPost(ConstUtil.METHOD_UPLOADIMAGE, map);
                 if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
@@ -233,6 +241,60 @@ public class SubmitImageService extends Service {
             }
         }.start();
     }
+
+    private void openOnOff() {
+        new Thread() {
+            public void run() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                try{
+                    JSONObject jsonQuery = new JSONObject();
+                    jsonQuery.put("appResultUpTime", addTime);
+                    jsonQuery.put("appResultId", msgId);
+                    jsonQuery.put("uid", uid);
+                    jsonQuery.put("IMEI", IMEI);
+                    map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+                NetUtil net = new NetUtil();
+                String res = net.sendPost(ConstUtil.METHOD_ONOFF, map);
+                if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
+                    handler.sendEmptyMessage(1);
+                } else {
+                    Message msg = new Message();
+                    msg.what = 2;
+                    if (!res.isEmpty()) {
+                        JSONObject jsonObj;
+                        try {
+                            jsonObj = new JSONObject(res);
+                            String msg_code = testStringNull(jsonObj.optString("msg"));
+                            String code = testStringNull(jsonObj.optString("code"));
+                            if ("0".equals(code)) {
+                                msg.what = 3;
+                                msg.obj = "检查数据已同步完成";
+                                OnOffflag=true;
+                            } else {
+                                if (msg_code != null && !msg_code.isEmpty())
+                                    msg.obj = msg_code;
+                                else
+                                    msg.obj = "请求异常，请稍后重试！";
+
+                            }
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                            msg.obj = "请求异常，请稍后重试！";
+                        }
+                        handler.sendMessage(msg);
+                    }
+
+                }
+            }
+        }.start();
+    }
+
     protected String testStringNull(String s) {
         if (s == null) {
             return "";

@@ -706,6 +706,8 @@ public class CheckOrderActivity extends BaseActivity {
                         contextmap.put("corp_tel", JSONUtils.getString(dataobject, "fuzerenTel", ""));
                         contextmap.put("corp_address", JSONUtils.getString(dataobject, "jydz", ""));
                         contextmap.put("resultId", JSONUtils.getString(dataobject, "resultId", ""));
+                        contextmap.put("tzsbId", JSONUtils.getString(dataobject, "tzsbId", ""));
+
 
 
                         if(JSONUtils.getString(dataobject, "inspectTable", "").length()>0){
@@ -868,6 +870,9 @@ public void setCheckdata( JSONArray   dataArray) throws JSONException{
         public  String ztlx="";
         public  int pageNo=1;
         public  int pageSize=10;
+        public  String lng="";
+        public  String lat="";
+        public  int  sortOrder=1;
         public  String uid= UserDateBean.getUser().getId();
 
         public CorpQuery(){
