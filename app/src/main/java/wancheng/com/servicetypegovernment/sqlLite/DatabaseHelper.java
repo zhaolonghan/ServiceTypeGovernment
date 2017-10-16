@@ -47,6 +47,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "companySignDate TEXT," +
                 "checkSign TEXT," +
                 "checkSignDate TEXT," +
+                "tzsbId TEXT," +
+
                 "content TEXT" +
                 ")");
         //创建检查表
@@ -58,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "msgId INTEGER," +
                 "checkResult INTEGER," +
                 "content_sort TEXT," +
+                "isDel INTEGER," +
                 "checkNote TEXT" +
                 ")");
         //创建图片表
@@ -73,7 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "versionCode TEXT,"+
                 "updataDate TEXT"+
                 ")");
-      
+
 
     }
 
@@ -94,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValue.put("checkSign", map.get("checkSign").toString());
         cValue.put("checkSignDate", map.get("checkSignDate").toString());
         cValue.put("content", map.get("content").toString());
+        cValue.put("tzsbId", map.get("tzsbId").toString());
         long id=db.insert("tb_msg", null, cValue);
         db.close();
         return id;
@@ -113,6 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cValue.put("checkSign", map.get("checkSign").toString());
             cValue.put("checkSignDate", map.get("checkSignDate").toString());
             cValue.put("content", map.get("content").toString());
+            cValue.put("tzsbId", map.get("tzsbId").toString());
             db.update("tb_msg", cValue, "id="+id, null);
             flag=true;
         }catch (Exception e){
@@ -163,7 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Map<String,Object>> findCheckByMsgid(long id) {
         SQLiteDatabase db=getWritableDatabase();
         List<Map<String,Object>> versionList = null;
-        Cursor cursor = db.query("tb_check", null, "msgId="+id, null, null,  null, null, null);
+        Cursor cursor = db.query("tb_check", null, "msgId="+id+" and isDel !=1 ", null, null,  null, null, null);
         versionList = new ArrayList<Map<String,Object>>();
         while(cursor.moveToNext()){
             Map<String,Object> msg = new HashMap<String,Object>();
@@ -182,7 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public long findCheck(String pid,String cid,long msgId) {
         SQLiteDatabase db=getWritableDatabase();
-        Cursor cursor = db.query("tb_check", null, "pid='"+pid+"' and cid='"+cid+"' and msgId="+msgId, null, null, null, null);
+        Cursor cursor = db.query("tb_check", null, "pid='" + pid + "' and cid='" + cid + "' and msgId=" + msgId, null, null, null, null);
         if( cursor.getCount()>0){
             while(cursor.moveToNext()){
                 Map<String,String> image = new HashMap<String,String>();
@@ -201,10 +206,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cValue.put("isImp",map.get("isImp").toString());
             cValue.put("checkResult", map.get("checkResult").toString());
             cValue.put("checkNote", map.get("checkNote").toString());
+            cValue.put("isDel", map.get("isDel").toString());
             long msgid=Long.parseLong(map.get("msgId").toString());
-            db.update("tb_check", cValue, "pid='"+map.get("pid").toString()+"' and cid='"+map.get("cid").toString()+"' and msgId="+msgid, null);
+            String isDel="0";
+            if(map.get("isDel")!=null){
+                isDel=map.get("isDel").toString();
+            }
+            db.update("tb_check", cValue, "pid='"+map.get("pid").toString()+"' and cid='"+map.get("cid").toString()+"' and msgId="+msgid +"  and isDel= '"+isDel+"'" , null);
             flag=true;
-            Log.e("修改","修改了检查表");
+            //  Log.e("修改","修改了检查表");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -221,10 +231,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValue.put("checkResult",map.get("checkResult").toString());
         cValue.put("checkNote", map.get("checkNote").toString());
         cValue.put("content_sort", map.get("content_sort").toString());
+        if(map.get("isDel")!=null){
+            cValue.put("isDel", map.get("isDel").toString());
+        }
         long id=db.insert("tb_check", null, cValue);
 
-        Log.e("插入","插入了检查表");
-        Log.e("插入id", id + "");
+        //   Log.e("插入","插入了检查表");
+        // Log.e("插入id", id + "");
         return id;
     }
     public boolean delMsg(long id){
@@ -342,7 +355,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             versionList.add(image);
         }
         db.close();
-      
+
         return versionList;
     }
     /**
@@ -355,25 +368,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=getWritableDatabase();
         List<Map<String,String>> images = null;
         Cursor cursor = db.query("tb_check_image", null, "checkId="+checkid, null, null, null, null);
-            images = new ArrayList<Map<String,String>>();
-            while(cursor.moveToNext()){
-                Map<String,String> image = new HashMap<String,String>();
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
-                String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
-                image.put("id",id+"");
-                image.put("checkId",checkId+"");
-                image.put("imagePath",imagePath);
+        images = new ArrayList<Map<String,String>>();
+        while(cursor.moveToNext()){
+            Map<String,String> image = new HashMap<String,String>();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
+            String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
+            image.put("id",id+"");
+            image.put("checkId",checkId+"");
+            image.put("imagePath",imagePath);
 
-                images.add(image);
+            images.add(image);
 
-            }
+        }
         db.close();
         return images;
     }
     public List<Map<String,String>> findImageByMsgId(long msgId) {
         SQLiteDatabase db=getWritableDatabase();
         List<Map<String,String>> images = null;
+        // Log.e("查询","查询");
         Cursor cursor = db.query("tb_check_image", null, "msgId="+msgId, null, null, null, null);
         images = new ArrayList<Map<String,String>>();
         while(cursor.moveToNext()){
