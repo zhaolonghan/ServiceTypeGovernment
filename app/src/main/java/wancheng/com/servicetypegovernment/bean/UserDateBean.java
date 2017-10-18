@@ -1,11 +1,16 @@
 package wancheng.com.servicetypegovernment.bean;
 
-import android.graphics.Bitmap;
 
 import java.io.Serializable;
 
 public class UserDateBean implements Serializable {
+	public double getDistance() {
+		return distance;
+	}
 
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
 
 	/**
 	 * 
@@ -28,6 +33,26 @@ public class UserDateBean implements Serializable {
 	private String no="";//工号
 	private String mobile="";//电话
 	private String  office="";
+	private double  distance=500;
+	private double  lng=0;
+	private double  lat=0;
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
 	private static UserDateBean user;
 
 	public static UserDateBean getInstance() {

@@ -96,6 +96,7 @@ public class InformActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inform);
+
         databaseHelper=new DatabaseHelper(this);
         final Intent intent=getIntent();
         final String corpId=intent.getStringExtra("corpId");
@@ -103,6 +104,7 @@ public class InformActivity extends BaseActivity {
         final String corp_address=intent.getStringExtra("corp_address");
         final String ztlx=intent.getStringExtra("ztlx");
         resultId=intent.getStringExtra("resultId");
+
         getData(corpId,ztlx);
         instance=this;
         tv_corpname=(TextView)findViewById(R.id.tv_corpname);
@@ -125,6 +127,7 @@ public class InformActivity extends BaseActivity {
         tv_corpname.setText(corp_name);
         tb_address.setText(corp_address);
         tv_gaozhi.setText(html);
+
         ed_date.setOnClickListener(new View.OnClickListener() {
 
                    @Override
@@ -416,13 +419,13 @@ public class InformActivity extends BaseActivity {
     }
 
     private void getData(final String corpId,final String ztlx2) {
+
         pd = ProgressDialog.show(this, "", "请稍候...");
         new Thread() {
             public void run() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 JSONObject jsonQuery = new JSONObject();
                 try{
-                   // jsonQuery.put("uid",UserDateBean.getInstance().getId());
                     jsonQuery.put("uid", UserDateBean.getInstance().getId());
                     jsonQuery.put("corpId", corpId);
                     jsonQuery.put("ztlx2", ztlx2);
@@ -483,6 +486,7 @@ public class InformActivity extends BaseActivity {
                             e.printStackTrace();
                             msg.obj = "请求异常，请稍后重试！";
                         }
+
                         handler.sendMessage(msg);
                     }
 

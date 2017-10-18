@@ -61,5 +61,7 @@ public class ConstUtil {
 	public static String METHOD_UPDATEUSER ="a/app/corp/updateUser";//修改信息
 	public static String METHOD_UPLOADHEADIMAGE = "a/app/images/updatePhoto";//修改头像
 	public static String METHOD_ONOFF = "a/app/inspectDaily/onOff"; //开关
+	public static String METHOD_CORPGPRS = "a/app/corp/updateLngLat"; //企业定位
+
 
 }

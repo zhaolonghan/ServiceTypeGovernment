@@ -9,10 +9,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_below="@+id/top_view"
-        android:layout_height="50dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:id="@+id/lin_banner"
-        android:background="@color/white"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/check_searchtype_style"
 
         >
 
@@ -24,31 +27,28 @@
                 android:layout_gravity="center_horizontal"
 
                 android:id="@+id/listname_notice"
-
                 >
 
                 <TextView
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="5dp"
-                    android:paddingTop="5dp"
                     android:id="@+id/tv_notice"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textStyle="bold"
-                    android:textColor="@color/btnblue"
-                    android:text="企业列表"/>
+                    android:textColor="@color/white"
+                    android:text="距离近"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/red"
+                    android:background="@color/white"
                     android:layout_alignParentBottom="true"
                     ></View>
                 <View
                     android:layout_width="1dp"
                     android:layout_centerInParent="true"
-                    android:layout_height="30dp"
+                    android:layout_height="15dp"
                     android:background="@color/black"
                     android:layout_alignParentRight="true"
                     ></View>
@@ -64,8 +64,7 @@
 
             <TextView
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="5dp"
-                android:paddingTop="5dp"
+
                 android:id="@+id/tv_loyal"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -73,17 +72,17 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:text="执法检查"/>
+                android:text="敏感度"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/white"
+                android:background="@color/peru"
                 android:layout_alignParentBottom="true"
                 ></View>
             <View
                 android:layout_width="1dp"
                 android:layout_centerInParent="true"
-                android:layout_height="30dp"
+                android:layout_height="15dp"
                 android:background="@color/black"
                 android:layout_alignParentRight="true"
                 ></View>
@@ -98,8 +97,7 @@
 
                 <TextView
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="5dp"
-                    android:paddingTop="5dp"
+
                     android:id="@+id/tv_news"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
@@ -107,37 +105,18 @@
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="问题处置"/>
+                    android:text="任务量"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/white"
+                    android:background="@color/peru"
                     android:layout_alignParentBottom="true"
                     ></View>
 
             </RelativeLayout>
 
         </LinearLayout>
-<LinearLayout
-    android:id="@+id/view_2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/lin_banner"
-    android:orientation="vertical"
-    android:visibility="gone"
-    >
 
-    <ListView
-        android:id="@+id/enforcementlist"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        ></ListView>
-</LinearLayout>
     <LinearLayout
         android:id="@+id/view_1"
         android:layout_width="match_parent"
@@ -188,56 +167,6 @@
                 ></ListView>
         </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/view_3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/lin_banner"
-        android:orientation="vertical"
-        android:visibility="gone"
-        >
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/ib_search1"
-                android:layout_margin="5dp"
-                android:textSize="16dp"
-                android:id="@+id/question_corpnamesearch"
-                android:hint="请输入企业名称的关键字进行高级检索"/>
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:id="@+id/ib_search1"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/search"
-                />
-        </RelativeLayout>
-
-
-        <ListView
-            android:id="@+id/questionlist"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            ></ListView>
-
-    </LinearLayout>
 
 
 
