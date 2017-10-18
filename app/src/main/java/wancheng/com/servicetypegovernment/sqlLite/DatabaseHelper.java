@@ -97,7 +97,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cValue.put("checkSign", map.get("checkSign").toString());
         cValue.put("checkSignDate", map.get("checkSignDate").toString());
         cValue.put("content", map.get("content").toString());
-        cValue.put("tzsbId", map.get("tzsbId").toString());
+        if(map.get("tzsbId")!=null){
+            cValue.put("tzsbId", map.get("tzsbId").toString());
+        }
         long id=db.insert("tb_msg", null, cValue);
         db.close();
         return id;

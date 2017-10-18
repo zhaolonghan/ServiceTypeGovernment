@@ -210,9 +210,9 @@ public class CheckOrderActivity extends BaseActivity {
                 relLawListName.getChildAt(1).setBackground(lineblack);
                 view_1layout.setVisibility(View.VISIBLE);
                 corpquery.pageNo=1;
-                corpquery.pageSize=1;
                 corpquery.sortOrder=1;
-                getListDataFirst();
+                listcorp=new ArrayList<Map<String, Object>>();
+                getCorpListData();
             }
         });
 
@@ -231,9 +231,9 @@ public class CheckOrderActivity extends BaseActivity {
                 relLawListName.getChildAt(1).setBackground(linered);
                 view_1layout.setVisibility(View.VISIBLE);
                 corpquery.pageNo=1;
-                corpquery.pageSize=1;
                 corpquery.sortOrder=2;
-                getListDataFirst();
+                listcorp=new ArrayList<Map<String, Object>>();
+                getCorpListData();
 
             }
         });
@@ -251,9 +251,9 @@ public class CheckOrderActivity extends BaseActivity {
                 relLawListName.getChildAt(1).setBackground(lineblack);
                 view_1layout.setVisibility(View.VISIBLE);
                 corpquery.pageNo=1;
-                corpquery.pageSize=1;
                 corpquery.sortOrder=3;
-                getListDataFirst();
+                listcorp=new ArrayList<Map<String, Object>>();
+                getCorpListData();
             }
         });
 
