@@ -29,12 +29,14 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,6 +50,7 @@ import wancheng.com.servicetypegovernment.service.SubmitImageService;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
+import wancheng.com.servicetypegovernment.util.GeoUtils;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 
@@ -104,7 +107,8 @@ public class CheckResultActivity extends BaseActivity {
     private String longitude;
     private String addtime;
     private long  msgId;
-
+    private double lngloc = 0;
+    private double latloc =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -251,31 +255,7 @@ public class CheckResultActivity extends BaseActivity {
                 showNormalDialog1("提示", "是否提交检查表？");
             }
         });
-        //初始化client
-        locationClient = new AMapLocationClient(CheckResultActivity.this);
-        //设置定位参数
-        locationClient.setLocationOption(getDefaultOption());
-        // 设置定位监听
-        locationClient.setLocationListener(new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation loc) {
 
-                if (null != loc) {
-                    if (loc.getErrorCode() == 0) {
-                       latitude=loc.getLatitude()+"";//纬度
-                       longitude=loc.getLongitude()+"";//经度
-                        Toast.makeText(CheckResultActivity.this, " 当前定位的地点是：" + loc.getAddress(), Toast.LENGTH_SHORT).show();
-                        //Log.e("ok", loc.getAddress());
-                    } else {
-                      /*  Log.e("getErrorCode", loc.getErrorCode() + "");
-                        Log.e("errorInfo", loc.getErrorInfo());*/
-                    }
-                } else {
-                    Log.e("no", "定位失败");
-                }
-            }
-        });
-        locationClient.startLocation();
     }
     @Override
     public void onBackPressed() {
@@ -352,12 +332,7 @@ public class CheckResultActivity extends BaseActivity {
                 break;
         }
     }
-    //    public void display2() {
-//        ed_date2.setText(new StringBuffer().append(mYear2).append(getString(R.string.year)).append(mMonth2 + 1).append(getString(R.string.month)).append(mDay2).append(getString(R.string.day)));
-//    }
-//    public void display3() {
-//        ed_date3.setText(new StringBuffer().append(mYear3).append(getString(R.string.year)).append(mMonth3 + 1).append(getString(R.string.month)).append(mDay3).append(getString(R.string.day)));
-//    }
+
     private DatePickerDialog.OnDateSetListener mdateListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -417,7 +392,6 @@ public class CheckResultActivity extends BaseActivity {
                             if ("0".equals(code)) {
                                 String  data=jsonObj.getString("data");
                                 data =new String(Base64Coder.decodeString(data));
-                                //Log.e("datadatadatadata",data);
                                 JSONObject obj= new JSONObject(data);
                                 result= JSONUtils.getString(obj, "result", "");
                                 ndjccs= JSONUtils.getString(obj, "ndjccs", "");
@@ -474,32 +448,52 @@ public class CheckResultActivity extends BaseActivity {
         // 显示
         normalDialog.show();
     }
-    protected void showNormalDialog1(String title,String context){
-        /* @setIcon 设置对话框图标
-         * @setTitle 设置对话框标题
-         * @setMessage 设置对话框消息提示
-         * setXXX方法返回Dialog对象，因此可以链式设置属性
-         */
-        final AlertDialog.Builder normalDialog =
-                new AlertDialog.Builder(this);
-        normalDialog.setTitle(title);
-        normalDialog.setMessage(context);
-        normalDialog.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        shbmitData();
+    protected void showNormalDialog1(final String title,final String context){
+        //定位
+        locationClient = new AMapLocationClient(this);
+        locationClient.setLocationOption(getDefaultOption());
+        locationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation loc) {
+                if (null != loc) {
+                    lngloc = loc.getLongitude();
+                    latloc = loc.getLatitude();
+                    double lat = UserDateBean.getUser().getLat();
+                    double lng = UserDateBean.getUser().getLng();
+                    double distance = UserDateBean.getUser().getDistance();
+                    double nowdistance = GeoUtils.getDistance(lng, lat, lngloc, latloc);
+                    if (nowdistance > distance&&lat!=-1000) {
+                        Toast.makeText(CheckResultActivity.this, "超出检查范围，不能提交！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        final AlertDialog.Builder normalDialog =
+                                new AlertDialog.Builder(CheckResultActivity.this);
+                        normalDialog.setTitle(title);
+                        normalDialog.setMessage(context);
+                        normalDialog.setPositiveButton("确定",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        shbmitData();
+                                    }
+                                });
+                        normalDialog.setNegativeButton("取消",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //...To-do
+                                    }
+                                });
+                        // 显示
+                        normalDialog.show();
                     }
-                });
-        normalDialog.setNegativeButton("取消",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //...To-do
-                    }
-                });
-        // 显示
-        normalDialog.show();
+                } else {
+                    Toast.makeText(CheckResultActivity.this, " 无法获取当前的位置", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        locationClient.startLocation();
+
+
     }
     private AMapLocationClientOption getDefaultOption() {
         AMapLocationClientOption mOption = new AMapLocationClientOption();
@@ -553,9 +547,11 @@ public class CheckResultActivity extends BaseActivity {
             str+=",\"gzyBjcdwqzTime\":\""+map.get("companySignDate")+"\"";
             str+=",\"gzyJcdwqz\":\""+encodeBase64File(map.get("checkSign").toString())+"\"";
             str+=",\"gzyJcdwqzTime\":\""+map.get("checkSignDate")+"\"";
-            str+=",\"lng\":\""+longitude+"\"";
-            str+=",\"lat\":\""+latitude+"\"";
-            str+=",\"tzsbId\":\""+map.get("tzsbId")+"\"";
+            str+=",\"lng\":\""+lngloc+"\"";
+            str+=",\"lat\":\""+latloc+"\"";
+            if(map.get("tzsbId")!=null){
+                str+=",\"tzsbId\":\""+map.get("tzsbId")+"\"";
+            }
 
             if(imagemapList==null||imagemapList.size()==0){
                 str+=",\"onOff\":\""+1+"\"";

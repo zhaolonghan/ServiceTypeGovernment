@@ -30,6 +30,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -65,6 +69,7 @@ import wancheng.com.servicetypegovernment.view.PopWindow;
  * test
  */
 public class MyinfoActivity extends BaseActivity {
+    private AMapLocationClient locationClient = null;
     private TextView name;
     private TextView office;
     private TextView no;
@@ -160,9 +165,9 @@ public class MyinfoActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phonetext=phone.getText().toString();
-                String mobiletext=mobile.getText().toString();
-                String emailtext=email.getText().toString();
+                final String phonetext=phone.getText().toString();
+                final String mobiletext=mobile.getText().toString();
+                final String emailtext=email.getText().toString();
                 //判断
                 String msg="";
                 boolean isok=true;
@@ -188,7 +193,21 @@ public class MyinfoActivity extends BaseActivity {
 
                 }
                 if(isok){
-                    updateinfo(UserDateBean.getUser().getId(), mobiletext, emailtext,phonetext);
+                    locationClient = new AMapLocationClient(MyinfoActivity.this);
+                    locationClient.setLocationOption(getDefaultOption());
+                    locationClient.setLocationListener(new AMapLocationListener() {
+                        @Override
+                        public void onLocationChanged(AMapLocation loc) {
+                            if (null != loc) {
+                                final double lat = loc.getLatitude();
+                                final double lng = loc.getLongitude();
+                                updateinfo(UserDateBean.getUser().getId(), mobiletext, emailtext, phonetext,lat,lng);
+                            } else {
+                                Toast.makeText(MyinfoActivity.this, " 无法获取当前的位置", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    locationClient.startLocation();
                 }else{
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
@@ -283,7 +302,7 @@ public class MyinfoActivity extends BaseActivity {
     }
 
 
-    private void updateinfo(final String uid,final String mobile,final String email,final String phone) {
+    private void updateinfo(final String uid,final String mobile,final String email,final String phone,final  double lat,final double lng) {
         pd = ProgressDialog.show(this, "", "请稍候...");
         new Thread() {
             public void run() {
@@ -295,6 +314,8 @@ public class MyinfoActivity extends BaseActivity {
                     jsonQuery.put("mobile", mobile);
                     jsonQuery.put("email", email);
                     jsonQuery.put("phone", phone);
+                    jsonQuery.put("lat", lat);
+                    jsonQuery.put("lng", lng);
                     String data=  jsonQuery.toString();
                     data= Base64Coder.encodeString(data);
                     map.put("data", data);
@@ -669,5 +690,18 @@ public class MyinfoActivity extends BaseActivity {
         }
         // 返回Base64编码过的字节数组字符串
         return "";
+    }
+
+    public AMapLocationClientOption getDefaultOption(){
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//
+        mOption.setGpsFirst(false);//
+        mOption.setHttpTimeOut(30000);//
+        mOption.setInterval(200000);//
+        mOption.setNeedAddress(true);//
+        mOption.setOnceLocation(true);//
+        mOption.setOnceLocationLatest(false);//
+        mOption.setLocationCacheEnable(true);
+        return mOption;
     }
 }

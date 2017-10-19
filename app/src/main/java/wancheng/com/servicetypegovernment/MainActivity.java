@@ -20,9 +20,16 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import wancheng.com.servicetypegovernment.activity.BaseActivity;
@@ -36,7 +43,7 @@ import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.UpdateManager;
 
 public class MainActivity extends BaseActivity {
-
+    private AMapLocationClient locationClient = null;
    private Button btnLogin;
     private String username;
     private String passWord;
@@ -65,7 +72,24 @@ public class MainActivity extends BaseActivity {
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(passWord)) {
                     Toast.makeText(MainActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
                 } else {
-                    getData(username, passWord);
+                    locationClient = new AMapLocationClient(MainActivity.this);
+                    locationClient.setLocationOption(getDefaultOption());
+                    locationClient.setLocationListener(new AMapLocationListener() {
+                        @Override
+                        public void onLocationChanged(AMapLocation loc) {
+                            if (null != loc) {
+                                final  double lat=loc.getLatitude();
+                                final  double lng=loc.getLongitude();
+                                getData(username, passWord,lat,lng);
+                            } else {
+                                Toast.makeText(MainActivity.this, " 无法获取当前的位置" , Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    locationClient.startLocation();
+
+
+
                 }
 
                 //updateView();
@@ -216,7 +240,7 @@ public class MainActivity extends BaseActivity {
     /**
      * 获取数据
      */
-    private void getData(final String username,final String password) {
+    private void getData(final String username,final String password,final  double lat, final  double lng) {
         pd = ProgressDialog.show(this, "", "请稍候...");
         new Thread() {
             public void run() {
@@ -226,6 +250,8 @@ public class MainActivity extends BaseActivity {
 
                     jsonQuery.put("username",username);
                     jsonQuery.put("password", password);
+                    jsonQuery.put("lng",lng);
+                    jsonQuery.put("lat", lat);
                     String data=  jsonQuery.toString();
                     data= Base64Coder.encodeString(data);
                     map.put("data", data);
@@ -260,6 +286,7 @@ public class MainActivity extends BaseActivity {
                                 UserDateBean.getInstance().setNo(JSONUtils.getString(dataArray, "no", ""));
                                 UserDateBean.getInstance().setEmail(JSONUtils.getString(dataArray, "email", ""));
                                 UserDateBean.getInstance().setOffice(JSONUtils.getString(dataArray, "office", ""));
+                                UserDateBean.getInstance().setDistance(JSONUtils.getString(dataArray, "scope", "0")==null?0:Double.parseDouble(JSONUtils.getString(dataArray, "scope", "0")));
                                 UserDateBean.getInstance().setAddress(JSONUtils.getString(dataArray, "address", "").length() == 0 ? "  " : JSONUtils.getString(dataArray, "address", ""));
                                 UserDateBean.getInstance().setPassword(password);
 
@@ -285,6 +312,17 @@ public class MainActivity extends BaseActivity {
 
             ;
         }.start();
-
+    }
+    public AMapLocationClientOption getDefaultOption(){
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//
+        mOption.setGpsFirst(false);//
+        mOption.setHttpTimeOut(30000);//
+        mOption.setInterval(200000);//
+        mOption.setNeedAddress(true);//
+        mOption.setOnceLocation(true);//
+        mOption.setOnceLocationLatest(false);//
+        mOption.setLocationCacheEnable(true);
+        return mOption;
     }
 }

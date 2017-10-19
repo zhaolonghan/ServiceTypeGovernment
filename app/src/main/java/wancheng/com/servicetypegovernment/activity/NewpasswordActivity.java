@@ -16,6 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,13 +41,13 @@ import wancheng.com.servicetypegovernment.view.PopWindow;
  * test
  */
 public class NewpasswordActivity extends BaseActivity {
+    private AMapLocationClient locationClient = null;
     private TextView v_oldpassword;
     private TextView v_newpassword;
     private TextView v_againpassword;
     private Button btn_updatepassword;
     private PopWindow popWindow;
     private boolean  isPOPOpen=false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,9 +68,9 @@ public class NewpasswordActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String oldpassword=v_oldpassword.getText().toString();
-                String newpassword=v_newpassword.getText().toString();
-                String againpassword=v_againpassword.getText().toString();
+                final String oldpassword=v_oldpassword.getText().toString();
+                final  String newpassword=v_newpassword.getText().toString();
+                final String againpassword=v_againpassword.getText().toString();
                 //判断
                 String msg="";
                 boolean isok=true;
@@ -90,7 +95,22 @@ public class NewpasswordActivity extends BaseActivity {
                     isok=false;
                 }
                 if(isok){
-                    updatepassword(UserDateBean.getUser().getId(),oldpassword,newpassword);
+                    locationClient = new AMapLocationClient(NewpasswordActivity.this);
+                    locationClient.setLocationOption(getDefaultOption());
+                    locationClient.setLocationListener(new AMapLocationListener() {
+                        @Override
+                        public void onLocationChanged(AMapLocation loc) {
+                            if (null != loc) {
+                                final  double lat=loc.getLatitude();
+                                final  double lng=loc.getLongitude();
+                                updatepassword(UserDateBean.getUser().getId(), oldpassword, newpassword,lat,lng);
+                            } else {
+                                Toast.makeText(NewpasswordActivity.this, " 无法获取当前的位置" , Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    locationClient.startLocation();
+
                 }else{
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
@@ -138,7 +158,7 @@ public class NewpasswordActivity extends BaseActivity {
     }
 
 
-    private void updatepassword(final String uid,final String oldpassword,final String newpassword) {
+    private void updatepassword(final String uid,final String oldpassword,final String newpassword,final double lat,final  double lng) {
         pd = ProgressDialog.show(this, "", "请稍候...");
         new Thread() {
             public void run() {
@@ -149,6 +169,8 @@ public class NewpasswordActivity extends BaseActivity {
                     jsonQuery.put("uid",uid);
                     jsonQuery.put("oldpassword", oldpassword);
                     jsonQuery.put("newpassword", newpassword);
+                    jsonQuery.put("lat", lat);
+                    jsonQuery.put("lng", lng);
                     String data=  jsonQuery.toString();
                     data= Base64Coder.encodeString(data);
                     map.put("data", data);
@@ -196,16 +218,16 @@ public class NewpasswordActivity extends BaseActivity {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    public AMapLocationClientOption getDefaultOption(){
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//
+        mOption.setGpsFirst(false);//
+        mOption.setHttpTimeOut(30000);//
+        mOption.setInterval(200000);//
+        mOption.setNeedAddress(true);//
+        mOption.setOnceLocation(true);//
+        mOption.setOnceLocationLatest(false);//
+        mOption.setLocationCacheEnable(true);
+        return mOption;
+    }
 }

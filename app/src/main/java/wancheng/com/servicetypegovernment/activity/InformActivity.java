@@ -27,6 +27,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +53,7 @@ import wancheng.com.servicetypegovernment.util.JSONUtils;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 
 public class InformActivity extends BaseActivity {
-
+    private AMapLocationClient locationClient = null;
     public static InformActivity instance = null;
     private TextView ed_date;
     private TextView ed_date2;
@@ -105,7 +110,6 @@ public class InformActivity extends BaseActivity {
         final String ztlx=intent.getStringExtra("ztlx");
         resultId=intent.getStringExtra("resultId");
 
-        getData(corpId,ztlx);
         instance=this;
         tv_corpname=(TextView)findViewById(R.id.tv_corpname);
         tb_address=(EditText)findViewById(R.id.tb_address);
@@ -130,12 +134,12 @@ public class InformActivity extends BaseActivity {
 
         ed_date.setOnClickListener(new View.OnClickListener() {
 
-                   @Override
-                   public void onClick(View v) {
-                       dateid = DATE_DIALOG;
-                       showDialog(dateid);
-                   }
-               });
+            @Override
+            public void onClick(View v) {
+                dateid = DATE_DIALOG;
+                showDialog(dateid);
+            }
+        });
         ed_date2.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -193,7 +197,7 @@ public class InformActivity extends BaseActivity {
         sp_check2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spIndex2=i;
+                spIndex2 = i;
             }
 
             @Override
@@ -205,10 +209,10 @@ public class InformActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (rb_yes.getId() == checkedId) {
-                    isBack=1;
+                    isBack = 1;
                 }
                 if (rb_np.getId() == checkedId) {
-                    isBack=0;
+                    isBack = 0;
                 }
             }
         });
@@ -219,74 +223,93 @@ public class InformActivity extends BaseActivity {
             public void onClick(View view) {
 
 
-                if(tb_address.getText()==null||tb_address.getText().toString()==null||"".equals(tb_address.getText().toString().trim())){
+                if (tb_address.getText() == null || tb_address.getText().toString() == null || "".equals(tb_address.getText().toString().trim())) {
                     Toast.makeText(InformActivity.this, "请输入被检查单位地址！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(spIndex1==0){
+                if (spIndex1 == 0) {
                     Toast.makeText(InformActivity.this, "请选择检查人员1！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(spIndex2==0){
+                if (spIndex2 == 0) {
                     Toast.makeText(InformActivity.this, "请选择检查人员2！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(isSign1==false){
+                if (isSign1 == false) {
                     Toast.makeText(InformActivity.this, "请被检查单位签名！", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(isSign2==false){
+                if (isSign2 == false) {
                     Toast.makeText(InformActivity.this, "请检查单位签名！", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                Map<String,Object> map=new HashMap<String,Object>();
-                map.put("companyId",corpId);
-                map.put("checker1",checkers.get(spIndex1-1).get("userId"));
-                map.put("checker2",checkers.get(spIndex2 - 1).get("userId"));
-                map.put("checkdate",ed_date.getText().toString());
-                map.put("ifBack",isBack);
-                map.put("companySign",signPath1);
-                map.put("companySignDate",ed_date2.getText().toString());
-                map.put("checkSign",signPath2);
-                map.put("checkSignDate",ed_date.getText().toString());
-                map.put("content",html);
-                boolean ok=databaseHelper.findMsg(insertid);
-                if(ok){
-                    databaseHelper.updataMsg(map,insertid);
-                }else {
-                    insertid=databaseHelper.insertMsg(map);
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("companyId", corpId);
+                map.put("checker1", checkers.get(spIndex1 - 1).get("userId"));
+                map.put("checker2", checkers.get(spIndex2 - 1).get("userId"));
+                map.put("checkdate", ed_date.getText().toString());
+                map.put("ifBack", isBack);
+                map.put("companySign", signPath1);
+                map.put("companySignDate", ed_date2.getText().toString());
+                map.put("checkSign", signPath2);
+                map.put("checkSignDate", ed_date.getText().toString());
+                map.put("content", html);
+                boolean ok = databaseHelper.findMsg(insertid);
+                if (ok) {
+                    databaseHelper.updataMsg(map, insertid);
+                } else {
+                    insertid = databaseHelper.insertMsg(map);
                 }
-                if(isBack==1){
+                if (isBack == 1) {
                     finish();
                 }
-                    Intent intent = new Intent();
-                    intent.putExtra("corpId", corpId);
-                    intent.putExtra("ztlx", ztlx);
-                    intent.putExtra("uid",UserDateBean.getInstance().getId());
-                    intent.putExtra("address", tb_address.getText().toString());
-                    intent.putExtra("insertid", insertid);
-                    intent.putExtra("checkAll", checkAll);
-                    intent.putExtra("fuzeren", fuzeren);
-                    intent.putExtra("phone", phone);
-                    intent.putExtra("permits", permits);
-                    intent.putExtra("tableName", tableName);
-                    intent.putExtra("resultId", resultId);
-                    intent.putExtra("checkDate", ed_date.getText().toString());
-                    intent.putExtra("type", type);
-                    intent.putExtra("zfry1", map.get("checker1").toString());
-                    intent.putExtra("zfry2", map.get("checker2").toString());
-                    intent.putExtra("corpname", tv_corpname.getText().toString());
-                    intent.setClass(InformActivity.this, CheckDetailActivity.class);
-                    InformActivity.this.startActivity(intent);
-                }
+                Intent intent = new Intent();
+                intent.putExtra("corpId", corpId);
+                intent.putExtra("ztlx", ztlx);
+                intent.putExtra("uid", UserDateBean.getInstance().getId());
+                intent.putExtra("address", tb_address.getText().toString());
+                intent.putExtra("insertid", insertid);
+                intent.putExtra("checkAll", checkAll);
+                intent.putExtra("fuzeren", fuzeren);
+                intent.putExtra("phone", phone);
+                intent.putExtra("permits", permits);
+                intent.putExtra("tableName", tableName);
+                intent.putExtra("resultId", resultId);
+                intent.putExtra("checkDate", ed_date.getText().toString());
+                intent.putExtra("type", type);
+                intent.putExtra("zfry1", map.get("checker1").toString());
+                intent.putExtra("zfry2", map.get("checker2").toString());
+                intent.putExtra("corpname", tv_corpname.getText().toString());
+                intent.setClass(InformActivity.this, CheckDetailActivity.class);
+                InformActivity.this.startActivity(intent);
+            }
         });
         tv_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showNormalDialog("提示","您还没有编辑完，是否确定退出？");
+                showNormalDialog("提示", "您还没有编辑完，是否确定退出？");
             }
         });
+
+        locationClient = new AMapLocationClient(InformActivity.this);
+        locationClient.setLocationOption(getDefaultOption());
+        locationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation loc) {
+                if (null != loc) {
+                    final double lat = loc.getLatitude();
+                    final double lng = loc.getLongitude();
+                    getData(corpId, ztlx,lat,lng);
+                } else {
+                    Toast.makeText(InformActivity.this, " 无法获取当前的位置", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        locationClient.startLocation();
+
+
+
     }
     protected void showNormalDialog(String title,String context){
         /* @setIcon 设置对话框图标
@@ -418,7 +441,7 @@ public class InformActivity extends BaseActivity {
 
     }
 
-    private void getData(final String corpId,final String ztlx2) {
+    private void getData(final String corpId,final String ztlx2,final double lat,final  double lng) {
 
         pd = ProgressDialog.show(this, "", "请稍候...");
         new Thread() {
@@ -429,6 +452,8 @@ public class InformActivity extends BaseActivity {
                     jsonQuery.put("uid", UserDateBean.getInstance().getId());
                     jsonQuery.put("corpId", corpId);
                     jsonQuery.put("ztlx2", ztlx2);
+                    jsonQuery.put("lat", lat);
+                    jsonQuery.put("lng", lng);
                     String data=  jsonQuery.toString();
                     data= Base64Coder.encodeString(data);
                     map.put("data", data);
@@ -499,8 +524,19 @@ public class InformActivity extends BaseActivity {
     }
     @Override
     public void onBackPressed() {
-        showNormalDialog("提示","您还没有编辑完，是否确定退出？");
+        showNormalDialog("提示", "您还没有编辑完，是否确定退出？");
     }
 
-
+    public AMapLocationClientOption getDefaultOption(){
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//
+        mOption.setGpsFirst(false);//
+        mOption.setHttpTimeOut(30000);//
+        mOption.setInterval(200000);//
+        mOption.setNeedAddress(true);//
+        mOption.setOnceLocation(true);//
+        mOption.setOnceLocationLatest(false);//
+        mOption.setLocationCacheEnable(true);
+        return mOption;
+    }
 }

@@ -168,6 +168,79 @@
             android:gravity="left"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="18dp"
+            android:text="合格次数　　　    ："
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:id="@+id/corp_inspectNum1"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:text="整改次数　　　    ："
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:id="@+id/corp_inspectNum2"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:text="停业次数　　　    ："
+            android:textColor="@color/black"
+            android:textSize="16dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/red"
+            android:id="@+id/corp_inspectNum3"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
             android:text="当前距离　　　    ："
             android:textColor="@color/black"
             android:textSize="16dp"/>
@@ -182,6 +255,7 @@
             android:textSize="16dp"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"

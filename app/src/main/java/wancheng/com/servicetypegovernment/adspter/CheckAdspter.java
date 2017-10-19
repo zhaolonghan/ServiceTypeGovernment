@@ -12,6 +12,7 @@ import android.graphics.drawable.DrawableWrapper;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,8 +84,11 @@ public class CheckAdspter extends BaseAdapter
                 updataButton();
             }
             if(msg.what==18){
-                if(choose_i>=0){
+                if(choose_i>=0&&data.get(choose_i).get("sortOrder")!=null&&"1".equals(data.get(choose_i).get("sortOrder").toString())){
                     CheckOrderActivity.instance.getListDataFirst();
+                }else{
+                    data.get(choose_i).put("choose_i", choose_i);
+                    CheckOrderActivity.instance.chooseOneCorp(data);
                 }
                 Toast.makeText(context, "已调整位置！" , Toast.LENGTH_SHORT).show();
                 choose_i=-1;
@@ -123,6 +127,9 @@ public class CheckAdspter extends BaseAdapter
         public ImageView corp_telepboneOpen;
         public ImageView corp_gps;
         public TextView   distance;
+        public TextView   corp_inspectNum1;
+        public TextView   corp_inspectNum2;
+        public TextView   corp_inspectNum3;
         //执法检查
         public TextView check_date;
         public TextView check_corpnum;
@@ -237,10 +244,9 @@ public class CheckAdspter extends BaseAdapter
         zujian.corp_telepboneOpen=(ImageView)convertView.findViewById(R.id.telephoneOpen);
         zujian.corp_gps=(ImageView)convertView.findViewById(R.id.gps);
         zujian.distance = (TextView) convertView.findViewById(R.id.distance);
-
-
-
-
+        zujian.corp_inspectNum1 = (TextView) convertView.findViewById(R.id.corp_inspectNum1);
+        zujian.corp_inspectNum2 = (TextView) convertView.findViewById(R.id.corp_inspectNum2);
+        zujian.corp_inspectNum3 = (TextView) convertView.findViewById(R.id.corp_inspectNum3);
     }
     public void initCheckView(subgroup zujian, View convertView) {
         zujian.check_date = (TextView) convertView.findViewById(R.id.check_date);
@@ -291,7 +297,7 @@ public class CheckAdspter extends BaseAdapter
                 final Button button2=zujian.status2;
                 zujian.status2.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
-                        reMovenum=j;
+                        reMovenum = j;
                         getData(uid, id);
                     }
                 });
@@ -304,7 +310,6 @@ public class CheckAdspter extends BaseAdapter
         // corpsubgroup.id=(TextView)convertView.findViewById(R.id.newsid);
         if(typeadapter==0){
             if(data!=null&&data.size()> 0 &&data.get(i)!=null&&data.get(i).get("id")!=null){
-
                 final String corp_name=data.get(i).get("corp_name").toString();
                 final String corp_address=data.get(i).get("corp_address").toString();
                 zujian.corp_name.setText(corp_name);
@@ -313,11 +318,13 @@ public class CheckAdspter extends BaseAdapter
                 zujian.corp_tel.setText(data.get(i).get("corp_tel").toString());
                 zujian.corp_address.setText(corp_address);
                 zujian.distance.setText(data.get(i).get("distance").toString());
+                zujian.corp_inspectNum1.setText(data.get(i).get("inspectNum1").toString());
+                zujian.corp_inspectNum2.setText(data.get(i).get("inspectNum2").toString());
+                zujian.corp_inspectNum3.setText(data.get(i).get("inspectNum3").toString());
+
                 final String corpId =data.get(i).get("id").toString();
                 final String phone =data.get(i).get("corp_tel").toString().trim().replaceAll(" ", "");
-                //data.get(i).put("zujian",zujian);
                 data.get(i).put("tv_distance",zujian.distance);
-
                 String ztlx2 ="";
                 if(data.get(i).get("ztlx")!=null){
                     ztlx2=data.get(i).get("ztlx").toString();
@@ -351,6 +358,7 @@ public class CheckAdspter extends BaseAdapter
                 final String corpIdgps=data.get(i).get("id").toString();
                 choose_k=i;
                 choose_i=i;
+                final int choose_i_onclick=i;
                 zujian.corp_gps.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
 
@@ -377,19 +385,8 @@ public class CheckAdspter extends BaseAdapter
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
                                                             if(which==0){
-                                                                showNormalDialogGprs(corpIdgps,lng,lat);
+                                                                showNormalDialogGprs(corpIdgps,lng,lat,choose_i_onclick);
                                                             }else{
-                                                        /* Toast.makeText(context, strArray[which], Toast.LENGTH_SHORT).show();
-                                                        Intent intent = new Intent();
-                                                        intent.putExtra("corpId",corpId);
-                                                        intent.putExtra("specialId",specialId);
-                                                        intent.putExtra("corp_name",corp_name);
-                                                        intent.putExtra("corp_address",corp_address);
-                                                        intent.putExtra("resultId",resultId);
-                                                        intent.putExtra("tzsbId",tzsbId);
-                                                        intent.putExtra("ztlx",dataTypeArray.get(which).get("ztlx2").toString());
-                                                        intent.setClass(context, InformActivity.class);
-                                                        context.startActivity(intent);*/
                                                                 Intent    intent=null;
                                                                 if (isAvilible(context, "com.autonavi.minimap")) {
                                                                     try{
@@ -468,13 +465,24 @@ public class CheckAdspter extends BaseAdapter
                 final String tzsbId=data.get(i).get("tzsbId")!=null?data.get(i).get("tzsbId").toString():"";
                 int notInspectNum=Integer.parseInt(data.get(i).get("notInspectNum")!=null?data.get(i).get("notInspectNum").toString():"0");
                 if(notInspectNum>0){
-                    zujian.btStartCheck.setText("开始检查("+notInspectNum+")");
+                    String teststyle="开始检查(<span style='color:red'>"+notInspectNum+"</span>)";
+                    zujian.btStartCheck.setText(Html.fromHtml(teststyle));
                 }else{
                     zujian.btStartCheck.setText("开始检查");
                 }
                 zujian.btStartCheck.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
-                        data.get(choose_i).put("choose_i",choose_i) ;
+                        data.get(choose_i_onclick).put("choose_i", choose_i_onclick) ;
+                        CheckOrderActivity.instance.chooseOneCorpForm(data);
+                        //保存企业的位置
+                        if (data.get(choose_i).get("lng")!=null&&data.get(choose_i).get("lng").toString().length()>0&&data.get(choose_i).get("lat")!=null&&data.get(choose_i).get("lat").toString().length()>0){
+                            UserDateBean.getInstance().setLng(Double.parseDouble(data.get(choose_i).get("lng").toString()));
+                            UserDateBean.getInstance().setLat(Double.parseDouble(data.get(choose_i).get("lat").toString()));
+                        }else{
+                            UserDateBean.getInstance().setLng(-1000);
+                            UserDateBean.getInstance().setLat(-1000);
+                        }
+
                         //判断文字
                         if(dataTypeArray!=null&&dataTypeArray.size()>0){
                             if(dataTypeArray.size()==1){
@@ -624,63 +632,82 @@ public class CheckAdspter extends BaseAdapter
 
     }
     private void getData(final String uid,final String resultId) {
-        pd = ProgressDialog.show(context, "", "请稍候...");
-        new Thread() {
-            public void run() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                JSONObject jsonQuery = new JSONObject();
-                try{
+        locationClient = new AMapLocationClient(context);
+        locationClient.setLocationOption(getDefaultOption());
+        locationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation loc) {
+                if (null != loc) {
+                    final  double lat=loc.getLatitude();
+                    final  double lng=loc.getLongitude();
+                    pd = ProgressDialog.show(context, "", "请稍候...");
+                    new Thread() {
+                        public void run() {
+                            Map<String, Object> map = new HashMap<String, Object>();
+                            JSONObject jsonQuery = new JSONObject();
+                            try{
 
-                    jsonQuery.put("uid",uid);
-                    jsonQuery.put("resultId", resultId);
-                    String data=  jsonQuery.toString();
-                    data= Base64Coder.encodeString(data);
-                    map.put("data", data);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                NetUtil net = new NetUtil();
-                String res = net.posturl(ConstUtil.METHOD_UPDATERESULT, map);
-                //Log.e("res",res);
-                if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
-                    handler.sendEmptyMessage(4);
-                } else {
-                    Message msg = new Message();
-                    msg.what = 15;
-                    if (!res.isEmpty()) {
-                        JSONObject jsonObj;
-                        try {
-                            jsonObj = new JSONObject(res);
-                            String msg_code = JSONUtils.getString(jsonObj,"msg","") ;
-                            String code = JSONUtils.getString(jsonObj, "code", "1") ;
-                            if ("0".equals(code)) {
-                                //String  data=jsonObj.getString("data");
-                               // data =new String(Base64Coder.decodeString(data));
-
-                                msg.what = 13;
-                                msg.obj = "操作成功";
+                                jsonQuery.put("uid",uid);
+                                jsonQuery.put("resultId", resultId);
+                                jsonQuery.put("lat",lat);
+                                jsonQuery.put("lng", lng);
+                                String data=  jsonQuery.toString();
+                                data= Base64Coder.encodeString(data);
+                                map.put("data", data);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            NetUtil net = new NetUtil();
+                            String res = net.posturl(ConstUtil.METHOD_UPDATERESULT, map);
+                            //Log.e("res",res);
+                            if (res == null || "".equals(res) || res.contains("Fail to establish http connection!")) {
+                                handler.sendEmptyMessage(4);
                             } else {
-                                if (msg_code != null && !msg_code.isEmpty())
-                                    msg.obj = "操作异常";
-                                else
-                                    msg.obj = "请求异常，请稍后重试！";
+                                Message msg = new Message();
+                                msg.what = 15;
+                                if (!res.isEmpty()) {
+                                    JSONObject jsonObj;
+                                    try {
+                                        jsonObj = new JSONObject(res);
+                                        String msg_code = JSONUtils.getString(jsonObj,"msg","") ;
+                                        String code = JSONUtils.getString(jsonObj, "code", "1") ;
+                                        if ("0".equals(code)) {
+                                            //String  data=jsonObj.getString("data");
+                                            // data =new String(Base64Coder.decodeString(data));
+
+                                            msg.what = 13;
+                                            msg.obj = "操作成功";
+                                        } else {
+                                            if (msg_code != null && !msg_code.isEmpty())
+                                                msg.obj = "操作异常";
+                                            else
+                                                msg.obj = "请求异常，请稍后重试！";
+
+                                        }
+                                    } catch (JSONException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                        msg.obj = "请求异常，请稍后重试！";
+                                    }
+                                    handler.sendMessage(msg);
+                                }
 
                             }
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                            msg.obj = "请求异常，请稍后重试！";
                         }
-                        handler.sendMessage(msg);
-                    }
 
+                        ;
+                    }.start();
+                } else {
+                    Toast.makeText(context, " 无法获取当前的位置" , Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+        locationClient.startLocation();
 
-            ;
-        }.start();
+
 
     }
+
     protected void showNormalDialog(String title,String context2){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
@@ -718,6 +745,7 @@ public class CheckAdspter extends BaseAdapter
                     jsonQuery.put("corpId", corpId);
                     jsonQuery.put("lng", lng);
                     jsonQuery.put("lat", lat);
+                    jsonQuery.put("uid", UserDateBean.getUser().getId());
                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
                 }catch (Exception e){
                     e.printStackTrace();
@@ -762,7 +790,7 @@ public class CheckAdspter extends BaseAdapter
         }.start();
 
     }
-    protected void showNormalDialogGprs(final String corpIdgps,final  String lng,final String lat){
+    protected void showNormalDialogGprs(final String corpIdgps,final  String lng,final String lat,final int choose_i_onclick){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -776,6 +804,7 @@ public class CheckAdspter extends BaseAdapter
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        choose_i=choose_i_onclick ;
                         gpsupdate(corpIdgps,lng,lat);
                     }
                 });

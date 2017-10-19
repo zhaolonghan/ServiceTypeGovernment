@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/dimgrey"
                 android:text="敏感度"/>
             <View
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/dimgrey"
                     android:text="任务量"/>
                 <View
                     android:layout_width="match_parent"

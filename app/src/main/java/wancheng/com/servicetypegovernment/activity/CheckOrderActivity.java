@@ -68,7 +68,7 @@ public class CheckOrderActivity extends BaseActivity {
     /**企业列表里**/
     private CheckAdspter madapter = null;
     private ListView corplistView=null;;
-    List<Map<String, Object>> listcorp;
+    public List<Map<String, Object>> listcorp;
     List<Map<String, Object>> oneGetcorp;
 
 
@@ -101,7 +101,8 @@ public class CheckOrderActivity extends BaseActivity {
         if(listcorp!=null&&listcorp.size()>0){
             for(Map<String,Object> map:listcorp){
                 if(map!=null&&map.get("choose_i")!=null){
-                        choose_i=Integer.parseInt(map.get("choose_i").toString());
+                    choose_i=Integer.parseInt(map.get("choose_i").toString());
+                    Log.e("g更改数据",choose_i+"");
                         map.remove("choose_i");
                          getCorpOne(choose_i);
                        break;
@@ -114,12 +115,17 @@ public class CheckOrderActivity extends BaseActivity {
 
         }
     }
-
+    public void chooseOneCorp(List<Map<String, Object>> newlistcorp){
+        listcorp=newlistcorp;
+        onResume();
+    }
+    public void chooseOneCorpForm(List<Map<String, Object>> newlistcorp){
+        listcorp=newlistcorp;
+    }
     private void initView(){
         Intent intent=getIntent();
         //企业列表
         corpquery=new CorpQuery("",intent.getStringExtra("ztlx"),1,10);
-
         companyType=intent.getStringExtra("companyType");
         TopBean topBean=new TopBean(intent.getStringExtra("companyType"),"返回","",true,false);
         getTopView(topBean);
@@ -162,8 +168,6 @@ public class CheckOrderActivity extends BaseActivity {
         }
         madapter.update(listcorp);
         madapter.notifyDataSetChanged();
-
-
         isadd=true;
         if (isonclickadd&&bottondatalist!=null&&bottondatalist.size()>0){
             Intent intent=getIntent();
@@ -188,7 +192,6 @@ public class CheckOrderActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 isadd=true;
-
                 String corpname=corpSearchName.getText().toString();
                 corpquery.corpName=corpname;
                 corpquery.pageNo=1;
@@ -215,9 +218,6 @@ public class CheckOrderActivity extends BaseActivity {
                 getCorpListData();
             }
         });
-
-
-
         relLawListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 isadd=true;
@@ -256,56 +256,31 @@ public class CheckOrderActivity extends BaseActivity {
                 getCorpListData();
             }
         });
-
-
         corplistView.setOnScrollListener(new AbsListView.OnScrollListener() {
-
             @Override
 
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
                 switch (scrollState) {
-
                     // 当不滚动时
-
                     case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-
                         // 判断滚动到底部
-
-
                         if (view.getLastVisiblePosition() == (view.getCount() - 1) && isadd) {
                             isadd = false;
-                            // null, null listcorp.size() /corpquery.pageSize + 2, 10
-
                             corpquery.pageNo = corpquery.pageNo + 1;
                             getCorpListData();
-
                         }
-
                         break;
-
                 }
 
             }
-
-
             @Override
-
             public void onScroll(AbsListView view, int firstVisibleItem,
-
                                  int visibleItemCount, int totalItemCount) {
-
             }
-
         });
-
-
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -316,7 +291,6 @@ public class CheckOrderActivity extends BaseActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -331,7 +305,6 @@ public class CheckOrderActivity extends BaseActivity {
             popWindow.dismiss();
             isPOPOpen=false;
         }
-
        // this.finish();
     }
 
@@ -346,11 +319,9 @@ public class CheckOrderActivity extends BaseActivity {
      * */
     public  void getListDataFirst(){
         {
-
             oneGetcorp=new ArrayList<Map<String, Object>>();
             bottondatalist=new ArrayList<Map<String, Object>>();
             listcorp=new ArrayList<Map<String, Object>>();
-
             locationClient = new AMapLocationClient(this);
             locationClient.setLocationOption(getDefaultOption());
             locationClient.setLocationListener(new AMapLocationListener() {
@@ -363,7 +334,6 @@ public class CheckOrderActivity extends BaseActivity {
                         new Thread() {
                             public void run() {
                                 String url= ConstUtil.METHOD_GETCORPLIST_FIRST;
-                                //   .put("ide", "Eclispe").put("name", "java");m
                                 Map<String, Object> map = new HashMap<String, Object>();
                                 try{
                                     JSONObject jsonQuery = new JSONObject();
@@ -373,10 +343,8 @@ public class CheckOrderActivity extends BaseActivity {
                                     jsonQuery.put("lng", lngloc);
                                     jsonQuery.put("lat", latloc);
                                     jsonQuery.put("sortOrder", corpquery.sortOrder);
-
                                     UserDateBean.getInstance().setLat(latloc);
                                     UserDateBean.getInstance().setLng(lngloc);
-
                                     map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
                                 }catch (Exception e){
                                     e.printStackTrace();
@@ -467,7 +435,6 @@ public class CheckOrderActivity extends BaseActivity {
                 if (null != loc) {
                     lngloc =loc.getLongitude();
                     latloc=loc.getLatitude();
-
                     double lat= UserDateBean.getUser().getLat();
                     double lng= UserDateBean.getUser().getLng();
                     double distance=UserDateBean.getUser().getDistance();
@@ -593,8 +560,13 @@ public class CheckOrderActivity extends BaseActivity {
                         contextmap.put("distance", JSONUtils.getString(dataobject, "distance", ""));
                         //未检查数
                         contextmap.put("notInspectNum", JSONUtils.getString(dataobject, "notInspectNum", ""));
-                        if(JSONUtils.getString(dataobject, "inspectTable", "").length()>0){
 
+                        contextmap.put("inspectNum1", JSONUtils.getString(dataobject, "inspectNum1", "0"));
+                        contextmap.put("inspectNum2", JSONUtils.getString(dataobject, "inspectNum2", "0"));
+                        contextmap.put("inspectNum3", JSONUtils.getString(dataobject, "inspectNum3", "0"));
+
+                        contextmap.put("sortOrder",corpquery.sortOrder);
+                        if(JSONUtils.getString(dataobject, "inspectTable", "").length()>0){
                         dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable", ""));
                         if(dataTypeArray!=null&&dataTypeArray.length()>0){
                             for(int j=0;j<dataTypeArray.length();j++){
@@ -661,7 +633,9 @@ public class CheckOrderActivity extends BaseActivity {
                         jsonQuery.put("lat", UserDateBean.getUser().getLat());
                         jsonQuery.put("corpId", listcorp.get(choose_i).get("id").toString());
                         //特种设备id
-                        jsonQuery.put("specialId", listcorp.get(choose_i).get("specialId").toString());
+                        if (listcorp.get(choose_i).get("tzsbId")!=null){
+                            jsonQuery.put("tzsbId", listcorp.get(choose_i).get("tzsbId").toString());
+                        }
 
                         map.put("data", Base64Coder.encodeString(jsonQuery.toString()));
 
@@ -757,8 +731,10 @@ public class CheckOrderActivity extends BaseActivity {
                         contextmap.put("distance", JSONUtils.getString(dataobject, "distance", ""));
                         //未检查数
                         contextmap.put("notInspectNum", JSONUtils.getString(dataobject, "notInspectNum", ""));
+                        contextmap.put("inspectNum1", JSONUtils.getString(dataobject, "inspectNum1", "0"));
+                        contextmap.put("inspectNum2", JSONUtils.getString(dataobject, "inspectNum2", "0"));
+                        contextmap.put("inspectNum3", JSONUtils.getString(dataobject, "inspectNum3", "0"));
                         if(JSONUtils.getString(dataobject, "inspectTable", "").length()>0){
-
                             dataTypeArray=new JSONArray(JSONUtils.getString(dataobject, "inspectTable", ""));
                             if(dataTypeArray!=null&&dataTypeArray.length()>0){
                                 for(int j=0;j<dataTypeArray.length();j++){
