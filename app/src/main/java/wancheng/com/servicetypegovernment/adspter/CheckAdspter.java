@@ -8,18 +8,17 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,23 +29,18 @@ import com.amap.api.location.AMapLocationListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import wancheng.com.servicetypegovernment.R;
-import wancheng.com.servicetypegovernment.activity.CheckDetailActivity;
 import wancheng.com.servicetypegovernment.activity.CheckHistoryListActivity;
 import wancheng.com.servicetypegovernment.activity.CheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CheckOrderActivity;
 import wancheng.com.servicetypegovernment.activity.CheckResultDetailActivity;
-import wancheng.com.servicetypegovernment.activity.CompanyCheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyDetailActivity;
 import wancheng.com.servicetypegovernment.activity.InformActivity;
-import wancheng.com.servicetypegovernment.activity.MapActivity;
 import wancheng.com.servicetypegovernment.activity.QuestionListActivity;
 import wancheng.com.servicetypegovernment.activity.RouteActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
@@ -74,12 +68,11 @@ public class CheckAdspter extends BaseAdapter
     private String lng="";
     private  String lat="";
     protected ProgressDialog pd;
-    public String[]  gprsArray={"调整位置","导航路线"};
+    public String[]  gprsArray={"保存定位","导航路线"};
     public Handler handler = new Handler() {
         @SuppressWarnings("deprecation")
         @Override
         public void handleMessage(Message msg) {
-
             super.handleMessage(msg);
             //方法区
             if(msg.what==13){
@@ -92,13 +85,12 @@ public class CheckAdspter extends BaseAdapter
                     data.get(choose_i).put("choose_i", choose_i);
                     CheckOrderActivity.instance.chooseOneCorp(data);
                 }
-                Toast.makeText(context, "已调整位置！" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "已保存定位！" , Toast.LENGTH_SHORT).show();
                 choose_i=-1;
             }
             if(msg.what==19){
-                Toast.makeText(context, "调整位置失败！" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "保存定位失败！" , Toast.LENGTH_SHORT).show();
             }
-
             pd.dismiss();
 
         }
@@ -132,6 +124,8 @@ public class CheckAdspter extends BaseAdapter
         public TextView   corp_inspectNum1;
         public TextView   corp_inspectNum2;
         public TextView   corp_inspectNum3;
+        public LinearLayout corp_gps_layout;
+        public LinearLayout corp_tel_layout;
         //执法检查
         public TextView check_date;
         public TextView check_corpnum;
@@ -160,8 +154,6 @@ public class CheckAdspter extends BaseAdapter
     }
     public final class corpsubgroup{
         public TextView id;
-
-
     }
     @Override
     public int getCount() {
@@ -181,7 +173,6 @@ public class CheckAdspter extends BaseAdapter
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         if(data!=null&&data.size()>0){
-
         subgroup zujian;
         if(convertView==null){
             zujian=new subgroup();
@@ -218,7 +209,6 @@ public class CheckAdspter extends BaseAdapter
         if (datas == null) {
             datas = new ArrayList<>();
         }
-
         data.addAll(datas);
         //删除的话用remove
         notifyDataSetChanged();
@@ -227,7 +217,6 @@ public class CheckAdspter extends BaseAdapter
         if (datas == null) {
             datas = new ArrayList<>();
         }
-
         data=datas;
         //删除的话用remove
         notifyDataSetChanged();
@@ -249,6 +238,8 @@ public class CheckAdspter extends BaseAdapter
         zujian.corp_inspectNum1 = (TextView) convertView.findViewById(R.id.corp_inspectNum1);
         zujian.corp_inspectNum2 = (TextView) convertView.findViewById(R.id.corp_inspectNum2);
         zujian.corp_inspectNum3 = (TextView) convertView.findViewById(R.id.corp_inspectNum3);
+        zujian.corp_gps_layout = (LinearLayout) convertView.findViewById(R.id.corp_gps_layout);
+        zujian.corp_tel_layout = (LinearLayout) convertView.findViewById(R.id.corp_tel_layout);
     }
     public void initCheckView(subgroup zujian, View convertView) {
         zujian.check_date = (TextView) convertView.findViewById(R.id.check_date);
@@ -342,8 +333,7 @@ public class CheckAdspter extends BaseAdapter
 
                 //电话
                 if(phone.length()>0){
-
-                    zujian.corp_telepboneOpen.setOnClickListener(new View.OnClickListener() {
+                    zujian.corp_tel_layout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View arg0) {
                             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -351,10 +341,13 @@ public class CheckAdspter extends BaseAdapter
                         }
                     });
                     zujian.corp_telepboneOpen.setVisibility(View.VISIBLE);
-
                 }else{
                     zujian.corp_telepboneOpen.setVisibility(View.GONE);
+                    zujian.corp_tel_layout.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View arg0) {
 
+                        }
+                    });
                 }
                 //定位
                 final String corpIdgps=data.get(i).get("id").toString();
@@ -362,7 +355,8 @@ public class CheckAdspter extends BaseAdapter
                 choose_k=i;
                 choose_i=i;
                 final int choose_i_onclick=i;
-                zujian.corp_gps.setOnClickListener(new View.OnClickListener() {
+
+                zujian.corp_gps_layout.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View arg0) {
 
                         //初始化client
@@ -376,37 +370,38 @@ public class CheckAdspter extends BaseAdapter
 
                                 if (null != loc) {
                                     if (loc.getErrorCode() == 0) {
-                                            final String lng=loc.getLongitude()+"";
-                                            final String lat=loc.getLatitude()+"";
-                                            final String  city= loc.getCity();
-                                        if(data.get(choose_k).get("lng")==null||data.get(choose_k).get("lat")==null||data.get(choose_k).get("lng").toString().length()==0||data.get(choose_k).get("lat").toString().length()==0) {
-                                            gpsupdate(corpIdgps,loc.getLongitude()+"",loc.getLatitude()+"");
-                                        } else{
+                                        final String lng = loc.getLongitude() + "";
+                                        final String lat = loc.getLatitude() + "";
+                                        final String city = loc.getCity();
+                                        if (data.get(choose_k).get("lng") == null || data.get(choose_k).get("lat") == null || data.get(choose_k).get("lng").toString().length() == 0 || data.get(choose_k).get("lat").toString().length() == 0) {
+                                            gpsupdate(corpIdgps, loc.getLongitude() + "", loc.getLatitude() + "");
+                                        } else {
 
                                             AlertDialog dialog = new AlertDialog.Builder(context).setTitle("选择")
                                                     .setSingleChoiceItems(gprsArray, -1, new DialogInterface.OnClickListener() {
 
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
-                                                            if(which==0){
-                                                                showNormalDialogGprs(corpIdgps,lng,lat,choose_i_onclick);
-                                                            }else{
-                                                                Intent    intent=null;
+                                                            if (which == 0) {
+                                                                showNormalDialogGprs(corpIdgps, lng, lat, choose_i_onclick);
+                                                            } else {
+                                                                Intent intent = null;
                                                                 if (isAvilible(context, "com.autonavi.minimap")) {
-                                                                    try{
-                                                                        intent=new Intent();
-                                                                        intent.putExtra("loc_lng",lng);
-                                                                        intent.putExtra("loc_lat",lat);
-                                                                        intent.putExtra("corp_lng",data.get(choose_k).get("lng").toString());
-                                                                        intent.putExtra("corp_lat",data.get(choose_k).get("lat").toString());
+                                                                    try {
+                                                                        intent = new Intent();
+                                                                        intent.putExtra("loc_lng", lng);
+                                                                        intent.putExtra("loc_lat", lat);
+                                                                        intent.putExtra("corp_lng", data.get(choose_k).get("lng").toString());
+                                                                        intent.putExtra("corp_lat", data.get(choose_k).get("lat").toString());
                                                                         intent.putExtra("corp_name", corp_name);
                                                                         intent.putExtra("now_city", city);
                                                                         intent.setClass(context, RouteActivity.class);
 
                                                                         context.startActivity(intent);
-                                                                    } catch (Exception e)
-                                                                    {e.printStackTrace(); }
-                                                                }else{
+                                                                    } catch (Exception e) {
+                                                                        e.printStackTrace();
+                                                                    }
+                                                                } else {
                                                                     Toast.makeText(context, "您尚未安装高德地图", Toast.LENGTH_LONG).show();
                                                                     Uri uri = Uri.parse("market://details?id=com.autonavi.minimap");
                                                                     intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -420,10 +415,10 @@ public class CheckAdspter extends BaseAdapter
                                         }
 
                                     } else {
-                                        Toast.makeText(context, " 定位失败" , Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, " 定位失败", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
-                                    Toast.makeText(context, " 定位失败" , Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, " 定位失败", Toast.LENGTH_SHORT).show();
 
                                 }
                             }
