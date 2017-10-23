@@ -168,20 +168,48 @@
             android:gravity="left"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="18dp"
-            android:text="合格次数　　　    ："
+            android:text="检查结果　　　    ："
             android:textColor="@color/black"
             android:textSize="16dp"/>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
-            android:layout_gravity="center_vertical"
-            android:text=""
-            android:textColor="@color/red"
-            android:id="@+id/corp_inspectNum1"
-            android:textSize="16dp"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/corp_inspectNum1"
+                android:text="符合：0"
+                android:textColor="@color/green"
+                android:textSize="16dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:layout_gravity="center_vertical"
+                android:text="基本符合：0"
+                android:id="@+id/corp_inspectNum2"
+                android:textColor="@color/peru"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/corp_inspectNum3"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:layout_gravity="center_vertical"
+                android:text="不符合：0"
+                android:textColor="@color/red"
+                android:textSize="16dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -202,10 +230,21 @@
             android:layout_gravity="center_vertical"
             android:text=""
             android:textColor="@color/red"
+            android:id="@+id/corp_inspectNum1"
+            android:textSize="16dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:layout_gravity="center_vertical"
+            android:text=""
+            android:textColor="@color/red"
             android:id="@+id/corp_inspectNum2"
             android:textSize="16dp"/>
 
     </LinearLayout>
+-->
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -230,6 +269,7 @@
             android:textSize="16dp"/>
 
     </LinearLayout>
+-->
 
     <LinearLayout
         android:layout_width="match_parent"

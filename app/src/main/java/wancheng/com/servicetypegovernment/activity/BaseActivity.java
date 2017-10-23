@@ -40,7 +40,7 @@ import wancheng.com.servicetypegovernment.bean.UserDateBean;
 public  class BaseActivity extends Activity {
 
     protected static UserDateBean userDateBean;
-    protected boolean iscurrentclose=true;//控制当前页面是否关闭
+    protected boolean iscurrentclose=true;//控制当前页面是否    关闭
     // 等待提示框
     protected ProgressDialog pd;
 

@@ -203,57 +203,60 @@ public class CheckOrderActivity extends BaseActivity {
 
         relNoticeListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                isadd=true;
-                tvNew.setTextColor(btnblack);
-                tvlNotice.setTextColor(btnblue);
-                tvlLaw.setTextColor(btnblack);
-                //线
-                relNewsListName.getChildAt(1).setBackground(lineblack);
-                relNoticeListName.getChildAt(1).setBackground(linered);
-                relLawListName.getChildAt(1).setBackground(lineblack);
-                view_1layout.setVisibility(View.VISIBLE);
-                corpquery.pageNo=1;
-                corpquery.sortOrder=1;
-                listcorp=new ArrayList<Map<String, Object>>();
-                getCorpListData();
+                if(btnblue!=tvlNotice.getTextColors()){
+                    isadd=true;
+                    tvNew.setTextColor(btnblack);
+                    tvlNotice.setTextColor(btnblue);
+                    tvlLaw.setTextColor(btnblack);
+                    //线
+                    relNewsListName.getChildAt(1).setBackground(lineblack);
+                    relNoticeListName.getChildAt(1).setBackground(linered);
+                    relLawListName.getChildAt(1).setBackground(lineblack);
+                    view_1layout.setVisibility(View.VISIBLE);
+                    corpquery.pageNo=1;
+                    corpquery.sortOrder=1;
+                    listcorp=new ArrayList<Map<String, Object>>();
+                    getCorpListData();
+                }
             }
         });
         relLawListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                isadd=true;
-
-                tvNew.setTextColor(btnblack);
-                tvlNotice.setTextColor(btnblack);
-                tvlLaw.setTextColor(btnblue);
-                //线
-                relNewsListName.getChildAt(1).setBackground(lineblack);
-                relNoticeListName.getChildAt(1).setBackground(lineblack);
-                relLawListName.getChildAt(1).setBackground(linered);
-                view_1layout.setVisibility(View.VISIBLE);
-                corpquery.pageNo=1;
-                corpquery.sortOrder=2;
-                listcorp=new ArrayList<Map<String, Object>>();
-                getCorpListData();
-
+                if(btnblue!=tvlLaw.getTextColors()) {
+                    isadd = true;
+                    tvNew.setTextColor(btnblack);
+                    tvlNotice.setTextColor(btnblack);
+                    tvlLaw.setTextColor(btnblue);
+                    //线
+                    relNewsListName.getChildAt(1).setBackground(lineblack);
+                    relNoticeListName.getChildAt(1).setBackground(lineblack);
+                    relLawListName.getChildAt(1).setBackground(linered);
+                    view_1layout.setVisibility(View.VISIBLE);
+                    corpquery.pageNo = 1;
+                    corpquery.sortOrder = 2;
+                    listcorp = new ArrayList<Map<String, Object>>();
+                    getCorpListData();
+                }
             }
         });
         relNewsListName.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                isadd=true;
-                // footView(2);
-                tvNew.setTextColor(btnblue);
-                tvlNotice.setTextColor(btnblack);
-                tvlLaw.setTextColor(btnblack);
-                //线
-
-                relNewsListName.getChildAt(1).setBackground(linered);
-                relNoticeListName.getChildAt(1).setBackground(lineblack);
-                relLawListName.getChildAt(1).setBackground(lineblack);
-                view_1layout.setVisibility(View.VISIBLE);
-                corpquery.pageNo=1;
-                corpquery.sortOrder=3;
-                listcorp=new ArrayList<Map<String, Object>>();
-                getCorpListData();
+                if(btnblue!=tvNew.getTextColors()) {
+                    isadd = true;
+                    // footView(2);
+                    tvNew.setTextColor(btnblue);
+                    tvlNotice.setTextColor(btnblack);
+                    tvlLaw.setTextColor(btnblack);
+                    //线
+                    relNewsListName.getChildAt(1).setBackground(linered);
+                    relNoticeListName.getChildAt(1).setBackground(lineblack);
+                    relLawListName.getChildAt(1).setBackground(lineblack);
+                    view_1layout.setVisibility(View.VISIBLE);
+                    corpquery.pageNo = 1;
+                    corpquery.sortOrder = 3;
+                    listcorp = new ArrayList<Map<String, Object>>();
+                    getCorpListData();
+                }
             }
         });
         corplistView.setOnScrollListener(new AbsListView.OnScrollListener() {

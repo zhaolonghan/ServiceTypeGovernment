@@ -46,7 +46,9 @@ import wancheng.com.servicetypegovernment.activity.CheckResultDetailActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyCheckListActivity;
 import wancheng.com.servicetypegovernment.activity.CompanyDetailActivity;
 import wancheng.com.servicetypegovernment.activity.InformActivity;
+import wancheng.com.servicetypegovernment.activity.MapActivity;
 import wancheng.com.servicetypegovernment.activity.QuestionListActivity;
+import wancheng.com.servicetypegovernment.activity.RouteActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -318,9 +320,9 @@ public class CheckAdspter extends BaseAdapter
                 zujian.corp_tel.setText(data.get(i).get("corp_tel").toString());
                 zujian.corp_address.setText(corp_address);
                 zujian.distance.setText(data.get(i).get("distance").toString());
-                zujian.corp_inspectNum1.setText(data.get(i).get("inspectNum1").toString());
-                zujian.corp_inspectNum2.setText(data.get(i).get("inspectNum2").toString());
-                zujian.corp_inspectNum3.setText(data.get(i).get("inspectNum3").toString());
+                zujian.corp_inspectNum1.setText("符合："+data.get(i).get("inspectNum1").toString());
+                zujian.corp_inspectNum2.setText("基本符合："+data.get(i).get("inspectNum2").toString());
+                zujian.corp_inspectNum3.setText("不符合："+data.get(i).get("inspectNum3").toString());
 
                 final String corpId =data.get(i).get("id").toString();
                 final String phone =data.get(i).get("corp_tel").toString().trim().replaceAll(" ", "");
@@ -356,6 +358,7 @@ public class CheckAdspter extends BaseAdapter
                 }
                 //定位
                 final String corpIdgps=data.get(i).get("id").toString();
+
                 choose_k=i;
                 choose_i=i;
                 final int choose_i_onclick=i;
@@ -375,10 +378,11 @@ public class CheckAdspter extends BaseAdapter
                                     if (loc.getErrorCode() == 0) {
                                             final String lng=loc.getLongitude()+"";
                                             final String lat=loc.getLatitude()+"";
-                                        if(data.get(choose_k).get("lng")==null||data.get(choose_k).get("lng").toString().length()==0) {
+                                            final String  city= loc.getCity();
+                                        if(data.get(choose_k).get("lng")==null||data.get(choose_k).get("lat")==null||data.get(choose_k).get("lng").toString().length()==0||data.get(choose_k).get("lat").toString().length()==0) {
                                             gpsupdate(corpIdgps,loc.getLongitude()+"",loc.getLatitude()+"");
-
                                         } else{
+
                                             AlertDialog dialog = new AlertDialog.Builder(context).setTitle("选择")
                                                     .setSingleChoiceItems(gprsArray, -1, new DialogInterface.OnClickListener() {
 
@@ -390,7 +394,15 @@ public class CheckAdspter extends BaseAdapter
                                                                 Intent    intent=null;
                                                                 if (isAvilible(context, "com.autonavi.minimap")) {
                                                                     try{
-                                                                        intent = new Intent("android.intent.action.VIEW",android.net.Uri.parse("androidamap://navi?lat="+data.get(choose_k).get("lat")+ "&lon="+ data.get(choose_k).get("lng")+ "&dev=0"));
+                                                                        intent=new Intent();
+                                                                        intent.putExtra("loc_lng",lng);
+                                                                        intent.putExtra("loc_lat",lat);
+                                                                        intent.putExtra("corp_lng",data.get(choose_k).get("lng").toString());
+                                                                        intent.putExtra("corp_lat",data.get(choose_k).get("lat").toString());
+                                                                        intent.putExtra("corp_name", corp_name);
+                                                                        intent.putExtra("now_city", city);
+                                                                        intent.setClass(context, RouteActivity.class);
+
                                                                         context.startActivity(intent);
                                                                     } catch (Exception e)
                                                                     {e.printStackTrace(); }
