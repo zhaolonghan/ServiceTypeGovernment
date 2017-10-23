@@ -91,6 +91,7 @@
     <color name="olivedrab">#6b8e23</color><!--深绿褐色 -->
     <color name="lawngreen">#7cfc00</color><!--草绿色 -->
     <color name="forestgreen">#228b22</color><!--森林绿 -->
+    <color name="derpgreen">#269d81</color><!-- -->
     <color name="aquamarine">#7fffd4</color><!--碧绿色 -->
     <color name="paleturquoise">#afeeee</color><!--苍宝石绿 -->
     <color name="palegreen">#98fb98</color><!--苍绿色 -->
@@ -155,4 +156,7 @@
     <color name="itemlist">#f4f4f4</color>
     <color name="watermark_hint">#ccffffff</color>
     <color name="act_background">#efefef</color>
+    <color name="gerybtn">#cccccc</color>
+    <color name="gerytext">#999999</color>
+
 </resources>

@@ -71,12 +71,12 @@
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:textColor="@color/dimgrey"
+                android:textColor="@color/gerybtn"
                 android:text="敏感度"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/peru"
+                android:background="@color/derpgreen"
                 android:layout_alignParentBottom="true"
                 ></View>
             <View
@@ -104,12 +104,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
                     android:textStyle="bold"
-                    android:textColor="@color/dimgrey"
+                    android:textColor="@color/gerybtn"
                     android:text="任务量"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/peru"
+                    android:background="@color/derpgreen"
                     android:layout_alignParentBottom="true"
                     ></View>
 

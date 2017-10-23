@@ -188,7 +188,7 @@
                 android:textSize="16dp"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_height="match_parent"
                 android:gravity="right"
                 android:layout_gravity="center_vertical"
@@ -199,13 +199,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/corp_inspectNum3"
                 android:layout_height="match_parent"
                 android:gravity="right"
                 android:layout_gravity="center_vertical"
                 android:text="不符合：0"
-                android:textColor="@color/red"
+                android:textColor="@color/gerytext"
                 android:textSize="16dp"/>
 
         </LinearLayout>
