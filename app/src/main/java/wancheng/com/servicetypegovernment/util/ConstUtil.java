@@ -20,12 +20,15 @@ public class ConstUtil {
 	/**
 	 * URL
 	 */
-	//public static String IP = "http://223.71.241.40/";
-	public static String IP = "http://192.168.1.111:8181/";
+	public static String IP = "http://223.71.241.40/";
+	//public static String IP = "http://192.168.1.111:8181/";
 	//public static String IP = "http://192.168.1.147:8181/";
 	/**
 	 * METHOD
 	 */
+	public static double Area = 3000; //地图加载距离
+	public static double parityArea = 200; //相差距离刷新
+
 
 	public static String METHOD_CHECK_CORP = "a/corp/corp/corpInfoApp";//查找企业接口
 	public static String METHOD_GETCORPLIST = "a/app/corp/getCorpList";//查找企业接口
@@ -62,6 +65,8 @@ public class ConstUtil {
 	public static String METHOD_UPLOADHEADIMAGE = "a/app/images/updatePhoto";//修改头像
 	public static String METHOD_ONOFF = "a/app/inspectDaily/onOff"; //开关
 	public static String METHOD_CORPGPRS = "a/app/corp/updateLngLat"; //企业定位
+	public static String METHOD_USERGPRS = "a/app/corp/lngLat"; //企业定位
+	public static String METHOD_ADDMARKS = "a/app/corp/mapByuid"; //地图加载坐标
 
 
 }

@@ -16,6 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +38,7 @@ import wancheng.com.servicetypegovernment.R;
 import wancheng.com.servicetypegovernment.adspter.NewsAdspter;
 import wancheng.com.servicetypegovernment.bean.TopBean;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.service.UserlngTrajectoryService;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
 import wancheng.com.servicetypegovernment.util.JSONUtils;
@@ -41,6 +48,8 @@ import wancheng.com.servicetypegovernment.util.NetUtil;
  * Created by HANZHAOLONG on 2017/8/31.
  */
 public  class IndexFragment  extends BaseFragment {
+    private AMapLocationClient locationClient = null;
+
     private  List<Map<String, Object>>  oaNotifylist=new ArrayList<Map<String, Object>>();
     private  List<Map<String, Object>>  lawslist=new ArrayList<Map<String, Object>>();
     private  List<Map<String, Object>>  newslist=new ArrayList<Map<String, Object>>();
@@ -84,8 +93,14 @@ public  class IndexFragment  extends BaseFragment {
                 container, false);
 
         lazyLoad();
+        run();
         return contactsLayout;
     }
+public void run(){
+    Intent i = new Intent(context,UserlngTrajectoryService.class);
+    i.putExtra("uid",UserDateBean.getInstance().getId());
+    context.startService(i);
+}
 
     @Override
     public void onStart() {
@@ -234,7 +249,7 @@ public  class IndexFragment  extends BaseFragment {
         SlideShowView= (wancheng.com.servicetypegovernment.view.SlideShowView) contactsLayout.findViewById(R.id.sv_photo);
 
         //监听文本
-        TopBean topBean=new TopBean("首页","","刷新",false,true);
+        TopBean topBean=new TopBean("首页","我的辖区","刷新",true,true);
         getTopView(topBean, contactsLayout);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
@@ -248,14 +263,47 @@ public  class IndexFragment  extends BaseFragment {
                                             }
                                         }
         );
+        tv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getData();
+            }
+        });
+        tv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationClient = new AMapLocationClient(context);
+                locationClient.setLocationOption(getDefaultOption());
+                locationClient.setLocationListener(new AMapLocationListener() {
+                    @Override
+                    public void onLocationChanged(AMapLocation loc) {
+                        if (null != loc) {
+                            final double lat = loc.getLatitude();
+                            final double lng = loc.getLongitude();
+                            //跳转地图
+                            Intent intent = new Intent();
+                            intent.putExtra("loc_lng",lng);
+                            intent.putExtra("loc_lat",lat);
+                            intent.putExtra("city_name",loc.getCity());
+
+                            intent.setClass(context, MapActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            Toast.makeText(context, " 无法获取当前的位置", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                locationClient.startLocation();
+
+            }
+        });
+
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getData();
             }
         });
-    //  首页图片
-
     }
     @Override
     public void updateView(){
@@ -404,5 +452,17 @@ public  Map<String ,Object>  contextMap( JSONObject dataobject){
     contextmap.put("day",day);
     contextmap.put("year",year);
     return contextmap;
+    }
+    public AMapLocationClientOption getDefaultOption(){
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//
+        mOption.setGpsFirst(false);//
+        mOption.setHttpTimeOut(30000);//
+        mOption.setInterval(200000);//
+        mOption.setNeedAddress(true);//
+        mOption.setOnceLocation(true);//
+        mOption.setOnceLocationLatest(false);//
+        mOption.setLocationCacheEnable(true);
+        return mOption;
     }
 }

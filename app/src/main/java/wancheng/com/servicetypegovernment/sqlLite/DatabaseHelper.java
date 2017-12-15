@@ -68,7 +68,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id integer primary key autoincrement, " +
                 "checkId INTEGER," +
                 "msgId INTEGER," +
-                "imagePath TEXT" +
+                "addtime TEXT" +
+                "imeicheck TEXT" +
+                "uid TEXT" +
+                "msgId INTEGER" +
                 ")");
         db.execSQL("CREATE TABLE IF NOT EXISTS tb_app_version (" +
                 "id integer primary key autoincrement, " +
@@ -409,6 +412,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return images;
     }
+    //增加必传信息
+    public boolean updataCheckImages(Map<String,Object> map){
+        boolean flag=false;
+        SQLiteDatabase db=getWritableDatabase();
+        try {
+            ContentValues cValue = new ContentValues();
+            long msgid=Long.parseLong(map.get("msgId").toString());
+            cValue.put("msgId",msgid);
+            db.update("tb_check_image", cValue, "addtime='"+map.get("addtime").toString()+"' and imeicheck='"+map.get("imeicheck").toString()+"' and uid='"+map.get("uid").toString() +"'" , null);
+            flag=true;
+            //  Log.e("修改","修改了检查表");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return flag;
+    }
+
     public List<Map<String,String>> findAllImages() {
         SQLiteDatabase db=getWritableDatabase();
         List<Map<String,String>> images = null;
@@ -422,6 +443,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             image.put("id",id+"");
             image.put("checkId",checkId+"");
             image.put("imagePath",imagePath);
+            images.add(image);
+        }
+        db.close();
+        return images;
+    }
+    public List<Map<String,String>> findAllMsgId() {
+        SQLiteDatabase db=getWritableDatabase();
+        List<Map<String,String>> images = null;
+        Cursor cursor = db.query("tb_check_image", null, null, null, "msgId", null, null);
+        images = new ArrayList<Map<String,String>>();
+        while(cursor.moveToNext()){
+            Map<String,String> image = new HashMap<String,String>();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
+            String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
+            String msgId = cursor.getString(cursor.getColumnIndex("msgId"));
+            String imeicheck = cursor.getString(cursor.getColumnIndex("imeicheck"));
+            String uid = cursor.getString(cursor.getColumnIndex("uid"));
+            String addtime = cursor.getString(cursor.getColumnIndex("addtime"));
+            image.put("id",id+"");
+            image.put("checkId",checkId+"");
+            image.put("imagePath",imagePath);
+            image.put("msgId",msgId+"");
+            image.put("imeicheck",imeicheck+"");
+            image.put("uid",uid);
+            image.put("addtime",addtime);
             images.add(image);
         }
         db.close();
@@ -475,4 +522,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return flag;
     }
+
 }

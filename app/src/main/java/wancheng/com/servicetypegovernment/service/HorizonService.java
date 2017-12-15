@@ -1,34 +1,41 @@
 package wancheng.com.servicetypegovernment.service;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.Service;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.app.Service;
+
+import com.amap.api.services.nearby.UploadInfo;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import wancheng.com.servicetypegovernment.activity.CheckResultActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
-import wancheng.com.servicetypegovernment.util.LogUtil;
 import wancheng.com.servicetypegovernment.util.NetUtil;
 
-public class SubmitImageService extends Service {
+public class HorizonService extends Service {
 
-
-    public static final String TAG = "MyService";
+    public static final String TAG = "MyServicetime";
 
     private DatabaseHelper databaseHelper;
     private String addTime;
@@ -40,17 +47,11 @@ public class SubmitImageService extends Service {
     private List<Map<String,String>> mapList;
     private boolean OnOffflag=false;
     int imageid=0;
-    public SubmitImageService() {
 
-
-    }
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.e(TAG, "onCreate() executed");
-
+    public IBinder onBind(Intent intent) {
+        return null;
     }
-
     private int runCount=0;// 全局变量，用于判断是否是第一次执行
     private Handler handler = new Handler() {
         @SuppressWarnings("deprecation")
@@ -92,7 +93,39 @@ public class SubmitImageService extends Service {
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        databaseHelper=new DatabaseHelper(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("TAG", "打印时间: " + new Date().toString());
+                List<Map<String,String>> datamap=databaseHelper.findAllMsgId();
+                Log.e("TAG", "结果: " +(datamap!=null?datamap.size():0));
+                 datamap=databaseHelper.findAllImages();
+                Log.e("TAG", "结果2: " +(datamap!=null?datamap.size():0));
+                if(datamap!=null){
+                   for(Map<String,String> map:datamap){
+                       /*Intent intent = new Intent(null, SubmitImageService.class);
+                       intent.putExtra("addtime", map.get("addtime")==null?new Date().getTime()+"":map.get("addtime").toString()+"");
+                       intent.putExtra("IMEI",map.get("IMEI")==null?"":map.get("IMEI").toString()+"");
+                       intent.putExtra("uid", map.get("uid")==null?"0":map.get("uid").toString()+"");
+                       intent.putExtra("msgId", map.get("msgId") == null ? new Date().getTime() + "" : map.get("msgId").toString() + "");
+                       startService(intent);*/
+                       break;
+                   }
+                }
 
+               // uploadImages(null);
+            }
+        }).start();
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        int five = 5000; // 这是5s
+        long triggerAtTime = SystemClock.elapsedRealtime() + five;
+        Intent i = new Intent(this, AlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+        return super.onStartCommand(intent, flags, startId);
+    }
+    public void uploadImages(Intent intent){
         Log.e(TAG, "onStartCommand() executed");
         databaseHelper=new DatabaseHelper(this);
         addTime= intent.getStringExtra("addtime");
@@ -101,21 +134,11 @@ public class SubmitImageService extends Service {
         msgId= intent.getLongExtra("msgId", 0);
         try {
             mapList=databaseHelper.findImageByMsgId(msgId);
-            Log.e("msgId:",msgId+"");
-            //修改内容
-            Map<String,Object> map=new HashMap<String,Object>();
-            map.put("addtime",addTime);
-            map.put("imeicheck",IMEI);
-            map.put("uid",uid);
-            map.put("msgId",msgId);
-            databaseHelper.updataCheckImages(map);
-            Log.e("2222msgId:", msgId + "");
-
         }catch (Exception e){
             e.printStackTrace();
         }
         if(mapList!=null&&mapList.size()>0){
-         /*   for(int i=0;i<mapList.size();i++){
+            for(int i=0;i<mapList.size();i++){
                 count=i;
                 Map<String,String> map=mapList.get(i);
                 try{
@@ -127,22 +150,12 @@ public class SubmitImageService extends Service {
 
             }
             //提交完毕，走开关
-            openOnOff();*/
+            openOnOff();
 
         }else{
             stopSelf();
         }
-
-
-        return super.onStartCommand(intent, flags, startId);
-
     }
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     private void sendNotification(String yesOrNo){
         //实例化通知管理器
         NotificationManager notificationManager= (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -294,3 +307,4 @@ public class SubmitImageService extends Service {
         return s;
     }
 }
+

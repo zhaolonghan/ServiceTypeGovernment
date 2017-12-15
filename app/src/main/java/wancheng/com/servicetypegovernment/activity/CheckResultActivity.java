@@ -648,6 +648,7 @@ public class CheckResultActivity extends BaseActivity {
         intent.putExtra("IMEI", UserDateBean.getInstance().getIMEI());
         intent.putExtra("uid", UserDateBean.getInstance().getId());
         intent.putExtra("msgId", msgId);
+        //修改内容
         startService(intent);
         CheckDetailActivity.instance.finish();
         InformActivity.instance.finish();

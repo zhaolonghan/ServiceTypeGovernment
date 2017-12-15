@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,15 +25,17 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import wancheng.com.servicetypegovernment.activity.BaseActivity;
 import wancheng.com.servicetypegovernment.activity.CoreActivity;
 import wancheng.com.servicetypegovernment.bean.UserDateBean;
+import wancheng.com.servicetypegovernment.service.HorizonService;
+import wancheng.com.servicetypegovernment.service.UserlngTrajectoryService;
 import wancheng.com.servicetypegovernment.sqlLite.DatabaseHelper;
 import wancheng.com.servicetypegovernment.util.Base64Coder;
 import wancheng.com.servicetypegovernment.util.ConstUtil;
@@ -54,6 +55,14 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //守护进程
+        Intent daemonIntent =  new Intent(getApplicationContext(), UserlngTrajectoryService.class);
+        daemonIntent.putExtra("uid","1111");
+        startService(daemonIntent);
+
+       /* Intent i = new Intent(MainActivity.this, UserlngTrajectoryService.class);
+        i.putExtra("uid",JSONUtils.getString(dataArray, "uid", "0"));
+        MainActivity.this.startService(i);*/
         databaseHelper=new DatabaseHelper(this);
         setContentView(R.layout.activity_main);
         requestMultiplePermissions();
@@ -286,7 +295,7 @@ public class MainActivity extends BaseActivity {
                                 UserDateBean.getInstance().setNo(JSONUtils.getString(dataArray, "no", ""));
                                 UserDateBean.getInstance().setEmail(JSONUtils.getString(dataArray, "email", ""));
                                 UserDateBean.getInstance().setOffice(JSONUtils.getString(dataArray, "office", ""));
-                                UserDateBean.getInstance().setDistance(JSONUtils.getString(dataArray, "scope", "0")==null?0:Double.parseDouble(JSONUtils.getString(dataArray, "scope", "0")));
+                                UserDateBean.getInstance().setDistance(JSONUtils.getString(dataArray, "scope", "0") == null||JSONUtils.getString(dataArray, "scope", "0").length()<1 ? 0 : Double.parseDouble(JSONUtils.getString(dataArray, "scope", "0")));
                                 UserDateBean.getInstance().setAddress(JSONUtils.getString(dataArray, "address", "").length() == 0 ? "  " : JSONUtils.getString(dataArray, "address", ""));
                                 UserDateBean.getInstance().setPassword(password);
 

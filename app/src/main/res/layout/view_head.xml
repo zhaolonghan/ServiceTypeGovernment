@@ -19,6 +19,60 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@android:color/darker_gray" />
+<!--
+        <LinearLayout
+            android:id="@+id/lin_area"
+            android:layout_below="@+id/sv_photo"
+            android:layout_marginTop="5dp"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/boder_view"
+            android:layout_gravity="left"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="left"
+                >
+                <LinearLayout
+                    android:id="@+id/lin_myarea"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_myarea"
+                        android:layout_gravity="left"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16dp"
+                        android:textColor="@color/btnblue"
+                        android:background="@color/red"
+                        android:text="我的辖区"/>
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="right"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/right"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+-->
+
         <LinearLayout
             android:id="@+id/lin_check"
             android:layout_below="@+id/sv_photo"

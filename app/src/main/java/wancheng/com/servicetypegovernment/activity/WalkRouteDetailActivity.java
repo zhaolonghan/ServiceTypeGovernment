@@ -25,7 +25,7 @@ public class WalkRouteDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_route_detail);
 		//getIntentData();
-		/*mTitle = (TextView) findViewById(R.id.title_center);
+		mTitle = (TextView) findViewById(R.id.title_center);
 		mTitle.setText("步行路线详情");
 		mTitleWalkRoute = (TextView) findViewById(R.id.firstline);
 		String dur = AMapUtil.getFriendlyTime((int) mWalkPath.getDuration());
@@ -35,7 +35,7 @@ public class WalkRouteDetailActivity extends Activity {
 		mWalkSegmentList = (ListView) findViewById(R.id.bus_segment_list);
 		mWalkSegmentListAdapter = new WalkSegmentListAdapter(
 				this.getApplicationContext(), mWalkPath.getSteps());
-		mWalkSegmentList.setAdapter(mWalkSegmentListAdapter);*/
+		mWalkSegmentList.setAdapter(mWalkSegmentListAdapter);
 
 	}
 
