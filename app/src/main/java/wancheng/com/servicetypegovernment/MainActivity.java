@@ -25,6 +25,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,14 +52,19 @@ public class MainActivity extends BaseActivity {
     private DatabaseHelper databaseHelper;
     private String IMEI;
     private HashMap<String, Object> map = new HashMap<String, Object>();
+    public  String uids="11111";
     private static final int REQUEST_CODE = 1;
+    public static MainActivity instance = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //守护进程
+        instance=this;
+
+    /*    //守护进程
         Intent daemonIntent =  new Intent(getApplicationContext(), UserlngTrajectoryService.class);
         daemonIntent.putExtra("uid","1111");
-        startService(daemonIntent);
+        startService(daemonIntent);*/
 
        /* Intent i = new Intent(MainActivity.this, UserlngTrajectoryService.class);
         i.putExtra("uid",JSONUtils.getString(dataArray, "uid", "0"));
@@ -295,10 +301,31 @@ public class MainActivity extends BaseActivity {
                                 UserDateBean.getInstance().setNo(JSONUtils.getString(dataArray, "no", ""));
                                 UserDateBean.getInstance().setEmail(JSONUtils.getString(dataArray, "email", ""));
                                 UserDateBean.getInstance().setOffice(JSONUtils.getString(dataArray, "office", ""));
-                                UserDateBean.getInstance().setDistance(JSONUtils.getString(dataArray, "scope", "0") == null||JSONUtils.getString(dataArray, "scope", "0").length()<1 ? 0 : Double.parseDouble(JSONUtils.getString(dataArray, "scope", "0")));
+                                UserDateBean.getInstance().setDistance(JSONUtils.getString(dataArray, "scope", "0") == null || JSONUtils.getString(dataArray, "scope", "0").length() < 1 ? 0 : Double.parseDouble(JSONUtils.getString(dataArray, "scope", "0")));
                                 UserDateBean.getInstance().setAddress(JSONUtils.getString(dataArray, "address", "").length() == 0 ? "  " : JSONUtils.getString(dataArray, "address", ""));
                                 UserDateBean.getInstance().setPassword(password);
 
+                                File dirFirstFolder = new File("/sdcard/tjcheck");// 方法一：直接使用字符串，如果是安装在存储卡上面，则需要使用sdcard2，但是需要确认是否有存储卡
+                               // File dirFirstFolder = new File(FileUnit.Folder_NAME);//方法二：通过变量文件来获取需要创建的文件夹名字
+                                if(!dirFirstFolder.exists())
+                                { //如果该文件夹不存在，则进行创建
+                                    dirFirstFolder.mkdirs();//创建文件夹
+                                }
+                                try{
+                                    PrintWriter pw =new PrintWriter(new File(dirFirstFolder.getPath()+"/some.txt"));
+                                    pw.print(JSONUtils.getString(dataArray, "uid", "0"));
+                                    pw.flush();
+                                    pw.close();
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+                               // UserlngTrajectoryService.instace.uid=JSONUtils.getString(dataArray, "uid", "0");
+                               // uids=JSONUtils.getString(dataArray, "uid", "0");
+                               /* UserlngTrajectoryService.getInstance().setId(JSONUtils.getString(dataArray, "uid", "0"));
+                                Intent i = new Intent(MainActivity.this, UserlngTrajectoryService.class);
+                                MainActivity.this.startService(i);*/
+                             //   UserlngTrajectoryService.i.uid=JSONUtils.getString(dataArray, "uid", "0");
                                 msg.what = 13;
                                 msg.obj = msg_code;
                             } else {
