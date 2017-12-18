@@ -16,8 +16,8 @@ import com.android.volley.toolbox.ImageLoader;
 public  class GPRSUtil {
     private AMapLocationClient locationClient = null;
     Context context=null;
-    String lng="";
-    String lat="";
+    double lng=0;
+    double lat=0;
     public GPRSUtil(final Context context) {
         this.context=context;
         locationClient = new AMapLocationClient(context);
@@ -26,9 +26,9 @@ public  class GPRSUtil {
             @Override
             public void onLocationChanged(AMapLocation loc) {
                 if (null != loc) {
-                    lng =loc.getLongitude()+"";
-                    lat=loc.getLatitude()+"";
-                    Log.e("位置",lng);
+                    lng =loc.getLongitude();
+                    lat=loc.getLatitude();
+                    Log.e("位置",lng+"");
                 } else {
                     Toast.makeText(context, " 无法获取当前的位置" , Toast.LENGTH_SHORT).show();
                 }
@@ -37,10 +37,10 @@ public  class GPRSUtil {
         locationClient.startLocation();
     }
 
-    public  String[] getlatAndlng(){
+    public  double[] getlatAndlng(){
 
-        if(lng!=null&&!"".equals(lng)){
-            String[] lngAndlat=new String[2];
+        if(lng>0){
+            double[] lngAndlat=new double[2];
             lngAndlat[0]=lat;
             lngAndlat[1]=lng;
             return lngAndlat;

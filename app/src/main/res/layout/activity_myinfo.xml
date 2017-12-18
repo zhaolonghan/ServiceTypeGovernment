@@ -42,7 +42,8 @@
                         android:id="@+id/images"
                         android:layout_margin="5dp"
                         android:visibility="visible"
-                        android:background="@drawable/touxiang1"/>
+                        android:src="@drawable/touxiang1"
+                        />
                     </LinearLayout>
                 <View
                     android:layout_width="match_parent"

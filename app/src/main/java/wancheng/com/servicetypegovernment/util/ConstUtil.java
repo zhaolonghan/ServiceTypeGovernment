@@ -20,8 +20,8 @@ public class ConstUtil {
 	/**
 	 * URL
 	 */
-	public static String IP = "http://223.71.241.40/";
-	//public static String IP = "http://192.168.1.111:8181/";
+	//public static String IP = "http://223.71.241.40/";
+	public static String IP = "http://192.168.1.111:8181/";
 	//public static String IP = "http://192.168.1.147:8181/";
 	/**
 	 * METHOD
@@ -65,8 +65,9 @@ public class ConstUtil {
 	public static String METHOD_UPLOADHEADIMAGE = "a/app/images/updatePhoto";//修改头像
 	public static String METHOD_ONOFF = "a/app/inspectDaily/onOff"; //开关
 	public static String METHOD_CORPGPRS = "a/app/corp/updateLngLat"; //企业定位
-	public static String METHOD_USERGPRS = "a/app/corp/lngLat"; //企业定位
+	public static String METHOD_USERGPRS = "a/app/corp/lngLat"; //用户定位
 	public static String METHOD_ADDMARKS = "a/app/corp/mapByuid"; //地图加载坐标
+
 
 
 }
