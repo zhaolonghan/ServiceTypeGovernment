@@ -620,6 +620,7 @@ public class CheckResultActivity extends BaseActivity {
 //                                Log.e("datadatadatadata",data);
                                 msg.what = 18;
                                 msg.obj = msg_code;
+                               // updataData();
                             } else {
                                 if (msg_code != null && !msg_code.isEmpty())
                                     msg.obj = msg_code;

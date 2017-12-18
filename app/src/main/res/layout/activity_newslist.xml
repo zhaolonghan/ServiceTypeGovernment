@@ -37,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/ib_search"
                 android:layout_margin="5dp"
-                android:focusableInTouchMode="false"
                 android:textSize="16dp"
                 android:id="@+id/keyword"
                 android:hint="请输入关键字进行查询"/>

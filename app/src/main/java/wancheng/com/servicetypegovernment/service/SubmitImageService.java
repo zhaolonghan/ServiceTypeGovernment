@@ -100,22 +100,24 @@ public class SubmitImageService extends Service {
         uid=  intent.getStringExtra("uid");
         msgId= intent.getLongExtra("msgId", 0);
         try {
+            Log.e("查询的id：",msgId+"");
             mapList=databaseHelper.findImageByMsgId(msgId);
-            Log.e("msgId:",msgId+"");
+            Log.e("1多少个上传:",mapList.size()+"");
             //修改内容
             Map<String,Object> map=new HashMap<String,Object>();
             map.put("addtime",addTime);
             map.put("imeicheck",IMEI);
             map.put("uid",uid);
-            map.put("msgId",msgId);
+            map.put("msgId", msgId);
             databaseHelper.updataCheckImages(map);
-            Log.e("2222msgId:", msgId + "");
+            //Log.e("2222msgId:", msgId + "");
 
         }catch (Exception e){
             e.printStackTrace();
         }
+        Log.e("2多少个上传:",mapList.size()+"");
         if(mapList!=null&&mapList.size()>0){
-         /*   for(int i=0;i<mapList.size();i++){
+            for(int i=0;i<mapList.size();i++){
                 count=i;
                 Map<String,String> map=mapList.get(i);
                 try{
@@ -127,7 +129,7 @@ public class SubmitImageService extends Service {
 
             }
             //提交完毕，走开关
-            openOnOff();*/
+            openOnOff();
 
         }else{
             stopSelf();

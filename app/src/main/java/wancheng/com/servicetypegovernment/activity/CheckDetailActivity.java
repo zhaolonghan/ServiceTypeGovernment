@@ -4,6 +4,7 @@ package wancheng.com.servicetypegovernment.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -262,7 +263,8 @@ public class CheckDetailActivity extends BaseActivity {
                     String cid=((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("itemContentId").toString();
                     String isPoint=((List<Map<String, Object>>) (dataList.get(i).get("dataChildList"))).get(j).get("isPoint").toString();
                     map.put("cid",cid );
-                    map.put("msgId",msgId);
+                    map.put("msgId", msgId);
+
                     map.put("isImp",isPoint);
                     map.put("checkResult",result);
                     map.put("checkNote", ed_checknote.getText().toString());
@@ -274,20 +276,23 @@ public class CheckDetailActivity extends BaseActivity {
                     sendList.add(map);
                     long id=databaseHelper.findCheck(map.get("pid").toString(), map.get("cid").toString(),msgId);
                     if(id!=-1){
+                        //
                        databaseHelper.updataCheck(map);
                     }else{
                         id=databaseHelper.insertCheck(map);
                     }
-                    databaseHelper.deleteImageByCheckId(id);
+                 //  databaseHelper.deleteImageByCheckId(id);
                     if(imageUploads!=null&&imageUploads.size()>0){
                         for(int k=0;k<imageUploads.size();k++){
                             ImageUpload imageUpload=imageUploads.get(k);
                             if(imageUpload.getIndexP()==i&&imageUpload.getIndexC()==j){
+                                Log.e("保存的id：", msgId + "");
                                 databaseHelper.insertImages(id,imageUpload.getPath(),msgId);
                             }
                         }
                     }
                 }
+
             }
             if(!",".equals(str)){
                 str+="没有选择，是否确认为不检查的项目？";

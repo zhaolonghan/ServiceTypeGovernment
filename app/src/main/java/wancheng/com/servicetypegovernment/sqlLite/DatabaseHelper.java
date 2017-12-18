@@ -68,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id integer primary key autoincrement, " +
                 "checkId INTEGER," +
                 "msgId INTEGER," +
+                "checkimagePath TEXT," +
                 "addtime TEXT" +
                 "imeicheck TEXT" +
                 "uid TEXT" +
@@ -264,14 +265,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ContentValues cValue = new ContentValues();
             cValue.put("checkId",checkid);
             cValue.put("msgId", msgId);
-            cValue.put("imagePath", imagepath);
+            cValue.put("checkimagePath", imagepath);
             db.insert("tb_check_image", null, cValue);
             flag=true;
         }catch (Exception e){
             e.printStackTrace();
         }
 
+       /* db.close();
+        findImageByMsgId(long msgId);*/
+       /* Cursor cursor = db.query("tb_check_image", null, "msgId="+msgId, null, null, null, null);
+        Log.e("插入的个数",flag+":"+cursor.getCount());*/
         db.close();
+
         return flag;
     }
     public boolean updataVersion(int id,String versionCode){
@@ -378,7 +384,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Map<String,String> image = new HashMap<String,String>();
             int id = cursor.getInt(cursor.getColumnIndex("id"));
             int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
-            String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
+            String imagePath = cursor.getString(cursor.getColumnIndex("checkimagePath"));
             image.put("id",id+"");
             image.put("checkId",checkId+"");
             image.put("imagePath",imagePath);
@@ -395,11 +401,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Log.e("查询","查询");
         Cursor cursor = db.query("tb_check_image", null, "msgId="+msgId, null, null, null, null);
         images = new ArrayList<Map<String,String>>();
+        Log.e("查询","查询");
         while(cursor.moveToNext()){
             Map<String,String> image = new HashMap<String,String>();
             int id = cursor.getInt(cursor.getColumnIndex("id"));
             int checkId = cursor.getInt(cursor.getColumnIndex("checkId"));
-            String imagePath = cursor.getString(cursor.getColumnIndex("imagePath"));
+            String imagePath = cursor.getString(cursor.getColumnIndex("checkimagePath"));
             String msgId1 = cursor.getString(cursor.getColumnIndex("msgId"));
             image.put("id",id+"");
             image.put("checkId",checkId+"");

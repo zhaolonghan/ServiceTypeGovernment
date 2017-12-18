@@ -72,6 +72,7 @@ public  class IndexFragment  extends BaseFragment {
     private View vHead;
     private int listtype = 1;//1公告 2法律 3新闻
     private Context context;
+    private boolean isreadd=true;
     private String[] imageUrls = {"http://www.sxxynews.com/uploadfile/2015/0316/20150316095141166.jpg",
             "http://img0.imgtn.bdimg.com/it/u=645947745,2193220436&fm=214&gp=0.jpg",
             "http://jiangsu.china.com.cn/uploadfile/2016/0316/1458124624807199.png.jpg",
@@ -301,6 +302,8 @@ public void run(){
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // SlideShowView=null;
+               // SlideShowView= (wancheng.com.servicetypegovernment.view.SlideShowView) contactsLayout.findViewById(R.id.sv_photo);
                 getData();
             }
         });
@@ -312,7 +315,10 @@ public void run(){
         }
         madapter = new NewsAdspter(context, listnews);
         listView.setAdapter(madapter);
-        SlideShowView.setView(imageUrls);
+        if(isreadd){
+            SlideShowView.setView(imageUrls);
+            isreadd=false;
+        }
     }
 
     /**
